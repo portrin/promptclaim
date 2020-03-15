@@ -1,0 +1,28 @@
+{
+  "name": "promptclaim",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/portrin/promptclaim.git"
+  },
+  "author": "Trin Sengchareon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/portrin/promptclaim/issues"
+  },
+  "homepage": "https://github.com/portrin/promptclaim#readme",
+  "dependencies": {
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
