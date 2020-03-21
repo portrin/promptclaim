@@ -9,4 +9,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pwd
       MYSQL_DATABASE: promptclaim
+    command: --default-authentication-plugin=mysql_native_password
 
