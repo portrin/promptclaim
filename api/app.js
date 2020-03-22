@@ -3,6 +3,7 @@ const express = require('express');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 const testRoutes = require('./routes/test-route');
+const auth = require('./routes/auth-route');
 const app = express();
 
 // declare constant values

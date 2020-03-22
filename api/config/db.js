@@ -1,3 +1,5 @@
+const mysql = require('mysql');
+
 const config = {
     setup: {
         host     : 'localhost',
@@ -7,5 +9,12 @@ const config = {
         port: 8083
     }
 };
+// connect to mysql
+const db = mysql.createConnection(config.setup);
+db.connect((err) => {
+    if (err) throw err;
+    console.log('mysql connected as id ' + db.threadId);
+});
 
-module.exports = config;
+
+module.exports = db;
