@@ -2,28 +2,30 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/products');
+const productController = require('../controllers/product-controller');
 
-router.get('/product/:prouctId');
+router.get('/products', productController.getAllProducts);
 
-router.post('/add-product');
+router.get('/product/:prouctId',productController.getProduct);
 
-router.delete('/delete-product');
+router.post('/addProduct', productController.postAddProduct);
 
-router.post('/edit-product');
+router.delete('/deleteProduct', productController.postDeleteProduct);
 
-router.get('/policy/policies');
+router.post('/editProduct', productController.postEditProduct);
 
-router.get('/policy/policy/:policyId');
+router.get('/policy');
 
-router.get('/policy/add-policy');
+router.get('/policy/:policyId');
 
-router.get('/policy/delete-policy');
+router.get('/policy/addPolicy');
 
-router.get('/policy/edit-policy');
+router.get('/policy/deletePolicy');
 
-router.get('/policy/service-centers/');
+router.get('/policy/editPolicy');
 
-router.get('/policy/service-center');
+router.get('/policy/serviceCenters/');
+
+router.get('/policy/serviceCenter');
 
 module.exports = router;
