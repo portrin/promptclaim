@@ -7,18 +7,18 @@ const dummyUser = [ // sample return from getUserById();
         firstname: "Trin",
         lastname: "Sengchareon",
         email: "melonn.qq@gmail.com",
-        phoneNo: "0837779292",
+        phoneNo: "0849584475",
         address: [
             {
-                houseNo: "52/25",
-                street: "Ari 1",
+                houseNo: "60/2",
+                street: "Ari 2",
                 subDistrict: "Samsen nai",
                 district: "Phaya thai",
                 province: "Bangkok",
                 zipcode: 10400
             },
             {
-                houseNo: "66/32",
+                houseNo: "342/21",
                 street: "Rattanathibet",
                 subDistrict: "Bang krasor",
                 district: "Muang",
