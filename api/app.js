@@ -3,8 +3,8 @@ const express = require('express');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 const testRoutes = require('./routes/test-route');
-const auth = require('./routes/auth-route');
 const app = express();
+
 
 // declare constant values
 const PORT = process.env.ports || 8001;
@@ -14,6 +14,10 @@ app.use(morgan('dev'));
 app.use(errorhandler());
 app.use('/test', testRoutes);
 
+
+//Praew user-route
+const userRoutes = require('./routes/user-route')
+app.use('/user', userRoutes)
 
 // start server
 app.listen(PORT, () => {

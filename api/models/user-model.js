@@ -1,6 +1,6 @@
 // need to add SQL query function for User in order to communicate with the Database.
 
-const dummyUser = [ // sample return from getUserById();
+const dummyUsers = [ // sample return from getUserById();
     {
         id: 1,
         username: "@melon",
@@ -28,13 +28,27 @@ const dummyUser = [ // sample return from getUserById();
         ],
         birthdate: "1999-05-04",
         gender: "M"
+    },
+    {
+        id: 2,
+        username: "Praewpun",
+        firstname: "Praew",
+        lastname: "Cheevamongkol",
+        email: "merrypraeww@gmail.com",
+        phoneNo: "0972279898",
+        address: [
+            {
+                houseNo: "599/97",
+                street: "Nonsi",
+                subDistrict: "Chongnonsi",
+                district: "Yannawa",
+                province: "Bangkok",
+                zipcode: 10200
+            }      
+        ],
+        birthdate: "1999-11-24",
+        gender: "F"
     }
 ];
 
-const getUser = () => { // sample model function
-    return dummyUser; // SQL query
-}
-
-module.exports = {
-    getUser
-};
+module.exports = dummyUsers
