@@ -1,45 +1,74 @@
-//const db = require('../config/db');
+const db = require('../config/db');
 
 module.exports = class Product {
-    constructor(serialNo, productNo, model, description, category, status, price, supplier) {
+    constructor(serialNo, productNo, accountID, price, invoiceID, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty) {
         this.serialNo = serialNo;
         this.productNo = productNo;
-        this.model = model;
-        this.description = description;
-        this.category = category;
-        this.status = status;
+        this.accountID = accountID;
         this.price = price;
-        this.supplier = supplier;
+        this.invoiceID = invoiceID;
+        this.timestamp = timestamp;
+        this.branch_id = branch_id;
+        this.retailer_id = retailer_id;
+        this.receipt_photo = receipt_photo;
+        this.is_validate = is_validate;
+        this.product_photo = product_photo;
+        this.claim_qty = claim_qty;
     }
 
     save() {
         return db.execute(
-            'INSERT INTO products (serial_no, product_no, product_model, product_description, product_category, status, price, supplier_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            [this.serialNo, 
+            'INSERT INTO purchased_product (serial_no, product_no, account_id, price, invoice_id, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [this.serialNo,
             this.productNo,
-            this.model,
-            this.description,
-            this.category,
-            this.status,
+            this.accountID,
             this.price,
-            this.supplier]
+            this.invoiceID,
+            this.timestamp,
+            this.branch_id,
+            this.retailer_id,
+            this.receipt_photo,
+            this.is_validate,
+            this.product_photo,
+            this.claim_qty]
         );
     }
 
+    update(serialNo, productNo) {
+        return db.execute(
+            'UPDATE products SET serial_no = ?, product_no = ?, account_id = ?, price_id = ?, invoice_id = ?, timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validated = ?, product_photo = ?, claim_qty = ? WHERE serial_no = ? AND product_no = ?  ',
+            [this.serialNo,
+            this.productNo,
+            this.accountID,
+            this.price,
+            this.invoiceID,
+            this.timestamp,
+            this.branch_id,
+            this.retailer_id,
+            this.receipt_photo,
+            this.is_validate,
+            this.product_photo,
+            this.claim_qty,
+            this.serialNo,
+            this.productNo    
+        ]
+        );              
+    };
+
     static deleteById(serialNo, productNo) {
         return db.execute(
-            'DELETE FROM products WHERE products.serial_no = ? AND products.product_no = ?',
+            'DELETE FROM purchased_product WHERE purchased_product.serial_no = ? AND purchased_product.product_no = ?',
             [serialNo, productNo]
         );
     }
 
     static fetchAll() {
-        return db.execute('SELECT * FROM products');
+        return db.execute('SELECT * FROM purchased_product');
     }
 
-    static findById(serialNo, productNo, cb) {
+    static findById(serialNo, productNo) {
         return db.execute(
-            'SELECT * FROM products WHERE products.serial_no = ? AND products.product_no = ?',
+            'SELECT * FROM purchased_product WHERE purchased_product.serial_no = ? AND purchased_product.product_no = ?',
             [serialNo, productNo]
         );
     }

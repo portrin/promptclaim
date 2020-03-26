@@ -9,15 +9,20 @@ const bodyParser = require('body-parser');
 const auth = require('./middleware/auth-middleware').requireJWTAuth;
 const app = express();
 
+// declare db connection
+const db = require('./config/db');
+
 // declare constant values
 const PORT = process.env.ports || 8001;
+
+
 
 // setup middleware
 app.use(morgan('dev'));
 app.use(errorhandler());
 app.use(bodyParser.json());
 app.use('/test', auth, testRoutes); // now test routes needs to auth
-app.use('/product', auth, productRoutes);
+app.use('/product', productRoutes);
 app.use('/auth', authRoutes);
 
 // start server
