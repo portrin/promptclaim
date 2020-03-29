@@ -2,10 +2,16 @@ const express = require('express');
 const userController = require('../controllers/user-controller');
 const router = express.Router();
 
-//get search User id
-router.get('/userInfoById/:id', userController.getUserInfoById);
+//use this as middleware
+const bodyparser = require('body-parser');
 
-//PUT --> update
-router.put('/editUserById/:id', userController.editUserById);
+//No id input, please sign in
+router.get('', userController.userDefault);
+
+//get search User id : take data from server
+router.get('/userInfoById/:id', userController.getUserInfoId);
+
+//PUT --> update / post : give data to server
+router.get('/editUserById/:id', userController.editUserById);
 
 module.exports = router
