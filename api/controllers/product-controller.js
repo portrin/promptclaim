@@ -38,36 +38,38 @@ exports.postAddProduct = (req, res, next) => {
     const price = req.body.price;
     const invoiceID = req.body.invoiceID;
     const timestamp = req.body.timestamp;
-    const branch_id = req.body.branch_id;
-    const retailer_id = req.body.retailer_id;
-    const receipt_photo = req.body.receipt_photo;
-    const is_validate = req.body.is_validate;
-    const product_photo = req.body.product_photo;
-    const claim_qty = req.body.claim_qty;
-    const updatedProduct = new Product(
+    const branchID = req.body.branchID;
+    const retailerID = req.body.retailerID;
+    const receiptPhoto = req.body.receiptPhoto;
+    const isValidate = req.body.isValidate;
+    const productPhoto = req.body.productPhoto;
+    const claimQty = req.body.claimQty;
+    const product = new Product(
                             serialNo,
                             productNo,
                             accountID, 
                             price, 
                             invoiceID, 
                             timestamp, 
-                            branch_id, 
-                            retailer_id, 
-                            receipt_photo, 
-                            is_validate, 
-                            product_photo, 
-                            claim_qty
+                            branchID, 
+                            retailerID, 
+                            receiptPhoto, 
+                            isValidate, 
+                            productPhoto, 
+                            claimQty
                             );
-    const serialNoParams = req.params.serialNo;
-    const productNoParams = req.params.productNo;
-    updatedProduct.update(serialNoParams, productNoParams)
-        .then((product) => {
-            console.log('Product Added!'); 
-            res.send('Product Added!' + product[0]);
-        })
-        .catch(err => {
-            console.log(err);            
-        })
+                            console.log(product);
+                            
+    
+    product.save()
+    .then(() => {
+        console.log('Added!');
+        res.send('Added!');
+    })
+    .catch(err => {
+        console.log(err); 
+    });
+
 };
 
 
@@ -94,35 +96,38 @@ exports.postEditProduct = (req, res, next) => {
     const price = req.body.price;
     const invoiceID = req.body.invoiceID;
     const timestamp = req.body.timestamp;
-    const branch_id = req.body.branch_id;
-    const retailer_id = req.body.retailer_id;
-    const receipt_photo = req.body.receipt_photo;
-    const is_validate = req.body.is_validate;
-    const product_photo = req.body.product_photo;
-    const claim_qty = req.body.claim_qty;
-    const product = new Product(
+    const branchID = req.body.branchID;
+    const retailerID = req.body.retailerID;
+    const receiptPhoto = req.body.receiptPhoto;
+    const isValidate = req.body.isValidate;
+    const productPhoto = req.body.productPhoto;
+    const claimQty = req.body.claimQty;
+    const updatedProduct = new Product(
                             serialNo,
                             productNo,
                             accountID, 
                             price, 
                             invoiceID, 
                             timestamp, 
-                            branch_id, 
-                            retailer_id, 
-                            receipt_photo, 
-                            is_validate, 
-                            product_photo, 
-                            claim_qty
+                            branchID, 
+                            retailerID, 
+                            receiptPhoto, 
+                            isValidate, 
+                            productPhoto, 
+                            claimQty
                             );
-    product.save()
+    const serialNoParams = req.params.serialNo;
+    const productNoParams = req.params.productNo;
+    updatedProduct.update(serialNoParams, productNoParams)
     .then(() => {
-        console.log('Edited!');
-        res.send('Edited');
-    }).catch(err => {
-        console.log(err); 
-    });
-
+        console.log('Product Edited!'); 
+        res.send('Product Edited!');
+    })
+    .catch(err => {
+        console.log(err);            
+    })
 };
+                        
 
 
 
@@ -133,4 +138,6 @@ exports.postEditProduct = (req, res, next) => {
 
 
 
+
+ 
 

@@ -1,19 +1,19 @@
 const db = require('../config/db');
 
 module.exports = class Product {
-    constructor(serialNo, productNo, accountID, price, invoiceID, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty) {
+    constructor(serialNo, productNo, accountID, price, invoiceID, timestamp, branchID, retailerID, receiptPhoto, isValidate, productPhoto, claimQty) {
         this.serialNo = serialNo;
         this.productNo = productNo;
         this.accountID = accountID;
         this.price = price;
         this.invoiceID = invoiceID;
         this.timestamp = timestamp;
-        this.branch_id = branch_id;
-        this.retailer_id = retailer_id;
-        this.receipt_photo = receipt_photo;
-        this.is_validate = is_validate;
-        this.product_photo = product_photo;
-        this.claim_qty = claim_qty;
+        this.branchID = branchID;
+        this.retailerID = retailerID;
+        this.receiptPhoto = receiptPhoto;
+        this.isValidate = isValidate;
+        this.productPhoto = productPhoto;
+        this.claimQty = claimQty;
     }
 
     save() {
@@ -25,30 +25,29 @@ module.exports = class Product {
             this.price,
             this.invoiceID,
             this.timestamp,
-            this.branch_id,
-            this.retailer_id,
-            this.receipt_photo,
-            this.is_validate,
-            this.product_photo,
-            this.claim_qty]
+            this.branchID,
+            this.retailerID,
+            this.receiptPhoto,
+            this.isValidate,
+            this.productPhoto,
+            this.claimQty
+        ]
         );
     }
 
     update(serialNo, productNo) {
         return db.execute(
-            'UPDATE products SET serial_no = ?, product_no = ?, account_id = ?, price_id = ?, invoice_id = ?, timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validated = ?, product_photo = ?, claim_qty = ? WHERE serial_no = ? AND product_no = ?  ',
-            [this.serialNo,
-            this.productNo,
-            this.accountID,
+            'UPDATE purchased_product SET account_id = ?, price = ?, invoice_id = ?, timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ? WHERE serial_no = ? AND product_no = ?  ',
+            [this.accountID,
             this.price,
             this.invoiceID,
             this.timestamp,
-            this.branch_id,
-            this.retailer_id,
-            this.receipt_photo,
-            this.is_validate,
-            this.product_photo,
-            this.claim_qty,
+            this.branchID,
+            this.retailerID,
+            this.receiptPhoto,
+            this.isValidate,
+            this.productPhoto,
+            this.claimQty,
             this.serialNo,
             this.productNo    
         ]
