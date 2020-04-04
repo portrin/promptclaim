@@ -1,4 +1,7 @@
-const Customer = require('../models/Customer/user-model');
+const Customer = require('../models/customer/customer-model');
+const CustomerAddress = require('../models/customer/customer-address-model');
+const CustomerAccount = require('../models/customer/customer-account-model');
+
 
 exports.userDefault = (req,res,next) => {
     res.send("Log in")
@@ -13,7 +16,7 @@ exports.getUserInfoId = (req,res,next) => {
         Customer.findById(id)
     }
 }
-exports.editAccountById = (req,res,next) => {
+exports.editProfile = (req,res,next) => {
     const account_id = req.params.acctId
     if(!account_id){
         res.send("No user existed")
@@ -21,10 +24,13 @@ exports.editAccountById = (req,res,next) => {
         const update_username = req.body.username;
         const update_password = req.body.password; 
         const update_email = req.body.email ;
-        const user = new Customer({
+        const result = new CustomerAccount({
             update_username, 
             update_password,
             update_email,
+        })
+        res.send({
+            editedAccount: result
         })
 }
 
@@ -40,7 +46,7 @@ exports.editAddressById = (req,res,next) => {
         const update_district = req.body.district;
         const update_province = req.body.province; 
         const update_zipcode = req.body.update_zipcode;
-        const user = new Customer({
+        const result = new CustomerAddress({
             customer_id,
             address_id,
             update_house_no,
@@ -51,7 +57,7 @@ exports.editAddressById = (req,res,next) => {
             update_zipcode
         })
         res.send({
-            customer: result
+            editedAddress : result
         })
     }
 }

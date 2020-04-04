@@ -12,8 +12,8 @@ router.get('', userController.userDefault);
 router.get('/userInfoById/:id', userController.getUserInfoId);
 
 //PUT --> update / post : give data to server
-router.get('/editProfileById/:id', userController.editUserById);
+router.get('/editProfileById/:custId', userController.editProfile);
 
-router.get('/editAddressById/:acctId/:addrId', userController.editAddressById);
+router.get('/editAddressById/:custId/:addrId', userController.editAddressById);
 
 module.exports = router
