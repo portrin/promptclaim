@@ -2,9 +2,6 @@ const express = require('express');
 const userController = require('../controllers/user-controller');
 const router = express.Router();
 
-//use this as middleware
-const bodyparser = require('body-parser');
-
 //No id input, please sign in
 router.get('', userController.userDefault);
 
