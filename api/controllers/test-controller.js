@@ -1,4 +1,4 @@
-const user = require('../models/Customer/user-model');
+const user = require('../models/customer/user-model');
 
 const hello = (req, res, next) => {
     res.send('hello from test page');

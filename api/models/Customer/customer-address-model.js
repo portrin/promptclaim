@@ -1,5 +1,6 @@
 const db = require('../../config/db');
 
+<<<<<<< HEAD
 
 module.exports = class CustomerAddress {
     constructor(address_id,house_no,street,sub_district,district,province,zipcode){
@@ -24,5 +25,16 @@ module.exports = class CustomerAddress {
             this.zipcode, 
             customer_id]
         );
+=======
+module.exports = class CustomerAddress {
+    constructor(address_id, house_no, street, sub_district, district, province, zipcode){
+        this.address_id = address_id;
+        this.house_no = house_no;
+        this.street = street; 
+        this.sub_district = sub_district; 
+        this.district = district;
+        this.province = province; 
+        this.zipcode = zipcode;
+>>>>>>> a892342cb7f69b62e0706054be6a8608a6de8587
     }
 }  

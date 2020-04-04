@@ -1,6 +1,8 @@
 module.exports = class PolicyOwner {
     constructor(policyOwnerId, ownerType) {
-        this.policyOwnerId = policyOwnerId;
-        this.ownerType = ownerType;    
+        this._policyOwnerId = policyOwnerId;
+        this._ownerType = ownerType;    
     }
+
+    // method
 }
