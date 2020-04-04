@@ -1,8 +1,8 @@
-const Product = require('../models/product-model')
+const PurchasedProduct = require('../models/PurchasedProduct-model')
 
 //get all products
 exports.getAllProducts = (req, res ,next) => {
-    Product.fetchAll()
+    PurchasedProduct.fetchAll()
     .then(([products]) => {
         res.send(products)
     })
@@ -15,7 +15,7 @@ exports.getAllProducts = (req, res ,next) => {
 exports.getProduct = (req, res, next) => {
     const serialNo = req.params.serialNo;
     const productNo = req.params.productNo;
-    Product.findById(serialNo, productNo)
+    PurchasedProduct.findById(serialNo, productNo)
     .then(([product]) => {
         res.send(product[0]);
     })
@@ -34,7 +34,7 @@ exports.getAddProduct = (req, res, next) => {
 exports.postAddProduct = (req, res, next) => {
     const serialNo = req.body.serialNo;
     const productNo = req.body.productNo;
-    const accountID = req.body.accountID;
+    const customerId = req.body.customerId;
     const price = req.body.price;
     const invoiceID = req.body.invoiceID;
     const timestamp = req.body.timestamp;
@@ -44,10 +44,11 @@ exports.postAddProduct = (req, res, next) => {
     const isValidate = req.body.isValidate;
     const productPhoto = req.body.productPhoto;
     const claimQty = req.body.claimQty;
-    const product = new Product(
+    const warrantyPhoto = req.body.warrantyPhoto;
+    const product = new PurchasedProduct(
                             serialNo,
                             productNo,
-                            accountID, 
+                            customerId, 
                             price, 
                             invoiceID, 
                             timestamp, 
@@ -56,10 +57,9 @@ exports.postAddProduct = (req, res, next) => {
                             receiptPhoto, 
                             isValidate, 
                             productPhoto, 
-                            claimQty
-                            );
-                            console.log(product);
-                            
+                            claimQty,
+                            warrantyPhoto
+                            );                           
     
     product.save()
     .then(() => {
@@ -77,7 +77,7 @@ exports.postAddProduct = (req, res, next) => {
 exports.deleteProduct = (req, res, next) => {
     const serialNo = req.params.serialNo;
     const productNo = req.params.productNo;
-    Product.deleteById(serialNo, productNo)
+    PurchasedProduct.deleteById(serialNo, productNo)
     .then(() => {
         console.log('Product Deleted!');
         res.send('Product Deleted!')
@@ -92,7 +92,7 @@ exports.deleteProduct = (req, res, next) => {
 exports.postEditProduct = (req, res, next) => {
     const serialNo = req.body.serialNo;
     const productNo = req.body.productNo;
-    const accountID = req.body.accountID;
+    const customerId = req.body.customerId;
     const price = req.body.price;
     const invoiceID = req.body.invoiceID;
     const timestamp = req.body.timestamp;
@@ -102,10 +102,11 @@ exports.postEditProduct = (req, res, next) => {
     const isValidate = req.body.isValidate;
     const productPhoto = req.body.productPhoto;
     const claimQty = req.body.claimQty;
-    const updatedProduct = new Product(
+    const warrantyPhoto = req.body.warrantyPhoto;
+    const updatedProduct = new PurchasedProduct(
                             serialNo,
                             productNo,
-                            accountID, 
+                            customerId, 
                             price, 
                             invoiceID, 
                             timestamp, 
@@ -114,7 +115,8 @@ exports.postEditProduct = (req, res, next) => {
                             receiptPhoto, 
                             isValidate, 
                             productPhoto, 
-                            claimQty
+                            claimQty,
+                            warrantyPhoto
                             );
     const serialNoParams = req.params.serialNo;
     const productNoParams = req.params.productNo;
@@ -130,10 +132,10 @@ exports.postEditProduct = (req, res, next) => {
                         
 
 
-
-// exports.getEditProduct = (req, res, next) => {
-
-// };
+//edit form page
+exports.getEditProduct = (req, res, next) => {
+    res.send('Edit Form')
+};
 
 
 
