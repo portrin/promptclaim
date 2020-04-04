@@ -3,11 +3,8 @@ const express = require('express');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 const testRoutes = require('./routes/test-route');
-const authRoutes = require('./routes/auth-route');
-const productRoutes = require('./routes/product-route');
-const bodyParser = require('body-parser');
-const auth = require('./middleware/auth-middleware').requireJWTAuth;
 const app = express();
+
 
 // declare constant values
 const PORT = process.env.ports || 8001;
@@ -15,10 +12,12 @@ const PORT = process.env.ports || 8001;
 // setup middleware
 app.use(morgan('dev'));
 app.use(errorhandler());
-app.use(bodyParser.json());
-app.use('/test', auth, testRoutes); // now test routes needs to auth
-app.use('/product', auth, productRoutes);
-app.use('/auth', authRoutes);
+app.use('/test', testRoutes);
+
+
+//Praew user-route
+const userRoutes = require('./routes/user-route')
+app.use('/user', userRoutes)
 
 // start server
 app.listen(PORT, () => {
