@@ -25,6 +25,7 @@ exports.editProfile = (req,res,next) => {
         const update_password = req.body.password; 
         const update_email = req.body.email ;
         const result = new CustomerAccount({
+            account_id,
             update_username, 
             update_password,
             update_email,
