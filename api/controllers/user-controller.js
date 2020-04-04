@@ -1,4 +1,4 @@
-const Customer = require('../models/user-model');
+const Customer = require('../models/Customer/user-model');
 
 exports.userDefault = (req,res,next) => {
     res.send("Log in")
@@ -29,7 +29,7 @@ exports.editAccountById = (req,res,next) => {
 }
 
 exports.editAddressById = (req,res,next) => {
-    const account_id = req.params.acctId
+    const customer_id = req.params.custId
     const address_id = req.params.addrId
     if(!id){
         res.send("No user existed")
@@ -41,7 +41,7 @@ exports.editAddressById = (req,res,next) => {
         const update_province = req.body.province; 
         const update_zipcode = req.body.update_zipcode;
         const user = new Customer({
-            account_id,
+            customer_id,
             address_id,
             update_house_no,
             update_street,
