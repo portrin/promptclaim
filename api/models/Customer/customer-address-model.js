@@ -1,7 +1,7 @@
 const Customer = require('./customer-model.js');
 
-module.exports = class CustomerAddress extends Customer {
-    constructor(address_id,house_no,street,sub_district,district,province,zipcode){
+module.exports = class CustomerAddress {
+    constructor(address_id, house_no, street, sub_district, district, province, zipcode){
         this.address_id = address_id;
         this.house_no = house_no;
         this.street = street; 
