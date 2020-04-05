@@ -173,7 +173,7 @@ exports.getSortByName = (req, res, next) => {
     .then(([result, field]) => {
         res.send(result);
         console.log('Sort by Name is done!');
-        console.log();      
+
 
     })
     .catch(err => {
