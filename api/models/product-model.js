@@ -1,10 +1,15 @@
 const db = require('../config/db')
+const ProductCategory = require('./ProductCategory-model');
 
 module.exports = class Product {
-    constructor(productNo, productName, productModel, productDescription) {
-        this.productNo = productNo;
-        this.productName = productName;
-        this.productModel = productModel;
-        this.productDescription = productDescription;
+    constructor() {
+        this._productNo = productNo;
+        this._productName = productName;
+        this._productModel = productModel;
+        this._productDescription = productDescription;
+        this._productCategory = new ProductCategory();
     };
+
+    
+    
 };

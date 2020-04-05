@@ -3,8 +3,9 @@ const PurchasedProduct = require('../models/PurchasedProduct-model')
 //get all products
 exports.getAllProducts = (req, res ,next) => {
     PurchasedProduct.fetchAll()
-    .then(([products]) => {
-        res.send(products)
+    .then(([products, field]) => {
+        res.send(products);
+        
     })
     .catch(err => {
         console.log(err);
@@ -136,6 +137,50 @@ exports.postEditProduct = (req, res, next) => {
 exports.getEditProduct = (req, res, next) => {
     res.send('Edit Form')
 };
+
+
+
+//search by product name
+exports.getSearchProductByName = (req, res, next) => {
+    const productName = req.params.productName;
+    PurchasedProduct.searchByName(productName)
+    .then((result) => {
+        console.log('Search by name is done!');
+        res.send(result[0]);        
+    })
+    .catch(err => {
+        console.log(err);        
+    });    
+};
+
+
+//search by serial no.
+exports.getSearchProductBySerialNo = (req, res, next) => {
+    const serialNo = req.params.serialNo;
+    PurchasedProduct.searchBySerialNo(serialNo)
+    .then((result) => {
+        console.log('Search by serialNo is done!');
+        res.send(result[0]);        
+    })
+    .catch(err => {
+        console.log(err);        
+    });    
+};
+
+//sort by name
+exports.getSortByName = (req, res, next) => {
+    PurchasedProduct.sortByName()
+    .then(([result, field]) => {
+        res.send(result);
+        console.log('Sort by Name is done!');
+        console.log();      
+
+    })
+    .catch(err => {
+        console.log(err);
+        
+    });
+}
 
 
 
