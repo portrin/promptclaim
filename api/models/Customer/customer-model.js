@@ -2,16 +2,17 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Customer {
-    constructor(customer_id, firstname, lastname, phone_no, birth_no, gender) {
+    constructor(customerId, firstname, lastname, phoneNo, birthNo, gender) {
         // their own class atrribute ref. from class diagram
-        this._customer_id = customer_id;
+        this._customerId = customerId;
         this._firstname = firstname;
         this._lastname = lastname;
-        this._phone_no = phone_no;
-        this._birth_no = birth_no;
+        this._phoneNo = phoneNo;
+        this._birthNo = birthNo;
         this._gender = gender;
         // their relationships to its neighbor ref. from class diagram
         this._customerAddress = []; // composite
+        this._customerAccount;
         this._purchasedProduct = []; // relationship to purchasedproduct
     }
     // DM layer CRUD
@@ -28,13 +29,31 @@ module.exports = class Customer {
     }
 
     _delete () {
-        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customer_id])
+        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
     }
 
     // Problem Domain method
     addPurchasedProduct (purchasedProduct) {
-            this._purchasedProduct.push(purchasedProduct);
-            purchasedProduct._create();
+        this._purchasedProduct.push(purchasedProduct);
+        purchasedProduct._create();
+    }
+
+    
+    addCustomerAddress (customerAddress){
+        this._customerAddress.push(customerAddress);
+        customerAddress._create();
+    }
+
+    deleteCustomerAddress(){
+        if(!customerAddress instanceof customerAddress){
+            throw TypeError;
+        }else{
+            const index = this._customerAddress.indexOf(customerAddress);
+            if (index > -1) {
+                this._customerAddress.splice(index, 1);
+            }
+            customerAddress._delete();
+        }
     }
 
     deletePurchasedProduct (purchasedProduct) {
@@ -47,5 +66,9 @@ module.exports = class Customer {
             }
             purchasedProduct._delete();
         }
+    }
+
+    getCustomerId(){
+        return this._customerId;
     }
 }
