@@ -6,7 +6,7 @@ module.exports = class RootAccount {
         this._username = username;
         this._password = password;
         this._type = type;
-        this._Role = Role; // Composition Role class
+        this._role = []; // Composition Role class
     }
     
     // method

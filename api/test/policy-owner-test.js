@@ -10,3 +10,5 @@ console.log(ownerOne);
 console.log(supplierOne._rootAccount);
 console.log(rootAccount);
 console.log(RootAccount);
+
+console.log(RootAccount.Role());
