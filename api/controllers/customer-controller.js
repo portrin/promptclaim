@@ -1,37 +1,43 @@
-const Customer = require('../models/user-model');
+const Customer = require('../models/customer/customer-model');
+const CustomerAddress = require('../models/customer/customer-address-model');
+const CustomerAccount = require('../models/customer/customer-account-model');
+
 
 exports.userDefault = (req, res, next) => {
     res.send("Log in")
-    console.log(connection)
 }
 
 exports.getUserInfoId = (req, res, next) => {
     const id = req.params.id
     if (!id) {
         res.send("No user existed")
-    } else {
-        Customer.findById(id)
+    }else{
+        //Customer.findById(id)
     }
 }
 
-exports.editAccountById = (req, res, next) => {
+exports.editProfile = (req,res,next) => {
     const account_id = req.params.acctId
     if (!account_id) {
         res.send("No user existed")
     } else {
         const update_username = req.body.username;
-        const update_password = req.body.password;
-        const update_email = req.body.email;
-        const user = new Customer({
-            update_username,
-            update_password,
-            update_email,
+        const update_password = req.body.password; 
+        const update_email = req.body.email ;
+        //const result = new CustomerAccount({
+        //    account_id,
+        //    update_username, 
+        //    update_password,
+        //    update_email,
+        //})
+        res.send({
+            editedAccount: result
         })
     }
 }
 
-exports.editAddressById = (req, res, next) => {
-    const account_id = req.params.acctId
+exports.editAddressById = (req,res,next) => {
+    const customer_id = req.params.custId
     const address_id = req.params.addrId
     if (!id) {
         res.send("No user existed")
@@ -42,8 +48,8 @@ exports.editAddressById = (req, res, next) => {
         const update_district = req.body.district;
         const update_province = req.body.province;
         const update_zipcode = req.body.update_zipcode;
-        const user = new Customer({
-            account_id,
+        /*const result = new CustomerAddress({
+            customer_id,
             address_id,
             update_house_no,
             update_street,
@@ -52,8 +58,9 @@ exports.editAddressById = (req, res, next) => {
             update_province,
             update_zipcode
         })
-        res.send({
-            customer: result
+        */res.send({
+            editedAddress : result
         })
     }
 }
+
