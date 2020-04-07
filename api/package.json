@@ -4,7 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./test/*-test.js",
     "dev": "nodemon app.js",
     "dbstart": "docker-compose up -d",
     "dbstop": "docker-compose down"
@@ -29,6 +29,7 @@
     "passport-jwt": "^4.0.0"
   },
   "devDependencies": {
+    "mocha": "^7.1.1",
     "nodemon": "^2.0.2"
   }
 }
