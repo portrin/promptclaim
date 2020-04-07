@@ -1,5 +1,5 @@
 const db = require('../../config/db');
-const Address = require('./customer-address-model')
+const CustomerAddress = require('./customer-address-model')
 
 module.exports = class Customer {
     constructor(customer_id,firstname,lastname,phone_no,birth_no,gender,address = new Address) {
@@ -10,13 +10,11 @@ module.exports = class Customer {
         this._birth_no = birth_no;
         this._gender = gender;
         this._address = address;
+        this._customerAddress = CustomerAddress; //composite
     }
-
-    //editUserAddress = () => {
-    //    this.address.editAddress(customer_id,addrId)
-    //}
-    editAddress(address_id){
-        this._address.editAddress(address_id);
+    
+    getCustomerId = () => {
+        return this._customer_id;
     }
 
     static fetchAll() {
