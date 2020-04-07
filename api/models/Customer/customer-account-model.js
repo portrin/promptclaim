@@ -10,6 +10,8 @@ module.exports = class CustomerAccount{
     //static depends on class or not
     //static = method kong class not object : customer.play()
     //Mai static : praew.play()
+
+    //in class diagram --> mai static
     editProfile(account_id) {
         return db.execute(
             'UPDATE `customer_account` INNER JOIN `customer` ON customer_id = ? SET username = ?, password = ?, email = ? WHERE account_id =?', 
