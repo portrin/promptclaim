@@ -7,7 +7,6 @@ import {
   IonButton,
   IonCardContent,
   IonThumbnail,
-  IonNav,
 } from "@ionic/react";
 interface Prop {
   image: string;
