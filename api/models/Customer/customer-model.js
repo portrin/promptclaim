@@ -1,30 +1,51 @@
 const db = require('../../config/db');
-const CustomerAddress = require('./customer-address-model')
+const checkType = require('../../utils').checkType;
 
 module.exports = class Customer {
-    constructor(customer_id,firstname,lastname,phone_no,birth_no,gender,address = new Address) {
+    constructor(customer_id, firstname, lastname, phone_no, birth_no, gender) {
+        // their own class atrribute ref. from class diagram
         this._customer_id = customer_id;
         this._firstname = firstname;
         this._lastname = lastname;
         this._phone_no = phone_no;
         this._birth_no = birth_no;
         this._gender = gender;
-        this._address = address;
-        this._customerAddress = CustomerAddress; //composite
+        // their relationships to its neighbor ref. from class diagram
+        this._customerAddress = []; // composite
+        this._purchasedProduct = []; // relationship to purchasedproduct
+    }
+    // DM layer CRUD
+    _create () {
+        return db.execute();
     }
 
-    static getCustomerId = () => {
-        return this._customer_id;
+    static _read () {
+
     }
 
-    static fetchAll() {
-        return db.execute('SELECT * FROM customer');
+    _update () {
+
     }
 
-    static findById(account_id) {
-        return db.execute(
-            "SELECT * FROM customer WHERE customer_id LIKE '%"+id +"%'",
-            [account_id]
-        );
+    _delete () {
+        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customer_id])
+    }
+
+    // Problem Domain method
+    addPurchasedProduct (purchasedProduct) {
+            this._purchasedProduct.push(purchasedProduct);
+            purchasedProduct._create();
+    }
+
+    deletePurchasedProduct (purchasedProduct) {
+        if (!purchasedProduct instanceof PurchasedProduct) {
+            throw TypeError;
+        } else {
+            const index = this._purchasedProduct.indexOf(purchasedProduct);
+            if (index > -1) {
+                this._purchasedProduct.splice(index, 1);
+            }
+            purchasedProduct._delete();
+        }
     }
 }
