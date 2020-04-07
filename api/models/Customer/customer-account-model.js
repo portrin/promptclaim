@@ -7,15 +7,17 @@ module.exports = class CustomerAccount{
         this._password = password; 
         this._email = email;
     }
-
+    //static depends on class or not
+    //static = method kong class not object : customer.play()
+    //Mai static : praew.play()
     editProfile(account_id) {
         return db.execute(
             'UPDATE `customer_account` INNER JOIN `customer` ON customer_id = ? SET username = ?, password = ?, email = ? WHERE account_id =?', 
             [customer_id,
-            this.username, 
-            this.password, 
-            this.email, 
-            account_id]
+            this._username, 
+            this._password, 
+            this._email, 
+            this._account_id]
         );
     }
 }

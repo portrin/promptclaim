@@ -12,8 +12,8 @@ module.exports = class Customer {
         this._address = address;
         this._customerAddress = CustomerAddress; //composite
     }
-    
-    getCustomerId = () => {
+
+    static getCustomerId = () => {
         return this._customer_id;
     }
 
