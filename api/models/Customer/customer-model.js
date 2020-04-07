@@ -1,6 +1,7 @@
 const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
+
 module.exports = class Customer {
     constructor(customerId, firstname, lastname, phoneNo, birthNo, gender) {
         // their own class atrribute ref. from class diagram
@@ -34,41 +35,17 @@ module.exports = class Customer {
 
     // Problem Domain method
     addPurchasedProduct (purchasedProduct) {
+        checkType(purchasedProduct, 'PurchasedProduct');
         this._purchasedProduct.push(purchasedProduct);
         purchasedProduct._create();
     }
 
-    
-    addCustomerAddress (customerAddress){
-        this._customerAddress.push(customerAddress);
-        customerAddress._create();
-    }
-
-    deleteCustomerAddress(){
-        if(!customerAddress instanceof customerAddress){
-            throw TypeError;
-        }else{
-            const index = this._customerAddress.indexOf(customerAddress);
-            if (index > -1) {
-                this._customerAddress.splice(index, 1);
-            }
-            customerAddress._delete();
-        }
-    }
-
-    deletePurchasedProduct (purchasedProduct) {
-        if (!purchasedProduct instanceof PurchasedProduct) {
-            throw TypeError;
-        } else {
-            const index = this._purchasedProduct.indexOf(purchasedProduct);
-            if (index > -1) {
-                this._purchasedProduct.splice(index, 1);
-            }
+    deletePurchasedProduct (purchasedProduct) {       
+        checkType(purchasedProduct, 'PurchasedProduct');
+        const index = this._purchasedProduct.indexOf(purchasedProduct);
+        if (index > -1) {
+            this._purchasedProduct.splice(index, 1);
             purchasedProduct._delete();
         }
-    }
-
-    getCustomerId(){
-        return this._customerId;
     }
 }

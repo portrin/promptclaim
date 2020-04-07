@@ -54,7 +54,7 @@ module.exports = class CustomerAddress {
         )}
 
     //delete address
-    _deleteAddress = (addressId) => {
+    _deleteAddress = () => {
         const customerId = Customer.getCustomerId()
         return db.execute('DELETE FROM customer_address WHERE custumer_address = ? AND customer_id = ?', [this._addressId, customerId])
     }

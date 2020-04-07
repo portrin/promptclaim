@@ -1,14 +1,9 @@
-const PolicyOwner = require('../models/policy-owner/policy-owner-model');
-const Supplier = require('../models/policy-owner/supplier/supplier-model');
-const RootAccount = require('../models/policy-owner/policy-owner-account/root-account-model');
+const Customer = require('../models/customer/customer-model');
+const PurchasedProduct = require('../models/product/purchased-product-model');
 
-const ownerOne = new PolicyOwner('123', 'S');
-const supplierOne = new Supplier('123', 'S', '456', 'Boonthavorn', 'hehehe', '023847564', '55/234 Phaholyothin Rd.');
-const rootAccount = new RootAccount('123', 'abc', 'dsaf', 'S');
+const customer = new Customer('123', 'Trin', 'seng', '123432', '1999', 'M');
+console.log(new PurchasedProduct('','','','','','','','','','','','','','','').constructor.name)
+customer.addPurchasedProduct(new PurchasedProduct('','','','','','','','','','','','','','',''));
 
-console.log(ownerOne);
-console.log(supplierOne._rootAccount);
-console.log(rootAccount);
-console.log(RootAccount);
 
-console.log(RootAccount.Role());
+// new PurchasedProduct('','','','','','','','','','','','','','','')
