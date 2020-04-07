@@ -13,6 +13,7 @@ module.exports = class Customer {
         this._gender = gender;
         // their relationships to its neighbor ref. from class diagram
         this._customerAddress = []; // composite
+        this._customerAccount;
         this._purchasedProduct = []; // relationship to purchasedproduct
     }
     // DM layer CRUD
@@ -29,7 +30,7 @@ module.exports = class Customer {
     }
 
     _delete () {
-        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customer_id])
+        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
     }
 
     // getter and setter
