@@ -1,15 +1,15 @@
-const db = require('../config/db')
+const db = require('../../config/db')
 const ProductCategory = require('./product-category-model');
 
 module.exports = class Product {
     constructor(productNo, productName, productModel, productDescription) {
-        this._productNo = productNo;
-        this._productName = productName;
-        this._productModel = productModel;
-        this._productDescription = productDescription;
-        this._productCategory = [];
+        this._productNo = productNo || null;
+        this._productName = productName || null;
+        this._productModel = productModel || null;
+        this._productDescription = productDescription || null;
+        this._productCategory = null;
 
-        this.supplierId;
+        this._supplierId = null;
     };
     
     //CRUD METHOD

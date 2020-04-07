@@ -1,30 +1,29 @@
-const db = require('../config/db');
+const db = require('../../config/db');
 const Product = require('./product-model')
 
 module.exports = class PurchasedProduct extends Product {
-    constructor(productName, serialNo, productDescription, productNo, price, invoiceID, isValidate, productPhoto, claimQty, timestamp, invoicePhoto, warrantyPhoto  ) {
+    constructor(productNo, productName, productModel, productDescription, serialNo, price, invoiceID, isValidate, productPhoto, claimQty, timestamp, invoicePhoto, warrantyPhoto  ) {
         super(productNo, productName, productModel, productDescription); 
+
+        this._serialNo = serialNo || null;
+        this._price = price || null;
+        this._invoiceId = invoiceID || null;
+        this._isValidate = isValidate || null;
+        this._productPhoto = productPhoto || null;
+        this._claimQty = claimQty || null;
+        this._timestamp = timestamp || null;
+        this._invoicePhoto = invoicePhoto || null;
+        this._warrantyPhoto = warrantyPhoto || null;
+
+
+        this._customerId = null;
         
-        this._retilerId; //from retailer branch
-        this._retailerBranch; //from retailer branch
+        this._policyStartDate = null; //from policy class
+        this._policyEndDate = null; //from policy class
 
-        this._serialNo = serialNo;
-        this._price = price;
-        this._invoiceID = invoiceID;
-        this._isValidate = isValidate;
-        this._productPhoto = productPhoto;
-        this._claimQty = claimQty;
-        this._timestamp = timestamp;
-        this._invoicePhoto = invoicePhoto;
-        this._warrantyPhoto = warrantyPhoto;
-
-
-        this._customerId;
-
-
-        this._policyStartDate; //from policy class
-        this._policyEndDate; //from policy class
-
+        this._retailerId = null; //from retailer branch
+        this._branchId = null; //from retailer branch
+        
 
     }
     
@@ -32,17 +31,18 @@ module.exports = class PurchasedProduct extends Product {
 
     //CRUD method
     _create() {
+        console.log(this);
         return db.execute(
             'INSERT INTO purchased_product (serial_no, product_no, customer_id, price, invoice_id, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [this._serialNo,
             this._productNo,
             this._customerId,
             this._price,
-            this._invoiceID,
+            this._invoiceId,
             this._timestamp,
-            this._branchID,
-            this._retailerID,
-            this._receiptPhoto,
+            this._branchId,
+            this._retailerId,
+            this._invoicePhoto,
             this._isValidate,
             this._productPhoto,
             this._claimQty,
