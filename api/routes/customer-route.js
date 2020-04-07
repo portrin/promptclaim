@@ -1,16 +1,16 @@
 const express = require('express');
-const userController = require('../controllers/user-controller');
+const customerController = require('../controllers/customer-controller');
 const router = express.Router();
 
 //No id input, please sign in
-router.get('', userController.userDefault);
+router.get('', customerController.userDefault);
 
 //get search User id : take data from server
-router.get('/userInfoById/:id', userController.getUserInfoId);
+router.get('/userInfoById/:id', customerController.getUserInfoId);
 
 //PUT --> update / post : give data to server
-router.get('/editProfileById/:custId', userController.editProfile);
+router.get('/editProfileById/:custId', customerController.editProfile);
 
-router.get('/editAddressById/:custId/:addrId', userController.editAddressById);
+router.get('/editAddressById/:custId/:addrId', customerController.editAddressById);
 
 module.exports = router
