@@ -4,10 +4,9 @@ const config = {
     setup: {
         host     : 'localhost',
         user     : 'root',
-        password : 'pwd',
+        password : 'tee77859',
         database : 'promptclaim',
-        port: 8083
-    }
+        port: 3306    }
 };
 // connect to mysql
 const db = mysql.createConnection(config.setup);
