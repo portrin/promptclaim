@@ -1,4 +1,4 @@
-const db = require('../config/db')
+const db = require('../../config/db')
 
 module.exports = class Product {
     constructor(productNo, productName, productModel, productDescription) {

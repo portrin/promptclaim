@@ -1,5 +1,5 @@
 const db = require('../../config/db');
-const Product = require('../models/Product-model')
+const Product = require('./product-model')
 
 module.exports = class PurchasedProduct extends Product {
     constructor(productNo, productName, productModel, productDescription, serialNo, price, invoiceID, isValidate, productPhoto, claimQty, timestamp, invoicePhoto, warrantyPhoto, policyStartDate, policyEndDate) {

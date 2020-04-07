@@ -1,6 +1,7 @@
 const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
+
 module.exports = class Customer {
     constructor(customer_id, firstname, lastname, phone_no, birth_no, gender) {
         // their own class atrribute ref. from class diagram
@@ -33,18 +34,16 @@ module.exports = class Customer {
 
     // Problem Domain method
     addPurchasedProduct (purchasedProduct) {
-            this._purchasedProduct.push(purchasedProduct);
-            purchasedProduct._create();
+        checkType(purchasedProduct, 'PurchasedProduct');
+        this._purchasedProduct.push(purchasedProduct);
+        purchasedProduct._create();
     }
 
-    deletePurchasedProduct (purchasedProduct) {
-        if (!purchasedProduct instanceof PurchasedProduct) {
-            throw TypeError;
-        } else {
-            const index = this._purchasedProduct.indexOf(purchasedProduct);
-            if (index > -1) {
-                this._purchasedProduct.splice(index, 1);
-            }
+    deletePurchasedProduct (purchasedProduct) {       
+        checkType(purchasedProduct, 'PurchasedProduct');
+        const index = this._purchasedProduct.indexOf(purchasedProduct);
+        if (index > -1) {
+            this._purchasedProduct.splice(index, 1);
             purchasedProduct._delete();
         }
     }
