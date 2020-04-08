@@ -3,7 +3,7 @@ const checkType = require('../../utils').checkType;
 
 const ServiceCenter = require('./service-center-model');
 
-module.exports = class ServiceCenterBranch extends ServiceCenter {
+module.exports = class ServiceCenterBranch {
     constructor(branchId, branchName, contact, address) {
         // their own class atrribute ref. from class diagram
         this._branchId = branchId;
