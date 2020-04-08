@@ -1,4 +1,5 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
+// const bluebird = require('bluebird');
 
 const config = {
     setup: {
@@ -6,14 +7,10 @@ const config = {
         user     : 'root',
         password : 'password',
         database : 'promptclaim',
-        port: 3306    }
+        port: 3306
+    }
 };
 // connect to mysql
-const db = mysql.createConnection(config.setup);
-db.connect((err) => {
-    if (err) throw err;
-    console.log('mysql connected as id ' + db.threadId);
-});
-
+const db = mysql.createPool(config.setup).promise();
 
 module.exports = db;

@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../../config/db');
 const Product = require('./product-model');
 
 module.exports = class ProductCategory {
