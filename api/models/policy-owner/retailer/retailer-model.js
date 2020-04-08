@@ -1,4 +1,5 @@
 const PolicyOwner = require('../policy-owner-model');
+const checkType = require('../../utils').checkType;
 
 module.exports = class Retailer extends PolicyOwner {
     constructor(policyOwnerId, ownerType, retailerId, name, contact, hqAddress, retailerDescription) {

@@ -1,3 +1,5 @@
+const checkType = require('../../utils').checkType;
+
 module.exports = class PolicyOwner {
     constructor(policyOwnerId, ownerType) {
         // their own class atrribute ref. from class diagram
