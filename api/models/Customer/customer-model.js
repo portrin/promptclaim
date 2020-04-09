@@ -1,20 +1,19 @@
 const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
-
 module.exports = class Customer {
     constructor(customerId, firstname, lastname, phoneNo, birthNo, gender) {
         // their own class atrribute ref. from class diagram
-        this._customerId = customerId;
-        this._firstname = firstname;
-        this._lastname = lastname;
-        this._phoneNo = phoneNo;
-        this._birthNo = birthNo;
-        this._gender = gender;
+        this._customerId = customerId || null;
+        this._firstname = firstname || null;
+        this._lastname = lastname || null;
+        this._phoneNo = phoneNo || null;
+        this._birthNo = birthNo || null;
+        this._gender = gender || null;
         // their relationships to its neighbor ref. from class diagram
-        this._customerAddress = []; // composite
-        this._customerAccount;
-        this._purchasedProduct = []; // relationship to purchasedproduct
+        this._customerAddress = []; // relationship to CustomerAddress
+        this._customerAccount = null; // relationship to CustomerAccount
+        this._purchasedProduct = []; // relationship to PurchasedProduct
     }
     // DM layer CRUD
     _create () {
@@ -34,8 +33,43 @@ module.exports = class Customer {
     }
 
     // getter and setter
-    get attribute() {
-        return this;
+    get getProperty() {
+        return {
+            customerId: this._customerId,
+            firstname: this._firstname,
+            lastname: this._lastname,
+            phoneNo: this._phoneNo,
+            birthNo: this._birthNo,
+            gender: this._gender,
+            customerAddress: this._customerAddress,
+            customerAccount: this._customerAccount,
+            purchaseProduct: this._purchasedProduct
+        };
+    }
+
+    set setProperty({
+        customerId = this._customerId,
+        firstname = this._firstname,
+        lastname = this._lastname,
+        phoneNo = this._phoneNo,
+        birthNo = this._birthNo,
+        gender = this._gender,
+        customerAccount = this._customerAccount
+    }) {
+        checkType(customerId, 'String');
+        checkType(firstname, 'String');
+        checkType(lastname, 'String');
+        checkType(phoneNo, 'String');
+        checkType(birthNo, 'String');
+        checkType(gender, 'String');
+        checkType(customerAccount, 'CustomerAccount');
+        this._customerId = customerId,
+        this._firstname = firstname,
+        this._lastname = lastname,
+        this._phoneNo = phoneNo,
+        this._birthNo = birthNo,
+        this._gender = gender,
+        this._customerAccount = customerAccount
     }
 
     // Problem Domain method
