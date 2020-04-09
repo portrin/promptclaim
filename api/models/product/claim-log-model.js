@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../../config/db');
 const PurchasedProduct = require('./purchased-product-model');
 
 module.exports = class ClaimLog {
@@ -37,4 +37,5 @@ module.exports = class ClaimLog {
             [this._categoryId]
         );
     };
+
 };
