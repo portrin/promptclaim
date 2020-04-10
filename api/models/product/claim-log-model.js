@@ -18,9 +18,10 @@ module.exports = class ClaimLog {
         );
     };
 
-    static _read() {
+    static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT * FROM claim_log'
+            'SELECT c.claim_id, c.timestamp, c.status, p.serial_no, p.product_no, p.product_nickname, p.claim_qty, p.product_photo FROM claim_log c INNER JOIN purchased_product p ON c.serial_no=p.serial_no AND c.product_no=p.product_no WHERE p.customer_id = ?',
+            [customerId]
         );
     };
 

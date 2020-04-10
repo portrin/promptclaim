@@ -6,14 +6,14 @@ const Notification = require('./notification-model');
 
 
 module.exports = class Customer {
-    constructor(customerId, firstname, lastname, phoneNo, birthNo, gender) {
+    constructor({customerId=null, firstname=null, lastname=null, phoneNo=null, birthDate=null, gender=null} = {}) {
         // their own class atrribute ref. from class diagram
-        this._customerId = customerId || null;
-        this._firstname = firstname || null;
-        this._lastname = lastname || null;
-        this._phoneNo = phoneNo || null;
-        this._birthNo = birthNo || null;
-        this._gender = gender || null;
+        this._customerId = customerId
+        this._firstname = firstname
+        this._lastname = lastname
+        this._phoneNo = phoneNo
+        this._birthDate = birthDate
+        this._gender = gender
         // their relationships to its neighbor ref. from class diagram
         this._customerAccount = null;   // relationship to CustomerAccount
         this._customerAddress = [];     // relationship to CustomerAddress
@@ -24,11 +24,17 @@ module.exports = class Customer {
     }
     // DM layer CRUD
     async _create () {
-        return await db.execute();
+        return await db.execute(
+            'INSERT INTO customer (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
+        );
     }
 
-    static async _read () {
-
+    static async _readByCustomerId (customerId) {
+        await db.execute(
+            'SELECT * FROM customer WHERE customer_id = ?', 
+            [customerId]
+        )
     }
 
     async _read () {
@@ -50,11 +56,13 @@ module.exports = class Customer {
             firstname: this._firstname,
             lastname: this._lastname,
             phoneNo: this._phoneNo,
-            birthNo: this._birthNo,
+            birthDate: this._birthDate,
             gender: this._gender,
             customerAddress: this._customerAddress,
             customerAccount: this._customerAccount,
-            purchasedProduct: this._purchasedProduct
+            purchasedProduct: this._purchasedProduct,
+            claimLog: this._claimLog,
+            notification: this._notification
         };
     }
 
@@ -64,7 +72,7 @@ module.exports = class Customer {
         firstname = this._firstname,
         lastname = this._lastname,
         phoneNo = this._phoneNo,
-        birthNo = this._birthNo,
+        birthDate = this._birthDate,
         gender = this._gender,
     }) {
         // check datatype
@@ -72,14 +80,14 @@ module.exports = class Customer {
         checkType(firstname, 'String');
         checkType(lastname, 'String');
         checkType(phoneNo, 'String');
-        checkType(birthNo, 'String');
+        checkType(birthDate, 'String');
         checkType(gender, 'String');
         // assign to private variables
         this._customerId = customerId,
         this._firstname = firstname,
         this._lastname = lastname,
         this._phoneNo = phoneNo,
-        this._birthNo = birthNo,
+        this._birthDate = birthDate,
         this._gender = gender
     }
 

@@ -1,14 +1,9 @@
 const Customer = require('../models/customer/customer-model');
+const db = require('../config/db');
+const Product = require('../models/product/product-model')
 
-const customer = new Customer('123', 'Trin', 'seng', '123432', '1999', 'M');
-const ret = customer.getProperty;
+const customer = new Customer({customerId:'123', firstname:'Trin', lastname:'seng', phoneNo:'123432', birthDate:'1999-05-04', gender:'M'});
 
-console.log(ret);
-customer.setProperty = {
-    firstname: 'Trin',
-    lastname: '123',
-    gender: 'F'
-}
-console.log(customer.getProperty)
-const res = customer.getClaimLog()
-// new PurchasedProduct('','','','','','','','','','','','','','','')
+//console.log(db)
+
+console.log(Product._read())

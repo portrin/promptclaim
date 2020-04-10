@@ -1,5 +1,4 @@
 const mysql = require('mysql2');
-// const bluebird = require('bluebird');
 
 const config = {
     setup: {
