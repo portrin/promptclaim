@@ -18,8 +18,7 @@ module.exports = class Customer {
         this._customerAccount = null;   // relationship to CustomerAccount
         this._customerAddress = [];     // relationship to CustomerAddress
         this._purchasedProduct = [];    // relationship to PurchasedProduct
-        this._notification = [];        // relationship to Noti
-        fication
+        this._notification = [];        // relationship to Notification
         // special attributes that will be used often.
         this._claimLog = [];           
     }
