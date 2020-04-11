@@ -23,30 +23,36 @@ module.exports = class Customer {
         this._claimLog = [];           
     }
     // DM layer CRUD
-    async _create () {
-        return await db.execute(
+    _create () {
+        return db.execute(
             'INSERT INTO customer (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
         );
     }
 
-    static async _readByCustomerId (customerId) {
-        await db.execute(
+    static _readByCustomerId (customerId) {
+        return db.execute(
             'SELECT * FROM customer WHERE customer_id = ?', 
             [customerId]
         )
     }
 
-    async _read () {
-
+    _read () {
+        db.execute(
+            'SELECT * FROM customer WHERE customer_id = ?',
+            [this._customerId]
+        )
     }
 
-    async _update () {
-
+    _update () {
+        db.execute(
+            'UPDATE customer SET (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
+        )
     }
 
-    async _delete () {
-        return await db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
+    _delete () {
+        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
     }
 
     // getter and setter
@@ -83,12 +89,12 @@ module.exports = class Customer {
         checkType(birthDate, 'String');
         checkType(gender, 'String');
         // assign to private variables
-        this._customerId = customerId,
-        this._firstname = firstname,
-        this._lastname = lastname,
-        this._phoneNo = phoneNo,
-        this._birthDate = birthDate,
-        this._gender = gender
+        this._customerId = customerId;
+        this._firstname = firstname;
+        this._lastname = lastname;
+        this._phoneNo = phoneNo;
+        this._birthDate = birthDate;
+        this._gender = gender;
     }
 
     // Problem Domain method
