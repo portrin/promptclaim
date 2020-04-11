@@ -24,10 +24,11 @@ import {
   IonCol,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
-
+import { Link } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import "./WarrantyInfo.css";
 
-const WarrantyInfo: React.FC = () => {
+const WarrantyInfo: React.FC<RouteComponentProps> = (props) => {
   const [checked, setChecked] = useState(false);
   const [showActionSheet, setShowActionSheet] = useState(false);
   const [showActionSheet1, setShowActionSheet1] = useState(false);
@@ -122,11 +123,10 @@ const WarrantyInfo: React.FC = () => {
               <IonButton
                 expand="block"
                 fill="outline"
-                href="http://www.instagram.com/somd99"
               >
                 View Policy
-              </IonButton>
-              <IonButton expand="block" href="http://www.instagram.com/somd99">
+              </IonButton>   
+              <IonButton expand="block" onClick={() => props.history.push("/AddClaimLog")}>
                 Log Claim Date
               </IonButton>
             </IonGrid>
