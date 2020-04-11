@@ -99,6 +99,7 @@ module.exports = class Customer {
     }
 
     // Problem Domain method
+    //Purchased Product
     addPurchasedProduct(purchasedProduct) {
         checkType(purchasedProduct, 'PurchasedProduct');
         this._purchasedProduct.push(purchasedProduct);
@@ -131,6 +132,7 @@ module.exports = class Customer {
         return this._purchasedProduct;
     }
 
+    // Claim Log
     addClaimLog(purchasedProduct, claimLog) {
         checkType(purchasedProduct, 'PurchasedProduct');
         checkType(claimLog, 'ClaimLog');
@@ -170,6 +172,7 @@ module.exports = class Customer {
         return;
     }
 
+    // Customer Address
     addCustomerAddress(customerAddress){
         checkType(customerAddress, 'CustomerAddress')
         this._customerAddress.push(customerAddress);
@@ -180,7 +183,7 @@ module.exports = class Customer {
     editCustomerAddress(customerAddress, obj ={}){
         checkType(customerAddress, 'CustomerAddress');
         const index = this._customerAddress.indexOf(customerAddress);
-        if(index>-1){
+        if(index > -1){
             this._customerAddress[index] = customerAddress.setProperty(obj);
             customerAddress._update();
         }
@@ -190,7 +193,7 @@ module.exports = class Customer {
     deleteCustomerAddress(customerAddress){
         checkType(customerAddress, 'customerAddress');
         const index = this._customerAddress.indexOf(customerAddress);
-        if(index>-1){
+        if(index > -1){
             this._customerAddress.splice(index,1);
             customerAddress._delete();
         }
@@ -198,12 +201,20 @@ module.exports = class Customer {
     }
 
     getCustomerAddress(){
-        this._customerAddress = CustomerAddress._readByPK(this._customerId)
+        this._customerAddress = CustomerAddress._readByCustomerId(this._customerId)
         return this._customerAddress;
     }
 
+    // Notification
     getNotification() {
         this._notification = Notification._readByCustomerId(this._customerId); // Notification static method
         return this._notification;
+    }
+
+    // Customer Account
+    addCustomerAccount(customerAccount) {
+        checkType(customerAccount, 'CustomerAccount');
+        this._customerAccount = customerAccount;
+        return;
     }
 }
