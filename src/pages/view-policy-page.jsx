@@ -1,12 +1,12 @@
-import React from "react";
-import { Layout, Breadcrumb, Menu, Descriptions, Collapse } from "antd";
+import React from 'react'
+import { Layout, Breadcrumb, Menu, Descriptions, Collapse } from 'antd'
 
-const { SubMenu } = Menu;
+const { SubMenu } = Menu
 
-const { Panel } = Collapse;
+const { Panel } = Collapse
 
 function callback(key) {
-  console.log(key);
+  console.log(key)
 }
 
 const text = `
@@ -18,9 +18,9 @@ Terms & Conditions:
 3. Product must be unused, the product brand or price tag must be intact and the product's box or package must be in the complete condition, warranty document, manual and compatible equipment of the product.
 4. Product provided under the condition of promotion such as premium, giveaways, etc. must be returned with the main product(s).
 5. If you want to change “Lifestyle” furniture and the product(s) that has been installed or the problem isn’t caused by product itself, the company reserves the rights of any exchanges.
-`;
+`
 
-const App = (props) => {
+export const ViewPolicyPage = (props) => {
   return (
     <div className="App">
       <Layout>
@@ -29,21 +29,21 @@ const App = (props) => {
             className="user"
             src="user.png"
             alt="user logo"
-            style={{ float: "right" }}
+            style={{ float: 'right' }}
           />
           <img
             className="logo"
             src="logo.png"
             alt="prompt claim logo"
-            style={{ float: "left" }}
+            style={{ float: 'left' }}
           />
         </Header>
         <Layout>
-          <Content style={{ padding: "0 50px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
+          <Content style={{ padding: '0 50px' }}>
+            <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item
                 className="pointer"
-                onClick={() => props.history.push("/bypolicy1")}
+                onClick={() => props.history.push('/bypolicy1')}
               >
                 Policy Dashboard
               </Breadcrumb.Item>
@@ -51,20 +51,20 @@ const App = (props) => {
             </Breadcrumb>
             <Layout
               className="site-layout-background"
-              style={{ padding: "24px 0" }}
+              style={{ padding: '24px 0' }}
             >
               <Sider className="site-layout-background" width={200}>
                 <Menu
                   mode="inline"
-                  defaultSelectedKeys={["1"]}
-                  defaultOpenKeys={["sub1"]}
-                  style={{ height: "100%" }}
+                  defaultSelectedKeys={['1']}
+                  defaultOpenKeys={['sub1']}
+                  style={{ height: '100%' }}
                 >
                   <SubMenu key="sub1" title={<span>View by</span>}>
                     <Menu.Item
                       key="2"
                       className="pointer"
-                      onClick={() => props.history.push("/")}
+                      onClick={() => props.history.push('/')}
                     >
                       Product
                     </Menu.Item>
@@ -191,15 +191,13 @@ const App = (props) => {
               </Content>
             </Layout>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
+          <Footer style={{ textAlign: 'center' }}>
             Prompt Claim ©2020 Created by Team Igloo
           </Footer>
         </Layout>
       </Layout>
     </div>
-  );
-};
+  )
+}
 
-const { Header, Content, Footer, Sider } = Layout;
-
-export default App;
+const { Header, Content, Footer, Sider } = Layout
