@@ -46,8 +46,8 @@ module.exports = class Customer {
 
     _update () {
         db.execute(
-            'UPDATE customer SET (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
+            'UPDATE customer SET firstname = ?, lastname = ?, phone_no = ?, birth_date = ?, gender = ?, account_id = ? WHERE customer_id = ?',
+            [this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId, this._customerId]
         )
     }
 

@@ -1,10 +1,8 @@
 const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
-const Customer = require('./customer-model.js');
-
 module.exports = class CustomerAccount{
-    constructor({accountId = null,username = null,password = null ,email = null} = {}){
+    constructor({accountId = null, username = null, password = null, email = null} = {}){
         this._accountId = accountId
         this._username = username;
         this._password = password; 
@@ -13,7 +11,7 @@ module.exports = class CustomerAccount{
     }
 
     // DM Layer CRUD
-    async _create () {
+    _create () {
         return db.execute('INSERT INTO Customer_account(account_id, username, password, email) VALUES(?, ?, ?, ?)',
         [this._accountId,
         this._username,
@@ -21,13 +19,16 @@ module.exports = class CustomerAccount{
         this._email]);
     }
 
-    async static _read () {
-        return db.execute('SELECT * FROM Customer_account WHERE account_id =?',[this._accountId])
+    static _read () {
+        return db.execute(
+            'SELECT * FROM Customer_account WHERE account_id = ?', 
+            [this._accountId]
+        )
     }
 
-    async _update () {
+    _update () {
         return db.execute(
-            'UPDATE `customer_account` INNER JOIN `customer` ON customer_id = ? SET username = ?, password = ?, email = ? WHERE account_id =?', 
+            'UPDATE customer_account SET customer_id = ?, username = ?, password = ?, email = ? WHERE account_id = ?', 
             [this._customer.getProperty.customerId,
             this._username, 
             this._password, 
@@ -36,7 +37,7 @@ module.exports = class CustomerAccount{
         );
     }
 
-    async _delete () {
+    _delete () {
         return db.execute('DELETE FROM customer_account WHERE account_id = ?', [this._accountId])
     }
 
@@ -71,10 +72,16 @@ module.exports = class CustomerAccount{
     }
 
     verifyPassword(){
-
+        console.log('verify!!');
     }
     
     forgetPassword(){
+        console.log('forgot password!!');
+    }
 
+    addCustomer(customer) {
+        checkType(customer, 'Customer');
+        this._customer = customer;
+        return;
     }
 }
