@@ -1,8 +1,8 @@
-const PurchasedProduct = require('../models/product/PurchasedProduct-model')
+const PurchasedProduct = require('../models/product/purchased-product-model')
 
 //get all products
 exports.getAllProducts = (req, res ,next) => {
-    PurchasedProduct.fetchAll()
+    PurchasedProduct._read()
     .then(([products]) => {
         res.send(products)
     })
@@ -11,11 +11,13 @@ exports.getAllProducts = (req, res ,next) => {
     });
 };
 
+
+
 //get a product by serialNo & productNo
 exports.getProduct = (req, res, next) => {
     const serialNo = req.params.serialNo;
     const productNo = req.params.productNo;
-    PurchasedProduct.findById(serialNo, productNo)
+    PurchasedProduct._readByKey(serialNo, productNo)
     .then(([product]) => {
         res.send(product[0]);
     })
@@ -23,6 +25,8 @@ exports.getProduct = (req, res, next) => {
         console.log(err);
     })
 };
+
+
 
 //route to form-page for adding product
 exports.getAddProduct = (req, res, next) => {
@@ -61,7 +65,7 @@ exports.postAddProduct = (req, res, next) => {
                             warrantyPhoto
                             );                           
     
-    product.save()
+    product._create()
     .then(() => {
         console.log('Added!');
         res.send('Added!');
@@ -77,7 +81,7 @@ exports.postAddProduct = (req, res, next) => {
 exports.deleteProduct = (req, res, next) => {
     const serialNo = req.params.serialNo;
     const productNo = req.params.productNo;
-    PurchasedProduct.deleteById(serialNo, productNo)
+    PurchasedProduct._deleteByKey(serialNo, productNo)
     .then(() => {
         console.log('Product Deleted!');
         res.send('Product Deleted!')
@@ -118,9 +122,9 @@ exports.postEditProduct = (req, res, next) => {
                             claimQty,
                             warrantyPhoto
                             );
-    const serialNoParams = req.params.serialNo;
-    const productNoParams = req.params.productNo;
-    updatedProduct.update(serialNoParams, productNoParams)
+    updatedProduct.serialNo = req.params.serialNo;
+    updatedProduct.productNo = req.params.productNo;
+    updatedProduct._update()
     .then(() => {
         console.log('Product Edited!'); 
         res.send('Product Edited!');
