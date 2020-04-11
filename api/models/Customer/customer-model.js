@@ -3,7 +3,7 @@ const checkType = require('../../utils').checkType;
 const PurchasedProduct = require('../product/purchased-product-model');
 const ClaimLog = require('../product/claim-log-model');
 const Notification = require('./notification-model');
-
+const CustomerAddress = require('./customer-address-model')
 
 module.exports = class Customer {
     constructor({customerId=null, firstname=null, lastname=null, phoneNo=null, birthDate=null, gender=null} = {}) {
@@ -18,35 +18,42 @@ module.exports = class Customer {
         this._customerAccount = null;   // relationship to CustomerAccount
         this._customerAddress = [];     // relationship to CustomerAddress
         this._purchasedProduct = [];    // relationship to PurchasedProduct
-        this._notification = [];        // relationship to Notification
+        this._notification = [];        // relationship to Noti
+        fication
         // special attributes that will be used often.
         this._claimLog = [];           
     }
     // DM layer CRUD
-    async _create () {
-        return await db.execute(
+    _create () {
+        return db.execute(
             'INSERT INTO customer (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
         );
     }
 
-    static async _readByCustomerId (customerId) {
-        await db.execute(
+    static _readByCustomerId (customerId) {
+        return db.execute(
             'SELECT * FROM customer WHERE customer_id = ?', 
             [customerId]
         )
     }
 
-    async _read () {
-
+    _read () {
+        db.execute(
+            'SELECT * FROM customer WHERE customer_id = ?',
+            [this._customerId]
+        )
     }
 
-    async _update () {
-
+    _update () {
+        db.execute(
+            'UPDATE customer SET (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
+        )
     }
 
-    async _delete () {
-        return await db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
+    _delete () {
+        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
     }
 
     // getter and setter
@@ -83,12 +90,12 @@ module.exports = class Customer {
         checkType(birthDate, 'String');
         checkType(gender, 'String');
         // assign to private variables
-        this._customerId = customerId,
-        this._firstname = firstname,
-        this._lastname = lastname,
-        this._phoneNo = phoneNo,
-        this._birthDate = birthDate,
-        this._gender = gender
+        this._customerId = customerId;
+        this._firstname = firstname;
+        this._lastname = lastname;
+        this._phoneNo = phoneNo;
+        this._birthDate = birthDate;
+        this._gender = gender;
     }
 
     // Problem Domain method
@@ -161,6 +168,38 @@ module.exports = class Customer {
     editProfile(obj={}) {
         this.setProperty(obj);
         return;
+    }
+
+    addCustomerAddress(customerAddress){
+        checkType(customerAddress, 'CustomerAddress')
+        this._customerAddress.push(customerAddress);
+        customerAddress._create();
+        return;
+    }
+
+    editCustomerAddress(customerAddress, obj ={}){
+        checkType(customerAddress, 'CustomerAddress');
+        const index = this._customerAddress.indexOf(customerAddress);
+        if(index>-1){
+            this._customerAddress[index] = customerAddress.setProperty(obj);
+            customerAddress._update();
+        }
+        return;
+    }
+   
+    deleteCustomerAddress(customerAddress){
+        checkType(customerAddress, 'customerAddress');
+        const index = this._customerAddress.indexOf(customerAddress);
+        if(index>-1){
+            this._customerAddress.splice(index,1);
+            customerAddress._delete();
+        }
+        return;
+    }
+
+    getCustomerAddress(){
+        this._customerAddress = CustomerAddress._readByPK(this._customerId)
+        return this._customerAddress;
     }
 
     getNotification() {

@@ -1,5 +1,5 @@
 module.exports = class Permission {
-    constructor(perId, perName, perDescription, perModule){
+    constructor({perId = null, perName = null, perDescription = null, perModule = null} = {}){
         this._perId = perId;
         this._perName = perName;
         this._perDescription = perDescription; 
@@ -7,7 +7,37 @@ module.exports = class Permission {
         this._role = [];
         this._group = []
     }
-    
+     // getter and setter
+     get getProperty() {
+        return {
+            perId:this._perId,
+            perName:this._perName,
+            perDescription: this._perDescription, 
+            perModule: this._perModule,
+            role: this._role,
+            group: this._group
+        };
+    }
+
+    set setProperty({  // set only its own attributes
+        // destructuring object as parameter by using old values as a default.
+        perId = this._perId,
+        perName = this._perName,
+        perDescription = this._perDescription, 
+        perModule = this._perModule,
+    }) {
+        // check datatype
+        checkType(perId, 'String');
+        checkType(perName, 'String');
+        checkType(perDescription, 'String');
+        checkType(perModule, 'String');
+        // assign to private variables
+        this._perId = perId;
+        this._perName = perName;
+        this._perDescription = perDescription; 
+        this._perModule = perModule;
+    }
+
     _create () {
         return db.execute('INSERT INTO Permission(per_id, per_name, per_description, per_module) VALUES(per_id =? , per_name =?, per_description =?, per_module=?)',
         [this._perId,
