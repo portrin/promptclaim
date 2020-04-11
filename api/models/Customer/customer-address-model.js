@@ -1,8 +1,9 @@
 const db = require('../../config/db');
-const Customer = require('./customer-model');
+const checkType = require('../../utils').checkType;
+
 
 module.exports = class CustomerAddress {
-    constructor(addressId,houseNo,street,subDistrict,district,province,zipcode){
+    constructor({addressId = null, houseNo = null, street = null, subDistrict = null, district = null, province = null, zipcode = null} = {}){
         this._addressId = addressId;
         this._houseNo = houseNo;
         this._street = street; 
@@ -10,52 +11,153 @@ module.exports = class CustomerAddress {
         this._district = district;
         this._province = province; 
         this._zipcode = zipcode;
-        this._customer;
+        // from relationship 
+        this._customer = null;
     }
 
-    //create address
+    //CRUD
     _create = () => {
-        const customerId = Customer.getCustomerId()
         return db.execute(
-            'INSERT INTO customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(address_id=?,house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode =?)',
-            [customerId,
+            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
+            [this._customer.getProperty.customerId,
             this.addressId,
             this._houseNo,
             this._street,
             this._subDistrict,
             this._district,
             this._province,
-            this._zipcode
+            this._zipcode 
             ]
         )
     }
-
-    static _read =() =>{
-        const customerId = Customer.getCustomerId()
+    static _readByCustomerId(customerId){
         return db.execute(
-            'SELECT * FROM customer_address WHERE customer_id =? AND address_id =?',
+            'SELECT * FROM Customer_address WHERE customer_id = ?',
+            [customerId]
+        )
+    }
+
+    static _readByPK(customerId){
+        return db.execute(
+            'SELECT * FROM Customer_address WHERE customer_id = ? AND address_id = ?',
             [customerId, this._addressId]
         )
     }
 
     //edit customer address
-    _update = () => {
-        const customerId = Customer.getCustomerId()
+    _update (){
         return db.execute(
-            'UPDATE `customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
+            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
             [this._houseNo, 
             this._street, 
             this._subDistrict, 
             this._district, 
             this._province, 
             this._zipcode, 
-            customerId,
+            this._customer.getProperty.customerId,
             this._addressId]
         )}
 
     //delete address
-    _deleteAddress = () => {
-        const customerId = Customer.getCustomerId()
-        return db.execute('DELETE FROM customer_address WHERE custumer_address = ? AND customer_id = ?', [this._addressId, customerId])
+    _delete() {
+        return db.execute(
+            'DELETE FROM Customer_address WHERE address_id = ? AND customer_id = ?',
+            [this._addressId, this._customer.getProperty.customerId]
+        )
+    }
+
+    // DM Layer CRUD
+    _create = () => {
+        return db.execute(
+            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
+            [this._customer.getProperty.customerId,
+            this.addressId,
+            this._houseNo,
+            this._street,
+            this._subDistrict,
+            this._district,
+            this._province,
+            this._zipcode 
+            ]
+        )
+    }
+    static _read(){
+        return db.execute(
+            'SELECT * FROM Customer_address',
+            []
+        )
+    }
+
+    static _readByCustomerId(customerId){
+        return db.execute(
+            'SELECT * FROM Customer_address WHERE customer_id =?',
+            [customerId, this._addressId]
+        );
+    }
+
+    _update (){
+        return db.execute(
+            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
+            [this._houseNo, 
+            this._street, 
+            this._subDistrict, 
+            this._district, 
+            this._province, 
+            this._zipcode, 
+            this._customer.getProperty.customerId,
+            this._addressId]
+        )}
+
+
+    _delete() {
+        return db.execute('DELETE FROM Customer_address WHERE custumer_address = ? AND customer_id = ?', [this._addressId, this._customer.getProperty.customerId])
+    }
+    
+    //getter and setter
+    get getProperty() {
+        return {
+        addressId : this._addressId,
+        houseNo : this._houseNo,
+        street : this._street,
+        subDistrict : this._subDistrict, 
+        district : this._district,
+        province : this._province, 
+        zipcode : this._zipcode,
+        customer : this._customer
+        };
+    }
+    
+    set setProperty({  // set only its own attributes
+        // destructuring object as parameter by using old values as a default.
+        addressId = this._addressId,
+        houseNo = this._houseNo,
+        street = this._street,
+        subDistrict = this._subDistrict, 
+        district = this._district,
+        province = this._province, 
+        zipcode = this._zipcode,
+    }) {
+        // check datatype
+        checkType(addressId, 'String');
+        checkType(houseNo, 'String');
+        checkType(street, 'String');
+        checkType(subDistrict, 'String');
+        checkType(district, 'String');
+        checkType(province, 'String');
+        checkType(zipcode, 'String');
+        // assign to private variables
+        this._addressId = addressId;
+        this._houseNo = houseNo;
+        this._street = street; 
+        this._subDistrict = subDistrict; 
+        this._district = district;
+        this._province = province; 
+        this._zipcode = zipcode;
+    }
+
+    addCustomer(customer) {
+        checkType(customer, 'Customer');
+        this._customer = customer;
+        return;
     }
 } 

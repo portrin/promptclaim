@@ -1,5 +1,8 @@
+const db = require('../../config/db');
+const checkType = require('../../utils').checkType;
+
 module.exports = class Permission {
-    constructor(perId, perName, perDescription, perModule){
+    constructor({perId = null, perName = null, perDescription = null, perModule = null} = {}){
         this._perId = perId;
         this._perName = perName;
         this._perDescription = perDescription; 
@@ -7,18 +10,28 @@ module.exports = class Permission {
         this._role = [];
         this._group = []
     }
-    
+
+    //CRUD
     _create () {
-        return db.execute('INSERT INTO Permission(per_id, per_name, per_description, per_module) VALUES(per_id =? , per_name =?, per_description =?, per_module=?)',
-        [this._perId,
-        this._perName,
-        this._perDescription,
-        this._perModule
-        ])
+        return db.execute(
+            'INSERT INTO Permission(per_id, per_name, per_description, per_module) VALUES(?,?,?,?)',
+            [this._perId,
+            this._perName,
+            this._perDescription,
+            this._perModule
+            ])
     }
 
-    static _read () {
-        return db.execute('SELECT * FROM Permission WHERE per_id =?',[this._perId])
+    static _readByPerId () {
+        return db.execute(
+            'SELECT * FROM Permission WHERE per_id =?',
+            [this._perId])
+    }
+
+    static _read() {
+        return db.execute(
+            'SELECT * FROM Permission'
+            )
     }
 
     _update () {
@@ -32,6 +45,40 @@ module.exports = class Permission {
     }
 
     _delete () {
-        return db.execute('DELETE FROM Permission WHERE per_id = ?', [this._perId])
+        return db.execute(
+            'DELETE FROM Permission WHERE per_id = ?', 
+            [this._perId])
     }
+
+     // getter and setter
+     get getProperty() {
+        return {
+            perId:this._perId,
+            perName:this._perName,
+            perDescription: this._perDescription, 
+            perModule: this._perModule,
+            role: this._role,
+            group: this._group
+        };
+    }
+
+    set setProperty({  // set only its own attributes
+        // destructuring object as parameter by using old values as a default.
+        perId = this._perId,
+        perName = this._perName,
+        perDescription = this._perDescription, 
+        perModule = this._perModule,
+    }) {
+        // check datatype
+        checkType(perId, 'String');
+        checkType(perName, 'String');
+        checkType(perDescription, 'String');
+        checkType(perModule, 'String');
+        // assign to private variables
+        this._perId = perId;
+        this._perName = perName;
+        this._perDescription = perDescription; 
+        this._perModule = perModule;
+    }
+
 }
