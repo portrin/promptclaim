@@ -14,8 +14,8 @@ import { refresh, addCircleOutline, document } from "ionicons/icons";
 import Home from "./pages/Home";
 import HistoryPage from "./pages/history";
 import MyWarranty from "./pages/MyWarranty";
-import WarrantyInfo from "./pages/WarrantyInfo";
 import AddWarranty from "./pages/AddWarranty";
+import DynamicWarrantyInfo from "./pages/DynamicWarrantyInfo";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -46,7 +46,7 @@ const App: React.FC = () => {
             <Route path="/myWarranty" component={MyWarranty} exact={true} />
             <Route path="/history" component={HistoryPage} />
             <Route path="/addWarranty" component={AddWarranty} />
-            <Route path="/warrantyInfo" component={WarrantyInfo} />
+            <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
 
             <Route
               exact={true}

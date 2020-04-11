@@ -1,18 +1,13 @@
 import {
-  IonBackButton,
-  IonButtons,
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
   IonList,
-  IonGrid,
-  IonRow,
   IonListHeader,
   IonItemDivider,
-  IonCol,
-  IonLabel
+  IonLabel,
 } from "@ionic/react";
 import "./history.css";
 import React from "react";

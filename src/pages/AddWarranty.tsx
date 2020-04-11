@@ -33,7 +33,6 @@ const AddWarranty: React.FC = () => {
   const [text3, setText3] = useState<string>();
   const [text4, setText4] = useState<string>();
   const [text5, setText5] = useState<string>();
-  const [number, setNumber] = useState<number>();
   const [selectedDate, setSelectedDate] = useState<string>(
     "2020-03-27T17:51:31+0000"
   );
