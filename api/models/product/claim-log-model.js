@@ -14,7 +14,7 @@ module.exports = class ClaimLog {
 
 
         // relationships
-        this._purchasedProduct = [];
+        this._purchasedProduct = null;
         
 
         this._serviceCenterBranch = null; // from serviceCenterBranch
@@ -97,7 +97,7 @@ module.exports = class ClaimLog {
 
     addPurchasedProduct(purhasedProduct) {
         checkType(purhasedProduct, 'PurchasedProduct');
-        this._purchasedProduct.push(purhasedProduct);
+        this._purchasedProduct = purhasedProduct;
         return;
     };
 

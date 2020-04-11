@@ -20,8 +20,8 @@ module.exports = class PurchasedProduct extends Product {
 
         // relationship
         this._customer = null; //from customer class
-        
-       
+      
+        this._claimLog = [];
 
         this._retailerBranch = null; //from retailer branch
  
@@ -194,4 +194,10 @@ module.exports = class PurchasedProduct extends Product {
         this._retailerBranch = retailerBranch;
         return;
     }
+
+    addClaimLog(claimLog) {
+        checkType(claimLog, 'ClaimLog');
+        this._claimLog.push(claimLog);
+        return;
+    };
 };

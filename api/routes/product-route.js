@@ -17,4 +17,6 @@ router.delete('/deleteProduct/:serialNo&:productNo', productController.deletePro
 router.post('/editProduct/:serialNo&:productNo', productController.postEditProduct);
 
 
+
+
 module.exports = router;
