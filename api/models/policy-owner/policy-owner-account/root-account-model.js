@@ -4,14 +4,16 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class RootAccount {
     constructor({rootId = null, username = null, password = null, type = null} = {}) {
-        this._rootId = rootId;
-        this._username = username;
-        this._password = password;
-        this._type = type;
-        this._role = []; // Composition Role class
-        this._retailer = [];
-        this._thirdParty = [];
-        this._supplier = [];
+        this._rootId = rootId
+        this._username = username
+        this._password = password
+        this._type = type
+
+        //Relationship to its neighbor classes
+        this._role = [] // Relationship (Composition) Role class
+        this._retailer = [] //relationship to class Retailer
+        this._thirdParty = [] // relationship to class ThirdParty
+        this._supplier = [] //relationship to class Supplier
     }
     
     //CRUD
@@ -81,5 +83,28 @@ module.exports = class RootAccount {
         this._username = username;
         this._password = password;
         this._type = type;
+    }
+
+    addRole(role) {
+        checkType(role, 'Role');
+        this._role = role;
+        return;
+    }
+
+    addRetailer(retailer) {
+        checkType(retailer, 'Retailer');
+        this._retailer.push(retailer);
+        return;
+    }
+
+    addThirdParty(thirdParty) {
+        checkType(thirdParty, 'ThirdParty');
+        this._thirdParty.push(thirdParty);
+        return;
+    }
+    addSupplier(supplier) {
+        checkType(supplier, 'Supplier');
+        this._supplier.push(supplier);
+        return;
     }
 }

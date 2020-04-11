@@ -3,13 +3,15 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class Role {
     constructor({username = null, password = null, roleName = null, roleDescription = null} = {}) {
-        this._username = username;
-        this._password = password;
-        this._roleName = roleName;
-        this._roleDescription = roleDescription;
-        this._rootAccount = null;
-        this._permission =[];
-        this._group = [];
+        this._username = username
+        this._password = password
+        this._roleName = roleName
+        this._roleDescription = roleDescription
+
+        //Relationship to its neighbor classes
+        this._rootAccount = null //relationship to class RootAccount
+        this._permission =[] //relationship to class Permission
+        this._group = [] //relationship to class Group
     }
 
     //CRUD
@@ -91,6 +93,23 @@ module.exports = class Role {
         this._password = password;
         this._roleName = roleName;
         this._roleDescription = roleDescription;
+    }
 
+    addRootAccount(rootAccount) {
+        checkType(rootAccount, 'RootAccount');
+        this._rootAccount = rootAccount;
+        return;
+    }
+
+    addPermission(permission) {
+        checkType(permission, 'Permission');
+        this._permission.push(permission);
+        return;
+    }
+
+    addGroup(group) {
+        checkType(group, 'Group');
+        this._group.push(group);
+        return;
     }
 }

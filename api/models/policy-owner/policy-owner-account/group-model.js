@@ -3,11 +3,13 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class Group {
     constructor({groupId = null, groupName = null, groupDescription = null} = {}){
-        this._groupId = groupId;
-        this._groupName = groupName;
-        this._groupDescription = groupDescription; 
-        this._permission = [];
-        this._role = [];
+        this._groupId = groupId
+        this._groupName = groupName
+        this._groupDescription = groupDescription 
+
+        //Relationship to its neighbor classes
+        this._permission = [] //relationship to class Permission
+        this._role = [] //relationship to class Role
     }
     
     //CRUD
@@ -70,5 +72,17 @@ module.exports = class Group {
         this._groupId = groupId;
         this._groupName = groupName;
         this._groupDescription = groupDescription; 
+    }
+
+    addPermission(permission) {
+        checkType(permission, 'Permission');
+        this._permission.push(permission);
+        return;
+    }
+
+    addRole(role) {
+        checkType(role, 'Role');
+        this._role.push(role);
+        return;
     }
 }
