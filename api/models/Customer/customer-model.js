@@ -3,7 +3,7 @@ const checkType = require('../../utils').checkType;
 const PurchasedProduct = require('../product/purchased-product-model');
 const ClaimLog = require('../product/claim-log-model');
 const Notification = require('./notification-model');
-
+const CustomerAddress = require('./customer-address-model')
 
 module.exports = class Customer {
     constructor({customerId=null, firstname=null, lastname=null, phoneNo=null, birthDate=null, gender=null} = {}) {
@@ -18,7 +18,8 @@ module.exports = class Customer {
         this._customerAccount = null;   // relationship to CustomerAccount
         this._customerAddress = [];     // relationship to CustomerAddress
         this._purchasedProduct = [];    // relationship to PurchasedProduct
-        this._notification = [];        // relationship to Notification
+        this._notification = [];        // relationship to Noti
+        fication
         // special attributes that will be used often.
         this._claimLog = [];           
     }
@@ -167,6 +168,38 @@ module.exports = class Customer {
     editProfile(obj={}) {
         this.setProperty(obj);
         return;
+    }
+
+    addCustomerAddress(customerAddress){
+        checkType(customerAddress, 'CustomerAddress')
+        this._customerAddress.push(customerAddress);
+        customerAddress._create();
+        return;
+    }
+
+    editCustomerAddress(customerAddress, obj ={}){
+        checkType(customerAddress, 'CustomerAddress');
+        const index = this._customerAddress.indexOf(customerAddress);
+        if(index>-1){
+            this._customerAddress[index] = customerAddress.setProperty(obj);
+            customerAddress._update();
+        }
+        return;
+    }
+   
+    deleteCustomerAddress(customerAddress){
+        checkType(customerAddress, 'customerAddress');
+        const index = this._customerAddress.indexOf(customerAddress);
+        if(index>-1){
+            this._customerAddress.splice(index,1);
+            customerAddress._delete();
+        }
+        return;
+    }
+
+    getCustomerAddress(){
+        this._customerAddress = CustomerAddress._readByPK(this._customerId)
+        return this._customerAddress;
     }
 
     getNotification() {

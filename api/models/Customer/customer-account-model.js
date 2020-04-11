@@ -1,29 +1,30 @@
 const Customer = require('./customer-model.js');
 
 module.exports = class CustomerAccount{
-    constructor(accountId,username,password,email){
+    constructor({accountId = null,username = null,password = null ,email = null} = {}){
         this._accountId = accountId
         this._username = username;
         this._password = password; 
         this._email = email;
+        this._customer = null;
     }
 
-    _create () {
-        return db.execute('INSERT INTO Customer_account(account_id, username, password, email) VALUES(account_id =?, username = ?, password =?, email =?)',
+    async _create () {
+        return db.execute('INSERT INTO Customer_account(account_id, username, password, email) VALUES(?, ?, ?, ?)',
         [this._accountId,
         this._username,
         this._password,
         this._email]);
     }
 
-    static _read () {
-        return db.execute('SELECT * FROM customer_account WHERE account_id =?',[this._accountId])
+    async static _read () {
+        return db.execute('SELECT * FROM Customer_account WHERE account_id =?',[this._accountId])
     }
 
-    _update () {
+    async _update () {
         return db.execute(
             'UPDATE `customer_account` INNER JOIN `customer` ON customer_id = ? SET username = ?, password = ?, email = ? WHERE account_id =?', 
-            [customer_id,
+            [this._customer.getProperty.customerId,
             this._username, 
             this._password, 
             this._email, 
@@ -31,8 +32,37 @@ module.exports = class CustomerAccount{
         );
     }
 
-    _delete () {
+    async _delete () {
         return db.execute('DELETE FROM customer_account WHERE account_id = ?', [this._accountId])
+    }
+
+    get getProperty() {
+        return {
+            accountId: this._accountId,
+            username: this._username,
+            password: this._password, 
+            email: this._email,
+            customer: this._customer
+        };
+    }
+
+    set setProperty({  // set only its own attributes
+        // destructuring object as parameter by using old values as a default.
+        accountId = this._accountId,
+        username = this._username,
+        password = this._password,
+        email = this._email
+    }) {
+        // check datatype
+        checkType(accountId, 'String');
+        checkType(username, 'String');
+        checkType(password, 'String');
+        checkType(email, 'String');
+        // assign to private variables
+        this._accountId = accountId,
+        this._username = username,
+        this._password = password, 
+        this._email = email
     }
 
     verifyPassword(){
@@ -43,4 +73,3 @@ module.exports = class CustomerAccount{
 
     }
 }
-
