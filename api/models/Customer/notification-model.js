@@ -26,8 +26,8 @@ module.exports = class Notification {
 
     _update() {
         db.execute(
-            'UPDATE notification SET (noti_id, message, timestamp, customer_id) VALUES (?, ?, ?, ?)',
-            [this._notiId, this._message, this._timestamp, this._customer.getProperty.customerId]
+            'UPDATE notification SET message = ?, timestamp = ?, customer_id = ? WHERE noti_id = ?',
+            [this._message, this._timestamp, this._customer.getProperty.customerId, this._notiId]
         )
     }
 
@@ -42,10 +42,10 @@ module.exports = class Notification {
     //getter and setter
     get getProperty() {
         return {
-            notiId = this._notiId,
-            message = this._message,
-            timestamp = this._timestamp,
-            customer = this._customer
+            notiId: this._notiId,
+            message: this._message,
+            timestamp: this._timestamp,
+            customer: this._customer
         }
     }
 

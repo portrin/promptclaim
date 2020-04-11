@@ -33,7 +33,7 @@ module.exports = class Policy {
 
     _update() {
         return db.execute('UPDATE policy SET policy_period = ?, policy_description = ?, policy_owner_id = ? WHERE policy_id = ?',
-            [this._policyPeriod, this._policyDescription, /*policyOwnerId*/, this._policyId]);
+            [this._policyPeriod, this._policyDescription, this._policyOwner.getProperty.policyOwnerId, this._policyId]);
     }
 
     _delete() {
@@ -70,5 +70,23 @@ module.exports = class Policy {
         this._policyPeriod = policyPeriod;
         this._policyDescription = policyDescription;
         this._dateCreated = dateCreated;
+    }
+
+    addPolicyOwner(policyOwner) {
+        checkType(policyOwner, 'PolicyOwner');
+        this._policyOwner = policyOwner;
+        return;
+    }
+
+    addServiceCenterBranch(serviceCenterBranch) {
+        checkType(serviceCenterBranch, 'ServiceCenterBranch');
+        this._serviceCenterBranch.push(serviceCenterBranch);
+        return;
+    }
+
+    addPurchasedProduct(purchasedProduct) {
+        checkType(purchasedProduct, 'PurchasedProduct');
+        this._purchasedProduct.push(purchasedProduct);
+        return;
     }
 }

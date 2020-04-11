@@ -1,5 +1,6 @@
+const db = require('../../../config/db');
 const PolicyOwner = require('../policy-owner-model');
-const checkType = require('../../utils').checkType;
+const checkType = require('../../../utils').checkType;
 
 module.exports = class Retailer extends PolicyOwner {
     constructor({ policyOwnerId = null, ownerType = null, retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
@@ -12,18 +13,23 @@ module.exports = class Retailer extends PolicyOwner {
         this._hqAddress = hqAddress;
         // their relationships to its neighbor ref. from class diagram
         this._retailerBranch = [];  // relationship to RetailerBranch
-        this._rootAccount = null;   // relationship to RootAccount 
+        this._rootAccount = null;   // relationship to RootAccount
     }
 
     // DM layer CRUD
-    _create() {
-        return db.execute('INSERT INTO retailer(retailer_id, contact, name, hq_address, retailer_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
-            [this._retailerId, this._name, this._contact, this._hqAddress, this._retailerDescription, this._rootAccount, this.policyOwnerId]
-        );
+    async _create() {
+        const result = [];
+        result.push(await db.execute('INSERT INTO policy_owner (policy_owner_id, owner_type) VALUES (?, ?)',
+            [this._policyOwnerId, this._ownerType]
+        ));
+        result.push(await db.execute('INSERT INTO retailer(retailer_id, contact, name, hq_address, retailer_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
+            [this._retailerId, this._name, this._contact, this._hqAddress, this._retailerDescription, this._rootAccount, this._policyOwnerId]
+        ));
+        return result;
     }
 
     static _read() {
-        return db.execute('SELECT * FROM retailer');
+        db.execute('SELECT * FROM retailer');
     }
 
     static _readByRetailerId(retailerId) {
@@ -43,15 +49,15 @@ module.exports = class Retailer extends PolicyOwner {
     // getter and setter
     getProperty() {
         return {
-            policyOwnerId = this.policyOwnerId,
-            ownerType = this.ownerType,
-            retailerId = this._retailerId,
-            name = this._name,
-            retailerDescription = this._retailerDescription,
-            contact = this._contact,
-            hqAddress = this._hqAddress,
-            retailerBranch = this._retailerBranch,
-            rootAccount = this._rootAccount
+            policyOwnerId: this.policyOwnerId,
+            ownerType: this.ownerType,
+            retailerId: this._retailerId,
+            name: this._name,
+            retailerDescription: this._retailerDescription,
+            contact: this._contact,
+            hqAddress: this._hqAddress,
+            retailerBranch: this._retailerBranch,
+            rootAccount: this._rootAccount
         };
     }
 

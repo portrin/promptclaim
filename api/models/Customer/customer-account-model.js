@@ -7,6 +7,7 @@ module.exports = class CustomerAccount{
         this._username = username;
         this._password = password; 
         this._email = email;
+        // relationship from customer class
         this._customer = null;
     }
 

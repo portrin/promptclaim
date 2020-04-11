@@ -15,7 +15,7 @@ module.exports = class CustomerAddress {
         this._customer = null;
     }
 
-    //CRUD
+    //DM Layer CRUD
     _create = () => {
         return db.execute(
             'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
@@ -47,7 +47,7 @@ module.exports = class CustomerAddress {
     //edit customer address
     _update (){
         return db.execute(
-            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
+            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id = ?, address_id= ?', 
             [this._houseNo, 
             this._street, 
             this._subDistrict, 
@@ -66,53 +66,6 @@ module.exports = class CustomerAddress {
         )
     }
 
-    // DM Layer CRUD
-    _create = () => {
-        return db.execute(
-            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
-            [this._customer.getProperty.customerId,
-            this.addressId,
-            this._houseNo,
-            this._street,
-            this._subDistrict,
-            this._district,
-            this._province,
-            this._zipcode 
-            ]
-        )
-    }
-    static _read(){
-        return db.execute(
-            'SELECT * FROM Customer_address',
-            []
-        )
-    }
-
-    static _readByCustomerId(customerId){
-        return db.execute(
-            'SELECT * FROM Customer_address WHERE customer_id =?',
-            [customerId, this._addressId]
-        );
-    }
-
-    _update (){
-        return db.execute(
-            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
-            [this._houseNo, 
-            this._street, 
-            this._subDistrict, 
-            this._district, 
-            this._province, 
-            this._zipcode, 
-            this._customer.getProperty.customerId,
-            this._addressId]
-        )}
-
-
-    _delete() {
-        return db.execute('DELETE FROM Customer_address WHERE custumer_address = ? AND customer_id = ?', [this._addressId, this._customer.getProperty.customerId])
-    }
-    
     //getter and setter
     get getProperty() {
         return {

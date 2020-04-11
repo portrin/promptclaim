@@ -168,6 +168,7 @@ module.exports = class Customer {
 
     editProfile(obj={}) {
         this.setProperty(obj);
+        this._update();
         return;
     }
 
