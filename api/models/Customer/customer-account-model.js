@@ -1,3 +1,6 @@
+const db = require('../../config/db');
+const checkType = require('../../utils').checkType;
+
 const Customer = require('./customer-model.js');
 
 module.exports = class CustomerAccount{
@@ -9,6 +12,7 @@ module.exports = class CustomerAccount{
         this._customer = null;
     }
 
+    // DM Layer CRUD
     async _create () {
         return db.execute('INSERT INTO Customer_account(account_id, username, password, email) VALUES(?, ?, ?, ?)',
         [this._accountId,
@@ -36,6 +40,7 @@ module.exports = class CustomerAccount{
         return db.execute('DELETE FROM customer_account WHERE account_id = ?', [this._accountId])
     }
 
+    // getter and setter
     get getProperty() {
         return {
             accountId: this._accountId,
@@ -59,10 +64,10 @@ module.exports = class CustomerAccount{
         checkType(password, 'String');
         checkType(email, 'String');
         // assign to private variables
-        this._accountId = accountId,
-        this._username = username,
-        this._password = password, 
-        this._email = email
+        this._accountId = accountId;
+        this._username = username;
+        this._password = password; 
+        this._email = email;
     }
 
     verifyPassword(){

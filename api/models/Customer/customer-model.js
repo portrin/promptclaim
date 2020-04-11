@@ -23,30 +23,36 @@ module.exports = class Customer {
         this._claimLog = [];           
     }
     // DM layer CRUD
-    async _create () {
-        return await db.execute(
+    _create () {
+        return db.execute(
             'INSERT INTO customer (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
         );
     }
 
-    static async _readByCustomerId (customerId) {
-        await db.execute(
+    static _readByCustomerId (customerId) {
+        return db.execute(
             'SELECT * FROM customer WHERE customer_id = ?', 
             [customerId]
         )
     }
 
-    async _read () {
-
+    _read () {
+        db.execute(
+            'SELECT * FROM customer WHERE customer_id = ?',
+            [this._customerId]
+        )
     }
 
-    async _update () {
-
+    _update () {
+        db.execute(
+            'UPDATE customer SET (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
+        )
     }
 
-    async _delete () {
-        return await db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
+    _delete () {
+        return db.execute('DELETE FROM customer WHERE custumer_id = ?', [this._customerId])
     }
 
     // getter and setter
@@ -83,15 +89,16 @@ module.exports = class Customer {
         checkType(birthDate, 'String');
         checkType(gender, 'String');
         // assign to private variables
-        this._customerId = customerId,
-        this._firstname = firstname,
-        this._lastname = lastname,
-        this._phoneNo = phoneNo,
-        this._birthDate = birthDate,
-        this._gender = gender
+        this._customerId = customerId;
+        this._firstname = firstname;
+        this._lastname = lastname;
+        this._phoneNo = phoneNo;
+        this._birthDate = birthDate;
+        this._gender = gender;
     }
 
     // Problem Domain method
+    //Purchased Product
     addPurchasedProduct(purchasedProduct) {
         checkType(purchasedProduct, 'PurchasedProduct');
         this._purchasedProduct.push(purchasedProduct);
@@ -124,6 +131,7 @@ module.exports = class Customer {
         return this._purchasedProduct;
     }
 
+    // Claim Log
     addClaimLog(purchasedProduct, claimLog) {
         checkType(purchasedProduct, 'PurchasedProduct');
         checkType(claimLog, 'ClaimLog');
@@ -163,6 +171,7 @@ module.exports = class Customer {
         return;
     }
 
+    // Customer Address
     addCustomerAddress(customerAddress){
         checkType(customerAddress, 'CustomerAddress')
         this._customerAddress.push(customerAddress);
@@ -173,7 +182,7 @@ module.exports = class Customer {
     editCustomerAddress(customerAddress, obj ={}){
         checkType(customerAddress, 'CustomerAddress');
         const index = this._customerAddress.indexOf(customerAddress);
-        if(index>-1){
+        if(index > -1){
             this._customerAddress[index] = customerAddress.setProperty(obj);
             customerAddress._update();
         }
@@ -183,7 +192,7 @@ module.exports = class Customer {
     deleteCustomerAddress(customerAddress){
         checkType(customerAddress, 'customerAddress');
         const index = this._customerAddress.indexOf(customerAddress);
-        if(index>-1){
+        if(index > -1){
             this._customerAddress.splice(index,1);
             customerAddress._delete();
         }
@@ -191,12 +200,20 @@ module.exports = class Customer {
     }
 
     getCustomerAddress(){
-        this._customerAddress = CustomerAddress._readByPK(this._customerId)
+        this._customerAddress = CustomerAddress._readByCustomerId(this._customerId)
         return this._customerAddress;
     }
 
+    // Notification
     getNotification() {
         this._notification = Notification._readByCustomerId(this._customerId); // Notification static method
         return this._notification;
+    }
+
+    // Customer Account
+    addCustomerAccount(customerAccount) {
+        checkType(customerAccount, 'CustomerAccount');
+        this._customerAccount = customerAccount;
+        return;
     }
 }

@@ -1,5 +1,6 @@
 const db = require('../../config/db');
-const Customer = require('./customer-model');
+const checkType = require('../../utils').checkType;
+
 
 module.exports = class CustomerAddress {
     constructor({addressId = null, houseNo = null, street = null, subDistrict = null, district = null, province = null, zipcode = null} = {}){
@@ -10,9 +11,108 @@ module.exports = class CustomerAddress {
         this._district = district;
         this._province = province; 
         this._zipcode = zipcode;
-        this._customer = customer;
+        // from relationship 
+        this._customer = null;
     }
 
+    //CRUD
+    _create = () => {
+        return db.execute(
+            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
+            [this._customer.getProperty.customerId,
+            this.addressId,
+            this._houseNo,
+            this._street,
+            this._subDistrict,
+            this._district,
+            this._province,
+            this._zipcode 
+            ]
+        )
+    }
+    static _readByCustomerId(customerId){
+        return db.execute(
+            'SELECT * FROM Customer_address WHERE customer_id = ?',
+            [customerId]
+        )
+    }
+
+    static _readByPK(customerId){
+        return db.execute(
+            'SELECT * FROM Customer_address WHERE customer_id = ? AND address_id = ?',
+            [customerId, this._addressId]
+        )
+    }
+
+    //edit customer address
+    _update (){
+        return db.execute(
+            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
+            [this._houseNo, 
+            this._street, 
+            this._subDistrict, 
+            this._district, 
+            this._province, 
+            this._zipcode, 
+            this._customer.getProperty.customerId,
+            this._addressId]
+        )}
+
+    //delete address
+    _delete() {
+        return db.execute(
+            'DELETE FROM Customer_address WHERE address_id = ? AND customer_id = ?',
+            [this._addressId, this._customer.getProperty.customerId]
+        )
+    }
+
+    // DM Layer CRUD
+    _create = () => {
+        return db.execute(
+            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
+            [this._customer.getProperty.customerId,
+            this.addressId,
+            this._houseNo,
+            this._street,
+            this._subDistrict,
+            this._district,
+            this._province,
+            this._zipcode 
+            ]
+        )
+    }
+    static _read(){
+        return db.execute(
+            'SELECT * FROM Customer_address',
+            []
+        )
+    }
+
+    static _readByCustomerId(customerId){
+        return db.execute(
+            'SELECT * FROM Customer_address WHERE customer_id =?',
+            [customerId, this._addressId]
+        );
+    }
+
+    _update (){
+        return db.execute(
+            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
+            [this._houseNo, 
+            this._street, 
+            this._subDistrict, 
+            this._district, 
+            this._province, 
+            this._zipcode, 
+            this._customer.getProperty.customerId,
+            this._addressId]
+        )}
+
+
+    _delete() {
+        return db.execute('DELETE FROM Customer_address WHERE custumer_address = ? AND customer_id = ?', [this._addressId, this._customer.getProperty.customerId])
+    }
+    
     //getter and setter
     get getProperty() {
         return {
@@ -53,54 +153,11 @@ module.exports = class CustomerAddress {
         this._district = district;
         this._province = province; 
         this._zipcode = zipcode;
+    }
+
+    addCustomer(customer) {
+        checkType(customer, 'Customer');
         this._customer = customer;
-    }
-
-    //CRUD
-    _create = () => {
-        return db.execute(
-            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
-            [this._customer.getProperty.customerId,
-            this.addressId,
-            this._houseNo,
-            this._street,
-            this._subDistrict,
-            this._district,
-            this._province,
-            this._zipcode 
-            ]
-        )
-    }
-    static _read(){
-        return db.execute(
-            'SELECT * FROM Customer_address',
-            []
-        )
-    }
-
-    static _readByPK(customerId){
-        return db.execute(
-            'SELECT * FROM Customer_address WHERE customer_id =? AND address_id =?',
-            [customerId, this._addressId]
-        )
-    }
-
-    //edit customer address
-    _update (){
-        return db.execute(
-            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id =?, address_id=?', 
-            [this._houseNo, 
-            this._street, 
-            this._subDistrict, 
-            this._district, 
-            this._province, 
-            this._zipcode, 
-            this._customer.getProperty.customerId,
-            this._addressId]
-        )}
-
-    //delete address
-    _delete() {
-        return db.execute('DELETE FROM Customer_address WHERE custumer_address = ? AND customer_id = ?', [this._addressId, this._customer.getProperty.customerId])
+        return;
     }
 } 
