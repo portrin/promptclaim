@@ -31,12 +31,17 @@ import {
   IonSlides
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
-const AddClaimLog: React.FC = () => {
+const AddClaimDate: React.FC = () => {
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonTitle>Add Claim Date</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
     </IonPage>
   );
 };
 
-export default AddClaimLog;
+export default AddClaimDate;
