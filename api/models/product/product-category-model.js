@@ -1,11 +1,15 @@
 const db = require('../../config/db');
 const Product = require('./product-model');
+const checkType = require('../../utils');
 
 module.exports = class ProductCategory {
-    constructor (categoryId, categoryName) {
+    constructor ({categoryId=null, categoryName=null} = {}) {
+        //class attribute
         this._categoryId = categoryId;
         this._categoryName = categoryName;
-        this._product;
+
+        //relationships
+        this._product = null
     };
 
     //CRUD METHOD
@@ -36,8 +40,36 @@ module.exports = class ProductCategory {
         );
     };
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------
     //PROBLEM DOMAIN METHOD
+    get getProperty () {
+        return{
+            categoryId: this._categoryId,
+            categoryName: this._categoryName,
 
-	
+            product: this._product
+
+        };
+    };
+
+
+    set setProperty ({
+        categoryId = this._categoryId,
+        categoryName = this._categoryName
+    }) {
+        checkType(categoryId, 'String');
+        checkType(categoryName, 'String');
+
+        this._categoryId = categoryId;
+        this._categoryName = categoryName;
+    };
+
+
+
+
+    addProduct(product) {
+        checkType(product, 'Product');
+        this.product = product;
+        return;
+    };	
 };

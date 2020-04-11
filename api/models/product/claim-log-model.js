@@ -1,20 +1,45 @@
 const db = require('../../config/db');
 const PurchasedProduct = require('./purchased-product-model');
+const checkType = require('../../utils');
+
+
+
 
 module.exports = class ClaimLog {
-    constructor (claimId, timsestamp, status) {
+    constructor ({claimId=null, timsestamp=null, status=null} ={}) {
+        // class attribute
         this._claimId = claimId;
         this._timestamp = timsestamp;
         this._status = status;
+
+
+        // relationships
         this._purchasedProduct = [];
-        this._serviceCenterId; // from serviceCenter
-        this._brnachId; // from ServiceCenter 
+        
+
+        this._serviceCenterBranch = null; // from serviceCenterBranch
+         
 
     };
+
+    // CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO claim_log(claim_id, timestamp, status) VALUES(?, ?, ?)',
-            [this._claimId, this._timestamp, this._status]
+            'INSERT INTO claim_log(claim_id, status, timestamp, serial_no, product_no, service_center_id, branch_id) VALUES(?, ?, ?, ?, ?, ?, ?)',
+            [this._claimId, 
+            this.status, 
+            this._timestamp, 
+            this._purchasedProduct.getProperty.serialNo,
+            this._purchasedProduct.getProperty.productNo,
+            this._serviceCenterBranch.getProperty.serviceCenterId,
+            this._serviceCenterBranch.getProperty.branchId
+            ]
+        );
+    };
+
+    _read() {
+        return db.execute(
+            'SELECT * FROM claim_log'
         );
     };
 
@@ -39,4 +64,48 @@ module.exports = class ClaimLog {
         );
     };
 
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+    // PROBLEM DOMAIN
+    get getProperty() {
+        return {
+            claimId: this._claimId,
+            timestamp: this._timestamp,
+            status: this._status,
+
+            purchasedPurduct: this._purchasedProduct,
+
+            serviceCenter: this._serviceCenter
+
+        };
+    };
+
+    set setProperty({
+        claimId = this._claimId,
+        timestamp = this._timestamp,
+        status = this._status
+    }) {
+        checkType(claimId, 'String');
+        checkType(timestamp, 'String');
+        checkType(status, 'String');
+
+        this._claimId = claimId;
+        this._timestamp = timestamp;
+        this._status = status
+    };
+
+
+    addPurchasedProduct(purhasedProduct) {
+        checkType(purhasedProduct, 'PurchasedProduct');
+        this._purchasedProduct.push(purhasedProduct);
+        return;
+    };
+
+
+
+    addServiceCenterBranch(serviceCenterBranch) {
+        checkType(serviceCenter, 'ServiceCenterBranch');
+        this._serviceCenterBranch = serviceCenterBranch;
+        return;
+    }
 };

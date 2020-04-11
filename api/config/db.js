@@ -4,7 +4,7 @@ const config = {
     setup: {
         host     : 'localhost',
         user     : 'root',
-        password : 'password',
+        password : 'Klodkup340',
         database : 'promptclaim',
         port: 3306
     }
