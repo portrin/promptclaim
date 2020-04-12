@@ -1,4 +1,4 @@
-
+/*CREATE DATABASE pclaim;*/
 
 CREATE TABLE Customer_account (
 	account_id VARCHAR(6) NOT NULL,
@@ -143,6 +143,7 @@ CREATE TABLE Product (
 );
 
 CREATE TABLE Purchased_product (
+	uuid INT AUTO_INCREMENT NOT NULL,
 	serial_no VARCHAR(80) NOT NULL,
     product_no VARCHAR(80) NOT NULL,
     customer_id VARCHAR(6) NOT NULL,
@@ -157,7 +158,7 @@ CREATE TABLE Purchased_product (
     product_photo VARCHAR(80),
     claim_qty INT NOT NULL,
     warranty_photo VARCHAR(256),
-    PRIMARY KEY(serial_no, product_no),
+    PRIMARY KEY(uuid),
     FOREIGN KEY(product_no) REFERENCES Product(product_no),
     FOREIGN KEY(customer_id) REFERENCES Customer(customer_id)
 );
@@ -213,12 +214,11 @@ CREATE TABLE Claim_log (
 	claim_id VARCHAR(6) NOT NULL,
     status VARCHAR(256) NOT NULL,
     timestamp TIMESTAMP NOT NULL,
-    serial_no VARCHAR(6) NOT NULL,
-    product_no VARCHAR(80) NOT NULL,
+    uuid INT NOT NULL,
     service_center_id VARCHAR(6),
     branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
-    FOREIGN KEY(serial_no, product_no) REFERENCES Purchased_product(serial_no, product_no),
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
     FOREIGN KEY(service_center_id, branch_id) REFERENCES Service_center_branch(service_center_id, branch_id)
 );
 
@@ -233,15 +233,20 @@ CREATE TABLE Policy_available_at (
 
 CREATE TABLE Product_has_policy (
 	policy_id VARCHAR(6) NOT NULL,
-    serial_no VARCHAR(6) NOT NULL,
-    product_no VARCHAR(80) NOT NULL,
+    uuid INT NOT NULL,
     policy_start_date DATE,
     policy_end_date DATE,
-    PRIMARY KEY(policy_id, serial_no, product_no),
+    PRIMARY KEY(policy_id, uuid),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
-    FOREIGN KEY(serial_no) REFERENCES Purchased_product(serial_no),
-    FOREIGN KEY(product_no) REFERENCES Product(product_no)
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid)
 );
+
+CREATE TABLE Pp_classify_as (
+	uuid INT NOT NULL,
+    category_id VARCHAR(80) NOT NULL,
+    PRIMARY KEY(uuid)
+);
+
 
 INSERT INTO Customer_account(account_id, username, password, email)
 VALUES ('1','chchadaa','chada1','chada@gmail.com'),
@@ -364,11 +369,11 @@ VALUES ('4', 'AAAAA1'),
 ('3', 'AAAAA3'),
 ('4', 'AAAAA4');
 
-INSERT INTO product_has_policy(policy_id, serial_no, product_no, policy_start_date, policy_end_date) 
-VALUES ('001', 'SSSSS1', 'AAAAA1', DATE'2020-03-30', DATE'2020-12-15'),
-('002', 'SSSSS2', 'AAAAA2', DATE'2020-04-02', DATE'2020-12-18'),
-('003', 'SSSSS3', 'AAAAA3', DATE'2020-03-31', DATE'2020-12-16'),
-('001', 'SSSSS4', 'AAAAA4', DATE'2020-04-01', DATE'2020-12-17');
+INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date) 
+VALUES ('001', '1', DATE'2020-03-30', DATE'2020-12-15'),
+('002', '2', DATE'2020-04-02', DATE'2020-12-18'),
+('003', '3', DATE'2020-03-31', DATE'2020-12-16'),
+('001', '4', DATE'2020-04-01', DATE'2020-12-17');
 
 INSERT INTO service_center(service_center_id, name, hq_address, service_center_description)
 VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
@@ -391,11 +396,11 @@ VALUES ('001', '1', '1'),
 INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', '000003');
 
-INSERT INTO Claim_log (claim_id, status, timestamp, serial_no, product_no, service_center_id, branch_id)
-VALUES ('000001', 'status1', '2020-03-03', 'SSSSS1', 'AAAAA1', '1', '1'),
-('000002', 'status2', '2020-03-04', 'SSSSS2', 'AAAAA2', '2', '2'),
-('000003', 'status3', '2020-03-05', 'SSSSS3', 'AAAAA3', '3', '2'),
-('000004', 'status4', '2020-03-06', 'SSSSS4', 'AAAAA4', '2', '1');
+INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, branch_id)
+VALUES ('000001', 'status1', '2020-03-03', '1', '1', '1'),
+('000002', 'status2', '2020-03-04', '2', '2', '2'),
+('000003', 'status3', '2020-03-05', '3', '3', '2'),
+('000004', 'status4', '2020-03-06','4', '2', '1');
 
 CREATE TABLE Notification (
 	noti_id VARCHAR(6) NOT NULL,
@@ -410,7 +415,11 @@ VALUES ('01', 'The product has been claimed', '1', '2020-01-18 11:00:01'),
 ('02', 'Expiration date tomorrow', '2', '2020-02-18 11:00:01'),
 ('03', 'Promotion for curry', '3', '2020-03-18 11:00:01');
 
-
+INSERT INTO Pp_classify_as(uuid, category_id)
+VALUES ('1','1'),
+('2','2'),
+('3','3'),
+('4','4');
 
 
 
