@@ -5,91 +5,88 @@ const { Header, Content, Footer, Sider } = Layout
 
 export const MainProductPage = (props) => {
   return (
-    <div className="App">
+    <Layout>
+      <Header className="header">
+        <img
+          className="user"
+          src="user.png"
+          alt="user logo"
+          style={{ float: 'right' }}
+        />
+        <img
+          className="logo"
+          src="logo.png"
+          alt="prompt claim logo"
+          style={{ float: 'left' }}
+        />
+      </Header>
       <Layout>
-        <Header className="header">
-          <img
-            className="user"
-            src="user.png"
-            alt="user logo"
-            style={{ float: 'right' }}
-          />
-          <img
-            className="logo"
-            src="logo.png"
-            alt="prompt claim logo"
-            style={{ float: 'left' }}
-            onClick={() => props.history.push('/view-product/:key')}
-          />
-        </Header>
-        <Layout>
-          <Content>
-            <br />
-            <Row>
-              <Col span={8}></Col>
-              <Col span={8}>
-                <Search
-                  placeholder="Search by product name"
-                  onSearch={(value) => console.log(value)}
-                  style={{ position: 'center' }}
+        <Content>
+          <br />
+          <Row>
+            <Col span={8}></Col>
+            <Col span={8}>
+              <Search
+                placeholder="Search by product name"
+                onSearch={(value) => console.log(value)}
+                style={{ position: 'center' }}
+              />
+            </Col>
+            <Col span={8}></Col>
+          </Row>
+        </Content>
+        <Content style={{ padding: '0 50px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Product Dashboard</Breadcrumb.Item>
+          </Breadcrumb>
+          <Layout
+            className="site-layout-background"
+            style={{ padding: '24px 0' }}
+          >
+            <Sider className="site-layout-background" width={200}>
+              <Menu
+                mode="inline"
+                defaultSelectedKeys={['1']}
+                defaultOpenKeys={['sub1']}
+                style={{ height: '100%' }}
+              >
+                <SubMenu key="sub1" title={<span>View by</span>}>
+                  <Menu.Item key="1">Product</Menu.Item>
+                  <Menu.Item
+                    key="2"
+                    className="pointer"
+                    onClick={() => props.history.push('/main-policy')}
+                  >
+                    Policy
+                  </Menu.Item>
+                </SubMenu>
+              </Menu>
+            </Sider>
+            <Content>
+              <div className="site-layout-content">
+                <Table
+                  columns={columns}
+                  dataSource={data}
+                  onChange={onChange}
+                  onRow={(record, rowIndex) => {
+                    return {
+                      onClick: (event) => {
+                        console.log({ record, rowIndex })
+                        props.history.push(`/view-product/${record.key}`)
+                      },
+                    }
+                  }}
                 />
-              </Col>
-              <Col span={8}></Col>
-            </Row>
-          </Content>
-          <Content style={{ padding: '0 50px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Product Dashboard</Breadcrumb.Item>
-            </Breadcrumb>
-            <Layout
-              className="site-layout-background"
-              style={{ padding: '24px 0' }}
-            >
-              <Sider className="site-layout-background" width={200}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1']}
-                  style={{ height: '100%' }}
-                >
-                  <SubMenu key="sub1" title={<span>View by</span>}>
-                    <Menu.Item key="1">Product</Menu.Item>
-                    <Menu.Item
-                      key="2"
-                      className="pointer"
-                      onClick={() => props.history.push('/bypolicy1')}
-                    >
-                      Policy
-                    </Menu.Item>
-                  </SubMenu>
-                </Menu>
-              </Sider>
-              <Content>
-                <div className="site-layout-content">
-                  <Table
-                    columns={columns}
-                    dataSource={data}
-                    onChange={onChange}
-                    onRow={(record, rowIndex) => {
-                      return {
-                        onClick: (event) => {
-                          console.log({ record, rowIndex })
-                          props.history.push(`/view-product/${record.key}`)
-                        },
-                      }
-                    }}
-                  />
-                </div>
-              </Content>
-            </Layout>
-          </Content>
+              </div>
+            </Content>
+          </Layout>
+        </Content>
 
-          <Footer style={{ textAlign: 'center' }}>
-            Prompt Claim ©2020 Created by Team Igloo
-          </Footer>
-        </Layout>
+        <Footer style={{ textAlign: 'center' }}>
+          Prompt Claim ©2020 Created by Team Igloo
+        </Footer>
       </Layout>
-    </div>
+    </Layout>
   )
 }
 

@@ -22,13 +22,13 @@ export const ViewProductPage = (props) => {
         <Header className="header">
           <img
             className="user"
-            src="user.png"
+            src="/user.png"
             alt="user logo"
             style={{ float: 'right' }}
           />
           <img
             className="logo"
-            src="logo.png"
+            src="/logo.png"
             alt="prompt claim logo"
             style={{ float: 'left' }}
           />

@@ -53,6 +53,14 @@ export const MainPolicyPage = (props) => {
                     columns={columns}
                     dataSource={data}
                     onChange={onChange}
+                    onRow={(record, rowIndex) => {
+                      return {
+                        onClick: (event) => {
+                          console.log({ record, rowIndex })
+                          props.history.push(`/view-policy`)
+                        },
+                      }
+                    }}
                   />
                 </div>
               </Content>

@@ -43,7 +43,7 @@ export const ViewPolicyPage = (props) => {
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item
                 className="pointer"
-                onClick={() => props.history.push('/bypolicy1')}
+                onClick={() => props.history.push('/main-policy')}
               >
                 Policy Dashboard
               </Breadcrumb.Item>
