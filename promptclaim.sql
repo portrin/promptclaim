@@ -120,12 +120,6 @@ CREATE TABLE Role_in_group (
     FOREIGN KEY(group_id) REFERENCES _Group(group_id)
 );
 
-CREATE TABLE Policy_owner (
-	policy_owner_id VARCHAR(6) NOT NULL,
-    owner_type CHAR NOT NULL,
-    PRIMARY KEY(policy_owner_id)
-);
-
 CREATE TABLE Supplier (
 	supplier_id VARCHAR(6) NOT NULL,
     supplier_description VARCHAR(256),
@@ -135,8 +129,7 @@ CREATE TABLE Supplier (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(supplier_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id)
 );
 
 CREATE TABLE Product (
@@ -174,8 +167,8 @@ CREATE TABLE Policy (
     policy_period VARCHAR(80) NOT NULL,
     policy_description VARCHAR(256),
     policy_owner_id VARCHAR(6) NOT NULL,
-    PRIMARY KEY(policy_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+    owner_type VARCHAR(12) NOT NULL,
+    PRIMARY KEY(policy_id)
 );
 
 CREATE TABLE Third_party (
@@ -187,8 +180,7 @@ CREATE TABLE Third_party (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(third_party_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id)
 );
 
 CREATE TABLE Service_center (
@@ -343,11 +335,6 @@ VALUES ('000001', 'klodkup340', '000001'),
 ('000003', 'teekup340', '000003'),
 ('000004', 'porkup340', '000004');
 
-INSERT INTO Policy_owner (policy_owner_id, owner_type)
-VALUES ('000001', 'R'),
-('000002', 'S'),
-('000003', 'T');
-
 INSERT INTO Supplier (supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id)
 VALUES ('000001', 'supplier1', 'supplierName1', '0945593841', '5/117', '000001', '000002'),
 ('000002', 'supplier2', 'supplierName2', '0945593842', '5/118', '000002', '000002'),
@@ -366,10 +353,10 @@ VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00
 ('SSSSS3', 'AAAAA3', '3', 'my bed', '4000', '000003', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '3', 'warrantyphoto3'),
 ('SSSSS4', 'AAAAA4', '4', 'my sofa', '2500', '000004', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '1', 'warrantyphoto4');
 
-INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id) 
-VALUES ('001', '3 years', 'Awesome policy', '000001'),
-('002', '1 year', 'Mediocre policy', '000002'),
-('003', '0.5 year', 'Awful policy', '000003');
+INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id, owner_type) 
+VALUES ('001', '3 years', 'Awesome policy', '000001', 'R'),
+('002', '1 year', 'Mediocre policy', '000002', 'S'),
+('003', '0.5 year', 'Awful policy', '000003', 'T');
 
 INSERT INTO product_classify_as(category_id, product_no) 
 VALUES ('4', 'AAAAA1'),
