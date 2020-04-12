@@ -18,9 +18,9 @@ import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
 import WoodTable from "../pictures/woodTable.jpg";
 import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
 import Chandelier from "../pictures/chandelier.jpeg";
-import HistoryItem from "../components/HistoryItem";
+import NotificationItem from "../components/NotificationItem";
 
-const History: React.FC = () => {
+const Notification: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -34,50 +34,56 @@ const History: React.FC = () => {
           <IonListHeader>
             <h2>March</h2>
           </IonListHeader>
-          <HistoryItem
+          <NotificationItem
+            image={SamsungFrig}
+            name="Samsuang Refrigerator"
+            description="Macro"
+            expiredDate="Today"
+          />
+          <NotificationItem
             image={SamsungTV}
             name="Samsuang Television"
             description="Powerbuy"
-            expiredDate="yesterday"
+            expiredDate="in 2 days"
           />
-          <HistoryItem
+          <NotificationItem
             image={LGTV}
             name="LG Television"
             description="Central Rama3"
-            expiredDate="on 12/3"
+            expiredDate=" in 1 day"
           />
-          <HistoryItem
+          <NotificationItem
             image={ToshibaAir}
             name="Toshiba Air Conditioner"
             description="Powerbuy"
-            expiredDate="on 3/3"
+            expiredDate=""
           />
           <IonListHeader>
             <h2>January</h2>
           </IonListHeader>
-          <HistoryItem
+          <NotificationItem
             image={WoodTable}
             name="Wooden Round table "
             description="Homepro"
-            expiredDate="on 25/1"
+            expiredDate=""
           />
-          <HistoryItem
+          <NotificationItem
             image={Chandelier}
             name="Chandelier"
             description="Boonthavorn"
-            expiredDate="on 18/1"
+            expiredDate=""
           />
-          <HistoryItem
+          <NotificationItem
             image={WorkLamp}
             name="IKEA Work lamp"
             description="IKEA"
-            expiredDate="on 11/1"
+            expiredDate=""
           />
-          <HistoryItem
+          <NotificationItem
             image={SamsungFrig}
             name="Samsuang Refrigerator"
             description="Macro"
-            expiredDate="on 3/1"
+            expiredDate=""
           />
 
           <IonItemDivider color="light">
@@ -90,33 +96,28 @@ const History: React.FC = () => {
             <h2>December</h2>
           </IonListHeader>
 
-          <HistoryItem
+          <NotificationItem
             image={SamsungFrig}
             name="Samsuang Refrigerator"
             description="Macro"
-            expiredDate="on 3/1"
+            expiredDate=""
           />
-          <HistoryItem
+
+          <NotificationItem
             image={SamsungFrig}
             name="Samsuang Refrigerator"
             description="Macro"
-            expiredDate="on 3/1"
+            expiredDate=""
           />
-          <HistoryItem
+          <NotificationItem
             image={SamsungFrig}
             name="Samsuang Refrigerator"
             description="Macro"
-            expiredDate="on 3/1"
-          />
-          <HistoryItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="on 3/1"
+            expiredDate=""
           />
         </IonList>
       </IonContent>
     </IonPage>
   );
 };
-export default History;
+export default Notification;

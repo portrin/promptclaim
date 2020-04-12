@@ -26,9 +26,10 @@ import LGTV from "../pictures/LGTV.jpeg";
 import ToshibaAir from "../pictures/toshibaAir.jpg";
 import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
 import WoodTable from "../pictures/woodTable.jpg";
-
 import Product from "../components/WarrantyItem";
+
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const MyWarranty: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -42,6 +43,7 @@ const MyWarranty: React.FC = () => {
             slot="end"
             size="small"
             class="ion-no-padding"
+            routerLink="/notification"
           >
             <IonIcon
               size="medium"
