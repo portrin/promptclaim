@@ -25,7 +25,7 @@ const Notification: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="primary">
-          <IonTitle>History</IonTitle>
+          <IonTitle>Notification</IonTitle>
         </IonToolbar>
       </IonHeader>
 
