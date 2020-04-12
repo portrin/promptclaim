@@ -29,6 +29,15 @@ module.exports = class PolicyOwner {
     _delete () {
         return db.execute('DELETE FROM policy_owner WHERE policy_owner_id = ?', [this._policyOwnerId]);
     }    
+
+    // Policy
+    addPolicy(policy) {
+        checkType(policy, 'Policy');
+        this._policy.push(policy);
+        return;
+    }
 }
+
+
 
 

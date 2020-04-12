@@ -80,5 +80,14 @@ module.exports = class Supplier extends PolicyOwner {
         this._contact = contact;
         this._address = address;
     }
+    
+    //Root Account
+    addRootAccount(rootAccount) {
+        checkType(rootAccount, 'RootAccount');
+        this._rootAccount = rootAccount;
+        return;
+    }
 }
+
+
 

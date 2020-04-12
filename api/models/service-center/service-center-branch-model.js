@@ -73,7 +73,31 @@ module.exports = class ServiceCenterBranch {
         this._contact = contact;
         this._address = address;
     }
+
+    // Service Center
+    addServiceCenter(serviceCenter) {
+        checkType(serviceCenter, 'ServiceCenter');
+        this._serviceCenter = serviceCenter;
+        return;
+    }
+
+    // Policy
+    addPolicy(policy) {
+        checkType(policy, 'Policy');
+        this._policy.push(policy);
+        return;
+    }
+    
+    // Claim Log
+    addClaimLog(claimLog) {
+        checkType(claimLog, 'ClaimLog');
+        this._claimLog.push(claimLog);
+        return;
+    }
 }
+
+
+
 
 
 

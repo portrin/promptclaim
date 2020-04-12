@@ -67,4 +67,11 @@ module.exports = class ServiceCenter {
         this._serviceCenterDescription = serviceCenterDesciption;
         this._hqAddress = hqAddress;
     }
+
+    // Service Center Branch
+    addServiceCenterBranch(serviceCenterBranch) {
+        checkType(serviceCenterBranch, 'ServiceCenterBranch');
+        this._serviceCenterBranch.push(serviceCenterBranch);
+        return;
+    }
 }

@@ -69,4 +69,18 @@ module.exports = class RetailerBranch {
         this._address = address;
     }
 
+    // Retailer
+    addRetailer(retailer) {
+        checkType(retailer, 'Retailer');
+        this._retailer = retailer;
+        return;
+    }
+
+    // Purchased Product
+    addPurchasedProduct(purchasedProduct) {
+        checkType(purchasedProduct, 'PurchasedProduct');
+        this._purchasedProduct.push(purchasedProduct);
+        return;
+    }
 }
+

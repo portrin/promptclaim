@@ -61,7 +61,7 @@ module.exports = class ThirdParty extends PolicyOwner {
         name = this._name,
         contact = this._contact,
         address = this._address,
-        thirdPartyDescription = this._thirdPartyDescription  
+        thirdPartyDescription = this._thirdPartyDescription
     }) {
         // check datatype
         checkType(policyOwnerId, 'String');
@@ -72,7 +72,7 @@ module.exports = class ThirdParty extends PolicyOwner {
         checkType(address, 'String');
         checkType(thirdPartyDescription, 'String');
         // assign to private variables
-        this.policyOwnerId = policyOwnerId; 
+        this.policyOwnerId = policyOwnerId;
         this.ownerType = ownerType;
         this._thirdPartyId = thirdPartyId;
         this._name = name;
@@ -80,4 +80,13 @@ module.exports = class ThirdParty extends PolicyOwner {
         this._address = address;
         this._thirdPartyDescription = thirdPartyDescription;
     }
+
+    //Root Account
+    addRootAccount(rootAccount) {
+        checkType(rootAccount, 'RootAccount');
+        this._rootAccount = rootAccount;
+        return;
+    }
 }
+
+

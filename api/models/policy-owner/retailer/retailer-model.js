@@ -88,5 +88,21 @@ module.exports = class Retailer extends PolicyOwner {
         this._contact = contact;
         this._hqAddress = hqAddress;
     }
+
+    // Retailer Branch
+    addRetailerBranch(retailerBranch) {
+        checkType(retailerBranch, 'RetailerBranch');
+        this._retailerBranch.push(retailerBranch);
+        return;
+    }
+
+    //Root Account
+    addRootAccount(rootAccount) {
+        checkType(rootAccount, 'RootAccount');
+        this._rootAccount = rootAccount;
+        return;
+    }
 }
+
+
 
