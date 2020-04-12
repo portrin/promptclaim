@@ -133,9 +133,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               >
                 View Policy
               </IonButton>
-              <IonButton expand="block" href="http://www.instagram.com/somd99">
-                Log Claim Date
+              
+              <IonButton expand="block" routerLink="/addClaimDate" >
+                Add Claim Date
               </IonButton>
+          
             </IonGrid>
 
             <IonListHeader>Warranty Information</IonListHeader>

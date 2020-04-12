@@ -32,6 +32,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const MyWarranty: React.FC = () => {
+  
   const [searchText, setSearchText] = useState("");
   return (
     <IonPage>

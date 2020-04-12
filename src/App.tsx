@@ -17,6 +17,7 @@ import MyWarranty from "./pages/MyWarranty";
 import AddWarranty from "./pages/AddWarranty";
 import DynamicWarrantyInfo from "./pages/DynamicWarrantyInfo";
 import Notification from "./pages/Notification";
+import AddClaimDate from "./pages/AddClaimDate"
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -49,6 +50,7 @@ const App: React.FC = () => {
             <Route path="/addWarranty" component={AddWarranty} />
             <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
             <Route path="/notification" component={Notification} />
+            <Route path="/AddClaimDate" component={AddClaimDate}/>
 
             <Route
               exact={true}
