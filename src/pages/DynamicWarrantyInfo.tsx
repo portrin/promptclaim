@@ -104,6 +104,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                           window.location.href = "tel:0895511663";
                         },
                       },
+
                       {
                         text: "Contact Retailer",
                         icon: call,
