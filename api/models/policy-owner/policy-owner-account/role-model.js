@@ -3,6 +3,7 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class Role {
     constructor({username = null, password = null, roleName = null, roleDescription = null} = {}) {
+        // their own class atrribute ref. from class diagram
         this._username = username
         this._password = password
         this._roleName = roleName

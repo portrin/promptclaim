@@ -3,6 +3,7 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class Group {
     constructor({groupId = null, groupName = null, groupDescription = null} = {}){
+        // their own class atrribute ref. from class diagram
         this._groupId = groupId
         this._groupName = groupName
         this._groupDescription = groupDescription 
