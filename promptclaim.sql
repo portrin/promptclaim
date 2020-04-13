@@ -176,8 +176,10 @@ CREATE TABLE Policy (
 	policy_id VARCHAR(6) NOT NULL,
     policy_period VARCHAR(80) NOT NULL,
     policy_description VARCHAR(256),
+    date_created DATE NOT NULL,
     policy_owner_id VARCHAR(6) NOT NULL,
-    PRIMARY KEY(policy_id)
+    PRIMARY KEY(policy_id),
+    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id)
 );
 
 CREATE TABLE Third_party (
@@ -379,10 +381,10 @@ VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00
 ('SSSSS3', 'AAAAA3', '3', 'my bed', '4000', '000003', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '3', 'warrantyphoto3'),
 ('SSSSS4', 'AAAAA4', '4', 'my sofa', '2500', '000004', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '1', 'warrantyphoto4');
 
-INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id) 
-VALUES ('001', '3 years', 'Awesome policy', '000001'),
-('002', '1 year', 'Mediocre policy', '000002'),
-('003', '0.5 year', 'Awful policy', '000003');
+INSERT INTO policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) 
+VALUES ('001', '3 years', 'Awesome policy', DATE'2020-12-15', 'IKEA01'),
+('002', '1 year', 'Mediocre policy', DATE'2020-1-9', 'BTV002'),
+('003', '0.5 year', 'Awful policy', DATE'2020-4-13', 'ZARA04');
 
 INSERT INTO product_classify_as(category_id, product_no) 
 VALUES ('4', 'AAAAA1'),
