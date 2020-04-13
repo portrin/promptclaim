@@ -2,7 +2,7 @@ const db = require('../../config/db');
 const Product = require('./product-model');
 const checkType = require('../../utils').checkType;
 
-module.exports = class PurchasedProduct extends Product {
+module.exports = class PurchasedProduct {
     constructor({uuid=null, productNickName = null, serialNo=null, price=null, invoiceID=null, isValidate=null, productPhoto=null, claimQty=null, timestamp=null, invoicePhoto=null, warrantyPhoto=null, policyStartDate=null, policyEndDate=null} = {}) {
         // their attribute from the class
         this._uuid = uuid; 
