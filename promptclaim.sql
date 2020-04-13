@@ -47,6 +47,12 @@ CREATE TABLE Root_account (
     PRIMARY KEY(root_id)
 );
 
+CREATE TABLE Policy_owner (
+    policy_owner_id VARCHAR(6) NOT NULL,
+    owner_type VARCHAR(12) NOT NULL,
+    PRIMARY KEY (policy_owner_id)
+);
+
 CREATE TABLE Retailer (
 	retailer_id VARCHAR(6) NOT NULL,
     contact vARCHAR(12) NOT NULL,
@@ -56,7 +62,9 @@ CREATE TABLE Retailer (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(retailer_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+
 );
 
 CREATE TABLE Retailer_branch (
@@ -129,7 +137,8 @@ CREATE TABLE Supplier (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(supplier_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
 );
 
 CREATE TABLE Product (
@@ -168,7 +177,6 @@ CREATE TABLE Policy (
     policy_period VARCHAR(80) NOT NULL,
     policy_description VARCHAR(256),
     policy_owner_id VARCHAR(6) NOT NULL,
-    owner_type VARCHAR(12) NOT NULL,
     PRIMARY KEY(policy_id)
 );
 
@@ -181,7 +189,8 @@ CREATE TABLE Third_party (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(third_party_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
 );
 
 CREATE TABLE Service_center (
@@ -236,6 +245,7 @@ CREATE TABLE Product_has_policy (
     uuid INT NOT NULL,
     policy_start_date DATE,
     policy_end_date DATE,
+    timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid)
@@ -290,6 +300,17 @@ VALUES ('000001','IKEA', 'Ikeapassword','S'),
 ('000003','Show Huay', 'showhuaypwd','T'),
 ('000004','ZARA HOME', 'ZARApwd','R');
 
+INSERT INTO Policy_owner(policy_owner_id, owner_type) 
+VALUES ('IKEA01', 'R'),
+('BTV002', 'R'),
+('ZARA04', 'R'),
+('SUP01', 'S'),
+('SUP02', 'S'),
+('SUP03', 'S'),
+('SUP04', 'S'),
+('SH01', 'T');
+
+
 INSERT INTO Retailer(retailer_id, contact, name, hq_address, retailer_description, root_id, policy_owner_id)
 VALUES ('000001','0972279898', 'IKEA','Bangna','Furnitures imported from Sweden','000001','IKEA01'),
 ('000002','0972279898', 'Boothavorn','Suhhumvit53','Mostly about floor','000002','BTV002'),
@@ -341,10 +362,10 @@ VALUES ('000001', 'klodkup340', '000001'),
 ('000004', 'porkup340', '000004');
 
 INSERT INTO Supplier (supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id)
-VALUES ('000001', 'supplier1', 'supplierName1', '0945593841', '5/117', '000001', '000002'),
-('000002', 'supplier2', 'supplierName2', '0945593842', '5/118', '000002', '000002'),
-('000003', 'supplier3', 'supplierName3', '0945593843', '5/119', '000003', '000002'),
-('000004', 'supplier4', 'supplierName4', '0945593844', '5/120', '000004', '000002');
+VALUES ('000001', 'supplier1', 'supplierName1', '0945593841', '5/117', '000001', 'SUP01'),
+('000002', 'supplier2', 'supplierName2', '0945593842', '5/118', '000002', 'SUP02'),
+('000003', 'supplier3', 'supplierName3', '0945593843', '5/119', '000003', 'SUP03'),
+('000004', 'supplier4', 'supplierName4', '0945593844', '5/120', '000004', 'SUP04');
 
 INSERT INTO Product (product_no, product_model, product_name, product_description, supplier_id)
 VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
@@ -358,10 +379,10 @@ VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00
 ('SSSSS3', 'AAAAA3', '3', 'my bed', '4000', '000003', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '3', 'warrantyphoto3'),
 ('SSSSS4', 'AAAAA4', '4', 'my sofa', '2500', '000004', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '1', 'warrantyphoto4');
 
-INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id, owner_type) 
-VALUES ('001', '3 years', 'Awesome policy', '000001', 'R'),
-('002', '1 year', 'Mediocre policy', '000002', 'S'),
-('003', '0.5 year', 'Awful policy', '000003', 'T');
+INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id) 
+VALUES ('001', '3 years', 'Awesome policy', '000001'),
+('002', '1 year', 'Mediocre policy', '000002'),
+('003', '0.5 year', 'Awful policy', '000003');
 
 INSERT INTO product_classify_as(category_id, product_no) 
 VALUES ('4', 'AAAAA1'),
@@ -369,11 +390,11 @@ VALUES ('4', 'AAAAA1'),
 ('3', 'AAAAA3'),
 ('4', 'AAAAA4');
 
-INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date) 
-VALUES ('001', '1', DATE'2020-03-30', DATE'2020-12-15'),
-('002', '2', DATE'2020-04-02', DATE'2020-12-18'),
-('003', '3', DATE'2020-03-31', DATE'2020-12-16'),
-('001', '4', DATE'2020-04-01', DATE'2020-12-17');
+INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
+VALUES ('001', '1', DATE'2020-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:00:01'),
+('002', '2', DATE'2020-04-02', DATE'2020-12-18', TIMESTAMP'2008-01-01 00:00:02'),
+('003', '3', DATE'2020-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),
+('001', '4', DATE'2020-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04');
 
 INSERT INTO service_center(service_center_id, name, hq_address, service_center_description)
 VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
@@ -394,7 +415,7 @@ VALUES ('001', '1', '1'),
 ('003', '1', '2');
 
 INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id)
-VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', '000003');
+VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
 INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, branch_id)
 VALUES ('000001', 'status1', '2020-03-03', '1', '1', '1'),

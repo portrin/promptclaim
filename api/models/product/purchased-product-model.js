@@ -1,11 +1,12 @@
 const db = require('../../config/db');
 const Product = require('./product-model');
-const checkType = require('../../utils');
+const checkType = require('../../utils').checkType;
 
-module.exports = class PurchasedProduct extends Product {
-    constructor({productNo=null, productName=null, productModel=null, productDescription=null, serialNo=null, price=null, invoiceID=null, isValidate=null, productPhoto=null, claimQty=null, timestamp=null, invoicePhoto=null, warrantyPhoto=null, policyStartDate=null, policyEndDate=null} = {}) {
-        super(productNo, productName, productModel, productDescription); 
+module.exports = class PurchasedProduct {
+    constructor({uuid=null, productNickName = null, serialNo=null, price=null, invoiceID=null, isValidate=null, productPhoto=null, claimQty=null, timestamp=null, invoicePhoto=null, warrantyPhoto=null, policyStartDate=null, policyEndDate=null, policyTimestamp=null} = {}) {
         // their attribute from the class
+        this._uuid = uuid; 
+        this._productNickName = productNickName;
         this._serialNo = serialNo;
         this._price = price;
         this._invoiceId = invoiceID;
@@ -17,13 +18,20 @@ module.exports = class PurchasedProduct extends Product {
         this._warrantyPhoto = warrantyPhoto;
         this._policyStartDate = policyStartDate;
         this._policyEndDate = policyEndDate; 
+        this._policyTimestamp = policyTimestamp;
 
         // relationship
+        this._product = []; // from product class
+
         this._customer = null; //from customer class
       
-        this._claimLog = [];
+        this._claimLog = []; //from claimLog class
+
+        this._productCategory = []; //from productCategory class
 
         this._retailerBranch = null; //from retailer branch
+
+        this._policy = []; //from policy class
  
         
 
@@ -35,9 +43,10 @@ module.exports = class PurchasedProduct extends Product {
     _create() {
         console.log(this);
         return db.execute(
-            'INSERT INTO purchased_product (serial_no, product_no, customer_id, price, invoice_id, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [this._serialNo,
-            this._productNo,
+            'INSERT INTO purchased_product (product_nickname, serial_no, product_no, customer_id, price, invoice_id, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo,) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [this.productNickName,
+            this._serialNo,
+            this._product.getProperty.productNo,
             this._customer.getProperty.customerId,
             this._price,
             this._invoiceId,
@@ -53,6 +62,13 @@ module.exports = class PurchasedProduct extends Product {
         );
     }
 
+    static _readByuuid(uuid) {
+        return db.execute(
+            'SELECT * FROM purchased_product NATURAL JOIN product where uuid = ?',
+            [uuid]
+        );
+    };
+
     static _readByKey(serialNo, productNo) {
         return db.execute(
             'SELECT * FROM purchased_product NATURAL JOIN product WHERE serial_no = ? AND product_no = ? ',
@@ -60,17 +76,21 @@ module.exports = class PurchasedProduct extends Product {
             );
     };
 
-    static _read() {
+    _read() {
         return db.execute(
-            'SELECT * FROM purchased_product NATURAL JOIN product',
+            'SELECT * FROM purchased_product NATURAL JOIN product WHERE uuid = ?',
+            [this._uuid]
         );
     };
 
 
     _update() {
         return db.execute(
-            'UPDATE purchased_product SET customer_id = ?, price = ?, invoice_id = ?, timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE serial_no = ? AND product_no = ?  ',
-            [this._customer.getProperty.customerId,
+            'UPDATE purchased_product SET product_nickname = ?, serial_no = ? AND product_no = ?, customer_id = ?, price = ?, invoice_id = ?, timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE   ',
+            [this.productNickName,
+            this._serialNo,
+            this._product.getProperty.productNo,
+            this._customer.getProperty.customerId,
             this._price,
             this._invoiceID,
             this._timestamp,
@@ -81,11 +101,17 @@ module.exports = class PurchasedProduct extends Product {
             this._productPhoto,
             this._claimQty,
             this._warrantyPhoto,
-            this._serialNo,
-            this._productNo,   
+            this._uuid
         ]
         );              
     };
+
+    static _deleteByuuid(uuid) {
+        return db.execute(
+            'DELETE FROM purchased_product WHERE uuid = ?',
+            [uuid]
+        );
+    }   
 
     static _deleteByKey(serialNo, productNo) {
         return db.execute(
@@ -107,11 +133,6 @@ module.exports = class PurchasedProduct extends Product {
     //Problem Domain Getter&Setter
     get getProperty () {
         return {
-            productNo: this.productNo,
-            productName: this.productName,
-            productModel: this.productModel,
-            productDescription: this.productDescription,
-
             serialNo: this._serialNo,
             price: this._price,
             invoiceId: this._invoiceId,
@@ -121,12 +142,17 @@ module.exports = class PurchasedProduct extends Product {
             timestamp: this.timestamp,
             invoicePhoto: this._invoicePhoto,
             warrantyPhoto: this._warrantyPhoto,
-
-            customerId: this._customerId,
             policyStartDate: this._policyStartDate,
             policyEndDate: this._policyEndDate,
-            retailerId: this._retailerId,
-            branchId: this._branchId
+            policyTimestamp:this._policyTimestamp,
+
+            product: this._product,
+            customer: this._customer,   
+            claimLog: this._claimLog,
+            productCategory: this._productCategory,
+            retailerBranch: this._retailerBranch,
+            policy: this._policy
+            
         };
     };
 
@@ -134,11 +160,9 @@ module.exports = class PurchasedProduct extends Product {
     set setProperty({
         // set its own property
         // destructuring object as parameter by using old values as a default.
-        productNo = this.productNo,
-        productName = this.productName,
-        productModel = this.productModel,
-        productDescription = this.productDescription,
 
+        uuid = this._uuid,
+        productNickName = this._productNickName,
         serialNo = this._serialNo,
         price = this._price,
         invoiceId = this._invoiceId,
@@ -150,11 +174,8 @@ module.exports = class PurchasedProduct extends Product {
         warrantyPhoto = this._warrantyPhoto
     }) {
         //check datatype
-        checkType(productNo, 'String');
-        checkType(productName, 'String');
-        checkType(productModel, 'String');
-        checkType(productDescription, 'String');
-
+        checkType(uuid, 'Number')
+        checkType(productNickName, 'String');
         checkType(serialNo, 'String');
         checkType(price, 'Number');
         checkType(invoiceId, 'String');
@@ -166,11 +187,8 @@ module.exports = class PurchasedProduct extends Product {
         checkType(warrantyPhoto, 'String');
 
         //assign to private vaiable
-        this.productNo = productNo;
-        this.productName = productName;
-        this.productModel = productModel;
-        this.productDescription = productDescription;
-
+        this._uuid = uuid;
+        this._productNickName = productNickName;
         this._serialNo = serialNo;
         this._price = price;
         this._invoiceId = invoiceId;
@@ -182,6 +200,12 @@ module.exports = class PurchasedProduct extends Product {
         this._warrantyPhoto = warrantyPhoto;
 
     };
+
+    addProduct(product){
+        checkType(product, 'Product');
+        this._product.push(product);
+        return;
+    }
 
     addCustomer(customer) {
         checkType(customer, 'Customer');
@@ -198,6 +222,18 @@ module.exports = class PurchasedProduct extends Product {
     addClaimLog(claimLog) {
         checkType(claimLog, 'ClaimLog');
         this._claimLog.push(claimLog);
+        return;
+    };
+
+    addProductCategory(productCategory) {
+        checkType(productCategory, 'ProductCategory');
+        this._productCategory.push(productCategory);
+        return;
+    };
+
+    addPolicy(policy) {
+        checkType(policy, 'Policy');
+        this._policy.push(policy);
         return;
     };
 };

@@ -1,6 +1,6 @@
 const db = require('../../config/db')
 const ProductCategory = require('./product-category-model');
-const checkType = require('../../utils');
+const checkType = require('../../utils').checkType;
 
 module.exports = class Product {
     constructor({productNo=null, productName=null, productModel=null, productDescription=null} = {}) {

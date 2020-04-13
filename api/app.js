@@ -22,7 +22,12 @@ const productRoutes = require('./routes/product-route');
 app.use('/product', productRoutes);
 
 
+
+
+
 // start server
 app.listen(PORT, () => {
     console.log(`server starts on port ${PORT}`);
 })
+
+
