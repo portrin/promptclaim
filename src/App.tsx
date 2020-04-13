@@ -19,6 +19,7 @@ import DynamicWarrantyInfo from "./pages/DynamicWarrantyInfo";
 import Notification from "./pages/Notification";
 import AddClaimDate from "./pages/AddClaimDate"
 
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RefresherEventDetail } from "@ionic/core";
 import {
   IonRefresherContent,
@@ -27,6 +27,16 @@ import {
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
+import Product from "../components/WarrantyItem";
+export interface Character {
+  name: string;
+  char_id: string;
+  img: string;
+  status: string;
+}
+export interface Itemprops {
+  item: Character;
+}
 
 interface RouteParam {
   id: string;
@@ -45,6 +55,19 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   console.log(match);
   console.log(match.params);
   console.log(match.params.id);
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  const [item, setItem] = useState<Character[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch(
+      "https://www.breakingbadapi.com/api/characters/" + match.params.id
+    );
+
+    const item = await data.json();
+    setItem(item);
+    console.log(item);
+  };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
@@ -59,24 +82,40 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     src: string;
     text: string;
   };
-  const items: Item[] = [
-    { src: "http://placekitten.com/g/200/300", text: "a picture of a cat" },
-  ];
+
   return (
     <IonPage>
       <IonContent>
         <IonInfiniteScroll>
           <IonCard color="light">
-            <IonCardHeader>
-              <IonIcon
-                size="large"
-                class="ion-float-right"
-                icon={closeCircle}
-              ></IonIcon>
-              <IonCardTitle>Wooden Chair</IonCardTitle>
-              <IonCardSubtitle>IKEA</IonCardSubtitle>
-            </IonCardHeader>
-            <IonImg src="https://www.pngitem.com/pimgs/m/517-5178677_wood-chair-png-free-image-best-wooden-office.png"></IonImg>
+            <IonRow>
+              <IonCol>
+                <IonCardHeader>
+                  {item.map((item) => (
+                    <IonCardTitle>{item.name}</IonCardTitle>
+                  ))}
+                  {item.map((item) => (
+                    <IonCardSubtitle>{item.status}</IonCardSubtitle>
+                  ))}
+                  
+                </IonCardHeader>
+              </IonCol>
+              <IonCol>
+                <IonButton
+                  class="ion-float-right"
+                  size="small"
+                  fill="clear"
+                  routerLink="/myWarranty"
+                  routerDirection="root"
+                >
+                  <IonIcon size="large" icon={closeCircle}></IonIcon>
+                </IonButton>
+              </IonCol>
+            </IonRow>
+            {item.map((item) => (
+                    <IonImg src={item.img}></IonImg>
+                  ))}
+            
 
             <IonGrid>
               <IonRow>
@@ -254,7 +293,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               isOpen={showToast1}
               onDidDismiss={() => setShowToast1(false)}
               message=" You will be noitified 3 days before the period ends"
-              duration={10000}
+              duration={1000}
             />
           </IonCard>
         </IonInfiniteScroll>
