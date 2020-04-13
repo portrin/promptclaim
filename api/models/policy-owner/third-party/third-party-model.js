@@ -15,14 +15,10 @@ module.exports = class ThirdParty {
     }
 
     //DM Layer CRUD
-    async _create() {
-        const result = [];
-        result.push(await db.execute('INSERT INTO policy_owner (policy_owner_id, owner_type) VALUES (?, ?)',
-            [this._policyOwner.getProperty.policyOwnerId, this._policyOwner.getProperty.ownerType]
-        ));
-        result.push(await db.execute('INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
+    _create() {
+        return db.execute('INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
             [this._thirdPartyId, this._address, this._name, this._contact, this._thirdPartyDescription, this._rootAccount.getProperty.rootId, this._policyOwner.getProperty.policyOwnerId]
-        ));
+        );
     }
 
     _read() {
