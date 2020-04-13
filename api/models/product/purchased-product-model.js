@@ -76,9 +76,10 @@ module.exports = class PurchasedProduct {
             );
     };
 
-    static _read() {
+    _read() {
         return db.execute(
-            'SELECT * FROM purchased_product NATURAL JOIN product',
+            'SELECT * FROM purchased_product NATURAL JOIN product WHERE uuid = ?',
+            [this._uuid]
         );
     };
 
