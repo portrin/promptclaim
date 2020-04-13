@@ -142,6 +142,7 @@ module.exports = class Customer {
         return;
     }
 
+    // REFACTOR NEEDED !!
     editClaimLog(purchasedProduct, obj = {}) {
         checkType(purchasedProduct, 'PurchasedProduct');
         const index = this._purchasedProduct.indexOf(purchasedProduct);
@@ -151,6 +152,7 @@ module.exports = class Customer {
         return;
     }
 
+    // REFACTOR NEEDED !!
     deleteClaimLog(purchasedProduct, claimLog) {
         checkType(purchasedProduct, 'PurchasedProduct');
         checkType(claimLog, 'ClaimLog');

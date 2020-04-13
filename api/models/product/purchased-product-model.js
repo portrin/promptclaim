@@ -225,6 +225,10 @@ module.exports = class PurchasedProduct {
         return;
     };
 
+    editClaimLog(claimLog) {
+        checkType
+    }
+
     addProductCategory(productCategory) {
         checkType(productCategory, 'ProductCategory');
         this._productCategory.push(productCategory);

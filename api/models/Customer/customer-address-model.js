@@ -20,7 +20,7 @@ module.exports = class CustomerAddress {
         return db.execute(
             'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
             [this._customer.getProperty.customerId,
-            this.addressId,
+            this._addressId,
             this._houseNo,
             this._street,
             this._subDistrict,
@@ -30,6 +30,14 @@ module.exports = class CustomerAddress {
             ]
         )
     }
+
+    _read() {
+        return db.execute(
+            'SELECT * FROM Customer_address WHERE customer_id = ? AND account_id = ?',
+            [this._customer.getProperty.customerId, this._addressId]
+        )
+    }
+
     static _readByCustomerId(customerId){
         return db.execute(
             'SELECT * FROM Customer_address WHERE customer_id = ?',
@@ -37,10 +45,10 @@ module.exports = class CustomerAddress {
         )
     }
 
-    static _readByPK(customerId){
+    static _readByPK(customerId, addressId){
         return db.execute(
             'SELECT * FROM Customer_address WHERE customer_id = ? AND address_id = ?',
-            [customerId, this._addressId]
+            [customerId, addressId]
         )
     }
 
@@ -69,14 +77,14 @@ module.exports = class CustomerAddress {
     //getter and setter
     get getProperty() {
         return {
-        addressId : this._addressId,
-        houseNo : this._houseNo,
-        street : this._street,
-        subDistrict : this._subDistrict, 
-        district : this._district,
-        province : this._province, 
-        zipcode : this._zipcode,
-        customer : this._customer
+        addressId: this._addressId,
+        houseNo: this._houseNo,
+        street: this._street,
+        subDistrict: this._subDistrict, 
+        district: this._district,
+        province: this._province, 
+        zipcode: this._zipcode,
+        customer: this._customer
         };
     }
     

@@ -20,7 +20,7 @@ module.exports = class CustomerAccount{
         this._email]);
     }
 
-    static _read () {
+    _read () {
         return db.execute(
             'SELECT * FROM Customer_account WHERE account_id = ?', 
             [this._accountId]

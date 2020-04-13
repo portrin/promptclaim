@@ -1,4 +1,5 @@
 const db = require('../../config/db');
+const checkType = require('../../utils').checkType;
 
 module.exports = class Notification {
     constructor({notiId=null, message=null, timestamp=null} = {}) {
