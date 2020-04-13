@@ -4,6 +4,7 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class RootAccount {
     constructor({rootId = null, username = null, password = null, type = null} = {}) {
+        // their own class atrribute ref. from class diagram
         this._rootId = rootId
         this._username = username
         this._password = password

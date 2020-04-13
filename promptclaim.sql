@@ -426,15 +426,15 @@ VALUES ('000001', 'status1', '2020-03-03', '1', '1', '1'),
 CREATE TABLE Notification (
 	noti_id VARCHAR(6) NOT NULL,
 	message VARCHAR(256) NOT NULL,
-	customer_id VARCHAR(6) NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+	timestamp TIMESTAMP NOT NULL,
+    customer_id VARCHAR(6) NOT NULL,
     PRIMARY KEY (noti_id),
 	FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)); 
     
-INSERT INTO notification(noti_id, message, customer_id, timestamp) 
-VALUES ('01', 'The product has been claimed', '1', '2020-01-18 11:00:01'),
-('02', 'Expiration date tomorrow', '2', '2020-02-18 11:00:01'),
-('03', 'Promotion for curry', '3', '2020-03-18 11:00:01');
+INSERT INTO notification(noti_id, message, timestamp, customer_id) 
+VALUES ('01', 'The product has been claimed', '2020-01-18 11:00:01', '1'),
+('02', 'Expiration date tomorrow', '2020-02-18 11:00:01', '2'),
+('03', 'Promotion for curry', '2020-03-18 11:00:01', '3');
 
 INSERT INTO Pp_classify_as(uuid, category_id)
 VALUES ('1','1'),

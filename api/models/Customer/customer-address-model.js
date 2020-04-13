@@ -4,6 +4,7 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class CustomerAddress {
     constructor({addressId = null, houseNo = null, street = null, subDistrict = null, district = null, province = null, zipcode = null} = {}){
+        // their own class atrribute ref. from class diagram
         this._addressId = addressId;
         this._houseNo = houseNo;
         this._street = street; 

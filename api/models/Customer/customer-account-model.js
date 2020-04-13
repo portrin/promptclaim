@@ -3,6 +3,7 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class CustomerAccount{
     constructor({accountId = null, username = null, password = null, email = null} = {}){
+        // their own class atrribute ref. from class diagram
         this._accountId = accountId
         this._username = username;
         this._password = password; 

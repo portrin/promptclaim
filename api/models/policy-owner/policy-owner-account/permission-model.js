@@ -3,6 +3,7 @@ const checkType = require('../../utils').checkType;
 
 module.exports = class Permission {
     constructor({perId = null, perName = null, perDescription = null, perModule = null} = {}){
+        // their own class atrribute ref. from class diagram
         this._perId = perId
         this._perName = perName
         this._perDescription = perDescription 
