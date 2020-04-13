@@ -61,22 +61,41 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   return (
     <IonPage>
       <IonContent>
+        
         <IonInfiniteScroll>
           <IonCard color="light">
+          
+             <IonRow>
+              <IonCol>
             <IonCardHeader>
-              <IonIcon
-                size="large"
-                class="ion-float-right"
-                icon={closeCircle}
-              ></IonIcon>
-              <IonCardTitle>Wooden Chair</IonCardTitle>
+              
+              <IonCardTitle>Chair</IonCardTitle>
               <IonCardSubtitle>IKEA</IonCardSubtitle>
             </IonCardHeader>
+            </IonCol>
+            <IonCol>
+            <IonButton
+    
+    class="ion-float-right"
+    size="small"
+    fill="clear"
+    routerLink="/myWarranty"
+    routerDirection='root'
+  >
+    <IonIcon
+      size="large"
+   
+      icon={closeCircle}
+    ></IonIcon>
+  </IonButton>
+            </IonCol>
+           </IonRow>
             <IonImg src="https://www.pngitem.com/pimgs/m/517-5178677_wood-chair-png-free-image-best-wooden-office.png"></IonImg>
 
             <IonGrid>
               <IonRow>
                 <IonCol>
+                  
                   <IonButton
                     fill="outline"
                     size="large"
@@ -134,11 +153,10 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               >
                 View Policy
               </IonButton>
-              
-              <IonButton expand="block" routerLink="/addClaimDate" >
+
+              <IonButton expand="block" routerLink="/addClaimDate">
                 Add Claim Date
               </IonButton>
-          
             </IonGrid>
 
             <IonListHeader>Warranty Information</IonListHeader>
@@ -251,7 +269,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               isOpen={showToast1}
               onDidDismiss={() => setShowToast1(false)}
               message=" You will be noitified 3 days before the period ends"
-              duration={10000}
+              duration={1000}
             />
           </IonCard>
         </IonInfiniteScroll>
