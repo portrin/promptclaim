@@ -3,9 +3,9 @@ const PolicyOwner = require('../policy-owner-model');
 const checkType = require('../../../utils').checkType;
 
 module.exports = class Retailer extends PolicyOwner {
-    constructor({ policyOwnerId = null, ownerType = null, retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
+    constructor({ policyOwnerId = null, retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
         // their own class atrribute ref. from class diagram
-        super(policyOwnerId, ownerType);
+        super(policyOwnerId);
         this._retailerId = retailerId;
         this._name = name;
         this._retailerDescription = retailerDescription;

@@ -2,6 +2,7 @@ const Customer = require('../models/customer/customer-model');
 const db = require('../config/db');
 const Product = require('../models/product/product-model');
 const Retailer = require('../models/policy-owner/retailer/retailer-model');
+const checkType = require('../utils').checkType;
 
 const customer = new Customer({
     customerId: '1',
@@ -16,16 +17,12 @@ const customer = new Customer({
 
 const retailer = new Retailer({
     policyOwnerId: '09123',
-    ownerType: 'T',
     retailerId: '000833',
     contact: 'dasfaf',
     name: 'kuy',
     hqAddress: 'CX'
 });
 
-const a = async () => {
-    const res = await retailer._create();
-    console.log(res);
-}
-
-a();
+console.log(Object.getPrototypeOf(retailer).name)
+console.log(retailer.constructor.name)
+checkType(retailer, 'PolicyOwr');
