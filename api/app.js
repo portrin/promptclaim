@@ -1,11 +1,13 @@
 // require library
 const express = require('express');
+const dotenv = require('dotenv');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 const app = express();
+dotenv.config();
 
 // declare constant values
-const PORT = process.env.ports || 8001;
+const PORT = process.env.API_PORT || 8001;
 
 // setup middleware
 app.use(morgan('dev'));
