@@ -18,8 +18,8 @@ module.exports = class Policy {
     _create() {
         //get policyOwnerId
         return db.execute(
-            'INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id) VALUES (?, ?, ?, ?)',
-            [this._policyId, this._policyPeriod, this._policyDescription, this._policyOwner.getProperty.policyOwnerId]
+            'INSERT INTO policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) VALUES (?, ?, ?, ?, ?)',
+            [this._policyId, this._policyPeriod, this._policyDescription, this._dateCreated, this._policyOwner.getProperty.policyOwnerId]
         );
     }
 
@@ -27,13 +27,17 @@ module.exports = class Policy {
         return db.execute('SELECT * FROM policy WHERE policy_id = ?', [this._policyId]);
     }
 
+    static _read() {
+        return db.execute('SELECT * FROM policy');
+    }
+
     static _readByPolicyId(policyId) {
         return db.execute('SELECT * FROM policy WHERE policy_id = ?', [policyId]);
     }
 
     _update() {
-        return db.execute('UPDATE policy SET policy_period = ?, policy_description = ?, policy_owner_id = ? WHERE policy_id = ?',
-            [this._policyPeriod, this._policyDescription, this._policyOwner.getProperty.policyOwnerId, this._policyId]);
+        return db.execute('UPDATE policy SET policy_period = ?, policy_description = ?, date_created = ?, policy_owner_id = ? WHERE policy_id = ?',
+            [this._policyPeriod, this._policyDescription, this._dateCreated, this._policyOwner.getProperty.policyOwnerId, this._policyId]);
     }
 
     _delete() {
@@ -43,13 +47,13 @@ module.exports = class Policy {
     // getter and setter
     get getProperty() {
         return {
-            policyId = this._policyId,
-            policyPeriod = this._policyPeriod,
-            policyDescription = this._policyDescription,
-            dateCreated = this._dateCreated,
-            policyOwner = this._policyOwner,
-            serviceCenterBranch = this._serviceCenterBranch,
-            purchasedProduct = this._purchasedProduct,
+            policyId: this._policyId,
+            policyPeriod: this._policyPeriod,
+            policyDescription: this._policyDescription,
+            dateCreated: this._dateCreated,
+            policyOwner: this._policyOwner,
+            serviceCenterBranch: this._serviceCenterBranch,
+            purchasedProduct: this._purchasedProduct
         };
     }
 

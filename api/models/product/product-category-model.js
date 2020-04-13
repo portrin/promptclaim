@@ -1,5 +1,4 @@
 const db = require('../../config/db');
-const Product = require('./product-model');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ProductCategory {
@@ -7,10 +6,9 @@ module.exports = class ProductCategory {
         //class attribute
         this._categoryId = categoryId;
         this._categoryName = categoryName;
-
         //relationships
         this._product = []; //from product class
-        this._purchaedProduct = []; //from purchasedProduct class
+        this._purchasedProduct = []; //from purchasedProduct class
     };
 
     //CRUD METHOD
@@ -27,6 +25,13 @@ module.exports = class ProductCategory {
         );
     };
 
+    static _readByCategoryId(categoryId) {
+        return db.execute(
+            'SELECT * FROM product_category WHERE category_id = ?',
+            [categoryId]
+        )
+    }
+
     _update() {
         return db.execute(
             'UPDATE product_category SET category_name = ? WHERE category_id = ?',
@@ -41,16 +46,13 @@ module.exports = class ProductCategory {
         );
     };
 
-//------------------------------------------------------------------------------------------------------------------------------------------
     //PROBLEM DOMAIN METHOD
     get getProperty () {
         return{
             categoryId: this._categoryId,
             categoryName: this._categoryName,
-
             product: this._product,
-            purchasedProduct: this._purchaedProduct
-
+            purchasedProduct: this._purchasedProduct
         };
     };
 
@@ -61,7 +63,6 @@ module.exports = class ProductCategory {
     }) {
         checkType(categoryId, 'String');
         checkType(categoryName, 'String');
-
         this._categoryId = categoryId;
         this._categoryName = categoryName;
     };

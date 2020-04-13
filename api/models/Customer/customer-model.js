@@ -142,17 +142,16 @@ module.exports = class Customer {
         return;
     }
 
-    // REFACTOR NEEDED !!
-    editClaimLog(purchasedProduct, obj = {}) {
+    editPurchasedProduct(purchasedProduct, claimLog, obj = {}) {
         checkType(purchasedProduct, 'PurchasedProduct');
+        checkType(claimLog, 'ClaimLog');
         const index = this._purchasedProduct.indexOf(purchasedProduct);
         if(index > -1) {
-            this._purchasedProduct[index].editClaimLog(obj);
+            this._purchasedProduct[index].editClaimLog(claimLog, obj);
         }
         return;
     }
 
-    // REFACTOR NEEDED !!
     deleteClaimLog(purchasedProduct, claimLog) {
         checkType(purchasedProduct, 'PurchasedProduct');
         checkType(claimLog, 'ClaimLog');

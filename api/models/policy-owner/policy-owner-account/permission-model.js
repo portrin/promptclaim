@@ -25,21 +25,21 @@ module.exports = class Permission {
             ])
     }
 
-    static _readByPerId () {
+    static _readByPerId (perId) {
         return db.execute(
-            'SELECT * FROM Permission WHERE per_id =?',
-            [this._perId])
+            'SELECT * FROM Permission WHERE per_id = ?',
+            [perId])
     }
 
     static _read() {
         return db.execute(
             'SELECT * FROM Permission'
-            )
+        )
     }
 
     _update () {
         return db.execute(
-            'UPDATE `Permission` SET per_name =?, per_description =?, per_module=? WHERE per_id =?', 
+            'UPDATE Permission SET per_name = ?, per_description = ?, per_module= ? WHERE per_id = ?', 
             [this._perName,
             this._perDescription,
             this._perModule,

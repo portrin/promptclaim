@@ -1,4 +1,4 @@
-const PolicyOwner = require('../policy-owner-model');
+const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ThirdParty {
@@ -42,13 +42,13 @@ module.exports = class ThirdParty {
     // getter and setter
     getProperty() {
         return {
-            thirdPartyId = this._thirdPartyId,
-            name = this._name,
-            contact = this._contact,
-            address = this._address,
-            thirdPartyDescription = this._thirdPartyDescription,
-            rootAccount = this._rootAccount,
-            policyOwner = this._policyOwner
+            thirdPartyId: this._thirdPartyId,
+            name: this._name,
+            contact: this._contact,
+            address: this._address,
+            thirdPartyDescription: this._thirdPartyDescription,
+            rootAccount: this._rootAccount,
+            policyOwner: this._policyOwner
         };
     }
 

@@ -1,35 +1,24 @@
 const db = require('../../config/db');
-const PurchasedProduct = require('./purchased-product-model');
 const checkType = require('../../utils').checkType;
 
-
-
-
 module.exports = class ClaimLog {
-    constructor ({claimId=null, timsestamp=null, status=null} ={}) {
+    constructor ({claimId=null, timestamp=null, status=null} ={}) {
         // class attribute
         this._claimId = claimId;
-        this._timestamp = timsestamp;
         this._status = status;
-
-
+        this._timestamp = timestamp;
         // relationships
-        this._purchasedProduct = null; // from purchasedProduct        
-
-        this._serviceCenterBranch = null; // from serviceCenterBranch
-         
-
+        this._purchasedProduct = null;      // relationship from purchasedProduct        
+        this._serviceCenterBranch = null;   // relationship from serviceCenterBranch
     };
-
     // CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO claim_log(claim_id, status, timestamp, serial_no, product_no, service_center_id, branch_id) VALUES(?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO claim_log(claim_id, status, timestamp, uuid, service_center_id, branch_id) VALUES(?, ?, ?, ?, ?, ?, ?)',
             [this._claimId, 
             this.status, 
             this._timestamp, 
-            this._purchasedProduct.getProperty.serialNo,
-            this._purchasedProduct.getProperty.productNo,
+            this._purchasedProduct.getProperty.uuid,
             this._serviceCenterBranch.getProperty.serviceCenterId,
             this._serviceCenterBranch.getProperty.branchId
             ]
@@ -38,44 +27,53 @@ module.exports = class ClaimLog {
 
     _read() {
         return db.execute(
+            'SELECT * FROM claim_log WHERE claim_id = ?',
+            [this._claimId]
+        )
+    }
+
+    static _read() {
+        return db.execute(
             'SELECT * FROM claim_log'
         );
     };
 
     static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT c.claim_id, c.timestamp, c.status, p.serial_no, p.product_no, p.product_nickname, p.claim_qty, p.product_photo FROM claim_log c INNER JOIN purchased_product p ON c.serial_no=p.serial_no AND c.product_no=p.product_no WHERE p.customer_id = ?',
+            'SELECT * FROM claim_log c NATURAL JOIN purchased_product p WHERE p.customer_id = ?',
             [customerId]
         );
     };
 
+    static _readByPurchasedProductId(uuid) {
+        return db.execute(
+            'SELECT * FROM claim_log c NATURAL JOIN purchased_product p WHERE p.uuid = ?',
+            [uuid]
+        );
+    }
+
     _update() {
         return db.execute(
-            'UPDATE claim_log SET timestamp = ?, status = ? WHERE claim_id = ?',
-            [this._timestamp, this._status, this._claimId]
+            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
+            [this._status, this._timestamp, this._uuid, this._serviceCenterBranch.getProperty.serviceCenterId, this._serviceCenterBranch.getProperty.branchId, this._claimId]
         );
     };
 
     _delete() {
         return db.execute(
             'DELETE FROM claim_log WHERE claim_id = ?',
-            [this._categoryId]
+            [this._claimId]
         );
     };
 
-
-//-----------------------------------------------------------------------------------------------------------------------------------------
     // PROBLEM DOMAIN
     get getProperty() {
         return {
             claimId: this._claimId,
             timestamp: this._timestamp,
             status: this._status,
-
             purchasedPurduct: this._purchasedProduct,
-
             serviceCenter: this._serviceCenter
-
         };
     };
 
@@ -87,7 +85,6 @@ module.exports = class ClaimLog {
         checkType(claimId, 'String');
         checkType(timestamp, 'String');
         checkType(status, 'String');
-
         this._claimId = claimId;
         this._timestamp = timestamp;
         this._status = status

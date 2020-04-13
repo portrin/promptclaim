@@ -1,8 +1,8 @@
-const Retailer = require('./retailer-model');
+const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class RetailerBranch {
-    constructor({ branchName = null, contact = null, address = null } = {}) {
+    constructor({ branchId = null, branchName = null, contact = null, address = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._branchId = branchId;
         this._branchName = branchName;
@@ -24,6 +24,13 @@ module.exports = class RetailerBranch {
         return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND branch_id = ?', [this._retailer.getProperty.retailerId, this._branchId]);
     }
 
+    static _readByRetailerId(retailerId) {
+        return db.execute(
+            'SELECT * FROM retailer_branch WHERE retailer_id = ?',
+            [retailerId]
+        )
+    }
+
     static _readByPk(retailerId, branchId) {
         return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND branch_id = ?', [retailerId, branchId]);
     }
@@ -41,12 +48,12 @@ module.exports = class RetailerBranch {
     // getter and setter
     getProperty() {
         return {
-            branchId = this._branchId,
-            branchName = this._branchName,
-            contact = this._contact,
-            address = this._address,
-            retailer = this._retailer,
-            purchasedProduct = this._purchasedProduct
+            branchId: this._branchId,
+            branchName: this._branchName,
+            contact: this._contact,
+            address: this._address,
+            retailer: this._retailer,
+            purchasedProduct: this._purchasedProduct
         };
     }
 

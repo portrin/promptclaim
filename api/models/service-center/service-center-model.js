@@ -41,11 +41,11 @@ module.exports = class ServiceCenter {
     // getter and setter
     getProperty() {
         return {
-            serviceCenterId = this._serviceCenterId,
-            name = this._name,
-            serviceCenterDesciption = this._serviceCenterDescription,
-            hqAddress = this._hqAddress,
-            serviceCenterBranch = this._serviceCenterBranch
+            serviceCenterId: this._serviceCenterId,
+            name: this._name,
+            serviceCenterDesciption: this._serviceCenterDescription,
+            hqAddress: this._hqAddress,
+            serviceCenterBranch: this._serviceCenterBranch
         };
     }
 

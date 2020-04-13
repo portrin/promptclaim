@@ -10,9 +10,9 @@ module.exports = class Role {
         this._roleDescription = roleDescription
 
         //Relationship to its neighbor classes
-        this._rootAccount = null //relationship to class RootAccount
-        this._permission =[] //relationship to class Permission
-        this._group = [] //relationship to class Group
+        this._rootAccount = null    //relationship to class RootAccount
+        this._permission =[]        //relationship to class Permission
+        this._group = []            //relationship to class Group
     }
 
     //CRUD
@@ -30,25 +30,20 @@ module.exports = class Role {
     static _readByRootId(rootId) {
         //read role of a root account
         return db.execute(
-            'SELECT * FROM Role WHERE root_id =?',
-            [rootId])
+            'SELECT * FROM Role WHERE root_id = ?',
+            [rootId]
+        )
     }
     
-    static _readByPK(rootId){
+    static _readByPK(rootId, username){
         return db.execute(
-            'SELECT * FROM Role WHERE root_id =? AND username =?',
-            [rootId, this._username])
-    }
-
-    static _read(){
-        return db.execute(
-            'SELECT * FROM Role'
-        )
+            'SELECT * FROM Role WHERE root_id = ? AND username = ?',
+            [rootId, username])
     }
 
     _update() {
         return db.execute(
-            'UPDATE `Role` SET username = ?, password = ?, role_name = ? , role_description = ? WHERE root_id =? AND username = ?', 
+            'UPDATE Role SET password = ?, role_name = ? , role_description = ? WHERE root_id = ? AND username = ?', 
             [this._password,
             this._roleName,
             this._roleDescription,
@@ -67,13 +62,13 @@ module.exports = class Role {
     // getter and setter
     get getProperty() {
         return {
-        username: this._username,
-        password: this._password,
-        roleName: this._roleName,
-        roleDescription: this._roleDescription,
-        rootAccount: this._rootAccount,
-        permission: this._permission,
-        group: this._group
+            username: this._username,
+            password: this._password,
+            roleName: this._roleName,
+            roleDescription: this._roleDescription,
+            rootAccount: this._rootAccount,
+            permission: this._permission,
+            group: this._group
         };
     }
 

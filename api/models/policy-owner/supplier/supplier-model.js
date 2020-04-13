@@ -1,4 +1,4 @@
-const PolicyOwner = require('../policy-owner-model');
+const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Supplier{
@@ -10,9 +10,9 @@ module.exports = class Supplier{
         this._contact = contact;
         this._address = address;
         // their relationships to its neighbor ref. from class diagram
-        this._rootAccount = null;  // relationship to RootAccount 
-        this._product = []; //relationship to Product class
-        this._policyOwner = null; //relationship to PolicyOwner class
+        this._rootAccount = null;   // relationship to RootAccount 
+        this._product = [];         // relationship to Product class
+        this._policyOwner = null;   // relationship to PolicyOwner class
     }
 
     // DM layer CRUD
@@ -43,15 +43,14 @@ module.exports = class Supplier{
     // getter and setter
     getProperty() {
         return {
-            ownerType = this.ownerType,
-            supplierId = this._supplierId,
-            name = this._name,
-            supplierDescription = this._supplierDescription,
-            contact = this._contact,
-            address = this._address,
-            rootAccount = this._rootAccount,
-            product = this._product,
-            policyOwner = this._policyOwner
+            supplierId: this._supplierId,
+            name: this._name,
+            supplierDescription: this._supplierDescription,
+            contact: this._contact,
+            address: this._address,
+            rootAccount: this._rootAccount,
+            product: this._product,
+            policyOwner: this._policyOwner
         }
     }
 
@@ -86,12 +85,12 @@ module.exports = class Supplier{
 
     addPolicyOwner(policyOwner) {
         checkType(policyOwner, 'PolicyOwner');
-        this._policyOwner.push(policyOwner);
+        this._policyOwner = policyOwner;
         return;
     }
 
     addProduct(product) {
-        checkType(group, 'Group');
+        checkType(product, 'Product');
         this._product.push(product);
         return;
     }

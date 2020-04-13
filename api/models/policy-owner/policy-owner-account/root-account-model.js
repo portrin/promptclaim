@@ -1,4 +1,3 @@
-const Role = require('./role-model');
 const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
@@ -11,36 +10,36 @@ module.exports = class RootAccount {
         this._type = type
 
         //Relationship to its neighbor classes
-        this._role = [] // Relationship (Composition) Role class
-        this._retailer = [] //relationship to class Retailer
-        this._thirdParty = [] // relationship to class ThirdParty
-        this._supplier = [] //relationship to class Supplier
+        this._role = []         // relationship (Composition) Role class
+        this._belongTo = null;
     }
     
     //CRUD
     _create () {
         return db.execute(
-            'INSERT INTO Root_account(root_id, username, password, type) VALUES(?,?,?,?)',
+            'INSERT INTO Root_account(root_id, username, password, type) VALUES(?, ?, ?, ?)',
             [this._rootId,
             this._username,
             this._password,
             this._type]);
     }
 
-    static _readByRootId () {
+    static _readByRootId (rootId) {
         return db.execute(
-            'SELECT * FROM Root_account WHERE root_id =?',
-            [this._rootId])
+            'SELECT * FROM Root_account WHERE root_id = ?',
+            [rootId]
+            )
     }
 
     static _read() {
         return db.execute(
-            'SELECT * FROM Root_account')
+            'SELECT * FROM Root_account'
+        )
     }
 
     _update () {
         return db.execute(
-            'UPDATE `Root_account` SET username=?, password=?, type=? WHERE root_id=?', 
+            'UPDATE Root_account SET username = ?, password = ?, type = ? WHERE root_id = ?', 
             [this._username,
             this._password,
             this._type,
@@ -92,20 +91,16 @@ module.exports = class RootAccount {
         return;
     }
 
-    addRetailer(retailer) {
-        checkType(retailer, 'Retailer');
-        this._retailer.push(retailer);
-        return;
-    }
-
-    addThirdParty(thirdParty) {
-        checkType(thirdParty, 'ThirdParty');
-        this._thirdParty.push(thirdParty);
-        return;
-    }
-    addSupplier(supplier) {
-        checkType(supplier, 'Supplier');
-        this._supplier.push(supplier);
-        return;
+    // Relation to Retailer, Supplier, or ThirdParty
+    addBelongTo(obj) {
+        if (obj.constructor.name === 'Retailer') {
+            this._belongTo = obj;
+        } else if (obj.constructor.name === 'Supplier') {
+            this._belongTo = obj;
+        } else if (obj.constructor.name === 'ThirdParty') {
+            this._belongTo = obj;
+        } else {
+            throw new TypeError('the input object is not Retailer, Supplier, or ThirdParty');
+        }
     }
 }

@@ -1,5 +1,4 @@
 const db = require('../../config/db')
-const ProductCategory = require('./product-category-model');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Product {
@@ -9,10 +8,8 @@ module.exports = class Product {
         this._productName = productName;
         this._productModel = productModel;
         this._productDescription = productDescription;
-
         // relationships
         this._productCategory = [];
-
         this._supplier = null;
     };
     
@@ -36,21 +33,19 @@ module.exports = class Product {
 
     static _readByProductNo(productNo) {
         return db.execute(
-            'SELECT FROM product NATURAL JOIN product_classify_as WHERE product_no = ? ',
+            'SELECT * FROM product WHERE product_no = ?',
             [productNo]
         );
     };
 
-    
-
     _update() {
         return db.execute(
-            'UPDATE product SET product_name = ?, product_model = ?, product_description = ? WHERE product_no = ?',
+            'UPDATE product SET product_name = ?, product_model = ?, product_description = ?, supplier_id = ? WHERE product_no = ?',
             [this._productName,
             this._productModel,
             this.productDescription,
-            this.product_no,
-            this._supplier.getProperty.supplierId]
+            this._supplier.getProperty.supplierId,
+            this.product_no]
         );
     };
 
@@ -61,7 +56,6 @@ module.exports = class Product {
         );
     };
 
-//-----------------------------------------------------------------------------------------------------------------------------------------
     //PROBLEM DOMAIN METHOD
     get getProperty() {
         return {
@@ -69,11 +63,8 @@ module.exports = class Product {
             productName: this._productName,
             productModel: this._productModel,
             productDescription: this._productDescription,
-
             productCategory: this._productCategory,
             supplier: this._supplier
-
-
         };
     };
 
@@ -90,13 +81,11 @@ module.exports = class Product {
         checkType(productName, 'String');
         checkType(productModel, 'String');
         checkType(productDescription, 'String');
-
         //assign to private attribute
         this._productNo = productNo;
         this._productName = productName;
         this._productModel = productModel;
         this._productDescription = productDescription;
-
     };
 
     addProductCategory(productCategory) {
@@ -110,5 +99,4 @@ module.exports = class Product {
         this._supplier = supplier;
         return;
     }
-
 };

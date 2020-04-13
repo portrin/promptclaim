@@ -1,8 +1,6 @@
 const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
-const ServiceCenter = require('./service-center-model');
-
 module.exports = class ServiceCenterBranch {
     constructor({ branchId = null, branchName = null, contact = null, address = null } = {}) {
         // their own class atrribute ref. from class diagram
@@ -33,6 +31,13 @@ module.exports = class ServiceCenterBranch {
         return db.execute('SELECT * FROM service_center_branch WHERE service_center_id = ? AND branch_id = ?', [serviceCenterId, branchId]);
     }
 
+    static _readByServiceCenterId(serviceCenterId) {
+        return db.execute(
+            'SELECT * FROM service_center_branch WHERE service_center_id = ?',
+            [serviceCenterId]
+        )
+    }
+
     _update() {
         return db.execute('UPDATE service_center_branch SET branch_name = ?, contact = ?, address = ? WHERE branch_id = ? AND service_center_id = ?',
             [this._branchName, this._contact, this._address, this._branchId, this._serviceCenter.getProperty.serviceCenterId]);
@@ -45,13 +50,13 @@ module.exports = class ServiceCenterBranch {
     // getter and setter
     getProperty() {
         return {
-            branchId = this._branchId,
-            branchName = this._branchName,
-            contact = this._contact,
-            address = this._address,
-            serviceCenter = this._serviceCenter,
-            policy = this._policy,         
-            claimLog = this._claimLog        
+            branchId: this._branchId,
+            branchName: this._branchName,
+            contact: this._contact,
+            address: this._address,
+            serviceCenter: this._serviceCenter,
+            policy: this._policy,         
+            claimLog: this._claimLog        
         };
     }
 

@@ -18,6 +18,40 @@ module.exports = class PolicyOwner {
         )
     }
 
+    static _read() {
+        return db.execute(
+            'SELECT * FROM policy_owner'
+        )
+    }
+
+    static _readByPolicyOwnerId(policyOwnerId) {
+        return db.execute(
+            'SELECT * FROM policy_owner WHERE policy_owner_id = ?',
+            [policyOwnerId]
+        )
+    }
+
+    static _readByRetailerId(retailerId) {
+        return db.execute(
+            'SELECT * FROM policy_owner p NATURAL JOIN retailer r WHERE r.retailer_id = ?',
+            [retailerId]
+        )
+    }
+
+    static _readBySupplierId(supplierId) {
+        return db.execute(
+            'SELECT * FROM policy_owner p NATURAL JOIN supplier s WHERE s.supplier_id = ?',
+            [supplierId]
+        )
+    }
+
+    static _readByThirdPartyId(thirdPartyId) {
+        return db.execute(
+            'SELECT * FROM policy_owner p NATURAL JOIN third_party t WHERE t.third_party_id = ?',
+            [thirdPartyId]
+        )
+    }
+
     _read() {
         return db.execute(
             'SELECT * FROM policy_owner WHERE policy_owner_id = ?',
