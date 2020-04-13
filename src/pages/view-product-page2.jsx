@@ -3,37 +3,23 @@ import { useParams } from 'react-router-dom'
 import { Layout, Breadcrumb, Menu, Descriptions } from 'antd'
 
 const { SubMenu } = Menu
+const { Header, Content, Footer, Sider } = Layout
 
 const data = {
   '1': {
     key: '1',
 
-    image: '/cotto-toilet-bowl.jpg',
+    image: '/toilet-bowl.jpg',
 
-    product_name: 'COTTO Automatic Toilet Bowl',
+    product_name: 'toilet bowl',
   },
   '2': {
     key: '2',
 
-    image: '/ame-toilet.jpg',
+    image: '/logo.png',
 
-    product_name: 'AMERICAN STANDARD Toilet Bowl',
+    product_name: 'test',
   },
-  '3': {
-    key: '3',
-
-    image: '/water-heater.jpg',
-
-    product_name: 'STIEBEL ELTRON Water Heater',
-  },
-  '4': {
-    key: '4',
-
-    image: '/air.jpg',
-
-    product_name: 'DAIKIN Air Conditioner',
-  },
-
 }
 
 export const ViewProductPage = (props) => {
@@ -86,7 +72,7 @@ export const ViewProductPage = (props) => {
               <Content>
                 <div className="site-layout-content">
                   <Descriptions
-                    title={data[key].product_name}
+                    title="COTTO Automatic Toilet Bowl"
                     layout="vertical"
                     bordered
                     column={2}
@@ -147,5 +133,3 @@ export const ViewProductPage = (props) => {
     </div>
   )
 }
-
-const { Header, Content, Footer, Sider } = Layout
