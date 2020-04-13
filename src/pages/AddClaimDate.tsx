@@ -54,6 +54,7 @@ const AddClaimDate: React.FC = () => {
             ></IonDatetime>
           </IonItem>
           <IonButton expand="block">Add</IonButton>
+          <IonButton color="light" expand="block" routerLink="warrantyItem/+'{id}'">Back</IonButton>
         </IonList>
       </IonContent>
     </IonPage>

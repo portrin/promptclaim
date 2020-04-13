@@ -19,7 +19,6 @@ import {
   filterOutline,
   personCircleOutline,
 } from "ionicons/icons";
-
 import "./MyWarranty.css";
 import SamsungTV from "../pictures/samsungTV.jpg";
 import LGTV from "../pictures/LGTV.jpeg";
@@ -28,11 +27,31 @@ import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
 import WoodTable from "../pictures/woodTable.jpg";
 import Product from "../components/WarrantyItem";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const MyWarranty: React.FC = () => {
-  
+export interface Character {
+  name: string;
+  char_id: string;
+  img: string;
+  status: string;
+}
+export interface Itemprops {
+  item: Character;
+}
+
+const MyWarranty: React.FC<Itemprops> = () => {
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  const [items, setItems] = useState<Character[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch("https://www.breakingbadapi.com/api/characters/");
+
+    const items = await data.json();
+    setItems(items);
+    console.log(items);
+  };
   const [searchText, setSearchText] = useState("");
   return (
     <IonPage>
@@ -95,41 +114,15 @@ const MyWarranty: React.FC = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
+          {items.map((item) => (
+            <Product
+              name={item.name}
+              serial={item.char_id}
+              image={item.img}
+              description={item.status}
+            ></Product>
+          ))}
 
-          <Product
-            name="LG Television"
-            serial="SK2OET5LWE8X"
-            image={LGTV}
-            description="Living room second floor"
-          />
-
-          <Product
-            name="IKEA Work Lamp"
-            serial="F2M0AD559901"
-            image={WorkLamp}
-            description="Work lamp purchase from IKEA"
-          />
-
-          <Product
-            name="Wood Table"
-            serial="ES28LE5LWE8X"
-            image={WoodTable}
-            description="Dining room"
-          />
-
-          <Product
-            name="Toshiba Airconditioner"
-            serial="T2KFHET5LWE9E"
-            image={ToshibaAir}
-            description="Main living area air conditioner"
-          />
-
-          <Product
-            name="Samsung Television"
-            serial="EK23T5LWE3OP"
-            image={SamsungTV}
-            description="Master bedroom"
-          />
         </IonList>
       </IonContent>
     </IonPage>
