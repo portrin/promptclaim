@@ -1,9 +1,8 @@
 const db = require('../../../config/db');
-const PolicyOwner = require('../policy-owner-model');
 const checkType = require('../../../utils').checkType;
 
 module.exports = class Retailer {
-    constructor({retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
+    constructor({ retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._retailerId = retailerId;
         this._name = name;
@@ -17,19 +16,20 @@ module.exports = class Retailer {
     }
 
     // DM layer CRUD
-    async _create() {
-        const result = [];
-        result.push(await db.execute('INSERT INTO policy_owner (policy_owner_id, owner_type) VALUES (?, ?)',
-            [this._policyOwner.getProperty.policyOwnerId, this._ownerType]
-        ));
-        result.push(await db.execute('INSERT INTO retailer(retailer_id, contact, name, hq_address, retailer_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
-            [this._retailerId, this._name, this._contact, this._hqAddress, this._retailerDescription, this._rootAccount, this._policyOwnerId]
-        ));
-        return result;
+    _create() {
+        return db.execute(
+            'INSERT INTO retailer (retailer_id, name, retailer_description, contact, hq_address, policy_owner_id, root_id) VALUES (?, ?, ?, ?, ?, ?, ?)'
+            [this._retailerId, this._name, this._retailerDescription, this._contact, this._hqAddress, this._policyOwner.getProperty.policyOwnerId, this._rootAccount.getProperty.rootId]
+        )
+    }
+    _read() {
+        return db.execute('SELECT * FROM retailer WHERE = ?',
+        [this._retailerId]
+        );
     }
 
-    _read() {
-        db.execute('SELECT * FROM retailer WHERE retailer_id = ?', [this._retailerId]);
+    static _readByPolicyOwnerId(policyOwnerId) {
+        return db.execute('SELECT * FROM retailer WHERE policy_owner_id = ?', [policyOwnerId]);
     }
 
     static _readByRetailerId(retailerId) {
@@ -38,7 +38,7 @@ module.exports = class Retailer {
 
     _update() {
         return db.execute('UPDATE retailer SET contact = ?, name = ?, hq_address = ?, retailer_description = ?, root_id = ?, policy_owner_id = ? WHERE retailer_id = ?',
-            [this._contact, this._name, this._hqAddress, this._retailerDescription, this._rootAccount, this.PolicyOwner, this._retailerId]
+            [this._contact, this._name, this._hqAddress, this._retailerDescription, this._rootAccount.getProperty.rootId, this._policyOwner.getProperty.policyOwnerId, this._retailerId]
         );
     }
 
@@ -49,22 +49,19 @@ module.exports = class Retailer {
     // getter and setter
     getProperty() {
         return {
-            policyOwnerId: this.policyOwnerId,
-            ownerType: this.ownerType,
             retailerId: this._retailerId,
             name: this._name,
             retailerDescription: this._retailerDescription,
             contact: this._contact,
             hqAddress: this._hqAddress,
             retailerBranch: this._retailerBranch,
-            rootAccount: this._rootAccount
+            rootAccount: this._rootAccount,
+            policyOwner: this._policyOwner
         };
     }
 
     setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
-        policyOwnerId = this.policyOwnerId,
-        ownerType = this.ownerType,
         retailerId = this._retailerId,
         name = this._name,
         retailerDescription = this._retailerDescription,
@@ -72,8 +69,6 @@ module.exports = class Retailer {
         hqAddress = this._hqAddress
     }) {
         // check datatype
-        checkType(policyOwnerId, 'String');
-        checkType(ownerType, 'String');
         checkType(retailerId, 'String');
         checkType(name, 'String');
         checkType(retailerDescription, 'String');
@@ -81,12 +76,18 @@ module.exports = class Retailer {
         checkType(hqAddress, 'String');
         // assign to private variables
         this.policyOwnerId = policyOwnerId;
-        this.ownerType = ownerType;
         this._retailerId = retailerId;
         this._name = name;
         this._retailerDescription = retailerDescription;
         this._contact = contact;
         this._hqAddress = hqAddress;
+    }
+
+    // PolicyOwner
+    addPolicyOwner(policyOwner) {
+        checkType(policyOwner, 'PolicyOwner');
+        this._policyOwner = policyOwner;
+        return;
     }
 
     // Retailer Branch

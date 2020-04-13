@@ -2,13 +2,12 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Policy {
-    constructor({ policyId = null, policyPeriod = null, policyDescription = null, dateCreated = null, ownerType = null } = {}) {
+    constructor({ policyId = null, policyPeriod = null, policyDescription = null, dateCreated = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._policyId = policyId;
         this._policyPeriod = policyPeriod;
         this._policyDescription = policyDescription;
         this._dateCreated = dateCreated;
-        this._ownerType = ownerType;
         // their relationships to its neighbor ref. from class diagram
         this._policyOwner = null;       // relationship to PolicyOwner
         this._serviceCenterBranch = []; // relationship to ServiceCenterBranch
@@ -19,8 +18,8 @@ module.exports = class Policy {
     _create() {
         //get policyOwnerId
         return db.execute(
-            'INSERT INTO policy(policy_id, policy_period, policy_description, ownerType, policy_owner_id) VALUES (?, ?, ?, ?, ?)',
-            [this._policyId, this._policyPeriod, this._policyDescription, this._ownerType, this._policyOwner.getProperty.policyOwnerId]
+            'INSERT INTO policy(policy_id, policy_period, policy_description, policy_owner_id) VALUES (?, ?, ?, ?)',
+            [this._policyId, this._policyPeriod, this._policyDescription, this._policyOwner.getProperty.policyOwnerId]
         );
     }
 
@@ -33,8 +32,8 @@ module.exports = class Policy {
     }
 
     _update() {
-        return db.execute('UPDATE policy SET policy_period = ?, policy_description = ?, ownerType = ?, policy_owner_id = ? WHERE policy_id = ?',
-            [this._policyPeriod, this._policyDescription, this._ownerType, this._policyOwner.getProperty.policyOwnerId, this._policyId]);
+        return db.execute('UPDATE policy SET policy_period = ?, policy_description = ?, policy_owner_id = ? WHERE policy_id = ?',
+            [this._policyPeriod, this._policyDescription, this._policyOwner.getProperty.policyOwnerId, this._policyId]);
     }
 
     _delete() {
@@ -48,7 +47,6 @@ module.exports = class Policy {
             policyPeriod = this._policyPeriod,
             policyDescription = this._policyDescription,
             dateCreated = this._dateCreated,
-            ownerType = this._ownerType,
             policyOwner = this._policyOwner,
             serviceCenterBranch = this._serviceCenterBranch,
             purchasedProduct = this._purchasedProduct,
@@ -61,20 +59,17 @@ module.exports = class Policy {
         policyPeriod = this._policyPeriod,
         policyDescription = this._policyDescription,
         dateCreated = this._dateCreated,
-        ownerType = this._ownerType
     }) {
         // check datatype
         checkType(policyId, 'String');
         checkType(policyPeriod, 'String');
         checkType(policyDescription, 'String');
         checkType(dateCreated, 'String');
-        checkType(ownerType, 'String');
         // assign to private variables
         this._policyId = policyId;
         this._policyPeriod = policyPeriod;
         this._policyDescription = policyDescription;
         this._dateCreated = dateCreated;
-        this._ownerType = ownerType;
     }
 
     addPolicyOwner(policyOwner) {

@@ -1,10 +1,9 @@
 const PolicyOwner = require('../policy-owner-model');
 const checkType = require('../../utils').checkType;
 
-module.exports = class Supplier extends PolicyOwner {
-    constructor({ policyOwnerId = null, ownerType = null, supplierId = null, name = null, supplierDescription = null, contact = null, address = null } = {}) {
+module.exports = class Supplier{
+    constructor({ supplierId = null, name = null, supplierDescription = null, contact = null, address = null } = {}) {
         // their own class atrribute ref. from class diagram
-        super(policyOwnerId, ownerType);
         this._supplierId = supplierId;
         this._name = name;
         this._supplierDescription = supplierDescription;
@@ -12,12 +11,14 @@ module.exports = class Supplier extends PolicyOwner {
         this._address = address;
         // their relationships to its neighbor ref. from class diagram
         this._rootAccount = null;  // relationship to RootAccount 
+        this._product = []; //relationship to Product class
+        this._policyOwner = null; //relationship to PolicyOwner class
     }
 
     // DM layer CRUD
     _create() {
         return db.execute('INSERT INTO supplier(supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
-            [this._supplierId, this._supplierDescription, this._name, this._contact, this._address, this._rootAccount.getProperty.rootId, this.policyOwnerId]
+            [this._supplierId, this._supplierDescription, this._name, this._contact, this._address, this._rootAccount.getProperty.rootId, this._policyOwner.getProperty.policyOwnerId]
         );
     }
 
@@ -31,7 +32,7 @@ module.exports = class Supplier extends PolicyOwner {
 
     _update() {
         return db.execute('UPDATE supplier SET supplier_description = ?, name = ?, contact = ?, address = ?, root_id = ?, policy_owner_id = ? WHERE supplier_id = ?',
-            [this._supplierDescription, this._name, this._contact, this._address, this._rootAccount.getProperty.rootId, this.policyOwnerId]
+            [this._supplierDescription, this._name, this._contact, this._address, this._rootAccount.getProperty.rootId, this._policyOwner.getProperty.policyOwnerId, this._supplierId]
         );
     }
 
@@ -42,21 +43,20 @@ module.exports = class Supplier extends PolicyOwner {
     // getter and setter
     getProperty() {
         return {
-            policyOwnerId = this.policyOwnerId,
             ownerType = this.ownerType,
             supplierId = this._supplierId,
             name = this._name,
             supplierDescription = this._supplierDescription,
             contact = this._contact,
             address = this._address,
-            rootAccount = this._rootAccount
+            rootAccount = this._rootAccount,
+            product = this._product,
+            policyOwner = this._policyOwner
         }
     }
 
     setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
-        policyOwnerId = this.policyOwnerId,
-        ownerType = this.ownerType,
         supplierId = this._supplierId,
         name = this._name,
         supplierDescription = this._supplierDescription,
@@ -64,16 +64,12 @@ module.exports = class Supplier extends PolicyOwner {
         address = this._address,
     }) {
         // check datatype
-        checkType(policyOwnerId, 'String');
-        checkType(ownerType, 'String');
         checkType(supplierId, 'String');
         checkType(name, 'String');
         checkType(supplierDescription, 'String');
         checkType(contact, 'String');
         checkType(address, 'String');
         // assign to private variables
-        this.policyOwnerId = policyOwnerId;
-        this.ownerType = ownerType;
         this._supplierId = supplierId;
         this._name = name;
         this._supplierDescription = supplierDescription;
@@ -87,7 +83,16 @@ module.exports = class Supplier extends PolicyOwner {
         this._rootAccount = rootAccount;
         return;
     }
+
+    addPolicyOwner(policyOwner) {
+        checkType(policyOwner, 'PolicyOwner');
+        this._policyOwner.push(policyOwner);
+        return;
+    }
+
+    addProduct(product) {
+        checkType(group, 'Group');
+        this._product.push(product);
+        return;
+    }
 }
-
-
-
