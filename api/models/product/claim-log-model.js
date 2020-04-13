@@ -1,6 +1,6 @@
 const db = require('../../config/db');
 const PurchasedProduct = require('./purchased-product-model');
-const checkType = require('../../utils');
+const checkType = require('../../utils').checkType;
 
 
 

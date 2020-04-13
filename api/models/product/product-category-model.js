@@ -1,6 +1,6 @@
 const db = require('../../config/db');
 const Product = require('./product-model');
-const checkType = require('../../utils');
+const checkType = require('../../utils').checkType;
 
 module.exports = class ProductCategory {
     constructor ({categoryId=null, categoryName=null} = {}) {
@@ -9,7 +9,8 @@ module.exports = class ProductCategory {
         this._categoryName = categoryName;
 
         //relationships
-        this._product = null
+        this._product = null; //from product class
+        this._purchaedProduct = null; //from purchasedProduct class
     };
 
     //CRUD METHOD
@@ -47,7 +48,8 @@ module.exports = class ProductCategory {
             categoryId: this._categoryId,
             categoryName: this._categoryName,
 
-            product: this._product
+            product: this._product,
+            purchasedProduct: this._purchaedProduct
 
         };
     };
@@ -65,11 +67,15 @@ module.exports = class ProductCategory {
     };
 
 
-
-
     addProduct(product) {
         checkType(product, 'Product');
         this.product = product;
         return;
     };	
+
+    addPurchasedProduct(purchasedProduct) {
+        checkType(purchasedProduct, 'PurchasedProduct');
+        this._purchaedProduct = purchasedProduct;
+        return;
+    };
 };

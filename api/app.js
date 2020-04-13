@@ -3,6 +3,7 @@ const express = require('express');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
 const app = express();
+const checkType = require('./utils').checkType;
 
 // declare constant values
 const PORT = process.env.ports || 8001;
@@ -20,7 +21,12 @@ const productRoutes = require('./routes/product-route');
 app.use('/product', productRoutes);
 
 
+
+
+
 // start server
 app.listen(PORT, () => {
     console.log(`server starts on port ${PORT}`);
 })
+
+
