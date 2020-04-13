@@ -9,8 +9,8 @@ module.exports = class ProductCategory {
         this._categoryName = categoryName;
 
         //relationships
-        this._product = null; //from product class
-        this._purchaedProduct = null; //from purchasedProduct class
+        this._product = []; //from product class
+        this._purchaedProduct = []; //from purchasedProduct class
     };
 
     //CRUD METHOD
@@ -69,13 +69,13 @@ module.exports = class ProductCategory {
 
     addProduct(product) {
         checkType(product, 'Product');
-        this.product = product;
+        this.product.push(product);
         return;
     };	
 
     addPurchasedProduct(purchasedProduct) {
         checkType(purchasedProduct, 'PurchasedProduct');
-        this._purchaedProduct = purchasedProduct;
+        this._purchaedProduct.push(purchasedProduct);
         return;
     };
 };

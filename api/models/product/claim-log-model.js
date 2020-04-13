@@ -14,8 +14,7 @@ module.exports = class ClaimLog {
 
 
         // relationships
-        this._purchasedProduct = null;
-        
+        this._purchasedProduct = null; // from purchasedProduct        
 
         this._serviceCenterBranch = null; // from serviceCenterBranch
          

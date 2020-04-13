@@ -29,6 +29,8 @@ module.exports = class PurchasedProduct {
         this._productCategory = []; //from productCategory class
 
         this._retailerBranch = null; //from retailer branch
+
+        this._policy = []; //from policy class
  
         
 
@@ -145,7 +147,8 @@ module.exports = class PurchasedProduct {
             customer: this._customer,   
             claimLog: this._claimLog,
             productCategory: this._productCategory,
-            retailerBranch: this._retailerBranch
+            retailerBranch: this._retailerBranch,
+            policy: this._policy
             
         };
     };
@@ -222,6 +225,12 @@ module.exports = class PurchasedProduct {
     addProductCategory(productCategory) {
         checkType(productCategory, 'ProductCategory');
         this._productCategory.push(productCategory);
+        return;
+    };
+
+    addPolicy(policy) {
+        checkType(policy, 'Policy');
+        this._policy.push(policy);
         return;
     };
 };
