@@ -22,6 +22,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonButtons,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
@@ -32,6 +33,7 @@ interface RouteParam {
 }
 interface Match extends RouteComponentProps<RouteParam> {
   params: string;
+  //ไม่จำเปน
 }
 
 const WarrantyInfo: React.FC<Match> = ({ match }) => {
@@ -40,6 +42,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [showActionSheet1, setShowActionSheet1] = useState(false);
 
   const [showToast1, setShowToast1] = useState(false);
+  console.log(match);
+  console.log(match.params);
   console.log(match.params.id);
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -134,11 +138,10 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               >
                 View Policy
               </IonButton>
-              
-              <IonButton expand="block" routerLink="/addClaimDate" >
+
+              <IonButton expand="block" routerLink="/addClaimDate">
                 Add Claim Date
               </IonButton>
-          
             </IonGrid>
 
             <IonListHeader>Warranty Information</IonListHeader>
