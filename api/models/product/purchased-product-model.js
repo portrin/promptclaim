@@ -3,7 +3,7 @@ const Product = require('./product-model');
 const checkType = require('../../utils').checkType;
 
 module.exports = class PurchasedProduct {
-    constructor({uuid=null, productNickName = null, serialNo=null, price=null, invoiceID=null, isValidate=null, productPhoto=null, claimQty=null, timestamp=null, invoicePhoto=null, warrantyPhoto=null, policyStartDate=null, policyEndDate=null} = {}) {
+    constructor({uuid=null, productNickName = null, serialNo=null, price=null, invoiceID=null, isValidate=null, productPhoto=null, claimQty=null, timestamp=null, invoicePhoto=null, warrantyPhoto=null, policyStartDate=null, policyEndDate=null, policyTimestamp=null} = {}) {
         // their attribute from the class
         this._uuid = uuid; 
         this._productNickName = productNickName;
@@ -18,6 +18,7 @@ module.exports = class PurchasedProduct {
         this._warrantyPhoto = warrantyPhoto;
         this._policyStartDate = policyStartDate;
         this._policyEndDate = policyEndDate; 
+        this._policyTimestamp = policyTimestamp;
 
         // relationship
         this._product = []; // from product class
@@ -42,7 +43,7 @@ module.exports = class PurchasedProduct {
     _create() {
         console.log(this);
         return db.execute(
-            'INSERT INTO purchased_product (product_nickname, serial_no, product_no, customer_id, price, invoice_id, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO purchased_product (product_nickname, serial_no, product_no, customer_id, price, invoice_id, timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo,) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [this.productNickName,
             this._serialNo,
             this._product.getProperty.productNo,
@@ -142,6 +143,7 @@ module.exports = class PurchasedProduct {
             warrantyPhoto: this._warrantyPhoto,
             policyStartDate: this._policyStartDate,
             policyEndDate: this._policyEndDate,
+            policyTimestamp:this._policyTimestamp,
 
             product: this._product,
             customer: this._customer,   
