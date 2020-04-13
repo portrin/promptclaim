@@ -1,25 +1,14 @@
 import React from 'react'
 import { Layout, Breadcrumb, Menu, Input, Table, Row, Col } from 'antd'
+import { Topbar } from '../components/header'
+
 const { SubMenu } = Menu
-const { Header, Content, Footer, Sider } = Layout
+const { Content, Footer, Sider } = Layout
 
 export const MainProductPage = (props) => {
   return (
     <Layout>
-      <Header className="header">
-        <img
-          className="user"
-          src="user.png"
-          alt="user logo"
-          style={{ float: 'right' }}
-        />
-        <img
-          className="logo"
-          src="logo.png"
-          alt="prompt claim logo"
-          style={{ float: 'left' }}
-        />
-      </Header>
+      <Topbar />
       <Layout>
         <Content>
           <br />
