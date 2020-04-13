@@ -1,87 +1,74 @@
-import React from 'react'
-import Button from '@material-ui/core/Button'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
-import Container from '@material-ui/core/Container'
+import React from 'react';
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  '& .MuiTextField-root': {
-    margin: theme.spacing(1),
-    width: 200,
-  },
-}))
 
 export const LoginPage = () => {
-  const classes = useStyles()
+  const onFinish = values => {
+    console.log('Received values of form: ', values);
+  };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img src={'darktranslogo.png'} alt="logo" mode="fit" />
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
 
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            style={{ background: '#367fcc', borderColor: '#367fcc' }}
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-        </form>
-      </div>
-      <Box mt={8} style={{ textAlign: 'center' }}>
-        <div> Prompt Claim ©2020 Created by Team Igloo</div>
-      </Box>
-    </Container>
-  )
-}
+
+    <article class='mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10'>
+
+        <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={{
+            remember: true,
+        }}
+        onFinish={onFinish}
+        >
+
+        <img className = 'logo' src = 'darktranslogo.png' alt='logo'/>
+            
+        <Form.Item
+            name="username"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your Username!',
+            },
+            ]}
+        >
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        </Form.Item>
+
+        
+        
+        <Form.Item
+            name="password"
+            rules={[
+            {
+                required: true,
+                message: 'Please input your Password!',
+            },
+            ]}
+        >
+            <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+            />
+        </Form.Item>
+        <Form.Item>
+            <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <a className="login-form-forgot" href="">
+            Forgot password
+            </a>
+        </Form.Item>
+
+        <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-form-button" style={{ background: "#0050b3", borderColor: "#0050b3" }}>
+            Log in
+            </Button>
+        </Form.Item>
+        </Form>
+    </article>
+  );
+};
