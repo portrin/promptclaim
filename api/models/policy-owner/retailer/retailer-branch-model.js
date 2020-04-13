@@ -20,8 +20,8 @@ module.exports = class RetailerBranch {
         );
     }
 
-    static _read() {
-        return db.execute('SELECT * FROM retailer_branch');
+    _read() {
+        return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND branch_id = ?', [this._retailer.getProperty.retailerId, this._branchId]);
     }
 
     static _readByPk(retailerId, branchId) {
