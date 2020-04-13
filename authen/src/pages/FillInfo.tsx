@@ -26,7 +26,6 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
   const [password2, setPassword2] = useState("");
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
-  const [gender, setGender] = useState("");
   const [bdate, setBDate] = useState("");
   const [phonenum, setPhoneNum] = useState("");
   const [homenum, setHomeNum] = useState("");
@@ -35,17 +34,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
   const [dist, setDist] = useState("");
   const [province, setProvince] = useState("");
   const [strcode, setStrCode] = useState("");
-
-  const handleChip1 = () => {
-    console.log("Clicked Male Chip.");
-    console.log({ bdate });
-  };
-  const handleChip2 = () => {
-    console.log("Clicked Female Chip.");
-  };
-  const handleChip3 = () => {
-    console.log("Clicked Not Specified Chip.");
-  };
+  const [gender, setGender] = useState("");
 
   return (
     <IonApp>
@@ -135,7 +124,10 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   class="chip"
                   outline
                   color="primary"
-                  onClick={handleChip1}
+                  id={gender}
+                  onClick={() => {
+                    setGender("male");
+                  }}
                 >
                   <IonIcon size="large" icon={man} color="primary" />
                 </IonChip>
@@ -143,7 +135,10 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   class="chip"
                   outline
                   color="primary"
-                  onClick={handleChip2}
+                  id={gender}
+                  onClick={() => {
+                    setGender("female");
+                  }}
                 >
                   <IonIcon size="large" icon={woman} color="primary" />
                 </IonChip>
@@ -151,7 +146,10 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   class="chip2"
                   outline
                   color="primary"
-                  onClick={handleChip3}
+                  id={gender}
+                  onClick={() => {
+                    setGender("notspecified");
+                  }}
                 >
                   <p>Not Specified </p>
                 </IonChip>
