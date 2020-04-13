@@ -15,7 +15,3 @@ module.exports = class PolicyOwner {
         return;
     }
 }
-
-
-
-

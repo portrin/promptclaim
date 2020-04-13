@@ -24,8 +24,8 @@ module.exports = class Policy {
         );
     }
 
-    static _read() {
-        return db.execute('SELECT * FROM policy');
+    _read() {
+        return db.execute('SELECT * FROM policy WHERE policy_id = ?', [this._policyId]);
     }
 
     static _readByPolicyId(policyId) {

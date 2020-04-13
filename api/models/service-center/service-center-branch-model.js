@@ -25,8 +25,8 @@ module.exports = class ServiceCenterBranch {
         );
     }
 
-    static _read() {
-        return db.execute('SELECT * FROM service_center_branch');
+    _read() {
+        return db.execute('SELECT * FROM service_center_branch WHERE WHERE service_center_id = ? AND branch_id = ?', [this._serviceCenter.getProperty.serviceCenterId, this._branchId]);
     }
 
     static _readByPk(serviceCenterId, branchId) {

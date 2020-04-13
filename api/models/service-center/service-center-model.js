@@ -21,8 +21,8 @@ module.exports = class ServiceCenter {
         );
     }
 
-    static _read() {
-        return db.execute('SELECT * FROM service_center');
+    _read() {
+        return db.execute('SELECT * FROM service_center WHERE service_center_id = ?', [this._serviceCenterId]);
     }
 
     static _readByServiceCenterId(serviceCenterId) {
@@ -75,3 +75,4 @@ module.exports = class ServiceCenter {
         return;
     }
 }
+

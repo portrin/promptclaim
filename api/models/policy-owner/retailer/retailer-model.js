@@ -2,10 +2,9 @@ const db = require('../../../config/db');
 const PolicyOwner = require('../policy-owner-model');
 const checkType = require('../../../utils').checkType;
 
-module.exports = class Retailer extends PolicyOwner {
-    constructor({ policyOwnerId = null, retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
+module.exports = class Retailer {
+    constructor({retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
         // their own class atrribute ref. from class diagram
-        super(policyOwnerId);
         this._retailerId = retailerId;
         this._name = name;
         this._retailerDescription = retailerDescription;
@@ -14,13 +13,14 @@ module.exports = class Retailer extends PolicyOwner {
         // their relationships to its neighbor ref. from class diagram
         this._retailerBranch = [];  // relationship to RetailerBranch
         this._rootAccount = null;   // relationship to RootAccount
+        this._policyOwner = null;   // relationship to PolicyOwner
     }
 
     // DM layer CRUD
     async _create() {
         const result = [];
         result.push(await db.execute('INSERT INTO policy_owner (policy_owner_id, owner_type) VALUES (?, ?)',
-            [this._policyOwnerId, this._ownerType]
+            [this._policyOwner.getProperty.policyOwnerId, this._ownerType]
         ));
         result.push(await db.execute('INSERT INTO retailer(retailer_id, contact, name, hq_address, retailer_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
             [this._retailerId, this._name, this._contact, this._hqAddress, this._retailerDescription, this._rootAccount, this._policyOwnerId]
@@ -28,8 +28,8 @@ module.exports = class Retailer extends PolicyOwner {
         return result;
     }
 
-    static _read() {
-        db.execute('SELECT * FROM retailer');
+    _read() {
+        db.execute('SELECT * FROM retailer WHERE retailer_id = ?', [this._retailerId]);
     }
 
     static _readByRetailerId(retailerId) {

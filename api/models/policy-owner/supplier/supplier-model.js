@@ -21,8 +21,8 @@ module.exports = class Supplier extends PolicyOwner {
         );
     }
 
-    static _read() {
-        return db.execute('SELECT * FROM supplier');
+    _read() {
+        return db.execute('SELECT * FROM supplier WHERE supplier_id = ?', [this._supplierId]);
     }
 
     static _readBySupplierId(supplierId) {
