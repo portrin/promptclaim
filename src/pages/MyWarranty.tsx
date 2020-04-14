@@ -41,6 +41,8 @@ export interface Itemprops {
 }
 
 const MyWarranty: React.FC<Itemprops> = () => {
+  const [searchText, setSearchText] = useState("");
+  console.log(searchText);
   useEffect(() => {
     fetchItems();
   }, []);
@@ -52,7 +54,6 @@ const MyWarranty: React.FC<Itemprops> = () => {
     setItems(items);
     console.log(items);
   };
-  const [searchText, setSearchText] = useState("");
   return (
     <IonPage>
       <IonHeader>
@@ -121,7 +122,6 @@ const MyWarranty: React.FC<Itemprops> = () => {
               description={item.status}
             ></Product>
           ))}
-
         </IonList>
       </IonContent>
     </IonPage>
