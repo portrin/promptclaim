@@ -1,3 +1,4 @@
+
 const checkType = (obj, _class) => {
     const err = new TypeError(`the input object is not ${_class}`)
     if (obj == null) { return }
@@ -6,6 +7,10 @@ const checkType = (obj, _class) => {
     }
 }
 
+const parseJwt = (jwt) => {
+
+}
+
 module.exports = {
-    checkType
+    checkType,
 }

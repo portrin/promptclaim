@@ -6,13 +6,13 @@ const Notification = require('./notification-model');
 const CustomerAddress = require('./customer-address-model')
 
 module.exports = class Customer {
-    constructor({customerId=null, firstname=null, lastname=null, phoneNo=null, birthDate=null, gender=null} = {}) {
+    constructor({customer_id=null, firstname=null, lastname=null, phone_no=null, birth_date=null, gender=null} = {}) {
         // their own class atrribute ref. from class diagram
-        this._customerId = customerId
+        this._customerId = customer_id
         this._firstname = firstname
         this._lastname = lastname
-        this._phoneNo = phoneNo
-        this._birthDate = birthDate
+        this._phoneNo = phone_no
+        this._birthDate = birth_date
         this._gender = gender
         // their relationships to its neighbor ref. from class diagram
         this._customerAccount = null;   // relationship to CustomerAccount

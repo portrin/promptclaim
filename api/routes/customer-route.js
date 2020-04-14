@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('', customerController.userDefault);
 
 //get search User id : take data from server
-router.get('/userInfoById/:id', customerController.getUserInfoId);
+router.get('/userInfoById', customerController.getUserInfoId);
 
 //PUT --> update / post : give data to server
 router.get('/editProfileById/:custId', customerController.editProfile);

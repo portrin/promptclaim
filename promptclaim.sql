@@ -13,7 +13,7 @@ CREATE TABLE Customer (
     firstname VARCHAR(80) NOT NULL,
     lastname VARCHAR(80) NOT NULL,
     phone_no VARCHAR(12) NOT NULL,
-    birth_no DATE NOT NULL,
+    birth_date DATE NOT NULL,
     gender CHAR NOT NULL, 
     account_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(customer_id),
@@ -264,10 +264,10 @@ INSERT INTO Customer_account(account_id, username, password, email)
 VALUES ('1','chchadaa','chada1','chada@gmail.com'),
 ('2','somd99','som2','somroutine@gmail.com'),
 ('3','praaewpun','praew3','merrypraeww@gmail.com'),
-('4','por_trin','por4','melonqq@gmail.com'),
+('4','por_trin','por4','melonn.qq@gmail.com'),
 ('5','ploinrch','ploi5','ploiniracha@gmail.com');
 
-INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_no, gender, account_id)
+INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
 ('2','Som','Somlastname','0895511663','1999-1-20','M','2'),
 ('3','Praewpun','Praewlastname','0972279898','1998-11-24','F','3'),
