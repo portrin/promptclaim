@@ -14,7 +14,7 @@ interface Prop {
   image: string;
   name: string;
   description: string;
-  serial: string;
+  key: string;
 }
 
 const HistoryItem: React.FC<Prop> = (props) => {
@@ -28,9 +28,9 @@ const HistoryItem: React.FC<Prop> = (props) => {
         </IonThumbnail>
         <IonLabel>
           <h2>{props.name}</h2>
-          <IonCardSubtitle>{props.serial}</IonCardSubtitle>
+          <IonCardSubtitle>{props.key}</IonCardSubtitle>
         </IonLabel>
-        <Link to={`/myWarranty/${props.serial}`}>
+        <Link to={`/myWarranty/${props.key}`}>
           <IonButton fill="outline" slot="end">
             View
           </IonButton>

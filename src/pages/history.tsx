@@ -39,6 +39,7 @@ const History: React.FC = () => {
             name="Samsuang Television"
             description="Powerbuy"
             expiredDate="yesterday"
+            key="1"
           />
           <HistoryItem
             image={LGTV}

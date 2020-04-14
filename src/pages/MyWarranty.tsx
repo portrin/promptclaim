@@ -20,15 +20,10 @@ import {
   personCircleOutline,
 } from "ionicons/icons";
 import "./MyWarranty.css";
-import SamsungTV from "../pictures/samsungTV.jpg";
-import LGTV from "../pictures/LGTV.jpeg";
-import ToshibaAir from "../pictures/toshibaAir.jpg";
-import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
-import WoodTable from "../pictures/woodTable.jpg";
+
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 export interface Character {
   name: string;
@@ -42,6 +37,8 @@ export interface Itemprops {
 
 const MyWarranty: React.FC<Itemprops> = () => {
   const [searchText, setSearchText] = useState("");
+  const [searchItem, setSearchItem] = useState<Character[]>([]);
+
   console.log(searchText);
   useEffect(() => {
     fetchItems();
@@ -54,6 +51,15 @@ const MyWarranty: React.FC<Itemprops> = () => {
     setItems(items);
     console.log(items);
   };
+
+  useEffect(() => {
+    setSearchItem(
+      items.filter((item) =>
+        item.name.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText, items]);
+
   return (
     <IonPage>
       <IonHeader>
@@ -114,10 +120,10 @@ const MyWarranty: React.FC<Itemprops> = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
-          {items.map((item) => (
+          {searchItem.map((item) => (
             <Product
               name={item.name}
-              serial={item.char_id}
+              key={item.char_id}
               image={item.img}
               description={item.status}
             ></Product>
