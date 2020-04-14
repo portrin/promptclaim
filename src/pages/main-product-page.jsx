@@ -1,8 +1,9 @@
 import React from 'react'
-import { Layout, Breadcrumb, Menu, Input, Table, Row, Col } from 'antd'
+import { Layout, Breadcrumb, Menu, Row, Col, Table } from 'antd'
 import { Topbar } from '../components/header'
 import { Bottombar } from '../components/footer'
-import { dataTable } from '../components/table'
+// import { DataTable } from '../components/table'
+import { SearchBar } from '../components/search-bar'
 
 const { SubMenu } = Menu
 const { Content, Sider } = Layout
@@ -10,18 +11,14 @@ const { Content, Sider } = Layout
 export const MainProductPage = (props) => {
   return (
     <Layout>
-      <Topbar/>
+      <Topbar />
       <Layout>
         <Content>
           <br />
           <Row>
             <Col span={8}></Col>
             <Col span={8}>
-              <Search
-                placeholder="Search by product name"
-                onSearch={(value) => console.log(value)}
-                style={{ position: 'center' }}
-              />
+              <SearchBar />
             </Col>
             <Col span={8}></Col>
           </Row>
@@ -72,13 +69,11 @@ export const MainProductPage = (props) => {
             </Content>
           </Layout>
         </Content>
-        <Bottombar/>
+        <Bottombar />
       </Layout>
     </Layout>
   )
 }
-
-const { Search } = Input
 
 const columns = [
   {

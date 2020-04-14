@@ -1,6 +1,9 @@
 import React from 'react'
 import { Layout, Breadcrumb, Menu, Descriptions, Collapse } from 'antd'
 
+import { Topbar } from '../components/header'
+import { Bottombar } from '../components/footer'
+
 const { SubMenu } = Menu
 
 const { Panel } = Collapse
@@ -24,20 +27,7 @@ export const ViewPolicyPage = (props) => {
   return (
     <div className="App">
       <Layout>
-        <Header className="header">
-          <img
-            className="user"
-            src="user.png"
-            alt="user logo"
-            style={{ float: 'right' }}
-          />
-          <img
-            className="logo"
-            src="logo.png"
-            alt="prompt claim logo"
-            style={{ float: 'left' }}
-          />
-        </Header>
+        <Topbar />
         <Layout>
           <Content style={{ padding: '0 50px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
@@ -191,13 +181,11 @@ export const ViewPolicyPage = (props) => {
               </Content>
             </Layout>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Prompt Claim ©2020 Created by Team Igloo
-          </Footer>
+          <Bottombar />
         </Layout>
       </Layout>
     </div>
   )
 }
 
-const { Header, Content, Footer, Sider } = Layout
+const { Content, Sider } = Layout

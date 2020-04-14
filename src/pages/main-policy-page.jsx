@@ -1,25 +1,25 @@
 import React from 'react'
-import { Layout, Breadcrumb, Menu, Table } from 'antd'
+import { Layout, Breadcrumb, Menu, Table, Row, Col } from 'antd'
+import { SearchBar } from '../components/search-bar'
+import { Topbar } from '../components/header'
+import { Bottombar } from '../components/footer'
 
 export const MainPolicyPage = (props) => {
   return (
     <div className="App">
       <Layout>
-        <Header className="header">
-          <img
-            className="user"
-            src="user.png"
-            alt="user logo"
-            style={{ float: 'right' }}
-          />
-          <img
-            className="logo"
-            src="logo.png"
-            alt="prompt claim logo"
-            style={{ float: 'left' }}
-          />
-        </Header>
+        <Topbar />
         <Layout>
+          <Content>
+            <br />
+            <Row>
+              <Col span={8}></Col>
+              <Col span={8}>
+                <SearchBar />
+              </Col>
+              <Col span={8}></Col>
+            </Row>
+          </Content>
           <Content style={{ padding: '0 50px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Policy Dashboard</Breadcrumb.Item>
@@ -66,9 +66,7 @@ export const MainPolicyPage = (props) => {
               </Content>
             </Layout>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Prompt Claim ©2020 Created by Team Igloo
-          </Footer>
+          <Bottombar />
         </Layout>
       </Layout>
     </div>
@@ -77,7 +75,7 @@ export const MainPolicyPage = (props) => {
 
 const { SubMenu } = Menu
 
-const { Header, Content, Footer, Sider } = Layout
+const { Content, Sider } = Layout
 
 const columns = [
   {
