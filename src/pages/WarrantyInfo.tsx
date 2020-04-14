@@ -24,7 +24,6 @@ import {
   IonCol,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
-import { Link } from "react-router-dom";
 import { RouteComponentProps } from "react-router-dom";
 import "./WarrantyInfo.css";
 
@@ -32,8 +31,7 @@ const WarrantyInfo: React.FC<RouteComponentProps> = (props) => {
   const [checked, setChecked] = useState(false);
   const [showActionSheet, setShowActionSheet] = useState(false);
   const [showActionSheet1, setShowActionSheet1] = useState(false);
-  const [text, setText] = useState<string>();
-  const [number, setNumber] = useState<number>();
+
   const [showToast1, setShowToast1] = useState(false);
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -49,9 +47,7 @@ const WarrantyInfo: React.FC<RouteComponentProps> = (props) => {
     src: string;
     text: string;
   };
-  const items: Item[] = [
-    { src: "http://placekitten.com/g/200/300", text: "a picture of a cat" },
-  ];
+
   return (
     <IonPage>
       <IonContent>

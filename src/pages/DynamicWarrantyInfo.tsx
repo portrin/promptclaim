@@ -22,12 +22,10 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonButtons,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
-import Product from "../components/WarrantyItem";
 export interface Character {
   name: string;
   char_id: string;

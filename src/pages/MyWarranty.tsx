@@ -86,7 +86,6 @@ const MyWarranty: React.FC<Itemprops> = () => {
           animated
           value={searchText}
           onIonChange={(e) => setSearchText(e.detail.value!)}
-          showCancelButton="focus"
         ></IonSearchbar>
         <IonToolbar class="ion-no-padding" color="">
           <IonGrid>
