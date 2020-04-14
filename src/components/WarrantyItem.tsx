@@ -14,10 +14,10 @@ interface Prop {
   image: string;
   name: string;
   description: string;
-  key: string;
+  serial: string;
 }
 
-const HistoryItem: React.FC<Prop> = (props) => {
+const WarrantyItem: React.FC<Prop> = (props) => {
   const img = props.image;
 
   return (
@@ -28,9 +28,9 @@ const HistoryItem: React.FC<Prop> = (props) => {
         </IonThumbnail>
         <IonLabel>
           <h2>{props.name}</h2>
-          <IonCardSubtitle>{props.key}</IonCardSubtitle>
+          <IonCardSubtitle>{props.serial}</IonCardSubtitle>
         </IonLabel>
-        <Link to={`/myWarranty/${props.key}`}>
+        <Link to={`/myWarranty/${props.serial}`}>
           <IonButton fill="outline" slot="end">
             View
           </IonButton>
@@ -42,4 +42,4 @@ const HistoryItem: React.FC<Prop> = (props) => {
   );
 };
 
-export default HistoryItem;
+export default WarrantyItem;

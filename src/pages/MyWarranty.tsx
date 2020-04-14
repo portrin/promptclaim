@@ -123,7 +123,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
           {searchItem.map((item) => (
             <Product
               name={item.name}
-              key={item.char_id}
+              serial={item.char_id}
               image={item.img}
               description={item.status}
             ></Product>
