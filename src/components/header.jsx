@@ -19,5 +19,5 @@ export const Topbar = () => {
         style={{ float: 'left' }}
       />
     </Header>
-  )
+  );
 }

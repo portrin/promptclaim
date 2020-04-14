@@ -1,14 +1,16 @@
 import React from 'react'
 import { Layout, Breadcrumb, Menu, Input, Table, Row, Col } from 'antd'
 import { Topbar } from '../components/header'
+import { Bottombar } from '../components/footer'
+import { dataTable } from '../components/table'
 
 const { SubMenu } = Menu
-const { Content, Footer, Sider } = Layout
+const { Content, Sider } = Layout
 
 export const MainProductPage = (props) => {
   return (
     <Layout>
-      <Topbar />
+      <Topbar/>
       <Layout>
         <Content>
           <br />
@@ -70,10 +72,7 @@ export const MainProductPage = (props) => {
             </Content>
           </Layout>
         </Content>
-
-        <Footer style={{ textAlign: 'center' }}>
-          Prompt Claim ©2020 Created by Team Igloo
-        </Footer>
+        <Bottombar/>
       </Layout>
     </Layout>
   )
