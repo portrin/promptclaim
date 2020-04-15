@@ -1,12 +1,11 @@
 import React from 'react'
-import { Layout, Breadcrumb, Menu, Row, Col, Table } from 'antd'
+import { Layout, Breadcrumb, Row, Col, Table } from 'antd'
 import { Topbar } from '../components/header'
 import { Bottombar } from '../components/footer'
 // import { DataTable } from '../components/table'
 import { SearchBar } from '../components/search-bar'
-
-const { SubMenu } = Menu
-const { Content, Sider } = Layout
+import { Sidebar } from '../components/sider'
+const { Content } = Layout
 
 export const MainProductPage = (props) => {
   return (
@@ -31,25 +30,7 @@ export const MainProductPage = (props) => {
             className="site-layout-background"
             style={{ padding: '24px 0' }}
           >
-            <Sider className="site-layout-background" width={200}>
-              <Menu
-                mode="inline"
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                style={{ height: '100%' }}
-              >
-                <SubMenu key="sub1" title={<span>View by</span>}>
-                  <Menu.Item key="1">Product</Menu.Item>
-                  <Menu.Item
-                    key="2"
-                    className="pointer"
-                    onClick={() => props.history.push('/main-policy')}
-                  >
-                    Policy
-                  </Menu.Item>
-                </SubMenu>
-              </Menu>
-            </Sider>
+            <Sidebar {...props} />
             <Content>
               <div className="site-layout-content">
                 <Table
@@ -58,7 +39,7 @@ export const MainProductPage = (props) => {
                   onChange={onChange}
                   onRow={(record, rowIndex) => {
                     return {
-                      onClick: (event) => {
+                      onClick: () => {
                         console.log({ record, rowIndex })
                         props.history.push(`/view-product/${record.key}`)
                       },
