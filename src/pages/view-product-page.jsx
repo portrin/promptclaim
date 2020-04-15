@@ -86,20 +86,20 @@ export const ViewProductPage = (props) => {
               <Content>
                 <div className="site-layout-content">
                   <Descriptions
-                    title={data[key].product_name}
+                    title={data[key].productName}
                     layout="vertical"
                     bordered
                     column={2}
                   >
                     <Descriptions.Item label="Product Image">
                       <img
-                        className="toilet"
+                        className="product-image"
                         src={data[key].image}
                         alt="toilet bowl"
                       />
                     </Descriptions.Item>
                     <Descriptions.Item label="Product Information">
-                      Purchase date: 20/03/2019
+                      Purchase date: {data[key].productName}
                       <br />
                       Serial Number: 000001
                       <br />

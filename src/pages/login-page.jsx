@@ -8,7 +8,6 @@ export const LoginPage = (props) => {
   }
 
   return (
-    <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
       <Form
         name="normal_login"
         className="login-form"
@@ -81,6 +80,5 @@ export const LoginPage = (props) => {
           </Button>
         </Form.Item>
       </Form>
-    </article>
   )
 }
