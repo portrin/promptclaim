@@ -13,9 +13,9 @@ export const MainPolicyPage = (props) => {
           onChange={onChange}
           onRow={(record, rowIndex) => {
             return {
-              onClick: (event) => {
+              onClick: () => {
                 console.log({ record, rowIndex })
-                props.history.push(`/view-policy`)
+                props.history.push(`/view-policy/${record.key}`)
               },
             }
           }}
