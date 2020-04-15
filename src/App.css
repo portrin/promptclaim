@@ -33,6 +33,11 @@
   width: 104.25px;
 }
 
+.biglogo {
+  height: 130;
+  width: 280;
+}
+
 .user {
   height: 40px;
   width: 40px;
@@ -46,6 +51,19 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.biglogo {
+  margin-top: 20px;
+  height:150px ;
+  width:300px ;
+}
+
+.userbox {
+  margin-top: 20px;
+  width: 600px;
+  
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

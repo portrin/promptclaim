@@ -1,8 +1,8 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, Row, Col } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values)
   }
@@ -17,38 +17,48 @@ export const LoginPage = () => {
         }}
         onFinish={onFinish}
       >
-        <img className="logo" src="darktranslogo.png" alt="logo" />
-
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Username!',
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your Password!',
-            },
-          ]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
+        <img className="biglogo" src="darktranslogo.png" alt="logo" />
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Username!',
+                },
+              ]}
+            >
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Username"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={8}></Col>
+        </Row>
+        <Row>
+          <Col span={8}></Col>
+          <Col span={8}>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+              ]}
+            >
+              <Input
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Item>
+          </Col>
+          <Col span={8}></Col>
+        </Row>
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
@@ -62,9 +72,11 @@ export const LoginPage = () => {
         <Form.Item>
           <Button
             type="primary"
+            size='large'
             htmlType="submit"
             className="login-form-button"
             style={{ background: '#0050b3', borderColor: '#0050b3' }}
+            onClick={() => props.history.push('/')}
           >
             Log in
           </Button>
