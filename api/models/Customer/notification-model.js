@@ -64,10 +64,4 @@ module.exports = class Notification {
         this._timestamp = timestamp;
     }
 
-    // Problem Domain method
-    addCustomer(customer) {
-        checkType(customer, 'Customer');
-        this._customer = customer;
-        return;
-    }
 }

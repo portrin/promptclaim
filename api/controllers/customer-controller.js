@@ -1,18 +1,10 @@
 const Customer = require('../models/customer/customer-model');
-const CustomerAddress = require('../models/customer/customer-address-model');
-const CustomerAccount = require('../models/customer/customer-account-model');
 const jwt = require('jsonwebtoken');
-
-
-exports.userDefault = (req, res, next) => {
-    //console.log(req.headers.authorization)
-    res.send("Log in")
-}
 
 exports.getUserInfoId = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub
     const customer = new Customer((await Customer._readByCustomerId(customerId))[0][0]);
-    customer.addCustomerAccount(new CustomerAccount( (await CustomerAccount._readByCustomerId(customerId))[0][0] ) );
+    customer.getCustomerAccount(new CustomerAccount( (await CustomerAccount._readByCustomerId(customerId))[0][0] ) );
 
 
 
