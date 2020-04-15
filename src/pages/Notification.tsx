@@ -10,7 +10,7 @@ import {
   IonLabel,
 } from "@ionic/react";
 import "./history.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SamsungTV from "../pictures/samsungTV.jpg";
 import LGTV from "../pictures/LGTV.jpeg";
 import ToshibaAir from "../pictures/toshibaAir.jpg";
@@ -20,7 +20,29 @@ import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
 import Chandelier from "../pictures/chandelier.jpeg";
 import NotificationItem from "../components/NotificationItem";
 
-const Notification: React.FC = () => {
+export interface Character {
+  name: string;
+  char_id: string;
+  img: string;
+  status: string;
+}
+export interface Itemprops {
+  item: Character;
+}
+
+const Notification: React.FC<Itemprops> = () => {
+  useEffect(() => {
+    fetchItems();
+  }, []);
+  const [items, setItems] = useState<Character[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch("https://www.breakingbadapi.com/api/characters/");
+
+    const items = await data.json();
+    setItems(items);
+    console.log(items);
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -34,6 +56,14 @@ const Notification: React.FC = () => {
           <IonListHeader>
             <h2>March</h2>
           </IonListHeader>
+          {items.map((item) => (
+            <NotificationItem
+              image={item.img}
+              name={item.name}
+              description={item.char_id}
+              expiredDate={item.status}
+            ></NotificationItem>
+          ))}
           <NotificationItem
             image={SamsungFrig}
             name="Samsuang Refrigerator"
