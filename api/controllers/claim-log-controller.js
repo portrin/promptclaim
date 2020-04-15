@@ -1,4 +1,5 @@
 const ClaimLog = require('../models/product/claim-log-model');
+const jwt = require('jsonwebtoken');
 
 exports.getCustomerClaimLog = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;

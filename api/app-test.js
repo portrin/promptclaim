@@ -22,9 +22,10 @@ app.use('/auth', authRoute);
 const customerRoute = require('./routes/customer-route');
 app.use('', auth.requireJwtAuth, customerRoute);
 
-const claimLogRoutes = require('./routes/claim-log-route');
-app.use('/claimlog', auth.requireJwtAuth, claimLogRoutes);
-
+const customerRoutes = require('./routes/customer-route')
+app.use('/customer', customerRoutes)
+const notificationRoute = require('./routes/notification-route');
+app.use('/notification', auth.requireJwtAuth, notificationRoute);
 
 // start server
 app.listen(PORT, () => {

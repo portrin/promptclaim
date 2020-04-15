@@ -7,6 +7,7 @@ module.exports = class ClaimLog {
         this._claimId = claim_id;
         this._status = status;
         this._timestamp = timestamp;
+        
         // relationships
         this._purchasedProduct = null;      // relationship from purchasedProduct        
         this._serviceCenterBranch = null;   // relationship from serviceCenterBranch
@@ -41,7 +42,7 @@ module.exports = class ClaimLog {
 
     static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT * FROM claim_log c NATURAL JOIN purchased_product p WHERE p.customer_id = ?',
+            'SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE p.customer_id = ?',
             [customerId]
         );
     };
