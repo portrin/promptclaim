@@ -1,0 +1,40 @@
+import React from 'react'
+import { Layout, Breadcrumb, Row, Col } from 'antd'
+import { Topbar } from '../components/header'
+import { Bottombar } from '../components/footer'
+import { SearchBar } from '../components/search-bar'
+import { Sidebar } from '../components/sider'
+const { Content } = Layout
+
+export const AppLayout = (props) => {
+  return (
+    <Layout>
+      <Topbar />
+      <Layout>
+        <Content>
+          <br />
+          <Row>
+            <Col span={8}></Col>
+            <Col span={8}>
+              <SearchBar />
+            </Col>
+            <Col span={8}></Col>
+          </Row>
+        </Content>
+        <Content style={{ padding: '0 50px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>{props.title}</Breadcrumb.Item>
+          </Breadcrumb>
+          <Layout
+            className="site-layout-background"
+            style={{ padding: '24px 0' }}
+          >
+            <Sidebar {...props} />
+            <Content>{props.children} </Content>
+          </Layout>
+        </Content>
+        <Bottombar />
+      </Layout>
+    </Layout>
+  )
+}

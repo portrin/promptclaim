@@ -1,83 +1,29 @@
 import React from 'react'
-import { Layout, Breadcrumb, Menu, Table, Row, Col } from 'antd'
-import { SearchBar } from '../components/search-bar'
-import { Topbar } from '../components/header'
-import { Bottombar } from '../components/footer'
+import { Table } from 'antd'
+
+import { AppLayout } from '../components/app-layout'
 
 export const MainPolicyPage = (props) => {
   return (
-    <div className="App">
-      <Layout>
-        <Topbar />
-        <Layout>
-          <Content>
-            <br />
-            <Row>
-              <Col span={8}></Col>
-              <Col span={8}>
-                <SearchBar />
-              </Col>
-              <Col span={8}></Col>
-            </Row>
-          </Content>
-          <Content style={{ padding: '0 50px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Policy Dashboard</Breadcrumb.Item>
-            </Breadcrumb>
-            <Layout
-              className="site-layout-background"
-              style={{ padding: '24px 0' }}
-            >
-              <Sider className="site-layout-background" width={200}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1']}
-                  style={{ height: '100%' }}
-                >
-                  <SubMenu key="sub1" title={<span>View by</span>}>
-                    <Menu.Item
-                      key="2"
-                      className="pointer"
-                      onClick={() => props.history.push('/')}
-                    >
-                      Product
-                    </Menu.Item>
-                    <Menu.Item key="1">Policy</Menu.Item>
-                  </SubMenu>
-                </Menu>
-              </Sider>
-              <Content>
-                <div className="site-layout-content">
-                  <Table
-                    columns={columns}
-                    dataSource={data}
-                    onChange={onChange}
-                    onRow={(record, rowIndex) => {
-                      return {
-                        onClick: (event) => {
-                          console.log({ record, rowIndex })
-                          console.log(props.history)
-
-                          props.history.push(`/view-policy`)
-                        },
-                      }
-                    }}
-                  />
-                </div>
-              </Content>
-            </Layout>
-          </Content>
-          <Bottombar />
-        </Layout>
-      </Layout>
-    </div>
+    <AppLayout {...props} title="Policy Dashboard">
+      <div className="site-layout-content">
+        <Table
+          columns={columns}
+          dataSource={data}
+          onChange={onChange}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: (event) => {
+                console.log({ record, rowIndex })
+                props.history.push(`/view-policy`)
+              },
+            }
+          }}
+        />
+      </div>
+    </AppLayout>
   )
 }
-
-const { SubMenu } = Menu
-
-const { Content, Sider } = Layout
 
 const columns = [
   {

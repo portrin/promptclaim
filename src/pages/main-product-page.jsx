@@ -1,58 +1,29 @@
 import React from 'react'
-import { Layout, Breadcrumb, Row, Col, Table } from 'antd'
-import { Topbar } from '../components/header'
-import { Bottombar } from '../components/footer'
+import { Table } from 'antd'
+
 // import { DataTable } from '../components/table'
-import { SearchBar } from '../components/search-bar'
-import { Sidebar } from '../components/sider'
-const { Content } = Layout
+
+import { AppLayout } from '../components/app-layout'
 
 export const MainProductPage = (props) => {
   return (
-    <Layout>
-      <Topbar />
-      <Layout>
-        <Content>
-          <br />
-          <Row>
-            <Col span={8}></Col>
-            <Col span={8}>
-              <SearchBar />
-            </Col>
-            <Col span={8}></Col>
-          </Row>
-        </Content>
-        <Content style={{ padding: '0 50px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Product Dashboard</Breadcrumb.Item>
-          </Breadcrumb>
-          <Layout
-            className="site-layout-background"
-            style={{ padding: '24px 0' }}
-          >
-            <Sidebar {...props} />
-            <Content>
-              <div className="site-layout-content">
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  onChange={onChange}
-                  onRow={(record, rowIndex) => {
-                    return {
-                      onClick: () => {
-                        console.log({ record, rowIndex })
-                        props.history.push(`/view-product/${record.key}`)
-                      },
-                    }
-                  }}
-                />
-              </div>
-            </Content>
-          </Layout>
-        </Content>
-        <Bottombar />
-      </Layout>
-    </Layout>
+    <AppLayout {...props} title="Product Dashboard">
+      <div className="site-layout-content">
+        <Table
+          columns={columns}
+          dataSource={data}
+          onChange={onChange}
+          onRow={(record, rowIndex) => {
+            return {
+              onClick: () => {
+                console.log({ record, rowIndex })
+                props.history.push(`/view-product/${record.key}`)
+              },
+            }
+          }}
+        />
+      </div>
+    </AppLayout>
   )
 }
 

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Layout, Breadcrumb, Menu, Descriptions } from 'antd'
 
 const { SubMenu } = Menu
+const { Header, Content, Footer, Sider } = Layout
 
 const data = {
   '1': {
@@ -10,28 +11,28 @@ const data = {
 
     image: '/cotto-toilet-bowl.jpg',
 
-    product_name: 'COTTO Automatic Toilet Bowl',
+    productName: 'COTTO Automatic Toilet Bowl',
   },
   '2': {
     key: '2',
 
     image: '/ame-toilet.jpg',
 
-    product_name: 'AMERICAN STANDARD Toilet Bowl',
+    productName: 'AMERICAN STANDARD Toilet Bowl',
   },
   '3': {
     key: '3',
 
     image: '/water-heater.jpg',
 
-    product_name: 'STIEBEL ELTRON Water Heater',
+    productName: 'STIEBEL ELTRON Water Heater',
   },
   '4': {
     key: '4',
 
     image: '/air.jpg',
 
-    product_name: 'DAIKIN Air Conditioner',
+    productName: 'DAIKIN Air Conditioner',
   },
 }
 
@@ -92,9 +93,9 @@ export const ViewProductPage = (props) => {
                   >
                     <Descriptions.Item label="Product Image">
                       <img
-                        className="toilet"
+                        className="product-image"
                         src={data[key].image}
-                        alt="toilet bowl"
+                        alt="product"
                       />
                     </Descriptions.Item>
                     <Descriptions.Item label="Product Information">
@@ -145,5 +146,3 @@ export const ViewProductPage = (props) => {
     </div>
   )
 }
-
-const { Header, Content, Footer, Sider } = Layout
