@@ -88,15 +88,4 @@ module.exports = class Product {
         this._productDescription = productDescription;
     };
 
-    addProductCategory(productCategory) {
-        checkType(productCategory, 'ProductCategory');
-        this._productCategory.push(productCategory);
-        return;
-    };
-
-    addSupplier(supplier) {
-        checkType(supplier, 'Supplier');
-        this._supplier = supplier;
-        return;
-    }
 };

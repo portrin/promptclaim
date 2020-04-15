@@ -67,16 +67,4 @@ module.exports = class ProductCategory {
         this._categoryName = categoryName;
     };
 
-
-    addProduct(product) {
-        checkType(product, 'Product');
-        this.product.push(product);
-        return;
-    };	
-
-    addPurchasedProduct(purchasedProduct) {
-        checkType(purchasedProduct, 'PurchasedProduct');
-        this._purchaedProduct.push(purchasedProduct);
-        return;
-    };
 };
