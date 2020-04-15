@@ -19,7 +19,7 @@ router.get('/editProfileById/:custId', customerController.editProfile);
 router.post('/addAddressById/:addrId', customerAddressController.postAddAddressById);
 router.get('/getAddressByCustId', customerAddressController.getAddressByCustId);
 router.get('/getAddressByPK/:addrId', customerAddressController.getAddressByPK);
-router.post('/editAddressById/:addrId', customerAddressController.editAddressById);
+router.post('/editAddressById/:addrId', customerAddressController.postEditAddressById);
 router.delete('/deleteAddressByPK/:addrId', customerAddressController.deleteAddressByPK);
 
 module.exports = router

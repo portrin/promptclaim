@@ -13,7 +13,7 @@ module.exports = class CustomerAddress {
         this._province = province; 
         this._zipcode = zipcode;
         // from relationship 
-        this._customer = null;
+        this._customer = customer;
     }
 
     //DM Layer CRUD

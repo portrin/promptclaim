@@ -10,7 +10,7 @@ exports.postAddAddressById = async (req,res,next) => {
     const update_sub_district = req.body.sub_district;
     const update_district = req.body.district;
     const update_province = req.body.province;
-    const update_zipcode = req.body.update_zipcode;
+    const update_zipcode = req.body.zipcode;
     const customerAddress = new CustomerAddress({
         customerId,
         address_id,
@@ -22,14 +22,12 @@ exports.postAddAddressById = async (req,res,next) => {
         update_zipcode
     })
     const result = await customerAddress._create()
-    res.send({
-        addedAddress : result
-    })
+    res.send(result)
 }
 
 exports.getAddressByCustId= async (req,res,next) => {
     const customerId = jwt.decode(req.headers.authorization).sub
-    const customerAddress = await CustomerAddress._readByCustomerId(customerId)
+    const customerAddress = (await CustomerAddress._readByCustomerId(customerId))[0]
     res.send({
         getAddress : customerAddress
     })
@@ -38,7 +36,7 @@ exports.getAddressByCustId= async (req,res,next) => {
 exports.getAddressByPK = async (req,res,next) => {
     const customerId = jwt.decode(req.headers.authorization).sub
     const address_id = req.params.addrId
-    const customerAddress = await CustomerAddress._readByPK(customerId, address_id)
+    const customerAddress = (await CustomerAddress._readByPK(customerId, address_id))[0]
     res.send({
         getAddress : customerAddress
     })
@@ -64,9 +62,7 @@ exports.postEditAddressById = async (req,res,next) => {
         update_zipcode
     })
     const result = await customerAddress._update()
-    res.send({
-        editededAddress : result
-    })
+    res.send(result)
 }
 
 exports.deleteAddressByPK = async (req,res,next) => {
