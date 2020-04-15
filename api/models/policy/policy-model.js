@@ -23,8 +23,8 @@ module.exports = class Policy {
         );
     }
 
-    _read() {
-        return db.execute('SELECT * FROM policy WHERE policy_id = ?', [this._policyId]);
+    static _readByCustomerId(customerId) {
+        return db.execute();
     }
 
     static _read() {
