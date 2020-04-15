@@ -4,17 +4,14 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonInput,
   IonContent,
   IonList,
   IonListHeader,
   IonItem,
   IonButton,
-  IonText,
   IonLabel,
   IonDatetime,
 } from "@ionic/react";
-import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 const slideOpts = {
   initialSlide: 1,
   speed: 400,
@@ -36,12 +33,14 @@ const AddClaimDate: React.FC = () => {
         <IonList>
           <IonListHeader>Claim Date</IonListHeader>
           <IonItem>
-            <p><IonDatetime
-              displayFormat="DDDD MMM D, YYYY"
-              min="2020"
-              max="2024"
-              value={selectedDate}
-            ></IonDatetime></p>
+            <p>
+              <IonDatetime
+                displayFormat="DDDD MMM D, YYYY"
+                min="2020"
+                max="2024"
+                value={selectedDate}
+              ></IonDatetime>
+            </p>
           </IonItem>
           <IonItem>
             <IonLabel color="medium">Date of Purchase</IonLabel>
@@ -54,7 +53,13 @@ const AddClaimDate: React.FC = () => {
             ></IonDatetime>
           </IonItem>
           <IonButton expand="block">Add</IonButton>
-          <IonButton color="light" expand="block" routerLink="warrantyItem/+'{id}'">Back</IonButton>
+          <IonButton
+            color="light"
+            expand="block"
+            routerLink="warrantyItem/+'{id}'"
+          >
+            Back
+          </IonButton>
         </IonList>
       </IonContent>
     </IonPage>

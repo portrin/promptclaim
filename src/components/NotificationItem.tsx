@@ -1,5 +1,6 @@
 import React from "react";
 import { IonItem, IonAvatar, IonLabel, IonNote } from "@ionic/react";
+
 interface Prop {
   image: string;
   name: string;

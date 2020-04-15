@@ -17,7 +17,7 @@ interface Prop {
   serial: string;
 }
 
-const HistoryItem: React.FC<Prop> = (props) => {
+const WarrantyItem: React.FC<Prop> = (props) => {
   const img = props.image;
 
   return (
@@ -42,4 +42,4 @@ const HistoryItem: React.FC<Prop> = (props) => {
   );
 };
 
-export default HistoryItem;
+export default WarrantyItem;

@@ -26,7 +26,6 @@ import {
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
-import Product from "../components/WarrantyItem";
 export interface Character {
   name: string;
   char_id: string;
@@ -42,6 +41,7 @@ interface RouteParam {
 }
 interface Match extends RouteComponentProps<RouteParam> {
   params: string;
+  //ไม่จำเปน
 }
 
 const WarrantyInfo: React.FC<Match> = ({ match }) => {
@@ -50,6 +50,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [showActionSheet1, setShowActionSheet1] = useState(false);
 
   const [showToast1, setShowToast1] = useState(false);
+  console.log(match);
+  console.log(match.params);
   console.log(match.params.id);
   useEffect(() => {
     fetchItems();

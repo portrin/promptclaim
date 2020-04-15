@@ -21,15 +21,10 @@ import {
   personCircleOutline,
 } from "ionicons/icons";
 import "./MyWarranty.css";
-import SamsungTV from "../pictures/samsungTV.jpg";
-import LGTV from "../pictures/LGTV.jpeg";
-import ToshibaAir from "../pictures/toshibaAir.jpg";
-import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
-import WoodTable from "../pictures/woodTable.jpg";
+
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 export interface Character {
   name: string;
@@ -42,6 +37,10 @@ export interface Itemprops {
 }
 
 const MyWarranty: React.FC<Itemprops> = () => {
+  const [searchText, setSearchText] = useState("");
+  const [searchItem, setSearchItem] = useState<Character[]>([]);
+
+  console.log(searchText);
   useEffect(() => {
     fetchItems();
   }, []);
@@ -53,7 +52,15 @@ const MyWarranty: React.FC<Itemprops> = () => {
     setItems(items);
     console.log(items);
   };
-  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    setSearchItem(
+      items.filter((item) =>
+        item.name.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText, items]);
+
   return (
     <IonPage>
       <IonHeader>
@@ -87,7 +94,6 @@ const MyWarranty: React.FC<Itemprops> = () => {
           animated
           value={searchText}
           onIonChange={(e) => setSearchText(e.detail.value!)}
-          showCancelButton="focus"
         ></IonSearchbar>
         <IonToolbar class="ion-no-padding" color="">
           <IonGrid>
@@ -115,7 +121,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
-          {items.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
+          {searchItem.map((item) => (
             <Product
               name={item.name}
               serial={item.char_id}
@@ -123,7 +129,6 @@ const MyWarranty: React.FC<Itemprops> = () => {
               description={item.status}
             ></Product>
           ))}
-
         </IonList>
       </IonContent>
     </IonPage>
