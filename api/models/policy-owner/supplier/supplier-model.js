@@ -75,23 +75,4 @@ module.exports = class Supplier{
         this._contact = contact;
         this._address = address;
     }
-    
-    //Root Account
-    addRootAccount(rootAccount) {
-        checkType(rootAccount, 'RootAccount');
-        this._rootAccount = rootAccount;
-        return;
-    }
-
-    addPolicyOwner(policyOwner) {
-        checkType(policyOwner, 'PolicyOwner');
-        this._policyOwner = policyOwner;
-        return;
-    }
-
-    addProduct(product) {
-        checkType(product, 'Product');
-        this._product.push(product);
-        return;
-    }
 }

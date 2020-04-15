@@ -82,27 +82,6 @@ module.exports = class Retailer {
         this._contact = contact;
         this._hqAddress = hqAddress;
     }
-
-    // PolicyOwner
-    addPolicyOwner(policyOwner) {
-        checkType(policyOwner, 'PolicyOwner');
-        this._policyOwner = policyOwner;
-        return;
-    }
-
-    // Retailer Branch
-    addRetailerBranch(retailerBranch) {
-        checkType(retailerBranch, 'RetailerBranch');
-        this._retailerBranch.push(retailerBranch);
-        return;
-    }
-
-    //Root Account
-    addRootAccount(rootAccount) {
-        checkType(rootAccount, 'RootAccount');
-        this._rootAccount = rootAccount;
-        return;
-    }
 }
 
 

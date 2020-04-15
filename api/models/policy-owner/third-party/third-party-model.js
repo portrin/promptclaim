@@ -73,20 +73,6 @@ module.exports = class ThirdParty {
         this._address = address;
         this._thirdPartyDescription = thirdPartyDescription;
     }
-
-    //Root Account
-    addRootAccount(rootAccount) {
-        checkType(rootAccount, 'RootAccount');
-        this._rootAccount = rootAccount;
-        return;
-    }
-
-    // Policy Owner
-    addPolicyOwner(policyOwner) {
-        checkType(policyOwner, 'PolicyOwner');
-        this._policyOwner = policyOwner;
-        return;
-    }
 }
 
 

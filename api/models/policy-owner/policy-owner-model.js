@@ -91,30 +91,6 @@ module.exports = class PolicyOwner {
         this._policyOwnerId = policyOwnerId;
         this._ownerType = ownerType;
     }
-    // Problem Domain layer
-
-    // Policy
-    addPolicy(policy) {
-        checkType(policy, 'Policy');
-        this._policy.push(policy);
-        return;
-    }
-
-    // Relation to Retailer, Supplier, or ThirdParty
-    addIsa(obj) {
-        if (obj.constructor.name === 'Retailer') {
-            this._isa = obj;
-            this._ownerType = 'R';
-        } else if (obj.constructor.name === 'Supplier') {
-            this.isa = obj;
-            this._ownerType = 'S';
-        } else if (obj.constructor.name === 'ThirdParty') {
-            this.isa = obj;
-            this._ownerType = 'T';
-        } else {
-            throw new TypeError('the input object is not Retailer, Supplier, or ThirdParty');
-        }
-    }
 }
 
 
