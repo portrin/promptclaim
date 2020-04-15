@@ -2,9 +2,9 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Notification {
-    constructor({notiId=null, message=null, timestamp=null} = {}) {
+    constructor({noti_id=null, message=null, timestamp=null} = {}) {
         // their own class atrribute ref. from class diagram
-        this._notiId = notiId,
+        this._notiId = noti_id,
         this._message = message,
         this._timestamp = timestamp,
         // their relationships to its neighbor ref. from class diagram
