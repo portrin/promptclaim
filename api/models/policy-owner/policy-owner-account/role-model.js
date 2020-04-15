@@ -91,21 +91,4 @@ module.exports = class Role {
         this._roleDescription = roleDescription;
     }
 
-    addRootAccount(rootAccount) {
-        checkType(rootAccount, 'RootAccount');
-        this._rootAccount = rootAccount;
-        return;
-    }
-
-    addPermission(permission) {
-        checkType(permission, 'Permission');
-        this._permission.push(permission);
-        return;
-    }
-
-    addGroup(group) {
-        checkType(group, 'Group');
-        this._group.push(group);
-        return;
-    }
 }

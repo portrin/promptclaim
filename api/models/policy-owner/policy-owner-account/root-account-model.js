@@ -84,23 +84,4 @@ module.exports = class RootAccount {
         this._password = password;
         this._type = type;
     }
-
-    addRole(role) {
-        checkType(role, 'Role');
-        this._role = role;
-        return;
-    }
-
-    // Relation to Retailer, Supplier, or ThirdParty
-    addBelongTo(obj) {
-        if (obj.constructor.name === 'Retailer') {
-            this._belongTo = obj;
-        } else if (obj.constructor.name === 'Supplier') {
-            this._belongTo = obj;
-        } else if (obj.constructor.name === 'ThirdParty') {
-            this._belongTo = obj;
-        } else {
-            throw new TypeError('the input object is not Retailer, Supplier, or ThirdParty');
-        }
-    }
 }
