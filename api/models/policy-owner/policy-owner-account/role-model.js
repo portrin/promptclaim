@@ -2,8 +2,9 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Role {
-    constructor({username = null, password = null, role_name = null, role_description = null} = {}) {
+    constructor({root_id = null,username = null, password = null, role_name = null, role_description = null} = {}) {
         // their own class atrribute ref. from class diagram
+        this._rootId = root_id
         this._username = username
         this._password = password
         this._roleName = role_name
@@ -19,7 +20,7 @@ module.exports = class Role {
     _create() {
         return db.execute(
             'INSERT INTO Role (root_id, username, password, role_name, role_description) VALUES(?,?,?,?,?)',
-            [this._rootAccount.getProperty.rootId,
+            [this._rootId,
             this._username,
             this._password,
             this._roleName,
@@ -47,7 +48,7 @@ module.exports = class Role {
             [this._password,
             this._roleName,
             this._roleDescription,
-            this._rootAccount.getProperty.rootId,
+            this._rootId,
             this._username]
         );
     }
@@ -55,13 +56,14 @@ module.exports = class Role {
     _delete() {
         return db.execute(
             'DELETE FROM Role WHERE root_id = ? AND username =?', 
-            [this._rootAccount.getProperty.rootId, this._username])
+            [this._rootId, this._username])
     }
 
     
     // getter and setter
     get getProperty() {
         return {
+            rootId: this._rootId,
             username: this._username,
             password: this._password,
             roleName: this._roleName,
@@ -74,17 +76,20 @@ module.exports = class Role {
 
     set setProperty({  // set only its own attributes
         // destructuring object as parameter by using old values as a default.
+        rootId = this._rootId,
         username = this._username,
         password = this._password,
         roleName = this._roleName,
         roleDescription = this._roleDescription
     }) {
         // check datatype
+        checkType(rootId, 'String');
         checkType(username, 'String');
         checkType(password, 'String');
         checkType(roleName, 'String');
         checkType(roleDescription, 'String');
         // assign to private variables
+        this._rootId = rootId;
         this._username = username;
         this._password = password;
         this._roleName = roleName;
