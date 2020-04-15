@@ -63,9 +63,9 @@ exports.postEditAddressById = async (req,res,next) => {
         update_province,
         update_zipcode
     })
-    const customerAddress = await customerAddress._update()
+    const result = await customerAddress._update()
     res.send({
-        editededAddress : customerAddress
+        editededAddress : result
     })
 }
 
