@@ -63,7 +63,6 @@ export const LoginPage = (props) => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-
           <a className="login-form-forgot" href="">
             Forgot password
           </a>
@@ -72,7 +71,7 @@ export const LoginPage = (props) => {
         <Form.Item>
           <Button
             type="primary"
-            size='large'
+            size="large"
             htmlType="submit"
             className="login-form-button"
             style={{ background: '#0050b3', borderColor: '#0050b3' }}
