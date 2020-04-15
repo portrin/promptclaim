@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
-export const LoginPage = () => {
+export const LoginPage = (props) => {
   const onFinish = (values) => {
     console.log('Received values of form: ', values)
   }
@@ -76,6 +76,7 @@ export const LoginPage = () => {
             htmlType="submit"
             className="login-form-button"
             style={{ background: '#0050b3', borderColor: '#0050b3' }}
+            onClick={() => props.history.push('/')}
           >
             Log in
           </Button>

@@ -11,8 +11,8 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-      <LoginPage/>
         <Switch>
+          <Route path="/login" component={LoginPage} exact />
           <Route path="/" component={MainProductPage} exact />
           <Route path="/view-product/:key" component={ViewProductPage} exact />
           <Route path="/main-policy" component={MainPolicyPage} exact />
