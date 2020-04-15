@@ -57,6 +57,8 @@ export const MainPolicyPage = (props) => {
                       return {
                         onClick: (event) => {
                           console.log({ record, rowIndex })
+                          console.log(props.history)
+
                           props.history.push(`/view-policy`)
                         },
                       }

@@ -33,7 +33,6 @@ const data = {
 
     product_name: 'DAIKIN Air Conditioner',
   },
-
 }
 
 export const ViewProductPage = (props) => {
@@ -93,8 +92,12 @@ export const ViewProductPage = (props) => {
                   >
                     <Descriptions.Item label="Product Image">
                       <img
+<<<<<<< HEAD
                         className="product-image"
                         // src="toilet bowl.jpg"
+=======
+                        className="toilet"
+>>>>>>> 8a0136b7076d09d3be8f52687a1bb9d2e58d461d
                         src={data[key].image}
                         alt="product image"
                       />

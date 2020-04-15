@@ -17,6 +17,7 @@ export const LoginPage = () => {
         }}
         onFinish={onFinish}
       >
+<<<<<<< HEAD
         <img className="biglogo" src="darktranslogo.png" alt="logo" />
         <Row>
           <Col span={8}></Col>
@@ -59,6 +60,45 @@ export const LoginPage = () => {
           </Col>
           <Col span={8}></Col>
         </Row>
+=======
+        <img 
+          className="biglogo" 
+          src="darktranslogo.png" 
+          alt="logo" 
+        />
+
+        <Form.Item
+          className='userbox'
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Username!',
+            },
+          ]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your Password!',
+            },
+          ]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+>>>>>>> 8a0136b7076d09d3be8f52687a1bb9d2e58d461d
         <Form.Item>
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
@@ -72,6 +112,7 @@ export const LoginPage = () => {
         <Form.Item>
           <Button
             type="primary"
+            size='large'
             htmlType="submit"
             className="login-form-button"
             style={{ background: '#0050b3', borderColor: '#0050b3' }}
