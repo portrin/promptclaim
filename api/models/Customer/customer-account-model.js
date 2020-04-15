@@ -79,18 +79,4 @@ module.exports = class CustomerAccount{
         this._password = password; 
         this._email = email;
     }
-
-    verifyPassword(){
-        console.log('verify!!');
-    }
-    
-    forgetPassword(){
-        console.log('forgot password!!');
-    }
-
-    addCustomer(customer) {
-        checkType(customer, 'Customer');
-        this._customer = customer;
-        return;
-    }
 }

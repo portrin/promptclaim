@@ -1,5 +1,5 @@
 //Customer address model
-const CustomerAddress = require('../models/customer/customer-address-model');
+const CustomerAddress = require('../../models/customer/customer-address-model');
 const jwt = require('jsonwebtoken');
 
 exports.postAddAddressById = async (req,res,next) => {
