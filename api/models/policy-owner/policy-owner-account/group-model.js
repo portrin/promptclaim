@@ -2,11 +2,11 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Group {
-    constructor({groupId = null, groupName = null, groupDescription = null} = {}){
+    constructor({group_id = null, group_name = null, group_description = null} = {}){
         // their own class atrribute ref. from class diagram
-        this._groupId = groupId
-        this._groupName = groupName
-        this._groupDescription = groupDescription 
+        this._groupId = group_id
+        this._groupName = group_name
+        this._groupDescription = group_description 
 
         //Relationship to its neighbor classes
         this._permission = [] //relationship to class Permission

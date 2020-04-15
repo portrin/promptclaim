@@ -2,12 +2,12 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Role {
-    constructor({username = null, password = null, roleName = null, roleDescription = null} = {}) {
+    constructor({username = null, password = null, role_name = null, role_description = null} = {}) {
         // their own class atrribute ref. from class diagram
         this._username = username
         this._password = password
-        this._roleName = roleName
-        this._roleDescription = roleDescription
+        this._roleName = role_name
+        this._roleDescription = role_description
 
         //Relationship to its neighbor classes
         this._rootAccount = null    //relationship to class RootAccount
