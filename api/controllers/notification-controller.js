@@ -11,7 +11,7 @@ exports.getNotification = async (req, res, next) => {
 
 exports.deleteNotification = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
-    const notiId; //don't know how to get notiId yet
+    //const notiId; //don't know how to get notiId yet
     await Notifcation._delete(customerId, notiId)
     res.send('Notification deleted!');
 };
