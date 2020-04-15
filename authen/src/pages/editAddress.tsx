@@ -14,11 +14,46 @@ import {
   IonInput,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./EditAddress.css";
 import { RouteComponentProps } from "react-router-dom";
 
-const EditAddress: React.FC<RouteComponentProps> = (props) => {
+export interface Character {
+  name: string;
+  char_id: string;
+  img: string;
+  status: string;
+}
+
+export interface Itemprops {
+  item: Character;
+}
+
+interface RouteParam {
+  id: string;
+}
+interface Match extends RouteComponentProps<RouteParam> {
+  params: string;
+}
+
+const EditAddress: React.FC<Match> = ({ match }) => {
+
+  console.log(match);
+  console.log(match.params.id);
+  useEffect(() => {
+    fetchItem();
+  }, []);
+  const [item, setItem] = useState<Character[]>([]);
+  const [newEmail, setNewEmail] = useState("");
+  const fetchItem = async () => {
+    const data = await fetch(
+      "https://www.breakingbadapi.com/api/characters/" + match.params.id
+    );
+
+    const item = await data.json();
+    setItem(item);
+    console.log(item);
+  };
   return (
     <IonApp>
       <IonPage>

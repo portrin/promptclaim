@@ -16,11 +16,42 @@ import {
   IonDatetime,
 } from "@ionic/react";
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./EditProfile.css";
 import { RouteComponentProps } from "react-router-dom";
 
-const EditProfile: React.FC<RouteComponentProps> = (props) => {
+import { Character } from "./Profile";
+
+export interface Itemprops {
+  item: Character;
+}
+
+interface RouteParam {
+  id: string;
+}
+interface Match extends RouteComponentProps<RouteParam> {
+  params: string;
+}
+
+const EditProfile: React.FC<Match> = ({ match }) => {
+  console.log(match);
+  console.log(match.params.id);
+  useEffect(() => {
+    fetchItem();
+  }, []);
+  const [item, setItem] = useState<Character[]>([]);
+
+  const [fname, setFName] = useState("");
+
+  const fetchItem = async () => {
+    const data = await fetch(
+      "https://www.breakingbadapi.com/api/characters/" + match.params.id
+    );
+
+    const item = await data.json();
+    setItem(item);
+    console.log(item);
+  };
   return (
     <IonApp>
       <IonPage>
@@ -37,7 +68,25 @@ const EditProfile: React.FC<RouteComponentProps> = (props) => {
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">First Name</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                {item.map((item) => (
+                  <IonInput
+                    class="input"
+                    required
+                    type="text"
+                    value={fname}
+                    onIonChange={(e) => setFName(e.detail.value!)}
+                  >
+                    {item.name}
+                  </IonInput>
+                ))}
+
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={fname}
+                  onIonChange={(e) => setFName(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
@@ -73,7 +122,9 @@ const EditProfile: React.FC<RouteComponentProps> = (props) => {
 
               <IonItem>
                 <IonLabel>Phone No.</IonLabel>
-                <IonLabel class="label"> 081-234-5678</IonLabel>
+                {item.map((item) => (
+                  <IonLabel class="label"> {item.char_id}</IonLabel>
+                ))}
               </IonItem>
             </IonList>
           </IonCard>
