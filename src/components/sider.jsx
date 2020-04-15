@@ -12,7 +12,11 @@ export const Sidebar = (props) => {
       <Menu
         mode="inline"
         defaultSelectedKeys={
-          path === '/' || '/view-product' ? 'product' : 'policy'
+          (path === '/') ? 'product':
+          (path ==='/view-product') ? 'product':
+          (path ==='/main-policy') ? 'policy':
+          (path ==='/view-policy') ? 'policy':
+          'product'
         }
         defaultOpenKeys={['sub1']}
         style={{ height: '100%' }}

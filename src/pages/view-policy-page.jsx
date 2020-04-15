@@ -1,5 +1,6 @@
 import React from 'react'
 import { Layout, Breadcrumb, Menu, Descriptions, Collapse } from 'antd'
+import { AppLayout } from '../components/app-layout'
 
 import { Topbar } from '../components/header'
 import { Bottombar } from '../components/footer'
@@ -25,45 +26,8 @@ Terms & Conditions:
 
 export const ViewPolicyPage = (props) => {
   return (
-    <div className="App">
-      <Layout>
-        <Topbar />
-        <Layout>
-          <Content style={{ padding: '0 50px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item
-                className="pointer"
-                onClick={() => props.history.push('/main-policy')}
-              >
-                Policy Dashboard
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Policy Information</Breadcrumb.Item>
-            </Breadcrumb>
-            <Layout
-              className="site-layout-background"
-              style={{ padding: '24px 0' }}
-            >
-              <Sider className="site-layout-background" width={200}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1']}
-                  style={{ height: '100%' }}
-                >
-                  <SubMenu key="sub1" title={<span>View by</span>}>
-                    <Menu.Item
-                      key="2"
-                      className="pointer"
-                      onClick={() => props.history.push('/')}
-                    >
-                      Product
-                    </Menu.Item>
-                    <Menu.Item key="1">Policy</Menu.Item>
-                  </SubMenu>
-                </Menu>
-              </Sider>
-              <Content>
-                <div className="site-layout-content">
+    <AppLayout {...props} nosearch title="Product Information">
+      <div className="site-layout-content">
                   <Descriptions layout="vertical" bordered>
                     <Descriptions.Item label="Policy Informaion">
                       Policy ID: 000037
@@ -178,14 +142,10 @@ export const ViewPolicyPage = (props) => {
                     </Descriptions.Item>
                   </Descriptions>
                 </div>
-              </Content>
-            </Layout>
-          </Content>
-          <Bottombar />
-        </Layout>
-      </Layout>
-    </div>
+    </AppLayout>
   )
 }
 
 const { Content, Sider } = Layout
+
+
