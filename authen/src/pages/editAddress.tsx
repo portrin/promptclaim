@@ -15,20 +15,17 @@ import {
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import React from "react";
-import "./editAddress.css";
+import "./EditAddress.css";
 import { RouteComponentProps } from "react-router-dom";
 
-const editAddress: React.FC<RouteComponentProps> = (props) => {
+const EditAddress: React.FC<RouteComponentProps> = (props) => {
   return (
     <IonApp>
       <IonPage>
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                onClick={() => props.history.push("/profile")}
-              >
+              <IonButton color="theme" routerLink="/Profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Address</IonTitle>
@@ -82,4 +79,4 @@ const editAddress: React.FC<RouteComponentProps> = (props) => {
     </IonApp>
   );
 };
-export default editAddress;
+export default EditAddress;

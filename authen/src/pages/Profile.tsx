@@ -14,11 +14,43 @@ import {
   IonBackButton,
 } from "@ionic/react";
 import { chevronBackOutline, woman } from "ionicons/icons";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import { RouteComponentProps } from "react-router-dom";
 
-const Profile: React.FC<RouteComponentProps> = (props) => {
+export interface Character {
+  name: string;
+  char_id: string;
+  img: string;
+  status: string;
+}
+
+export interface Itemprops {
+  item: Character;
+}
+
+interface RouteParam {
+  id: string;
+}
+interface Match extends RouteComponentProps<RouteParam> {
+  params: string;
+}
+
+const Profile: React.FC<Match> = ({ match }) => {
+  console.log(match);
+  console.log(match.params.id);
+  useEffect(() => {
+    fetchItem();
+  }, []);
+  const [item, setItem] = useState<Character[]>([]);
+  const fetchItem = async () => {
+    const data = await fetch("https://www.breakingbadapi.com/api/characters/" + match.params.id);
+
+    const item = await data.json();
+    setItem(item);
+    console.log(item);
+  };
+
   return (
     <IonApp>
       <IonPage>
@@ -39,12 +71,14 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
               size="small"
               color="theme"
               fill="outline"
-              onClick={() => props.history.push("/editaccount")}
+              routerLink="/editaccount"
             >
               edit
             </IonButton>
             <IonLabel class="sublabel">Email :</IonLabel>
-            <IonLabel class="info">nirachaploi.a@gmail.com</IonLabel>
+            {item.map((item) => (
+              <IonLabel class="info">{item.name}</IonLabel>
+            ))}
           </IonCard>
 
           <IonLabel class="label">PROFILE</IonLabel>
@@ -54,13 +88,15 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
               size="small"
               color="theme"
               fill="outline"
-              onClick={() => props.history.push("/editprofile")}
+              routerLink="/editprofile"
             >
               edit
             </IonButton>
             <IonList class="card">
               <IonLabel class="sublabel">First Name :</IonLabel>
-              <IonLabel class="info">Niracha</IonLabel>
+              {item.map((item) => (
+                <IonLabel class="info">{item.name}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Last Name :</IonLabel>
@@ -89,7 +125,7 @@ const Profile: React.FC<RouteComponentProps> = (props) => {
               size="small"
               color="theme"
               fill="outline"
-              onClick={() => props.history.push("/editaddress")}
+              routerLink="/editaddress"
             >
               edit
             </IonButton>

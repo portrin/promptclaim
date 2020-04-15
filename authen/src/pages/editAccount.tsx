@@ -14,21 +14,53 @@ import {
   IonInput,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
-import React from "react";
-import "./editAccount.css";
+import React, { useEffect, useState } from "react";
+import "./EditAccount.css";
 import { RouteComponentProps } from "react-router-dom";
 
-const editAccount: React.FC<RouteComponentProps> = (props) => {
+export interface Character {
+  name: string;
+  char_id: string;
+  img: string;
+  status: string;
+}
+
+export interface Itemprops {
+  item: Character;
+}
+
+interface RouteParam {
+  id: string;
+}
+interface Match extends RouteComponentProps<RouteParam> {
+  params: string;
+}
+
+const EditAccount: React.FC<Match> = ({ match }) => {
+  console.log(match);
+  console.log(match.params.id);
+  useEffect(() => {
+    fetchItem();
+  }, []);
+  const [item, setItem] = useState<Character[]>([]);
+  const [newEmail, setNewEmail] = useState("");
+  const fetchItem = async () => {
+    const data = await fetch(
+      "https://www.breakingbadapi.com/api/characters/" + match.params.id
+    );
+
+    const item = await data.json();
+    setItem(item);
+    console.log(item);
+  };
+
   return (
     <IonApp>
       <IonPage>
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                onClick={() => props.history.push("/profile")}
-              >
+              <IonButton color="theme" routerLink="/Profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Account</IonTitle>
@@ -41,13 +73,17 @@ const editAccount: React.FC<RouteComponentProps> = (props) => {
             <IonList>
               <IonItem>
                 <IonLabel>Current E-mail</IonLabel>
-                <IonLabel class="info" position="stacked">
-                  nirachaploi.a@gmail.com
-                </IonLabel>
+                {item.map((item) => (
+                  <IonLabel class="info">{item.name}</IonLabel>
+                ))}
               </IonItem>
               <IonItem>
                 <IonLabel>New E-mail</IonLabel>
-                <IonInput class="input" required type="email"></IonInput>
+                <IonInput
+                  class="input"
+                  value={newEmail}
+                  onIonChange={(e) => setNewEmail(e.detail.value!)}
+                ></IonInput>
               </IonItem>
             </IonList>
           </IonCard>
@@ -87,4 +123,4 @@ const editAccount: React.FC<RouteComponentProps> = (props) => {
     </IonApp>
   );
 };
-export default editAccount;
+export default EditAccount;

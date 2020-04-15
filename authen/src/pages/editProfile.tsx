@@ -17,20 +17,17 @@ import {
 } from "@ionic/react";
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React from "react";
-import "./editProfile.css";
+import "./EditProfile.css";
 import { RouteComponentProps } from "react-router-dom";
 
-const editProfile: React.FC<RouteComponentProps> = (props) => {
+const EditProfile: React.FC<RouteComponentProps> = (props) => {
   return (
     <IonApp>
       <IonPage>
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                onClick={() => props.history.push("/profile")}
-              >
+              <IonButton color="theme" routerLink="/Profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Profile</IonTitle>
@@ -95,4 +92,4 @@ const editProfile: React.FC<RouteComponentProps> = (props) => {
     </IonApp>
   );
 };
-export default editProfile;
+export default EditProfile;

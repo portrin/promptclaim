@@ -8,9 +8,9 @@ import SignUp from "./pages/SignUp";
 import Verify from "./pages/Verify";
 import FillInfo from "./pages/FillInfo";
 import Profile from "./pages/Profile";
-import editAccount from "./pages/editAccount";
-import editProfile from "./pages/editProfile";
-import editAddress from "./pages/editAddress";
+import EditAccount from "./pages/EditAccount";
+import EditProfile from "./pages/EditProfile";
+import EditAddress from "./pages/EditAddress";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -42,9 +42,13 @@ const App: React.FC = () => (
         <Route path="/verify" component={Verify} exact={true} />
         <Route path="/fillinfo" component={FillInfo} exact={true} />
         <Route path="/profile" component={Profile} exact={true} />
-        <Route path="/editaccount" component={editAccount} exact={true} />
-        <Route path="/editprofile" component={editProfile} exact={true} />
-        <Route path="/editaddress" component={editAddress} exact={true} />
+        <Route path="/editaccount" component={EditAccount} exact={true} />
+        <Route path="/editprofile" component={EditProfile} exact={true} />
+        <Route path="/editaddress" component={EditAddress} exact={true} />
+        <Route path="/profile/:id" component={Profile} />
+        <Route path="/editaccount/:id" component={EditAccount} />
+        <Route path="/editprofile/:id" component={EditProfile} />
+        <Route path="/editaddress/:id" component={EditAddress} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
