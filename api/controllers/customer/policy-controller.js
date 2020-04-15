@@ -1,4 +1,4 @@
-const Policy = require('../models/policy/policy-model');
+const Policy = require('../../models/policy/policy-model');
 const jwt = require('jsonwebtoken');
 
 exports.getPolicy = async (req, res, next) => {
