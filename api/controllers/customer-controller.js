@@ -5,9 +5,6 @@ exports.getUserInfoId = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub
     const customer = new Customer((await Customer._readByCustomerId(customerId))[0][0]);
     customer.getCustomerAccount(new CustomerAccount( (await CustomerAccount._readByCustomerId(customerId))[0][0] ) );
-
-
-
     console.log(customer) 
     if (customer) {
         res.send(customer.getProperty);
