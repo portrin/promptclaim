@@ -6,7 +6,6 @@ const { SubMenu } = Menu
 
 export const Sidebar = (props) => {
   const path = props.history.location.pathname
-  console.log(props.history)
   return (
     <Sider className="site-layout-background" width={200}>
       <Menu
