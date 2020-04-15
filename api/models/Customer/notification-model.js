@@ -32,12 +32,11 @@ module.exports = class Notification {
         )
     }
 
-    _delete() {
+    static _delete(customerId, notiId) {
         db.execute(
-            'DELETE FROM notification WHERE noti_id = ?'
-            [this._notiId]
-        )
-
+            'DELETE FROM notification WHERE customer_id = ? AND noti_id = ?'
+            [customerId, notiId]
+        );
     }
 
     //getter and setter

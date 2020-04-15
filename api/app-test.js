@@ -22,6 +22,9 @@ app.use('/auth', authRoute);
 const customerRoute = require('./routes/customer-route');
 app.use('', auth.requireJwtAuth, customerRoute);
 
+const notificationRoute = require('./routes/notification-route');
+app.use('/notification', auth.requireJwtAuth, notificationRoute);
+
 // start server
 app.listen(PORT, () => {
     console.log(`server starts on port ${PORT}`);
