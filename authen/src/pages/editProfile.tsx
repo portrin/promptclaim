@@ -14,6 +14,7 @@ import {
   IonInput,
   IonChip,
   IonDatetime,
+  IonItemDivider,
 } from "@ionic/react";
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -36,12 +37,12 @@ interface Match extends RouteComponentProps<RouteParam> {
 const EditProfile: React.FC<Match> = ({ match }) => {
   console.log(match);
   console.log(match.params.id);
+  const [fname, setFName] = useState("");
+
   useEffect(() => {
     fetchItem();
   }, []);
   const [item, setItem] = useState<Character[]>([]);
-
-  const [fname, setFName] = useState("");
 
   const fetchItem = async () => {
     const data = await fetch(
@@ -49,8 +50,11 @@ const EditProfile: React.FC<Match> = ({ match }) => {
     );
 
     const item = await data.json();
+    const name: string = item[0].name;
     setItem(item);
     console.log(item);
+    setFName(name);
+    console.log(item[0].name);
   };
   return (
     <IonApp>
@@ -64,21 +68,11 @@ const EditProfile: React.FC<Match> = ({ match }) => {
               <IonTitle class="title">Edit Profile</IonTitle>
             </IonToolbar>
           </IonHeader>
+
           <IonCard class="card">
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">First Name</IonLabel>
-                {item.map((item) => (
-                  <IonInput
-                    class="input"
-                    required
-                    type="text"
-                    value={fname}
-                    onIonChange={(e) => setFName(e.detail.value!)}
-                  >
-                    {item.name}
-                  </IonInput>
-                ))}
 
                 <IonInput
                   class="input"
