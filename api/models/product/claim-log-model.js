@@ -25,6 +25,7 @@ module.exports = class ClaimLog {
         );
     };
 
+
     _read() {
         return db.execute(
             'SELECT * FROM claim_log WHERE claim_id = ?',
@@ -45,10 +46,10 @@ module.exports = class ClaimLog {
         );
     };
 
-    static _readByPurchasedProductId(uuid) {
+    static _readByPurchasedProduct(uuid, customerId) {
         return db.execute(
-            'SELECT * FROM claim_log c NATURAL JOIN purchased_product p WHERE p.uuid = ?',
-            [uuid]
+            'SELECT claim_id, status, timestamp, c.uuid, service_center_id, branch_id, serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.uuid = ? AND c.customer_id = ?;',
+            [uuid, customerId]
         );
     }
 
@@ -59,12 +60,20 @@ module.exports = class ClaimLog {
         );
     };
 
-    _delete() {
+    static _update(claimId, customerId) {
         return db.execute(
-            'DELETE FROM claim_log WHERE claim_id = ?',
-            [this._claimId]
+            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE (SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.claim_id = ? AND p.customer_id = ?)',
+            [this._status, this._timestamp, this._uuid, this._serviceCenterBranch.getProperty.serviceCenterId, this._serviceCenterBranch.getProperty.branchId, claimId, customerId]
         );
-    };
+    }
+
+    static _delete(claimId, customerId) {
+        return db.execute(
+            'DELETE FROM claim_log WHERE (SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.claim_id = ? AND p.customer_id = ?) ',
+            [claimId, customerId]
+        );
+    }
+
 
     // PROBLEM DOMAIN
     get getProperty() {
