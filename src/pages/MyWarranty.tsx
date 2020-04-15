@@ -121,7 +121,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
-          {searchItem.map((item) => (
+          {searchItem.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
             <Product
               name={item.name}
               serial={item.char_id}
