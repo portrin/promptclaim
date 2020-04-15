@@ -43,6 +43,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
   const [searchItem, setSearchItem] = useState<Character[]>([]);
 
   const [sortBy, setsortBy] = useState("");
+  const [filterBy, setfilterBy] = useState("");
 
   console.log(searchText);
   useEffect(() => {
@@ -117,7 +118,11 @@ function sortProduct(item: Array<Character> ){
               <IonCol>
                 <IonButton size="small" fill="clear">
                   <IonIcon icon={filterOutline} />
-                  Filter
+                  Filter by
+                  <IonSelect value={filterBy} cancelText="Cancel" okText="Done" onIonChange={e => setfilterBy(e.detail.value)}>
+                    <IonSelectOption value="Alive">Category: Alive</IonSelectOption>
+                    <IonSelectOption value="Deceased">Category: Deceased </IonSelectOption>
+                  </IonSelect>
                 </IonButton>
               </IonCol>
               <IonCol></IonCol>
