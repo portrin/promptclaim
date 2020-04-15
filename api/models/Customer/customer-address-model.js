@@ -117,9 +117,4 @@ module.exports = class CustomerAddress {
         this._zipcode = zipcode;
     }
 
-    addCustomer(customer) {
-        checkType(customer, 'Customer');
-        this._customer = customer;
-        return;
-    }
 } 
