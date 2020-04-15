@@ -63,17 +63,17 @@ module.exports = class ClaimLog {
         );
     };
 
-    static _update(claimId, customerId) {
+    static _update(claimId) {
         return db.execute(
-            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE (SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.claim_id = ? AND p.customer_id = ?)',
+            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
             [this._status, this._timestamp, this._uuid, this._serviceCenterBranch.getProperty.serviceCenterId, this._serviceCenterBranch.getProperty.branchId, claimId, customerId]
         );
     }
 
-    static _delete(claimId, customerId) {
+    static _delete(claimId) {
         return db.execute(
-            'DELETE FROM claim_log WHERE (SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.claim_id = ? AND p.customer_id = ?) ',
-            [claimId, customerId]
+            'DELETE FROM claim_log WHERE claim_id = ? ',
+            [claimId]
         );
     }
 
