@@ -12,6 +12,7 @@ import {
   IonList,
   IonListHeader,
   IonSearchbar,
+  IonSelect
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -114,7 +115,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
-          {items.map((item) => (
+          {items.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
             <Product
               name={item.name}
               serial={item.char_id}
