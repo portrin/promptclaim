@@ -5,13 +5,15 @@ const { Sider } = Layout
 const { SubMenu } = Menu
 
 export const Sidebar = (props) => {
-  console.log(props.history)
   const path = props.history.location.pathname
+  console.log(props.history)
   return (
     <Sider className="site-layout-background" width={200}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={path === '/' ? 'product' : 'policy'}
+        defaultSelectedKeys={
+          path === '/' || '/view-product' ? 'product' : 'policy'
+        }
         defaultOpenKeys={['sub1']}
         style={{ height: '100%' }}
       >
