@@ -13,9 +13,9 @@ module.exports = class CustomerAddress {
         this._province = province; 
         this._zipcode = zipcode;
         // from relationship 
-        this._customer = null;
+        this._customer = customer;
     }
-
+//setter and gett perm and no more getProperty
     //DM Layer CRUD
     _create = () => {
         return db.execute(

@@ -2,9 +2,11 @@ const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ThirdParty {
-    constructor({ third_party_id = null, name = null, third_party_description = null, contact = null, address = null } = {}) {
+    constructor({third_party_id = null, root_id = null, policy_owner_id = null, name = null, third_party_description = null, contact = null, address = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._thirdPartyId = third_party_id;
+        this._rootId = root_id;
+        this._policyOwnerId = policy_owner_id;
         this._name = name;
         this._contact = contact;
         this._address = address;
@@ -17,7 +19,7 @@ module.exports = class ThirdParty {
     //DM Layer CRUD
     _create() {
         return db.execute('INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id) VALUES (?,?,?,?,?,?,?)',
-            [this._thirdPartyId, this._address, this._name, this._contact, this._thirdPartyDescription, this._rootAccount.getProperty.rootId, this._policyOwner.getProperty.policyOwnerId]
+            [this._thirdPartyId, this._address, this._name, this._contact, this._thirdPartyDescription, this._rootId, this._policyOwnerId]
         );
     }
 
@@ -31,7 +33,7 @@ module.exports = class ThirdParty {
 
     _update() {
         return db.execute('UPDATE third_party SET address = ?, name = ?, contact = ?, third_party_description = ?, root_id = ?, policy_owner_id = ? WHERE third_party_id = ?',
-            [this._address, this._name, this._contact, this._thirdPartyDescription, this._rootAccount.getProperty.rootId, this._policyOwner.getProperty.policyOwnerId, this._thirdPartyId]
+            [this._address, this._name, this._contact, this._thirdPartyDescription, this._rootId, this._policyOwnerId, this._thirdPartyId]
         );
     }
 
@@ -43,6 +45,8 @@ module.exports = class ThirdParty {
     getProperty() {
         return {
             thirdPartyId: this._thirdPartyId,
+            rootId : this._rootId,
+            policyOwnerId : this._policyOwnerId,
             name: this._name,
             contact: this._contact,
             address: this._address,
@@ -55,6 +59,8 @@ module.exports = class ThirdParty {
     setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         thirdPartyId = this._thirdPartyId,
+        rootId = this._rootId,
+        policyOwnerId = this._policyOwnerId,
         name = this._name,
         contact = this._contact,
         address = this._address,
@@ -62,12 +68,16 @@ module.exports = class ThirdParty {
     }) {
         // check datatype
         checkType(thirdPartyId, 'String');
+        checkType(rootId, 'String');
+        checkType(policyOwnerId, 'String');
         checkType(name, 'String');
         checkType(contact, 'String');
         checkType(address, 'String');
         checkType(thirdPartyDescription, 'String');
         // assign to private variables
         this._thirdPartyId = thirdPartyId;
+        this._rootId = rootId;
+        this._policyOwnerId = policyOwnerId;
         this._name = name;
         this._contact = contact;
         this._address = address;
