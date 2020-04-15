@@ -41,6 +41,6 @@ exports.postEditClaimLog = async (req, res, next) => {
 
 exports.deleteClaimLog = async (req, res, next) => {
     const claimIdParams = req.params.claimId;
-    ClaimLog._delete(claimIdParams);
+    await ClaimLog._delete(claimIdParams);
     res.send('Claimlog Deleted!');
 }
