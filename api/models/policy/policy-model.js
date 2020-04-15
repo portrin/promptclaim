@@ -76,21 +76,5 @@ module.exports = class Policy {
         this._dateCreated = dateCreated;
     }
 
-    addPolicyOwner(policyOwner) {
-        checkType(policyOwner, 'PolicyOwner');
-        this._policyOwner = policyOwner;
-        return;
-    }
-
-    addServiceCenterBranch(serviceCenterBranch) {
-        checkType(serviceCenterBranch, 'ServiceCenterBranch');
-        this._serviceCenterBranch.push(serviceCenterBranch);
-        return;
-    }
-
-    addPurchasedProduct(purchasedProduct) {
-        checkType(purchasedProduct, 'PurchasedProduct');
-        this._purchasedProduct.push(purchasedProduct);
-        return;
-    }
+    
 }
