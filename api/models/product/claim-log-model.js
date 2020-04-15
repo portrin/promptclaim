@@ -2,12 +2,14 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ClaimLog {
-    constructor ({claim_id=null, timestamp=null, status=null} ={}) {
+    constructor ({claim_id=null, timestamp=null, status=null, uuid=null, service_center_id=null, branch_id=null} ={}) {
         // class attribute
         this._claimId = claim_id;
         this._status = status;
         this._timestamp = timestamp;
-        
+        this._uuid = uuid;
+        this._serviceCenterId = service_center_id;
+        this._branchId = branch_id;
         // relationships
         this._purchasedProduct = null;      // relationship from purchasedProduct        
         this._serviceCenterBranch = null;   // relationship from serviceCenterBranch
@@ -82,8 +84,9 @@ module.exports = class ClaimLog {
             claimId: this._claimId,
             timestamp: this._timestamp,
             status: this._status,
-            purchasedPurduct: this._purchasedProduct,
-            serviceCenter: this._serviceCenter
+            uuid: this._uuid,
+            serviceCenterId: this._serviceCenterId,
+            branchId: this._branchId
         };
     };
 

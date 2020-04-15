@@ -2,11 +2,13 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class PurchasedProduct {
-    constructor({uuid=null, product_nickname = null, serial_no=null, price=null, invoice_id=null, is_validate=null, product_photo=null, claim_qty=null, create_timestamp=null, invoice_photo=null, warranty_photo=null, policy_start_date=null, policy_end_date=null, timestamp=null} = {}) {
+    constructor({uuid=null, serial_no=null, product_no=null, customer_id=null, product_nickname = null, price=null, invoice_id=null, is_validate=null, product_photo=null, claim_qty=null, create_timestamp=null, invoice_photo=null, warranty_photo=null, policy_start_date=null, policy_end_date=null, timestamp=null} = {}) {
         // their attribute from the class
         this._uuid = uuid; 
-        this._productNickname = product_nickname;
         this._serialNo = serial_no;
+        this._productNo = product_no;
+        this._customerId = customer_id;
+        this._productNickname = product_nickname;        
         this._price = price;
         this._invoiceId = invoice_id;
         this._isValidate = is_validate;
@@ -15,6 +17,7 @@ module.exports = class PurchasedProduct {
         this._createTimestamp = create_timestamp;
         this._invoicePhoto = invoice_photo;
         this._warrantyPhoto = warranty_photo;
+
         this._policyStartDate = policy_start_date;
         this._policyEndDate = policy_end_date; 
         this._policyTimestamp = timestamp;
@@ -31,16 +34,16 @@ module.exports = class PurchasedProduct {
     _create() {
         console.log(this);
         return db.execute(
-            'INSERT INTO purchased_product (product_nickname, serial_no, product_no, customer_id, price, invoice_id, create_timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [this._productNickname,
-            this._serialNo,
-            this._product.getProperty.productNo,
-            this._customer.getProperty.customerId,
+            'INSERT INTO purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [this._serialNo,
+            this._productNo,
+            this._customerId,
+            this._productNickname,     
             this._price,
             this._invoiceId,
             this._createTimestamp,
-            this._retailerBranch.getProperty.branchId,
-            this._retailerBranch.getProperty.retailerId,
+            this._branchId,
+            this._retailerId,
             this._invoicePhoto,
             this._isValidate,
             this._productPhoto,
@@ -79,16 +82,16 @@ module.exports = class PurchasedProduct {
 
     _update() {
         return db.execute(
-            'UPDATE purchased_product SET product_nickname = ?, serial_no = ? AND product_no = ?, customer_id = ?, price = ?, invoice_id = ?, create_timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE   ',
-            [this.productNickname,
-            this._serialNo,
-            this._product.getProperty.productNo,
-            this._customer.getProperty.customerId,
+            'UPDATE purchased_product SET serial_no =?, product_no = ?,  customer_id = ?, product_nickname = ?, price = ?, invoice_id = ?, create_timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE uuid = ?   ',        
+            [this._serialNo,
+            this._productNo,
+            this._customerId,
+            this._productNickname,
             this._price,
             this._invoiceId,
             this._createTimestamp,
-            this._retailerBranch.getProperty.branchId,
-            this._retailerBranch.getProperty.retailerId,
+            this._branchId,
+            this._retailerId,
             this._receiptPhoto,
             this._isValidate,
             this._productPhoto,
@@ -117,6 +120,9 @@ module.exports = class PurchasedProduct {
         return {
             uuid: this._uuid,
             serialNo: this._serialNo,
+            productNo: this._productNo,
+            customerId: this._customerId,
+            productNickname: this._productNickname,
             price: this._price,
             invoiceId: this._invoiceId,
             isValidate: this._isValidate,

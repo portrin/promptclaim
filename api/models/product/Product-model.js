@@ -2,12 +2,13 @@ const db = require('../../config/db')
 const checkType = require('../../utils').checkType;
 
 module.exports = class Product {
-    constructor({product_no=null, product_name=null, product_model=null, product_description=null} = {}) {
+    constructor({product_no=null, product_name=null, product_model=null, product_description=null, supplier_id=null} = {}) {
         // class attribute
         this._productNo = product_no;
         this._productName = product_name;
         this._productModel = product_model;
         this._productDescription = product_description;
+        this._supplierId = supplier_id;
         // relationships
         this._productCategory = [];
         this._supplier = null;
@@ -16,12 +17,12 @@ module.exports = class Product {
     //CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO product (product_no, product_name, product_model, product_description, supplier_id) VALUES (?, ?, ?, ?)',
+            'INSERT INTO product (product_no, product_name, product_model, product_description, supplier_id) VALUES (?, ?, ?, ?, ?)',
             [this._productNo,
             this._productName,
             this._productModel,
             this._productDescription,
-            this._supplier.getProperty.supplierId]
+            this._supplierId]
         );
     };
 
@@ -63,6 +64,7 @@ module.exports = class Product {
             productName: this._productName,
             productModel: this._productModel,
             productDescription: this._productDescription,
+            supplierId: this._supplierId,
             productCategory: this._productCategory,
             supplier: this._supplier
         };
