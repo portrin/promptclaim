@@ -68,10 +68,10 @@ module.exports = class CustomerAddress {
         )}
 
     //delete address
-    _delete() {
+    static _delete(customerId, addressId) {
         return db.execute(
             'DELETE FROM Customer_address WHERE address_id = ? AND customer_id = ?',
-            [this._addressId, this._customer.getProperty.customerId]
+            [addressId, customerId]
         )
     }
 
