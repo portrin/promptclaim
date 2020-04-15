@@ -27,7 +27,6 @@ exports.postAddClaimLog = async (req, res, next) => {
 }
 
 exports.postEditClaimLog = async (req, res, next) => {
-    const customerId = jwt.decode(req.headers.authorization).sub;
     const claimId = body.req.claim_id;
     const timestamp = body.req.timestamp;
     const status = body.req.status;
@@ -36,13 +35,12 @@ exports.postEditClaimLog = async (req, res, next) => {
     const branchId = body.req.branch_id;
     const updatedClaimLog = new ClaimLog(claimId, timestamp, status, uuid, serviceCenterId, branchId);
     const claimIdParams = req.params.claimId;
-    const result = await updatedClaimLog._update(claimIdParams, customerId)[0];
+    const result = await updatedClaimLog._update(claimIdParams)[0];
     res.send(result);
 }
 
 exports.deleteClaimLog = async (req, res, next) => {
-    const customerId = jwt.decode(req.headers.authorization).sub;
     const claimIdParams = req.params.claimId;
-    ClaimLog._delete(claimIdParams, customerId);
+    ClaimLog._delete(claimIdParams);
     res.send('Claimlog Deleted!');
 }
