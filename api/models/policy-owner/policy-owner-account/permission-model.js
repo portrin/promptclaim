@@ -2,12 +2,12 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Permission {
-    constructor({perId = null, perName = null, perDescription = null, perModule = null} = {}){
+    constructor({per_id = null, per_name = null, per_description = null, per_module = null} = {}){
         // their own class atrribute ref. from class diagram
-        this._perId = perId
-        this._perName = perName
-        this._perDescription = perDescription 
-        this._perModule = perModule
+        this._perId = per_id
+        this._perName = per_name
+        this._perDescription = per_description 
+        this._perModule = per_module
 
         //Relationship to its neighbor classes
         this._role = [] //relationship to Role class
