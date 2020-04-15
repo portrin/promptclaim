@@ -93,10 +93,10 @@ export const ViewProductPage = (props) => {
                   >
                     <Descriptions.Item label="Product Image">
                       <img
-                        className="toilet"
+                        className="product-image"
                         // src="toilet bowl.jpg"
                         src={data[key].image}
-                        alt="toilet bowl"
+                        alt="product image"
                       />
                     </Descriptions.Item>
                     <Descriptions.Item label="Product Information">

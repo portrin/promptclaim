@@ -24,7 +24,7 @@
   text-align: left;
 }
 
-.toilet {
+.product-image {
   height: 200px;
   width: 200px;
 }
@@ -32,6 +32,11 @@
 .logo {
   height: 48.5px;
   width: 104.25px;
+}
+
+.biglogo {
+  height: 130;
+  width: 280;
 }
 
 .user {
