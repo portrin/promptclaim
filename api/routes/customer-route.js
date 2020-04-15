@@ -15,6 +15,7 @@ router.get('/userInfoById', customerController.getUserInfoId);
 //PUT --> update / post : give data to server
 router.get('/editProfileById/:custId', customerController.editProfile);
 
+//Customer address
 router.post('/addAddressById/:addrId', customerAddressController.postAddAddressById);
 router.get('/getAddressByCustId', customerAddressController.getAddressByCustId);
 router.get('/getAddressByPK/:addrId', customerAddressController.getAddressByPK);
