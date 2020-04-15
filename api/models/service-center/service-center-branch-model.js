@@ -28,15 +28,15 @@ module.exports = class ServiceCenterBranch {
         return db.execute('SELECT * FROM service_center_branch WHERE WHERE service_center_id = ? AND branch_id = ?', [this._serviceCenterId, this._branchId]);
     }
 
-    static _readByPk(serviceCenterId, branchId) {
-        return db.execute('SELECT * FROM service_center_branch WHERE service_center_id = ? AND branch_id = ?', [serviceCenterId, branchId]);
+    static _readByUuid(uuid) {
+        return db.execute('SELECT service_center_id, branch_id FROM product_has_policy NATURAL JOIN policy_available_at WHERE uuid = ?', [uuid]);
     }
 
-    static _readByServiceCenterId(serviceCenterId) {
+    static _readByPolicyId(policyId) {
         return db.execute(
-            'SELECT * FROM service_center_branch WHERE service_center_id = ?',
-            [serviceCenterId]
-        )
+            'SELECT * FROM service_center NATURAL JOIN service_center_branch NATURAL JOIN policy_available_at WHERE policy_id = ?',
+            [policyId]
+        );
     }
 
     _update() {
@@ -49,7 +49,7 @@ module.exports = class ServiceCenterBranch {
     }
 
     // getter and setter
-    getProperty() {
+    get getProperty() {
         return {
             branchId: this._branchId,
             serviceCenterId: this._serviceCenterId,
@@ -62,7 +62,7 @@ module.exports = class ServiceCenterBranch {
         };
     }
 
-    setProperty({ // set only its own attributes
+    set setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         branchId = this._branchId,
         branchName = this._branchName,

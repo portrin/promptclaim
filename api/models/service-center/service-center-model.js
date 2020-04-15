@@ -39,7 +39,7 @@ module.exports = class ServiceCenter {
     }
 
     // getter and setter
-    getProperty() {
+    get getProperty() {
         return {
             serviceCenterId: this._serviceCenterId,
             name: this._name,
@@ -49,7 +49,7 @@ module.exports = class ServiceCenter {
         };
     }
 
-    setProperty({ // set only its own attributes
+    set setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         serviceCenterId = this._serviceCenterId,
         name = this._name,
