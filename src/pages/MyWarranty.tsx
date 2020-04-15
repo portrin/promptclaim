@@ -12,7 +12,9 @@ import {
   IonList,
   IonListHeader,
   IonSearchbar,
-  IonSelect
+  IonSelect,
+  IonSelectOption,
+  IonSelectPopover
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -40,6 +42,8 @@ const MyWarranty: React.FC<Itemprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Character[]>([]);
 
+  const [sortBy, setsortBy] = useState<string[]>([]);
+
   console.log(searchText);
   useEffect(() => {
     fetchItems();
@@ -60,6 +64,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
       )
     );
   }, [searchText, items]);
+  
 
   return (
     <IonPage>
@@ -110,7 +115,13 @@ const MyWarranty: React.FC<Itemprops> = () => {
               <IonCol>
                 <IonButton size="small" fill="clear">
                   <IonIcon icon={funnelOutline} />
-                  Sort
+                  Sort by
+                  <IonSelect value={sortBy} cancelText="Cancel" okText="Done" onIonChange={e => setsortBy(e.detail.value)}>
+                    <IonSelectOption value="Name">Name</IonSelectOption>
+                    <IonSelectOption value="Product ID">Product ID</IonSelectOption>
+                    <IonSelectOption value="Expired Date">Expired Date</IonSelectOption>
+                    <IonSelectOption value="Added Date">Added Date</IonSelectOption>
+                  </IonSelect>
                 </IonButton>
               </IonCol>
             </IonRow>
@@ -121,14 +132,16 @@ const MyWarranty: React.FC<Itemprops> = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
-          {searchItem.sort((a, b) => a.name.localeCompare(b.name)).map((item) => (
+         
+          {searchItem.sort((a,b) => a.name.localeCompare(b.name)).map((item) => (
             <Product
               name={item.name}
               serial={item.char_id}
               image={item.img}
               description={item.status}
             ></Product>
-          ))}
+          ))} 
+          
         </IonList>
       </IonContent>
     </IonPage>
