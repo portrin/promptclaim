@@ -2,11 +2,11 @@ const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Supplier{
-    constructor({ supplierId = null, name = null, supplierDescription = null, contact = null, address = null } = {}) {
+    constructor({ supplier_id = null, name = null, supplier_description = null, contact = null, address = null } = {}) {
         // their own class atrribute ref. from class diagram
-        this._supplierId = supplierId;
+        this._supplierId = supplier_id;
         this._name = name;
-        this._supplierDescription = supplierDescription;
+        this._supplierDescription = supplier_description;
         this._contact = contact;
         this._address = address;
         // their relationships to its neighbor ref. from class diagram

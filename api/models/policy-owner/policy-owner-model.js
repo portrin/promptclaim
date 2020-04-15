@@ -2,10 +2,10 @@ const checkType = require('../../utils').checkType;
 const db = require('../../config/db');
 
 module.exports = class PolicyOwner {
-    constructor({ policyOwnerId=null, ownerType=null }) {
+    constructor({ policy_owner_id=null, owner_type=null }) {
         // their own class atrribute ref. from class diagram
-        this._policyOwnerId = policyOwnerId;
-        this._ownerType = ownerType;
+        this._policyOwnerId = policy_owner_id;
+        this._ownerType = owner_type;
         // their relationships to its neighbor ref. from class diagram
         this._isa = null;
         this._policy = [];
