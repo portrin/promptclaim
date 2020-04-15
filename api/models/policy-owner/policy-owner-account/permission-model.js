@@ -84,16 +84,4 @@ module.exports = class Permission {
         this._perModule = perModule;
     }
 
-    addGroup(group) {
-        checkType(group, 'Group');
-        this._group.push(group);
-        return;
-    }
-
-    addRole(role) {
-        checkType(role, 'Role');
-        this._role.push(role);
-        return;
-    }
-
 }
