@@ -2,12 +2,12 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Policy {
-    constructor({ policyId = null, policyPeriod = null, policyDescription = null, dateCreated = null } = {}) {
+    constructor({ policy_id = null, policy_period = null, policy_description = null, date_created = null } = {}) {
         // their own class atrribute ref. from class diagram
-        this._policyId = policyId;
-        this._policyPeriod = policyPeriod;
-        this._policyDescription = policyDescription;
-        this._dateCreated = dateCreated;
+        this._policyId = policy_id;
+        this._policyPeriod = policy_period;
+        this._policyDescription = policy_description;
+        this._dateCreated = date_created;
         // their relationships to its neighbor ref. from class diagram
         this._policyOwner = null;       // relationship to PolicyOwner
         this._serviceCenterBranch = []; // relationship to ServiceCenterBranch
