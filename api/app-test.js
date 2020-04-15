@@ -22,6 +22,8 @@ app.use('/auth', authRoute);
 const customerRoute = require('./routes/customer-route');
 app.use('', auth.requireJwtAuth, customerRoute);
 
+const customerRoutes = require('./routes/customer-route')
+app.use('/customer', customerRoutes)
 const notificationRoute = require('./routes/notification-route');
 app.use('/notification', auth.requireJwtAuth, notificationRoute);
 
