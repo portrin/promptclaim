@@ -2,12 +2,12 @@ const db = require('../../config/db')
 const checkType = require('../../utils').checkType;
 
 module.exports = class Product {
-    constructor({productNo=null, productName=null, productModel=null, productDescription=null} = {}) {
+    constructor({product_no=null, product_name=null, product_model=null, product_description=null} = {}) {
         // class attribute
-        this._productNo = productNo;
-        this._productName = productName;
-        this._productModel = productModel;
-        this._productDescription = productDescription;
+        this._productNo = product_no;
+        this._productName = product_name;
+        this._productModel = product_model;
+        this._productDescription = product_description;
         // relationships
         this._productCategory = [];
         this._supplier = null;

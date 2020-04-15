@@ -2,22 +2,22 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class PurchasedProduct {
-    constructor({uuid=null, productNickname = null, serialNo=null, price=null, invoiceId=null, isValidate=null, productPhoto=null, claimQty=null, createTimestamp=null, invoicePhoto=null, warrantyPhoto=null, policyStartDate=null, policyEndDate=null, policyTimestamp=null} = {}) {
+    constructor({uuid=null, product_nickname = null, serial_no=null, price=null, invoice_id=null, is_validate=null, product_photo=null, claim_qty=null, create_timestamp=null, invoice_photo=null, warranty_photo=null, policy_start_date=null, policy_end_date=null, timestamp=null} = {}) {
         // their attribute from the class
         this._uuid = uuid; 
-        this._productNickname = productNickname;
-        this._serialNo = serialNo;
+        this._productNickname = product_nickname;
+        this._serialNo = serial_no;
         this._price = price;
-        this._invoiceId = invoiceId;
-        this._isValidate = isValidate;
-        this._productPhoto = productPhoto;
-        this._claimQty = claimQty;
-        this._createTimestamp = createTimestamp;
-        this._invoicePhoto = invoicePhoto;
-        this._warrantyPhoto = warrantyPhoto;
-        this._policyStartDate = policyStartDate;
-        this._policyEndDate = policyEndDate; 
-        this._policyTimestamp = policyTimestamp;
+        this._invoiceId = invoice_id;
+        this._isValidate = is_validate;
+        this._productPhoto = product_photo;
+        this._claimQty = claim_qty;
+        this._createTimestamp = create_timestamp;
+        this._invoicePhoto = invoice_photo;
+        this._warrantyPhoto = warranty_photo;
+        this._policyStartDate = policy_start_date;
+        this._policyEndDate = policy_end_date; 
+        this._policyTimestamp = timestamp;
         // relationship
         this._product = null;           // from product class
         this._customer = null;          // from customer class
@@ -69,6 +69,12 @@ module.exports = class PurchasedProduct {
             [this._uuid]
         );
     };
+
+    static _read() {
+        return db.execute(
+            'SELECT * FROM purchased_product'
+        );
+    }
 
 
     _update() {

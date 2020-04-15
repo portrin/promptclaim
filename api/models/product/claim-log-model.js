@@ -2,9 +2,9 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ClaimLog {
-    constructor ({claimId=null, timestamp=null, status=null} ={}) {
+    constructor ({claim_id=null, timestamp=null, status=null} ={}) {
         // class attribute
-        this._claimId = claimId;
+        this._claimId = claim_id;
         this._status = status;
         this._timestamp = timestamp;
         // relationships
