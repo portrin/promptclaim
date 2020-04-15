@@ -2,13 +2,13 @@ const db = require('../../../config/db');
 const checkType = require('../../../utils').checkType;
 
 module.exports = class Retailer {
-    constructor({ retailerId = null, name = null, contact = null, hqAddress = null, retailerDescription = null } = {}) {
+    constructor({ retailer_id = null, name = null, contact = null, hq_address = null, retailer_description = null } = {}) {
         // their own class atrribute ref. from class diagram
-        this._retailerId = retailerId;
+        this._retailerId = retailer_id;
         this._name = name;
-        this._retailerDescription = retailerDescription;
+        this._retailerDescription = retailer_description;
         this._contact = contact;
-        this._hqAddress = hqAddress;
+        this._hqAddress = hq_address;
         // their relationships to its neighbor ref. from class diagram
         this._retailerBranch = [];  // relationship to RetailerBranch
         this._rootAccount = null;   // relationship to RootAccount

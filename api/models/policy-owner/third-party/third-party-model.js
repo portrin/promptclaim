@@ -2,13 +2,13 @@ const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ThirdParty {
-    constructor({ thirdPartyId = null, name = null, thirdPartyDescription = null, contact = null, address = null } = {}) {
+    constructor({ third_party_id = null, name = null, third_party_description = null, contact = null, address = null } = {}) {
         // their own class atrribute ref. from class diagram
-        this._thirdPartyId = thirdPartyId;
+        this._thirdPartyId = third_party_id;
         this._name = name;
         this._contact = contact;
         this._address = address;
-        this._thirdPartyDescription = thirdPartyDescription;
+        this._thirdPartyDescription = third_party_description;
         // their relationships to its neighbor ref. from class diagram
         this._rootAccount = null;   // relationship to RootAccount 
         this._policyOwner = null;   // relationship to PolicyOwner
