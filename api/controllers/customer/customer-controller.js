@@ -1,4 +1,4 @@
-const Customer = require('../models/customer/customer-model');
+const Customer = require('../../models/customer/customer-model');
 const jwt = require('jsonwebtoken');
 
 exports.getUserInfoId = async (req, res, next) => {
