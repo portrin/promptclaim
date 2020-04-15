@@ -3,8 +3,9 @@ const checkType = require('../../utils').checkType;
 
 
 module.exports = class CustomerAddress {
-    constructor({address_id = null, house_no = null, street = null, sub_district = null, district = null, province = null, zipcode = null} = {}){
+    constructor({customer_id = null, address_id = null, house_no = null, street = null, sub_district = null, district = null, province = null, zipcode = null} = {}){
         // their own class atrribute ref. from class diagram
+        this._customerId = customer_id
         this._addressId = address_id;
         this._houseNo = house_no;
         this._street = street; 
@@ -19,8 +20,8 @@ module.exports = class CustomerAddress {
     //DM Layer CRUD
     _create = () => {
         return db.execute(
-            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?)',
-            [this._customer.getProperty.customerId,
+            'INSERT INTO Customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode) VALUES(?,?,?,?,?,?,?)',
+            [this._customerId,
             this._addressId,
             this._houseNo,
             this._street,
@@ -35,7 +36,7 @@ module.exports = class CustomerAddress {
     _read() {
         return db.execute(
             'SELECT * FROM Customer_address WHERE customer_id = ? AND account_id = ?',
-            [this._customer.getProperty.customerId, this._addressId]
+            [this._customerId, this._addressId]
         )
     }
 
@@ -63,7 +64,7 @@ module.exports = class CustomerAddress {
             this._district, 
             this._province, 
             this._zipcode, 
-            this._customer.getProperty.customerId,
+            this._customerId,
             this._addressId]
         )}
 
@@ -85,6 +86,7 @@ module.exports = class CustomerAddress {
         district: this._district,
         province: this._province, 
         zipcode: this._zipcode,
+        customerId: this._customerId,
         customer: this._customer
         };
     }

@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
-const auth = require('./middleware/auth-middleware');
 const app = express();
 dotenv.config();
 
@@ -18,7 +17,11 @@ app.use(bodyParser.json());
 
 // customer routes
 const customerRoute = require('./routes/customer/customer-route');
-app.use('/customer', auth.requireJwtAuth, customerRoute);
+app.use('/customer', customerRoute);
+
+// retailer routes
+const retailerRoute = require('./routes/retailer/retailer-route');
+app.use('/retailer', retailerRoute);
 
 // start server
 app.listen(PORT, () => {

@@ -4,10 +4,10 @@ const controller = require('../../controllers/customer/customer-address-controll
 const router = express.Router();
 
 //Customer address
-router.post('/addAddressById/:addrId', controller.postAddAddressById);
-router.get('/getAddressByCustId', controller.getAddressByCustId);
-router.get('/getAddressByPK/:addrId', controller.getAddressByPK);
-router.post('/editAddressById/:addrId', controller.editAddressById);
-router.delete('/deleteAddressByPK/:addrId', controller.deleteAddressByPK);
+router.get('/get', controller.getByCustomerId);
+router.get('/getByAddressId/:addressId', controller.getByAddressId);
+router.post('/edit/', controller.postEditByAddressId);
+router.post('/add/', controller.postAddByAddressId);
+router.delete('/delete/:addressId', controller.deleteByAddressId);
 
 module.exports = router;

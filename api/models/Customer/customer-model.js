@@ -2,7 +2,7 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Customer {
-    constructor({customer_id=null, firstname=null, lastname=null, phone_no=null, birth_date=null, gender=null} = {}) {
+    constructor({customer_id=null, firstname=null, lastname=null, phone_no=null, birth_date=null, gender=null, account_id} = {}) {
         // their own class atrribute ref. from class diagram
         this._customerId = customer_id
         this._firstname = firstname
@@ -10,6 +10,7 @@ module.exports = class Customer {
         this._phoneNo = phone_no
         this._birthDate = birth_date
         this._gender = gender
+        this._accountId = account_id
         // their relationships to its neighbor ref. from class diagram
         this._customerAccount = null;   // relationship to CustomerAccount
         this._customerAddress = [];     // relationship to CustomerAddress
@@ -22,7 +23,7 @@ module.exports = class Customer {
     _create () {
         return db.execute(
             'INSERT INTO customer (customer_id, firstname, lastname, phone_no, birth_date, gender, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId]
+            [this._customerId, this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._accountId]
         );
     }
 
@@ -60,6 +61,7 @@ module.exports = class Customer {
             phoneNo: this._phoneNo,
             birthDate: this._birthDate,
             gender: this._gender,
+            accountId: this._accountId,
             customerAddress: this._customerAddress,
             customerAccount: this._customerAccount,
             purchasedProduct: this._purchasedProduct,

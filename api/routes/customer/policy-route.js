@@ -1,5 +1,5 @@
 const express = require('express');
-const policyController = require('../controllers/policy-controller');
+const policyController = require('../../controllers/policy-controller');
 const router = express.Router();
 
 router.get('/policy/get', policyController.getPolicy);
