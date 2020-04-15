@@ -17,9 +17,14 @@ export const LoginPage = () => {
         }}
         onFinish={onFinish}
       >
-        <img className="logo" src="darktranslogo.png" alt="logo" />
+        <img 
+          className="biglogo" 
+          src="darktranslogo.png" 
+          alt="logo" 
+        />
 
         <Form.Item
+          className='userbox'
           name="username"
           rules={[
             {
@@ -62,6 +67,7 @@ export const LoginPage = () => {
         <Form.Item>
           <Button
             type="primary"
+            size='large'
             htmlType="submit"
             className="login-form-button"
             style={{ background: '#0050b3', borderColor: '#0050b3' }}

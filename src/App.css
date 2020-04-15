@@ -50,6 +50,19 @@
   pointer-events: none;
 }
 
+.biglogo {
+  margin-top: 20px;
+  height:150px ;
+  width:300px ;
+}
+
+.userbox {
+  margin-top: 20px;
+  width: 600px;
+  
+
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
