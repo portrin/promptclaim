@@ -23,12 +23,16 @@ module.exports = class Policy {
         );
     }
 
-    _read() {
-        return db.execute('SELECT * FROM policy WHERE policy_id = ?', [this._policyId]);
+    static _readByCustomerId(customerId) {
+        return db.execute('SELECT policy_id, policy_period, policy_description, date_created, policy_owner_id FROM policy NATURAL JOIN product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ?',
+            [customerId]
+        );
     }
 
-    static _read() {
-        return db.execute('SELECT * FROM policy');
+    static _readByUuid(customerId, uuid) {
+        return db.execute('SELECT policy_id, policy_period, policy_description, date_created, policy_owner_id FROM policy NATURAL JOIN product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ? AND uuid = ?',
+            [customerId, uuid]
+        );
     }
 
     static _readByPolicyId(policyId) {
@@ -76,4 +80,4 @@ module.exports = class Policy {
         this._dateCreated = dateCreated;
     }
 
-}
+d}
