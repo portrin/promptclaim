@@ -90,15 +90,4 @@ module.exports = class ClaimLog {
         this._status = status
     };
 
-    addPurchasedProduct(purhasedProduct) {
-        checkType(purhasedProduct, 'PurchasedProduct');
-        this._purchasedProduct = purhasedProduct;
-        return;
-    };
-
-    addServiceCenterBranch(serviceCenterBranch) {
-        checkType(serviceCenter, 'ServiceCenterBranch');
-        this._serviceCenterBranch = serviceCenterBranch;
-        return;
-    }
 };
