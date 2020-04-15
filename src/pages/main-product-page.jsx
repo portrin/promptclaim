@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table } from 'antd'
 
 // import { DataTable } from '../components/table'
@@ -6,12 +6,51 @@ import { Table } from 'antd'
 import { AppLayout } from '../components/app-layout'
 
 export const MainProductPage = (props) => {
+  //API Breaking Bad
+  const [items, setItems] = useState([])
+  const fetchItem = async () => {
+    const data = await fetch(`https://www.breakingbadapi.com/api/characters/`)
+    const items = await data.json()
+    setItems(items)
+    console.log('items', items)
+  }
+  useEffect(() => {
+    fetchItem()
+  }, [])
+  const dataBB = items.map((item, index) => ({
+    key: index + 1,
+    name: item.name,
+    serial: item.char_id,
+    warranty: '1234',
+    expiry: item.birthday,
+  }))
+  //Dashboard
   return (
     <AppLayout {...props} title="Product Dashboard">
       <div className="site-layout-content">
+        {/* <div>
+          {items.map((item) => (
+            <h1 key={items.char_id}>{item.name}</h1>
+          ))}
+        </div> */}
+        {/* {items.map((item) => (
+          <Table
+            columns={columns}
+            dataSource={item}
+            onChange={onChange}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: () => {
+                  console.log({ record, rowIndex })
+                  props.history.push(`/view-product/${record.key}`)
+                },
+              }
+            }}
+          />
+        ))} */}
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={dataBB}
           onChange={onChange}
           onRow={(record, rowIndex) => {
             return {
@@ -68,7 +107,7 @@ const columns = [
   },
 ]
 
-//data object from API
+//Mock data
 const data = [
   {
     key: '1',
