@@ -42,7 +42,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Character[]>([]);
 
-  const [sortBy, setsortBy] = useState<string[]>([]);
+  const [sortBy, setsortBy] = useState("");
 
   console.log(searchText);
   useEffect(() => {
@@ -64,7 +64,18 @@ const MyWarranty: React.FC<Itemprops> = () => {
       )
     );
   }, [searchText, items]);
-  
+function sortProduct(item: Array<Character> ){
+  if (sortBy=="Name") {
+    return   ( item.sort((a,b)=>a.name.localeCompare(b.name)) )
+  } else if(sortBy=="Name Z-A"){
+    return ( item.sort().reverse())
+  } else if(sortBy=="Product ID"){
+    return ( item.sort((a,b)=>(parseInt(a.char_id) - parseInt(b.char_id) )))
+  }else {
+    return ( item)
+}
+
+}
 
   return (
     <IonPage>
@@ -117,10 +128,10 @@ const MyWarranty: React.FC<Itemprops> = () => {
                   <IonIcon icon={funnelOutline} />
                   Sort by
                   <IonSelect value={sortBy} cancelText="Cancel" okText="Done" onIonChange={e => setsortBy(e.detail.value)}>
-                    <IonSelectOption value="Name">Name</IonSelectOption>
+                    <IonSelectOption value="Name">Name A-Z</IonSelectOption>
+                    <IonSelectOption value="Name Z-A">Name Z-A </IonSelectOption>
+                    <IonSelectOption value="Expiry Date">Expiry Date</IonSelectOption>
                     <IonSelectOption value="Product ID">Product ID</IonSelectOption>
-                    <IonSelectOption value="Expired Date">Expired Date</IonSelectOption>
-                    <IonSelectOption value="Added Date">Added Date</IonSelectOption>
                   </IonSelect>
                 </IonButton>
               </IonCol>
@@ -132,16 +143,16 @@ const MyWarranty: React.FC<Itemprops> = () => {
           <IonListHeader class="ion-no-start">
             <h2>Products</h2>
           </IonListHeader>
-         
-          {searchItem.sort((a,b) => a.name.localeCompare(b.name)).map((item) => (
+
+          {sortProduct(searchItem).map((item) => (
             <Product
               name={item.name}
               serial={item.char_id}
               image={item.img}
               description={item.status}
             ></Product>
-          ))} 
-          
+          ))}
+
         </IonList>
       </IonContent>
     </IonPage>
