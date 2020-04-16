@@ -276,6 +276,7 @@ VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
 
 INSERT INTO Customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode)
 VALUES ('1','1','23/4','Sathorn','Silom','Sathorn','Bangkok','10120'),
+('1','8','888','Sathorn-test','Silom','Sathorn','Bangkok','10120')
 ('2','2','144/2','-','Ban Nuea','Khwae Yai','Kanchanaburi', '71000'),
 ('3','3','599/97','Nonsi Road','Chongnonsi','Yannawa','Bangkok', '10120'),
 ('3','4','131/9-10','Wat Kak','Silom','Sathorn','Bangkok', '10120'),

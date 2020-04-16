@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../models/product/purchased-product-model')
+const PurchasedProduct = require('../../models/product/purchased-product-model')
 
 //get all products
 exports.getAllProducts = (req, res ,next) => {
