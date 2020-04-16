@@ -13,5 +13,4 @@ exports.getByCustomerId = async (req, res, next) => {
 
 exports.postEditByCustomerId = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
-    
 }

@@ -2,11 +2,12 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Notification {
-    constructor({noti_id=null, message=null, timestamp=null} = {}) {
+    constructor({noti_id=null, message=null, timestamp=null, customer_id=null} = {}) {
         // their own class atrribute ref. from class diagram
         this._notiId = noti_id,
         this._message = message,
         this._timestamp = timestamp,
+        this._customerId = customer_id,
         // their relationships to its neighbor ref. from class diagram
         this._customer = null
     }
@@ -14,7 +15,7 @@ module.exports = class Notification {
     _create() {
         return db.execute(
             'INSERT INTO notification (noti_id, message, timestamp, customer_id) VALUES (?, ?, ?, ?)',
-            [this._notiId, this._message, this._timestamp, this._customer.getProperty.customerId]
+            [this._notiId, this._message, this._timestamp, this._customerId]
         )
     }
 
@@ -28,7 +29,7 @@ module.exports = class Notification {
     _update() {
         db.execute(
             'UPDATE notification SET message = ?, timestamp = ?, customer_id = ? WHERE noti_id = ?',
-            [this._message, this._timestamp, this._customer.getProperty.customerId, this._notiId]
+            [this._message, this._timestamp, this._customerId, this._notiId]
         )
     }
 
@@ -45,6 +46,7 @@ module.exports = class Notification {
             notiId: this._notiId,
             message: this._message,
             timestamp: this._timestamp,
+            customerId: this._customerId,
             customer: this._customer
         }
     }
