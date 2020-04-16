@@ -2,12 +2,12 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ServiceCenter {
-    constructor({ service_center_id = null, name = null, service_center_description = null, hq_address = null } = {}) {
+    constructor({ service_center_id = null, hq_address = null, name = null, service_center_description = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._serviceCenterId = service_center_id;
         this._name = name;
-        this._serviceCenterDescription = service_center_description;
         this._hqAddress = hq_address;
+        this._serviceCenterDescription = service_center_description;
         // their relationships to its neighbor ref. from class diagram
         this._serviceCenterBranch = []; // relationship to ServiceCenterBranch
     }
@@ -39,17 +39,17 @@ module.exports = class ServiceCenter {
     }
 
     // getter and setter
-    getProperty() {
+    get getProperty() {
         return {
             serviceCenterId: this._serviceCenterId,
             name: this._name,
-            serviceCenterDesciption: this._serviceCenterDescription,
             hqAddress: this._hqAddress,
+            serviceCenterDesciption: this._serviceCenterDescription,
             serviceCenterBranch: this._serviceCenterBranch
         };
     }
 
-    setProperty({ // set only its own attributes
+    set setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         serviceCenterId = this._serviceCenterId,
         name = this._name,

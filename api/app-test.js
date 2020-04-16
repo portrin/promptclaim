@@ -19,6 +19,12 @@ app.use(bodyParser.json());
 const authRoute = require('./routes/auth-route');
 app.use('/auth', authRoute);
 
+const customerRoute = require('./routes/customer-route');
+app.use('', auth.requireJwtAuth, customerRoute);
+
+const customerRoutes = require('./routes/customer-route')
+app.use('/customer', auth.requireJwtAuth,customerRoutes)
+
 const notificationRoute = require('./routes/notification-route');
 app.use('/notification', auth.requireJwtAuth, notificationRoute);
 

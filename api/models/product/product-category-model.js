@@ -39,10 +39,10 @@ module.exports = class ProductCategory {
         );
     };
 
-    _delete() {
+    static _delete(categoryId) {
         return db.execute(
             'DELETE FROM product_category WHERE category_id = ?',
-            [this._categoryId]
+            [categoryId]
         );
     };
 

@@ -23,6 +23,10 @@ app.use('/customer', customerRoute);
 const retailerRoute = require('./routes/retailer/retailer-route');
 app.use('/retailer', retailerRoute);
 
+const claimLogRoute = require('./routes/customer/claim-log-route')
+app.use('/claimlog', auth.requireJwtAuth, claimLogRoute);
+
+
 // start server
 app.listen(PORT, () => {
     console.log(`server starts on port ${PORT}`);
