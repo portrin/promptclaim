@@ -175,5 +175,116 @@ const data = {
         PolicyPeriod: '24/4/19 - 24/4/22',
       },
     },
-  }
+  },
+  '2': {
+    key: '2',
+
+    policyID: '222222',
+
+    policyDes: 'this is policy description',
+
+    product1: {
+      customer1: {
+        CustomerID: '000001',
+
+        ProductNumber: '000005',
+
+        SerialNumber: '000012',
+
+        PolicyPeriod: '14/4/19 - 14/4/21',
+      },
+      customer2: {
+        CustomerID: '000003',
+
+        ProductNumber: '000805',
+
+        SerialNumber: '003012',
+
+        PolicyPeriod: '19/4/19 - 14/9/21',
+      },
+      customer3: {
+        CustomerID: '000963',
+
+        ProductNumber: '000098',
+
+        SerialNumber: '000789',
+
+        PolicyPeriod: '24/4/19 - 24/4/22',
+      },
+    },
+  },
+  '3': {
+    key: '3',
+
+    policyID: '333333',
+
+    policyDes: 'this is policy description',
+
+    product1: {
+      customer1: {
+        CustomerID: '000001',
+
+        ProductNumber: '000005',
+
+        SerialNumber: '000012',
+
+        PolicyPeriod: '14/4/19 - 14/4/21',
+      },
+      customer2: {
+        CustomerID: '000003',
+
+        ProductNumber: '000805',
+
+        SerialNumber: '003012',
+
+        PolicyPeriod: '19/4/19 - 14/9/21',
+      },
+      customer3: {
+        CustomerID: '000963',
+
+        ProductNumber: '000098',
+
+        SerialNumber: '000789',
+
+        PolicyPeriod: '24/4/19 - 24/4/22',
+      },
+    },
+  },
+  '4': {
+    key: '4',
+
+    policyID: '444444',
+
+    policyDes: 'this is policy description',
+
+    product1: {
+      customer1: {
+        CustomerID: '000001',
+
+        ProductNumber: '000005',
+
+        SerialNumber: '000012',
+
+        PolicyPeriod: '14/4/19 - 14/4/21',
+      },
+      customer2: {
+        CustomerID: '000003',
+
+        ProductNumber: '000805',
+
+        SerialNumber: '003012',
+
+        PolicyPeriod: '19/4/19 - 14/9/21',
+      },
+      customer3: {
+        CustomerID: '000963',
+
+        ProductNumber: '000098',
+
+        SerialNumber: '000789',
+
+        PolicyPeriod: '24/4/19 - 24/4/22',
+      },
+    },
+  },
 }
