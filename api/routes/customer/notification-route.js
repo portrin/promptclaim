@@ -1,9 +1,9 @@
 const express = require('express');
-const controller = require('../../controllers/customer/notification-controller');
+const notificationController = require('../../controllers/customer/notification-controller');
 const router = express.Router();
 
-router.get('/get', controller.getNotification);
+router.get('/get', notificationController.getNotification);
 
-router.delete('/delete', controller.deleteNotification);
+//router.delete('/delete', notificationController.deleteNotification);
 
 module.exports = router;

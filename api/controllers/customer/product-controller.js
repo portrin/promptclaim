@@ -1,58 +1,52 @@
-const PurchasedProduct = require('../../models/product/purchased-product-model')
+const PurchasedProduct = require('../../models/product/product-model');
+const jwt = require('jsonwebtoken');
 
 //get all products
-exports.getAllProducts = (req, res ,next) => {
-    PurchasedProduct._read()
-    .then(([products]) => {
-        res.send(products)
-    })
-    .catch(err => {
-        console.log(err);
-    });
+exports.getCustomerProducts = async (req, res ,next) => {
+    const customerId = jwt.decode(req.headers.authorization).sub;
+    const result = await PurchasedProduct._readByCustomerId(customerId) [0];
+    res.send(result);   
 };
 
 
-
-//get a product by serialNo & productNo
-exports.getProduct = (req, res, next) => {
-    const serialNo = req.params.serialNo;
+//get product by productNo
+exports.getProductByProductNo = async (req, res, next) => {
+    const customerId = jwt.decode(req.headers.authorization).sub;
     const productNo = req.params.productNo;
-    PurchasedProduct._readByKey(serialNo, productNo)
-    .then(([product]) => {
-        res.send(product[0]);
-    })
-    .catch(err => {
-        console.log(err);
-    })
+    const result = await PurchasedProduct._readByProductNo(productNo, customerId) [0];
+    res.send(result);   
 };
 
-
-
-//route to form-page for adding product
-exports.getAddProduct = (req, res, next) => {
-    res.send('productAdd form')
-};
+//get product by uuid
+exports.getProductByUuid = async (req, res, next) => {
+    const customerId = jwt.decode(req.headers.authorization).sub;
+    const uuid = req.params.uuid;
+    const result = await PurchasedProduct._readByUuid(uuid, customerId) [0];
+    res.send(result);
+}
 
 
 //add a product
-exports.postAddProduct = (req, res, next) => {
-    const serialNo = req.body.serialNo;
-    const productNo = req.body.productNo;
-    const customerId = req.body.customerId;
+exports.postAddProduct = async (req, res, next) => {
+    const serialNo = req.body.serial_no;
+    const productNo = req.body.product_no;
+    const customerId = jwt.decode(req.headers.authorization).sub;
+    const productNickname = req.body.product_nickname;
     const price = req.body.price;
-    const invoiceID = req.body.invoiceID;
+    const invoiceID = req.body.invoice_id;
     const timestamp = req.body.timestamp;
-    const branchID = req.body.branchID;
-    const retailerID = req.body.retailerID;
-    const receiptPhoto = req.body.receiptPhoto;
-    const isValidate = req.body.isValidate;
-    const productPhoto = req.body.productPhoto;
-    const claimQty = req.body.claimQty;
-    const warrantyPhoto = req.body.warrantyPhoto;
+    const branchID = req.body.branch_id;
+    const retailerID = req.body.retailer_id;
+    const receiptPhoto = req.body.receipt_photo;
+    const isValidate = req.body.is_validate;
+    const productPhoto = req.body.product_photo;
+    const claimQty = req.body.claim_qty;
+    const warrantyPhoto = req.body.warranty_photo;
     const product = new PurchasedProduct(
                             serialNo,
                             productNo,
-                            customerId, 
+                            customerId,
+                            productNickname, 
                             price, 
                             invoiceID, 
                             timestamp, 
@@ -63,54 +57,44 @@ exports.postAddProduct = (req, res, next) => {
                             productPhoto, 
                             claimQty,
                             warrantyPhoto
-                            );                           
-    
-    product._create()
-    .then(() => {
-        console.log('Added!');
-        res.send('Added!');
-    })
-    .catch(err => {
-        console.log(err); 
-    });
+                            );               
+    const result = await product._create();
+    res.send(result);  
 
 };
 
 
 //delete a product
-exports.deleteProduct = (req, res, next) => {
-    const serialNo = req.params.serialNo;
-    const productNo = req.params.productNo;
-    PurchasedProduct._deleteByKey(serialNo, productNo)
-    .then(() => {
-        console.log('Product Deleted!');
-        res.send('Product Deleted!')
-    })
-    .catch(err => {
-        console.log(err);        
-    })
+exports.deleteProductByUuid = async (req, res, next) => {
+    const uuid = req.params.uuid;
+    await PurchasedProduct._deleteByKey(uuid);
+    res.send('Product Deleted!')
 };
 
 
 //edit a product
-exports.postEditProduct = (req, res, next) => {
-    const serialNo = req.body.serialNo;
-    const productNo = req.body.productNo;
-    const customerId = req.body.customerId;
+exports.postEditProductByUuid = async (req, res, next) => {
+    const uuid = req.params.uuid;
+    const serialNo = req.body.serial_no;
+    const productNo = req.body.product_no;
+    const customerId = jwt.decode(req.headers.authorization).sub;
+    const productNickname = req.body.product_nickname;
     const price = req.body.price;
-    const invoiceID = req.body.invoiceID;
+    const invoiceID = req.body.invoice_id;
     const timestamp = req.body.timestamp;
-    const branchID = req.body.branchID;
-    const retailerID = req.body.retailerID;
-    const receiptPhoto = req.body.receiptPhoto;
-    const isValidate = req.body.isValidate;
-    const productPhoto = req.body.productPhoto;
-    const claimQty = req.body.claimQty;
-    const warrantyPhoto = req.body.warrantyPhoto;
+    const branchID = req.body.branch_id;
+    const retailerID = req.body.retailer_id;
+    const receiptPhoto = req.body.receipt_photo;
+    const isValidate = req.body.is_validate;
+    const productPhoto = req.body.product_photo;
+    const claimQty = req.body.claim_qty;
+    const warrantyPhoto = req.body.warranty_photo;
     const updatedProduct = new PurchasedProduct(
+                            uuid,
                             serialNo,
                             productNo,
                             customerId, 
+                            productNickname,
                             price, 
                             invoiceID, 
                             timestamp, 
@@ -121,25 +105,12 @@ exports.postEditProduct = (req, res, next) => {
                             productPhoto, 
                             claimQty,
                             warrantyPhoto
-                            );
-    updatedProduct.serialNo = req.params.serialNo;
-    updatedProduct.productNo = req.params.productNo;
-    updatedProduct._update()
-    .then(() => {
-        console.log('Product Edited!'); 
-        res.send('Product Edited!');
-    })
-    .catch(err => {
-        console.log(err);            
-    })
+                            );    
+    await updatedProduct._update(uuid);
+    res.send('Product ' + updatedProduct.uuid + ' is updated!')
+    
 };
                         
-
-
-//route to form-page for editing product
-exports.getEditProduct = (req, res, next) => {
-    res.send('Edit Form')
-};
 
 
 
