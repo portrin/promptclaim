@@ -108,6 +108,7 @@ const columns = [
 ]
 
 //Mock data
+// eslint-disable-next-line no-unused-vars
 const data = [
   {
     key: '1',
