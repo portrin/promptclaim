@@ -37,22 +37,37 @@ interface Match extends RouteComponentProps<RouteParam> {
 }
 
 const EditAddress: React.FC<Match> = ({ match }) => {
-
   console.log(match);
   console.log(match.params.id);
   useEffect(() => {
     fetchItem();
   }, []);
   const [item, setItem] = useState<Character[]>([]);
-  const [newEmail, setNewEmail] = useState("");
+  const [homenum, setHomeNum] = useState("");
+  const [street, setStreet] = useState("");
+  const [subdist, setSubDist] = useState("");
+  const [dist, setDist] = useState("");
+  const [province, setProvince] = useState("");
+  const [streetCode, setStreetCode] = useState("");
   const fetchItem = async () => {
     const data = await fetch(
       "https://www.breakingbadapi.com/api/characters/" + match.params.id
     );
 
     const item = await data.json();
+    const name: string = item[0].name;
+    const char_id: string = item[0].char_id;
+    const status: string = item[0].status;
+
     setItem(item);
     console.log(item);
+
+    setHomeNum(char_id);
+    setStreet(name);
+    setSubDist(status);
+    setDist(status);
+    setProvince(status);
+    setStreetCode(char_id);
   };
   return (
     <IonApp>
@@ -70,32 +85,68 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">Home No.</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={homenum}
+                  onIonChange={(e) => setHomeNum(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed">Street</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={street}
+                  onIonChange={(e) => setStreet(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed">Sub-District</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={subdist}
+                  onIonChange={(e) => setSubDist(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed">District</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={dist}
+                  onIonChange={(e) => setDist(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed">Province</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={province}
+                  onIonChange={(e) => setProvince(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed">Street Code</IonLabel>
-                <IonInput class="input" required type="number"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="number"
+                  value={streetCode}
+                  onIonChange={(e) => setStreetCode(e.detail.value!)}
+                ></IonInput>
               </IonItem>
             </IonList>
           </IonCard>

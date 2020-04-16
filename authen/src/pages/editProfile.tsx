@@ -13,8 +13,7 @@ import {
   IonLabel,
   IonInput,
   IonChip,
-  IonDatetime,
-  IonItemDivider,
+  IonDatetime
 } from "@ionic/react";
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -38,6 +37,9 @@ const EditProfile: React.FC<Match> = ({ match }) => {
   console.log(match);
   console.log(match.params.id);
   const [fname, setFName] = useState("");
+  const [lname, setLName] = useState("");
+  const [gender, setGender] = useState("");
+  const [bdate, setBDate] = useState("");
 
   useEffect(() => {
     fetchItem();
@@ -51,10 +53,15 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
     const item = await data.json();
     const name: string = item[0].name;
+    const char_id: string = item[0].char_id;
+    const status: string = item[0].status;
+
     setItem(item);
     console.log(item);
     setFName(name);
-    console.log(item[0].name);
+    setLName(name);
+    setGender(status);
+    setBDate(char_id);
   };
   return (
     <IonApp>
@@ -85,18 +92,48 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel position="fixed">Last Name</IonLabel>
-                <IonInput class="input" required type="text"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={lname}
+                  onIonChange={(e) => setLName(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed">Gender</IonLabel>
-                <IonChip class="chip" outline color="primary">
+                <IonChip
+                  class="chip"
+                  outline
+                  color="primary"
+                  id={gender}
+                  onClick={() => {
+                    setGender("male");
+                  }}
+                >
                   <IonIcon size="large" icon={man} color="primary" />
                 </IonChip>
-                <IonChip class="chip" outline color="primary">
+                <IonChip
+                  class="chip"
+                  outline
+                  color="primary"
+                  id={gender}
+                  onClick={() => {
+                    setGender("female");
+                  }}
+                >
                   <IonIcon size="large" icon={woman} color="primary" />
                 </IonChip>
-                <IonChip class="chip2" outline color="primary">
+                <IonChip
+                  class="chip2"
+                  outline
+                  color="primary"
+                  id={gender}
+                  onClick={() => {
+                    setGender("notspecified");
+                  }}
+                >
                   <p>Not Specified </p>
                 </IonChip>
               </IonItem>
@@ -108,6 +145,8 @@ const EditProfile: React.FC<Match> = ({ match }) => {
                   displayFormat="DD MMM YYYY"
                   pickerFormat="DD MMM YYYY"
                   max="2005"
+                  value={bdate}
+                  onIonChange={(e) => setBDate(e.detail.value!)}
                 >
                   {" "}
                 </IonDatetime>

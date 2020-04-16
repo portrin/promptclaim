@@ -44,6 +44,8 @@ const EditAccount: React.FC<Match> = ({ match }) => {
   }, []);
   const [item, setItem] = useState<Character[]>([]);
   const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPassword2, setNewPassword2] = useState("");
   const fetchItem = async () => {
     const data = await fetch(
       "https://www.breakingbadapi.com/api/characters/" + match.params.id
@@ -97,11 +99,23 @@ const EditAccount: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel>New Password</IonLabel>
-                <IonInput class="input" required type="password"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="password"
+                  value={newPassword}
+                  onIonChange={(e) => setNewPassword(e.detail.value!)}
+                ></IonInput>
               </IonItem>
               <IonItem>
                 <IonLabel>Confirm New Password</IonLabel>
-                <IonInput class="input" required type="password"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="password"
+                  value={newPassword2}
+                  onIonChange={(e) => setNewPassword2(e.detail.value!)}
+                ></IonInput>
               </IonItem>
               <div className="note">
                 * Password must be at least 8 characters
