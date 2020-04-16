@@ -20,11 +20,6 @@ app.use(bodyParser.json());
 const customerRoute = require('./routes/customer/customer-route');
 app.use('/customer', auth.requireJwtAuth, customerRoute);
 
-const claimLogRoute = require('./routes/customer/claim-log-route');
-app.use('/claimlog', auth.requireJwtAuth, claimLogRoute);
-
-const productRoute = require('./routes/customer/product-route');
-app.use('/product', auth.requireJwtAuth, productRoute);
 
 
 // start server
