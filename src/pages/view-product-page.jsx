@@ -33,28 +33,24 @@ export const ViewProductPage = (props) => {
             Retailer ID: {data[key].productInfo.retailerID}
           </Descriptions.Item>
           <Descriptions.Item label="Customer Information">
-            Customer ID: 123000
+            Customer ID: {data[key].customerInfo.customerID}
             <br />
-            Customer Name: Sarut Sakulwira
+            Customer Name: {data[key].customerInfo.customerName}
             <br />
-            Phone Number: 087-330-9493
+            Phone Number: {data[key].customerInfo.phoneNum}
             <br />
-            Birth Date: 08/07/1999
+            Birth Date: {data[key].customerInfo.birthDate}
             <br />
-            Address: 35 Soi Chotiwat 10,
-            <br />
-            Rimklong Prapa Rd., Bangsue,
-            <br />
-            Bangkok, Thailand, 10800
+            Address: {data[key].customerInfo.address}
           </Descriptions.Item>
           <Descriptions.Item label="Claim Information">
-            Expiry date: 20/20/2020
+            Expiry date: {data[key].claimInfo.expiryDate}
             <br />
-            Claim Period: 2 years
+            Claim Period: {data[key].claimInfo.claimPeriod}
             <br />
-            Claim Period Left: 1 years
+            Claim Period Left: {data[key].claimInfo.claimLeft}
             <br />
-            Status: Unclaim
+            Status: {data[key].claimInfo.status}
           </Descriptions.Item>
         </Descriptions>
       </div>
@@ -69,6 +65,7 @@ const data = {
     image: '/cotto-toilet-bowl.jpg',
 
     productName: 'COTTO Automatic Toilet Bowl',
+
     productInfo: {
       purchaseDate: '20/03/2019',
       serialNum: '000001',
