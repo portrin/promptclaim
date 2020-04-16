@@ -17,13 +17,13 @@ module.exports = class ClaimLog {
     // CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO claim_log(claim_id, status, timestamp, uuid, service_center_id, branch_id) VALUES(?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO claim_log(claim_id, status, timestamp, uuid, service_center_id, branch_id) VALUES(?, ?, ?, ?, ?, ?)',
             [this._claimId, 
-            this.status, 
-            this._timestamp, 
-            this._purchasedProduct.getProperty.uuid,
-            this._serviceCenterBranch.getProperty.serviceCenterId,
-            this._serviceCenterBranch.getProperty.branchId
+            this._status, 
+            this._timestamp,
+            this._uuid, 
+            this._serviceCenterId,
+            this._branchId
             ]
         );
     };
@@ -51,7 +51,7 @@ module.exports = class ClaimLog {
 
     static _readByPurchasedProduct(uuid, customerId) {
         return db.execute(
-            'SELECT claim_id, status, timestamp, c.uuid, service_center_id, branch_id, serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.uuid = ? AND c.customer_id = ?;',
+            'SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.uuid = ? AND p.customer_id = ?;',
             [uuid, customerId]
         );
     }
@@ -59,14 +59,14 @@ module.exports = class ClaimLog {
     _update() {
         return db.execute(
             'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
-            [this._status, this._timestamp, this._uuid, this._serviceCenterBranch.getProperty.serviceCenterId, this._serviceCenterBranch.getProperty.branchId, this._claimId]
+            [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._branchId, this._claimId]
         );
     };
 
-    static _update(claimId) {
+    _update(claimId) {
         return db.execute(
-            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
-            [this._status, this._timestamp, this._uuid, this._serviceCenterBranch.getProperty.serviceCenterId, this._serviceCenterBranch.getProperty.branchId, claimId, customerId]
+            'UPDATE claim_log SET status = ?, timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
+            [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._branchId, claimId]
         );
     }
 
