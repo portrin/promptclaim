@@ -15,9 +15,7 @@ export const AppLayout = (props) => {
           <br />
           <Row>
             <Col span={8}></Col>
-            <Col span={8}>
-              <SearchBar />
-            </Col>
+            <Col span={8}>{props.nosearch || <SearchBar />}</Col>
             <Col span={8}></Col>
           </Row>
         </Content>

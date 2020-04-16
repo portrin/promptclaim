@@ -1,10 +1,7 @@
 import React from 'react'
-import { Layout, Breadcrumb, Menu, Descriptions, Collapse } from 'antd'
-
-import { Topbar } from '../components/header'
-import { Bottombar } from '../components/footer'
-
-const { SubMenu } = Menu
+import { Descriptions, Collapse } from 'antd'
+import { AppLayout } from '../components/app-layout'
+import { useParams } from 'react-router-dom'
 
 const { Panel } = Collapse
 
@@ -24,168 +21,159 @@ Terms & Conditions:
 `
 
 export const ViewPolicyPage = (props) => {
+  let { key } = useParams()
   return (
-    <div className="App">
-      <Layout>
-        <Topbar />
-        <Layout>
-          <Content style={{ padding: '0 50px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item
-                className="pointer"
-                onClick={() => props.history.push('/main-policy')}
-              >
-                Policy Dashboard
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>Policy Information</Breadcrumb.Item>
-            </Breadcrumb>
-            <Layout
-              className="site-layout-background"
-              style={{ padding: '24px 0' }}
-            >
-              <Sider className="site-layout-background" width={200}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1']}
-                  style={{ height: '100%' }}
-                >
-                  <SubMenu key="sub1" title={<span>View by</span>}>
-                    <Menu.Item
-                      key="2"
-                      className="pointer"
-                      onClick={() => props.history.push('/')}
-                    >
-                      Product
-                    </Menu.Item>
-                    <Menu.Item key="1">Policy</Menu.Item>
-                  </SubMenu>
-                </Menu>
-              </Sider>
-              <Content>
-                <div className="site-layout-content">
-                  <Descriptions layout="vertical" bordered>
-                    <Descriptions.Item label="Policy Informaion">
-                      Policy ID: 000037
-                      <br />
-                      <Collapse>
-                        <Panel header="Policy Description">
-                          <p>{text}</p>
-                        </Panel>
-                      </Collapse>
-                    </Descriptions.Item>
-                  </Descriptions>
-                  <Descriptions layout="vertical" bordered>
-                    <Descriptions.Item label="Product Information">
-                      <Collapse onChange={callback}>
-                        <Panel
-                          header="AMERICAN STANDARD Automatic Toilet Bowl"
-                          key="1"
-                        >
-                          <Collapse>
-                            <Panel header="Customer 1" key="1">
-                              Customer ID: 000293
-                              <br />
-                              Product Number: 000001
-                              <br />
-                              Serial Number: 000056
-                              <br />
-                              Policy Period: 10/3/20 to 10/3/22
-                            </Panel>
-                            <Panel header="Customer 2" key="2">
-                              Customer ID: 000353
-                              <br />
-                              Product Number: 000005
-                              <br />
-                              Serial Number: 000012
-                              <br />
-                              Policy Period: 14/4/19 to 14/4/21
-                            </Panel>
-                            <Panel header="Customer 3" key="3">
-                              Customer ID: 000353
-                              <br />
-                              Product Number: 000005
-                              <br />
-                              Serial Number: 000012
-                              <br />
-                              Policy Period: 14/4/19 to 14/4/21
-                            </Panel>
-                          </Collapse>
-                        </Panel>
-                        <Panel header="AMERICAN STANDARD Toilet Bowl" key="2">
-                          <Collapse>
-                            <Panel header="Customer 1" key="1">
-                              Customer ID: 000293
-                              <br />
-                              Product Number: 000001
-                              <br />
-                              Serial Number: 000056
-                              <br />
-                              Policy Period: 10/3/20 to 10/3/22
-                            </Panel>
-                            <Panel header="Customer 2" key="2">
-                              Customer ID: 000353
-                              <br />
-                              Product Number: 000005
-                              <br />
-                              Serial Number: 000012
-                              <br />
-                              Policy Period: 14/4/19 to 14/4/21
-                            </Panel>
-                            <Panel header="Customer 3" key="3">
-                              Customer ID: 000353
-                              <br />
-                              Product Number: 000005
-                              <br />
-                              Serial Number: 000012
-                              <br />
-                              Policy Period: 14/4/19 to 14/4/21
-                            </Panel>
-                          </Collapse>
-                        </Panel>
-                        <Panel header="AMERICAN STANDARD Water Heater" key="3">
-                          <Collapse>
-                            <Panel header="Customer 1" key="1">
-                              Customer ID: 000293
-                              <br />
-                              Product Number: 000001
-                              <br />
-                              Serial Number: 000056
-                              <br />
-                              Policy Period: 10/3/20 to 10/3/22
-                            </Panel>
-                            <Panel header="Customer 2" key="2">
-                              Customer ID: 000353
-                              <br />
-                              Product Number: 000005
-                              <br />
-                              Serial Number: 000012
-                              <br />
-                              Policy Period: 14/4/19 to 14/4/21
-                            </Panel>
-                            <Panel header="Customer 3" key="3">
-                              Customer ID: 000353
-                              <br />
-                              Product Number: 000005
-                              <br />
-                              Serial Number: 000012
-                              <br />
-                              Policy Period: 14/4/19 to 14/4/21
-                            </Panel>
-                          </Collapse>
-                        </Panel>
-                      </Collapse>
-                    </Descriptions.Item>
-                  </Descriptions>
-                </div>
-              </Content>
-            </Layout>
-          </Content>
-          <Bottombar />
-        </Layout>
-      </Layout>
-    </div>
+    <AppLayout {...props} nosearch title="Product Information">
+      <div className="site-layout-content">
+        <Descriptions layout="vertical" bordered>
+          <Descriptions.Item label="Policy Informaion">
+            Policy ID: {data[key].policyID}
+            <br />
+            <Collapse>
+              <Panel header="Policy Description">{data[key].policyDes}</Panel>
+            </Collapse>
+          </Descriptions.Item>
+        </Descriptions>
+        <Descriptions layout="vertical" bordered>
+          <Descriptions.Item label="Product Information">
+            <Collapse onChange={callback}>
+              <Panel header="AMERICAN STANDARD Automatic Toilet Bowl" key="1">
+                <Collapse>
+                  <Panel header="Customer 1" key="1">
+                    Customer ID: {data[key].product1.customer1.CustomerID}
+                    <br />
+                    Product Number: {data[key].product1.customer1.ProductNumber}
+                    <br />
+                    Serial Number: {data[key].product1.customer1.SerialNumber}
+                    <br />
+                    Policy Period: {data[key].product1.customer1.PolicyPeriod}
+                  </Panel>
+                  <Panel header="Customer 2" key="2">
+                    Customer ID: {data[key].product1.customer2.CustomerID}
+                    <br />
+                    Product Number: {data[key].product1.customer2.ProductNumber}
+                    <br />
+                    Serial Number: {data[key].product1.customer2.SerialNumber}
+                    <br />
+                    Policy Period: {data[key].product1.customer2.PolicyPeriod}
+                  </Panel>
+                  <Panel header="Customer 3" key="3">
+                    Customer ID: {data[key].product1.customer3.CustomerID}
+                    <br />
+                    Product Number: {data[key].product1.customer3.ProductNumber}
+                    <br />
+                    Serial Number: {data[key].product1.customer3.SerialNumber}
+                    <br />
+                    Policy Period: {data[key].product1.customer3.PolicyPeriod}
+                  </Panel>
+                </Collapse>
+              </Panel>
+              <Panel header="AMERICAN STANDARD Toilet Bowl" key="2">
+                <Collapse>
+                  <Panel header="Customer 1" key="1">
+                    Customer ID: 000293
+                    <br />
+                    Product Number: 000001
+                    <br />
+                    Serial Number: 000056
+                    <br />
+                    Policy Period: 10/3/20 to 10/3/22
+                  </Panel>
+                  <Panel header="Customer 2" key="2">
+                    Customer ID: 000353
+                    <br />
+                    Product Number: 000005
+                    <br />
+                    Serial Number: 000012
+                    <br />
+                    Policy Period: 14/4/19 to 14/4/21
+                  </Panel>
+                  <Panel header="Customer 3" key="3">
+                    Customer ID: 000353
+                    <br />
+                    Product Number: 000005
+                    <br />
+                    Serial Number: 000012
+                    <br />
+                    Policy Period: 14/4/19 to 14/4/21
+                  </Panel>
+                </Collapse>
+              </Panel>
+              <Panel header="AMERICAN STANDARD Water Heater" key="3">
+                <Collapse>
+                  <Panel header="Customer 1" key="1">
+                    Customer ID: 000293
+                    <br />
+                    Product Number: 000001
+                    <br />
+                    Serial Number: 000056
+                    <br />
+                    Policy Period: 10/3/20 to 10/3/22
+                  </Panel>
+                  <Panel header="Customer 2" key="2">
+                    Customer ID: 000353
+                    <br />
+                    Product Number: 000005
+                    <br />
+                    Serial Number: 000012
+                    <br />
+                    Policy Period: 14/4/19 to 14/4/21
+                  </Panel>
+                  <Panel header="Customer 3" key="3">
+                    Customer ID: 000353
+                    <br />
+                    Product Number: 000005
+                    <br />
+                    Serial Number: 000012
+                    <br />
+                    Policy Period: 14/4/19 to 14/4/21
+                  </Panel>
+                </Collapse>
+              </Panel>
+            </Collapse>
+          </Descriptions.Item>
+        </Descriptions>
+      </div>
+    </AppLayout>
   )
 }
 
-const { Content, Sider } = Layout
+const data = {
+  '1': {
+    key: '1',
+
+    policyID: '000001',
+
+    policyDes: 'this is policy description',
+
+    product1: {
+      customer1: {
+        CustomerID: '000001',
+
+        ProductNumber: '000005',
+
+        SerialNumber: '000012',
+
+        PolicyPeriod: '14/4/19 - 14/4/21',
+      },
+      customer2: {
+        CustomerID: '000003',
+
+        ProductNumber: '000805',
+
+        SerialNumber: '003012',
+
+        PolicyPeriod: '19/4/19 - 14/9/21',
+      },
+      customer3: {
+        CustomerID: '000963',
+
+        ProductNumber: '000098',
+
+        SerialNumber: '000789',
+
+        PolicyPeriod: '24/4/19 - 24/4/22',
+      },
+    },
+  }
+}

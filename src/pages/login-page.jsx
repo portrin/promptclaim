@@ -8,77 +8,75 @@ export const LoginPage = (props) => {
   }
 
   return (
-      <Form
-        name="normal_login"
-        className="login-form"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-      >
-        <img className="biglogo" src="darktranslogo.png" alt="logo" />
-        <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
-            <Form.Item
-              name="username"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Username!',
-                },
-              ]}
-            >
-              <Input
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
-              />
-            </Form.Item>
-          </Col>
-          <Col span={8}></Col>
-        </Row>
-        <Row>
-          <Col span={8}></Col>
-          <Col span={8}>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input your Password!',
-                },
-              ]}
-            >
-              <Input
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Item>
-          </Col>
-          <Col span={8}></Col>
-        </Row>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            size="large"
-            htmlType="submit"
-            className="login-form-button"
-            style={{ background: '#0050b3', borderColor: '#0050b3' }}
-            onClick={() => props.history.push('/')}
+    <Form
+      name="normal_login"
+      className="login-form"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+    >
+      <img className="biglogo" src="darktranslogo.png" alt="logo" />
+      <Row>
+        <Col span={8}></Col>
+        <Col span={8}>
+          <Form.Item
+            name="username"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Username!',
+              },
+            ]}
           >
-            Log in
-          </Button>
+            <Input
+              prefix={<UserOutlined className="site-form-item-icon" />}
+              placeholder="Username"
+            />
+          </Form.Item>
+        </Col>
+        <Col span={8}></Col>
+      </Row>
+      <Row>
+        <Col span={8}></Col>
+        <Col span={8}>
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your Password!',
+              },
+            ]}
+          >
+            <Input
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
+        </Col>
+        <Col span={8}></Col>
+      </Row>
+      <Form.Item>
+        <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Checkbox>Remember me</Checkbox>
         </Form.Item>
-      </Form>
+        Forgot password
+      </Form.Item>
+
+      <Form.Item>
+        <Button
+          type="primary"
+          size="large"
+          htmlType="submit"
+          className="login-form-button"
+          style={{ background: '#0050b3', borderColor: '#0050b3' }}
+          onClick={() => props.history.push('/')}
+        >
+          Log in
+        </Button>
+      </Form.Item>
+    </Form>
   )
 }
