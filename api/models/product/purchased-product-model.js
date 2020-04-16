@@ -52,10 +52,10 @@ module.exports = class PurchasedProduct {
         );
     }
 
-    static _readByUuid(uuid) {
+    static _readByUuid(uuid, customerId) {
         return db.execute(
-            'SELECT * FROM purchased_product WHERE uuid = ?',
-            [uuid]
+            'SELECT * FROM purchased_product WHERE uuid = ? AND customer_id = ?',
+            [uuid, customerId]
         );
     };
 
@@ -73,14 +73,15 @@ module.exports = class PurchasedProduct {
         );
     };
 
-    static _read() {
+    static _readByProductNo(productNo, customerId) {
         return db.execute(
-            'SELECT * FROM purchased_product'
+            'SELECT * FROM purchased_product WHERE product_no = ? and customer_id = ?',
+            [productNo, customerId]
         );
     }
 
 
-    _update() {
+    _update(uuid) {
         return db.execute(
             'UPDATE purchased_product SET serial_no =?, product_no = ?,  customer_id = ?, product_nickname = ?, price = ?, invoice_id = ?, create_timestamp = ?, branch_id =?, retailer_id = ?, receipt_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE uuid = ?   ',        
             [this._serialNo,
@@ -97,7 +98,7 @@ module.exports = class PurchasedProduct {
             this._productPhoto,
             this._claimQty,
             this._warrantyPhoto,
-            this._uuid]
+            uuid]
         );              
     };
 

@@ -1,4 +1,4 @@
-const ClaimLog = require('../models/product/claim-log-model');
+const ClaimLog = require('../../models/product/claim-log-model');
 const jwt = require('jsonwebtoken');
 
 exports.getCustomerClaimLog = async (req, res, next) => {

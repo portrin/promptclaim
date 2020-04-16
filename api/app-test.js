@@ -16,17 +16,11 @@ app.use(morgan('dev'));
 app.use(errorhandler());
 app.use(bodyParser.json());
 
-const authRoute = require('./routes/auth-route');
+const authRoute = require('./routes/customer/auth-route');
 app.use('/auth', authRoute);
 
-const customerRoute = require('./routes/customer-route');
-app.use('', auth.requireJwtAuth, customerRoute);
-
-const customerRoutes = require('./routes/customer-route')
-app.use('/customer', auth.requireJwtAuth,customerRoutes)
-
-const notificationRoute = require('./routes/notification-route');
-app.use('/notification', auth.requireJwtAuth, notificationRoute);
+const profileRoutes = require('./routes/customer/profile-route')
+app.use('/customer/profile', profileRoutes);
 
 // start server
 app.listen(PORT, () => {

@@ -1,6 +1,6 @@
 const jwt = require('jwt-simple');
 const dotenv = require('dotenv');
-const db = require('../config/db');
+const db = require('../../config/db');
 dotenv.config()
 
 const SECRET = process.env.SECRET; // In production, we need to hide this secret in environment 

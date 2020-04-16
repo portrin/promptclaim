@@ -3,8 +3,8 @@ const controller = require('../../controllers/customer/profile-controller');
 router = express.Router();
 
 router.get('/get', controller.getByCustomerId);
-router.post('/edit', controller.postEditByCustomerId);
-router.post('/add', controller.postAddByCustomerId); 
+// router.post('/edit', controller.postEditByCustomerId);
+// router.post('/add', controller.postAddByCustomerId); 
 
-module.export = router;
+module.exports = router;
 
