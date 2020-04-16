@@ -17,6 +17,4 @@ router.delete('/deleteByUuid/:uuid', productController.deleteProductByUuid);
 router.post('/editByUuid/:uuid', productController.postEditProductByUuid);
 
 
-
-
 module.exports = router;
