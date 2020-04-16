@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../models/product/purchased-product-model');
+const PurchasedProduct = require('../../models/product/product-model');
 const jwt = require('jsonwebtoken');
 
 //get all products
