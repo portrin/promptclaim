@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 //get all products
 exports.getCustomerProducts = async (req, res ,next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
-    const result = await PurchasedProduct._readByCustomerId(customerId) ;
-    res.send(result[0]);   
+    const result = (await PurchasedProduct._readByCustomerId(customerId)) [0];
+    res.send(result);   
 };
 
 
@@ -13,16 +13,16 @@ exports.getCustomerProducts = async (req, res ,next) => {
 exports.getProductByProductNo = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const productNo = req.params.productNo;
-    const result = await PurchasedProduct._readByProductNo(productNo, customerId) ;
-    res.send(result[0]);   
+    const result = (await PurchasedProduct._readByProductNo(productNo, customerId)) [0] ;
+    res.send(result);   
 };
 
 //get product by uuid
 exports.getProductByUuid = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const uuid = req.params.uuid;
-    const result = await PurchasedProduct._readByUuid(uuid, customerId) ;
-    res.send(result[0]);
+    const result = (await PurchasedProduct._readByUuid(uuid, customerId)) [0];
+    res.send(result);
 }
 
 
@@ -62,8 +62,8 @@ exports.postAddProduct = async (req, res, next) => {
                             });
     console.log(product);
                    
-    const result = await product._create();
-    res.send(result[0]);  
+    const result = (await product._create()) [0];
+    res.send(result);  
 
 };
 
