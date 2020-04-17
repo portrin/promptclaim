@@ -35,22 +35,23 @@ exports.getProfile = async (req, res, next) => {
 }
 
 exports.postEditProfile = async (req,res,next) => {
-    const customer_id = jwt.decode(req.headers.authorization).sub
+    const customerId = jwt.decode(req.headers.authorization).sub
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
-    const phone_no = req.body.phoneNo;
-    const birth_date = req.body.birthDate;
+    const phoneNo = req.body.phoneNo;
+    const birthDate = req.body.birthDate;
     const gender = req.body.gender;
-    const account_id = customer_id;
-    const customer = new Customer({
-        customer_id,
+    const accountId = customerId;
+    const customer = new Customer( (await Customer._readByCustomerId(customerId))[0][0] )
+    customer.setProperty = {
+        customerId,
         firstname,
         lastname,
-        phone_no,
-        birth_date,
+        phoneNo,
+        birthDate,
         gender,
-        account_id
-    })
+        accountId
+    }
     const customerProfile = await customer._update()
     res.send({
         editProfile : customerProfile

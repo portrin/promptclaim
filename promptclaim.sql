@@ -2,7 +2,7 @@
 
 CREATE TABLE Customer_account (
 	account_id VARCHAR(6) NOT NULL,
-    username VARCHAR(80) NOT NULL,
+    username VARCHAR(80),
     password VARCHAR(80) NOT NULL,
     email VARCHAR(80) NOT NULL,
     PRIMARY KEY(account_id)

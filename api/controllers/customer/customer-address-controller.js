@@ -45,24 +45,25 @@ exports.getAddressByPK = async (req,res,next) => {
 }
 
 exports.postEditAddressByPK = async (req,res,next) => {
-    const customer_id = jwt.decode(req.headers.authorization).sub
-    const address_id = req.params.addressId
-    const house_no = req.body.houseNo;
+    const customerId = jwt.decode(req.headers.authorization).sub
+    const addressId = req.params.addressId
+    const houseNo = req.body.houseNo;
     const street = req.body.street;
-    const sub_district = req.body.subDistrict;
+    const subDistrict = req.body.subDistrict;
     const district = req.body.district;
     const province = req.body.province;
     const zipcode = req.body.zipcode;
-    const customerAddress = new CustomerAddress({
-        customer_id,
-        address_id,
-        house_no,
+    const customerAddress = new CustomerAddress( (await CustomerAddress._readByPK(customerId, addressId))[0][0] );
+    customerAddress.setProperty = {
+        customerId,
+        addressId,
+        houseNo,
         street,
-        sub_district,
+        subDistrict,
         district,
         province,
         zipcode
-    })
+    }
     const result = await customerAddress._update()
     res.send(result)
 }

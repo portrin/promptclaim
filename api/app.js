@@ -15,13 +15,17 @@ app.use(morgan('dev'));
 app.use(errorhandler());
 app.use(bodyParser.json());
 
+// customer add account route
+const customerAddAccountRoute = require('./routes/customer/customer-account-route');
+app.use('/customer/account', customerAddAccountRoute)
+
 // customer routes
 const customerRoute = require('./routes/customer/customer-route');
 app.use('/customer', customerRoute);
 
 // retailer routes
-const retailerRoute = require('./routes/retailer/retailer-route');
-app.use('/retailer', retailerRoute);
+// const retailerRoute = require('./routes/retailer/retailer-route');
+// app.use('/retailer', retailerRoute);
 
 
 

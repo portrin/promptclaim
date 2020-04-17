@@ -23,7 +23,7 @@ module.exports = class CustomerAccount{
 
     static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT account_id, username, email FROM customer_account NATURAL JOIN customer WHERE customer_id = ?',
+            'SELECT account_id, username, password, email FROM customer_account NATURAL JOIN customer WHERE customer_id = ?',
             [customerId]
         )
     }
