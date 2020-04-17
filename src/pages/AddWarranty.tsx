@@ -46,6 +46,8 @@ const AddWarranty: React.FC = () => {
   const [text4, setText4] = useState<string>();
   const [text5, setText5] = useState<string>();
   const { photos, takePhoto } = usePhotoGallery();
+  const { photos1, takePhoto1 } = usePhotoGallery();
+  const { photos2, takePhoto2 } = usePhotoGallery();
   const [selectedDate, setSelectedDate] = useState<string>(
     "2020-03-27T17:51:31+0000"
   );
@@ -151,6 +153,16 @@ const AddWarranty: React.FC = () => {
         <IonGrid>
         <IonRow>
       {photos.map((photo, index) => (
+        <IonCol size="6" key={index}>
+          <IonImg src={photo.webviewPath} />
+        </IonCol>
+      ))}
+       {photos1.map((photo, index) => (
+        <IonCol size="6" key={index}>
+          <IonImg src={photo.webviewPath} />
+        </IonCol>
+      ))}
+       {photos2.map((photo, index) => (
         <IonCol size="6" key={index}>
           <IonImg src={photo.webviewPath} />
         </IonCol>

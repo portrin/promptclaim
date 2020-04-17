@@ -14,6 +14,9 @@ import {
 export function usePhotoGallery() {
   const { getPhoto } = useCamera();
   const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photos1, setPhotos1] = useState<Photo[]>([]);
+  const [photos2, setPhotos2] = useState<Photo[]>([]);
+
 
   const takePhoto = async () => {
     const cameraPhoto = await getPhoto({
@@ -30,11 +33,53 @@ export function usePhotoGallery() {
       ...photos,
     ];
     setPhotos(newPhotos);
+  
+    
+  };
+  const takePhoto1 = async () => {
+    const cameraPhoto = await getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100,
+    });
+    const fileName = new Date().getTime() + ".jpeg";
+    const newPhotos = [
+      {
+        filepath: fileName,
+        webviewPath: cameraPhoto.webPath,
+      },
+      ...photos,
+    ];
+    setPhotos1(newPhotos);
+  
+    
+  };
+  const takePhoto2 = async () => {
+    const cameraPhoto = await getPhoto({
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+      quality: 100,
+    });
+    const fileName = new Date().getTime() + ".jpeg";
+    const newPhotos = [
+      {
+        filepath: fileName,
+        webviewPath: cameraPhoto.webPath,
+      },
+      ...photos,
+    ];
+    setPhotos2(newPhotos);
+  
+    
   };
 
   return {
     photos,
-    takePhoto
+    takePhoto,
+    photos1,
+    takePhoto1,
+    photos2,
+    takePhoto2
   };
 }
 export interface Photo {
