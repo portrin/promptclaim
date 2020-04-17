@@ -17,6 +17,10 @@ import {
   IonLabel,
   IonButton,
   IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonImg
 } from "@ionic/react";
 import { image } from "ionicons/icons";
 import "./AddWarranty.css";
@@ -144,6 +148,15 @@ const AddWarranty: React.FC = () => {
             </IonContent>
           </IonSlide>
         </IonSlides>
+        <IonGrid>
+        <IonRow>
+      {photos.map((photo, index) => (
+        <IonCol size="6" key={index}>
+          <IonImg src={photo.webviewPath} />
+        </IonCol>
+      ))}
+    </IonRow>
+          </IonGrid>
 
         <IonButton expand="block">Add</IonButton>
       </IonContent>
