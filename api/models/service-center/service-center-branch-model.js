@@ -28,14 +28,16 @@ module.exports = class ServiceCenterBranch {
         return db.execute('SELECT * FROM service_center_branch WHERE WHERE service_center_id = ? AND branch_id = ?', [this._serviceCenterId, this._branchId]);
     }
 
-    static _readByUuid(uuid) {
-        return db.execute('SELECT service_center_id, branch_id, name, branch_name, hq_address, address, contact, service_center_description FROM product_has_policy NATURAL JOIN policy_available_at NATURAL JOIN service_center NATURAL JOIN service_center_branch WHERE uuid = ?', [uuid]);
+    static _readByUuid(uuid, customerId) {
+        return db.execute('SELECT service_center_id, branch_id, name, branch_name, contact, address, service_center_description FROM policy_available_at NATURAL JOIN service_center NATURAL JOIN service_center_branch WHERE policy_id IN (SELECT policy_id FROM product_has_policy WHERE uuid = ? AND uuid IN (SELECT uuid FROM purchased_product WHERE customer_id = ?))', 
+            [uuid, customerId]
+        );
     }
 
-    static _readByPolicyId(policyId) {
+    static _readByPolicyId(policyId, customerId) {
         return db.execute(
-            'SELECT * FROM service_center NATURAL JOIN service_center_branch NATURAL JOIN policy_available_at WHERE policy_id = ?',
-            [policyId]
+            'SELECT service_center_id, branch_id, name, branch_name, contact, address, service_center_description FROM policy_available_at NATURAL JOIN service_center NATURAL JOIN service_center_branch WHERE policy_id IN (SELECT policy_id FROM product_has_policy WHERE policy_id = ? AND uuid IN (SELECT uuid FROM purchased_product WHERE customer_id = ?))',
+            [policyId, customerId]
         );
     }
 

@@ -6,9 +6,7 @@ module.exports = class ProductCategory {
         //class attribute
         this._categoryId = category_id;
         this._categoryName = category_name;
-        //relationships
-        this._product = []; //from product class
-        this._purchasedProduct = []; //from purchasedProduct class
+
     };
 
     //CRUD METHOD
@@ -58,8 +56,7 @@ module.exports = class ProductCategory {
         return{
             categoryId: this._categoryId,
             categoryName: this._categoryName,
-            product: this._product,
-            purchasedProduct: this._purchasedProduct
+
         };
     };
 

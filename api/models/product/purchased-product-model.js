@@ -23,13 +23,7 @@ module.exports = class PurchasedProduct {
         // this._policyStartDate = policy_start_date;
         // this._policyEndDate = policy_end_date; 
         // this._policyTimestamp = timestamp;
-        // relationship
-        // this._product = null;           // from product class
-        // this._customer = null;          // from customer class
-        // this._claimLog = [];            // from claimLog class
-        // this._productCategory = [];     // from productCategory class
-        // this._retailerBranch = null;    // from retailer branch
-        // this._policy = [];              // from policy class
+
     }
 
     //CRUD method
@@ -149,21 +143,18 @@ module.exports = class PurchasedProduct {
             productNickname: this._productNickname,
             price: this._price,
             invoiceId: this._invoiceId,
+            createTimestamp: this.createTimestamp,            
+            branchId: this._branchId,
+            retailerId: this._retailerId,
+            invoicePhoto: this._invoicePhoto,
             isValidate: this._isValidate,
             productPhoto: this._productPhoto,
             claimQty: this._claimQty,
-            createTimestamp: this.createTimestamp,
-            invoicePhoto: this._invoicePhoto,
-            warrantyPhoto: this._warrantyPhoto,
-            policyStartDate: this._policyStartDate,
-            policyEndDate: this._policyEndDate,
-            policyTimestamp: this._policyTimestamp,
-            product: this._product,
-            customer: this._customer,   
-            claimLog: this._claimLog,
-            productCategory: this._productCategory,
-            retailerBranch: this._retailerBranch,
-            policy: this._policy
+            warrantyPhoto: this._warrantyPhoto
+            // policyStartDate: this._policyStartDate,
+            // policyEndDate: this._policyEndDate,
+            // policyTimestamp: this._policyTimestamp,
+          
         };
     };
 
@@ -171,41 +162,54 @@ module.exports = class PurchasedProduct {
         // set its own property
         // destructuring object as parameter by using old values as a default.
         uuid = this._uuid,
-        productNickname = this._productNickname,
         serialNo = this._serialNo,
+        productNo = this._productNo,
+        customerId = this._customerId,
+        productNickname = this._productNickname,      
         price = this._price,
         invoiceId = this._invoiceId,
+        createTimestamp = this._createTimestamp,
+        branchId = this._branchId,
+        retailerId = this._retailerId,
+        invoicePhoto = this._invoicePhoto,
         isValidate = this._isValidate,
         productPhoto = this._productPhoto,
         claimQty = this._claimQty,
-        createTimestamp = this._createTimestamp,
-        invoicePhoto = this._invoicePhoto,
         warrantyPhoto = this._warrantyPhoto
     }) {
         //check datatype
-        checkType(uuid, 'Number')
+        checkType(uuid, 'String');
+        checkType(productNo, 'String');
+        checkType(customerId, 'String');
+        checkType(branchId, 'String');
+        checkType(retailerId, 'String');
+        checkType(invoicePhoto, 'String');
         checkType(productNickname, 'String');
         checkType(serialNo, 'String');
         checkType(price, 'Number');
         checkType(invoiceId, 'String');
-        checkType(isValidate, 'Boolean');
+        checkType(isValidate, 'Number');
         checkType(productPhoto, 'String');
         checkType(claimQty, 'Number');
-        checkType(createTimestamp, 'String');
+        checkType(createTimestamp, 'Date');
         checkType(invoicePhoto, 'String');
         checkType(warrantyPhoto, 'String');
 
         //assign to private vaiable
-        this._uuid = uuid;
-        this._productNickname = productNickname;
+        this._uuid = uuid; 
         this._serialNo = serialNo;
+        this._productNo = productNo;
+        this._customerId = customerId;
+        this._productNickname = productNickname;        
         this._price = price;
         this._invoiceId = invoiceId;
+        this._createTimestamp = createTimestamp;
+        this._branchId = branchId;
+        this._retailerId = retailerId
+        this._invoicePhoto = invoicePhoto;
         this._isValidate = isValidate;
         this._productPhoto = productPhoto;
-        this._claimQty = claimQty;
-        this._createTimestamp = createTimestamp;
-        this._invoicePhoto = invoicePhoto;
+        this._claimQty = claimQty;  
         this._warrantyPhoto = warrantyPhoto;
     }
 
