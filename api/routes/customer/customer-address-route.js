@@ -4,7 +4,7 @@ const controller = require('../../controllers/customer/customer-address-controll
 const router = express.Router();
 
 //Customer address
-router.post('/addById/:addressId', controller.postAddAddressByPK);
+router.post('/addByPK/:addressId', controller.postAddAddressByPK);
 router.get('/getByCustId', controller.getAddressByCustId);
 router.get('/getByPK/:addressId', controller.getAddressByPK);
 router.post('/editByPK/:addressId', controller.postEditAddressByPK);
