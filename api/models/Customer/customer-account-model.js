@@ -37,17 +37,16 @@ module.exports = class CustomerAccount{
 
     _update () {
         return db.execute(
-            'UPDATE customer_account SET customer_id = ?, username = ?, password = ?, email = ? WHERE account_id = ?', 
-            [this._customer.getProperty.customerId,
-            this._username, 
+            'UPDATE customer_account SET username = ?, password = ?, email = ? WHERE account_id = ?', 
+            [this._username, 
             this._password, 
             this._email, 
             this._accountId]
         );
     }
 
-    _delete () {
-        return db.execute('DELETE FROM customer_account WHERE account_id = ?', [this._accountId])
+    static _delete (accountId) {
+        return db.execute('DELETE FROM customer_account WHERE account_id = ?', [accountId])
     }
 
     // getter and setter

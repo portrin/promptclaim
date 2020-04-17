@@ -1,5 +1,6 @@
 const express = require('express');
 const profileRoute = require('./profile-route');
+const accountRoute = require('./customer-account-route')
 const addressRoute = require('./customer-address-route');
 const productRoute = require('./product-route');
 const claimLogRoute = require('./claim-log-route');
@@ -9,6 +10,8 @@ const serviceCenterRoute = require('./service-center-route');
 const authRoute = require('./auth-route');
 router = express.Router();
 
+
+router.use('/account', accountRoute);
 router.use('/profile', profileRoute);
 router.use('/address', addressRoute);
 router.use('/product', productRoute);
