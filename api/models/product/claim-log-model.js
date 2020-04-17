@@ -2,25 +2,25 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ClaimLog {
-    constructor ({claim_id=null, timestamp=null, status=null, uuid=null, service_center_id=null, branch_id=null} ={}) {
+    constructor ({claim_id=null, timestamp=null, status=null, uuid=null, service_center_id=null, service_center_branch_id=null} ={}) {
         // class attribute
         this._claimId = claim_id;
         this._status = status;
         this._timestamp = timestamp;
         this._uuid = uuid;
         this._serviceCenterId = service_center_id;
-        this._branchId = branch_id;
+        this._serviceCenterBranchId = service_center_branch_id;
     };
     // CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO claim_log(claim_id, status, timestamp, uuid, service_center_id, branch_id) VALUES(?, ?, ?, ?, ?, ?)',
+            'INSERT INTO claim_log(claim_id, status, timestamp, uuid, service_center_id, service_center_branch_id) VALUES(?, ?, ?, ?, ?, ?)',
             [this._claimId, 
             this._status, 
             this._timestamp,
             this._uuid, 
             this._serviceCenterId,
-            this._branchId
+            this._serviceCenterBranchId
             ]
         );
     };
@@ -33,9 +33,10 @@ module.exports = class ClaimLog {
         )
     }
 
-    static _read() {
+    static _readByClaimId(claimId, customerId) {
         return db.execute(
-            'SELECT * FROM claim_log'
+            'SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.claim_id = ? AND p.customer_id = ?',
+            [claimId, customerId]
         );
     };
 
@@ -48,22 +49,22 @@ module.exports = class ClaimLog {
 
     static _readByPurchasedProduct(uuid, customerId) {
         return db.execute(
-            'SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.uuid = ? AND p.customer_id = ?;',
+            'SELECT * FROM claim_log c INNER JOIN purchased_product p ON c.uuid = p.uuid WHERE c.uuid = ? AND p.customer_id = ?',
             [uuid, customerId]
         );
     }
 
     _update() {
         return db.execute(
-            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
+            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, service_center_branch_id = ? WHERE claim_id = ?',
             [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._branchId, this._claimId]
         );
     };
 
     _update(claimId) {
         return db.execute(
-            'UPDATE claim_log SET status = ?, timestamp = ?, uuid = ?, service_center_id = ?, branch_id = ? WHERE claim_id = ?',
-            [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._branchId, claimId]
+            'UPDATE claim_log SET status = ?, timestamp = ?, uuid = ?, service_center_id = ?, service_center_branch_id = ? WHERE claim_id = ?',
+            [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._serviceCenterBranchId, claimId]
         );
     }
 
@@ -83,7 +84,7 @@ module.exports = class ClaimLog {
             status: this._status,
             uuid: this._uuid,
             serviceCenterId: this._serviceCenterId,
-            branchId: this._branchId
+            serviceCenterBranchId: this._serviceCenterBranchId
         };
     };
 
@@ -93,20 +94,20 @@ module.exports = class ClaimLog {
         status = this._status,
         uuid = this._uuid,
         serviceCenterId = this._serviceCenterId,
-        branchId = this._branchId
+        serviceCenterBranchId = this._serviceCenterBranchId
     }) {
         checkType(claimId, 'String');
-        checkType(timestamp, 'String');
+        checkType(timestamp, 'Date');
         checkType(status, 'String');
         checkType(uuid, 'Number');
         checkType(serviceCenterId, 'String');
-        checkType(branchId, 'String');
+        checkType(serviceCenterBranchId, 'String');
         this._claimId = claimId;
         this._timestamp = timestamp;
         this._status = status;
         this._uuid = uuid;
         this._serviceCenterId = serviceCenterId;
-        this._branchId = branchId
+        this._serviceCenterBranchId = serviceCenterBranchId;
     };
 
 };

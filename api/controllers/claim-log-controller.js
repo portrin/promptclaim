@@ -27,15 +27,25 @@ exports.postAddClaimLog = async (req, res, next) => {
 }
 
 exports.postEditClaimLog = async (req, res, next) => {
-    const claim_id = req.body.claim_id;
+    const customerId = jwt.decode(req.headers.authorization).sub;
+    const claimId = req.params.claimId;
     const timestamp = req.body.timestamp;
     const status = req.body.status;
     const uuid = req.body.uuid;
-    const service_center_id = req.body.serviceCenterId;
-    const branch_id = req.body.branchId;
-    const updatedClaimLog = new ClaimLog({claim_id, timestamp, status, uuid, service_center_id, branch_id});
-    const claimIdParams = req.params.claimId;
-    const result = (await updatedClaimLog._update(claimIdParams)) [0];
+    const serviceCenterId = req.body.serviceCenterId;
+    const serviceCenterBranchId = req.body.serviceCentralBranchId;   
+    const updatedClaimLog = new ClaimLog( (await ClaimLog._readByClaimId(claimId, customerId)) [0][0] );      
+    
+    updatedClaimLog.setProperty = {
+        claimId,
+        timestamp,
+        status,
+        uuid,
+        serviceCenterId,
+        serviceCenterBranchId
+    }
+
+    const result = await updatedClaimLog._update(claimId);
     res.send(result);
 }
 

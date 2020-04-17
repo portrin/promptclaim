@@ -178,7 +178,7 @@ module.exports = class PurchasedProduct {
         warrantyPhoto = this._warrantyPhoto
     }) {
         //check datatype
-        checkType(uuid, 'Number');
+        checkType(uuid, 'String');
         checkType(productNo, 'String');
         checkType(customerId, 'String');
         checkType(branchId, 'String');
@@ -188,10 +188,10 @@ module.exports = class PurchasedProduct {
         checkType(serialNo, 'String');
         checkType(price, 'Number');
         checkType(invoiceId, 'String');
-        checkType(isValidate, 'Boolean');
+        checkType(isValidate, 'Number');
         checkType(productPhoto, 'String');
         checkType(claimQty, 'Number');
-        checkType(createTimestamp, 'String');
+        checkType(createTimestamp, 'Date');
         checkType(invoicePhoto, 'String');
         checkType(warrantyPhoto, 'String');
 
