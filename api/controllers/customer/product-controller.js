@@ -1,4 +1,5 @@
 const PurchasedProduct = require('../../models/product/purchased-product-model');
+const ProductCategory = require('../../models/product/product-category-model')
 const jwt = require('jsonwebtoken');
 
 //get all products
@@ -23,6 +24,22 @@ exports.getPurchasedProductByUuid = async (req, res, next) => {
     const uuid = req.params.uuid;
     const result = (await PurchasedProduct._readByUuid(uuid, customerId)) [0];
     res.send(result);
+}
+
+//add product category
+exports.postAddPurchasedProductCategory = async (req, res, next) => {
+    const category_id = req.body.categoryId;
+    const category_name = req.body.categoryName;
+    const productCategory = new ProductCategory(category_id, category_name);
+    const result = (await productCategory._create()) [0];
+    res.send(result) 
+}
+
+//delete product category
+exports.deletePurchasedProductCategory = async (req, res, next) => {
+    const categoryIdParams = req.params.categoryId;
+    await ProductCategory._delete(categoryIdParams);
+    res.send(`Category ${categoryIdParams} is deleted! `)
 }
 
 
