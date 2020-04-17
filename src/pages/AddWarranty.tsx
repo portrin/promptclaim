@@ -20,6 +20,13 @@ import {
 } from "@ionic/react";
 import { image } from "ionicons/icons";
 import "./AddWarranty.css";
+import { usePhotoGallery } from '../hooks/usePhotoGallery';
+
+
+
+
+
+
 
 
 const slideOpts = {
@@ -34,12 +41,11 @@ const AddWarranty: React.FC = () => {
   const [text3, setText3] = useState<string>();
   const [text4, setText4] = useState<string>();
   const [text5, setText5] = useState<string>();
+  const { photos, takePhoto } = usePhotoGallery();
   const [selectedDate, setSelectedDate] = useState<string>(
     "2020-03-27T17:51:31+0000"
-
-
-
   );
+
   return (
     <IonPage>
       <IonHeader>
@@ -118,7 +124,7 @@ const AddWarranty: React.FC = () => {
         <IonSlides pager={true} options={slideOpts}>
           <IonSlide>
             <IonContent>
-              <IonButton fill="outline">
+              <IonButton  fill="outline"  >
                 <IonIcon icon={image}></IonIcon>Add Product Photo
               </IonButton>
             </IonContent>
