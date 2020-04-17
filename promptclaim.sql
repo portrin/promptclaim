@@ -10,11 +10,11 @@ CREATE TABLE Customer_account (
 
 CREATE TABLE Customer (
 	customer_id VARCHAR(6) NOT NULL,
-    firstname VARCHAR(80) NOT NULL,
-    lastname VARCHAR(80) NOT NULL,
-    phone_no VARCHAR(12) NOT NULL,
-    birth_date DATE NOT NULL,
-    gender CHAR NOT NULL, 
+    firstname VARCHAR(80),
+    lastname VARCHAR(80),
+    phone_no VARCHAR(12),
+    birth_date DATE,
+    gender CHAR, 
     account_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(customer_id),
     FOREIGN KEY(account_id) REFERENCES Customer_account(account_id)
