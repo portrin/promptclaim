@@ -21,7 +21,6 @@ export function usePhotoGallery() {
   const takePhoto = async () => {
     const cameraPhoto = await getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
@@ -38,7 +37,6 @@ export function usePhotoGallery() {
   const takePhoto1 = async () => {
     const cameraPhoto1 = await getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
@@ -55,7 +53,6 @@ export function usePhotoGallery() {
   const takePhoto2 = async () => {
     const cameraPhoto2 = await getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
