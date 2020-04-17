@@ -2,7 +2,7 @@ const PurchasedProduct = require('../../models/product/purchased-product-model')
 const jwt = require('jsonwebtoken');
 
 //get all products
-exports.getCustomerProducts = async (req, res ,next) => {
+exports.getCustomerPurchasedProducts = async (req, res ,next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const result = (await PurchasedProduct._readByCustomerId(customerId)) [0];
     res.send(result);   
@@ -10,7 +10,7 @@ exports.getCustomerProducts = async (req, res ,next) => {
 
 
 //get product by productNo
-exports.getProductByProductNo = async (req, res, next) => {
+exports.getPurchasedProductByProductNo = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const productNo = req.params.productNo;
     const result = (await PurchasedProduct._readByProductNo(productNo, customerId)) [0] ;
@@ -18,7 +18,7 @@ exports.getProductByProductNo = async (req, res, next) => {
 };
 
 //get product by uuid
-exports.getProductByUuid = async (req, res, next) => {
+exports.getPurchasedProductByUuid = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const uuid = req.params.uuid;
     const result = (await PurchasedProduct._readByUuid(uuid, customerId)) [0];
@@ -27,7 +27,7 @@ exports.getProductByUuid = async (req, res, next) => {
 
 
 //add a product
-exports.postAddProduct = async (req, res, next) => {
+exports.postAddPurchasedProduct = async (req, res, next) => {
     const uuid = req.body.uuid;
     const serial_no = req.body.serialNo;
     const product_no = req.body.productNo;
@@ -69,7 +69,7 @@ exports.postAddProduct = async (req, res, next) => {
 
 
 //delete a product
-exports.deleteProductByUuid = async (req, res, next) => {
+exports.deletePurchasedProductByUuid = async (req, res, next) => {
     const uuid = req.params.uuid;
     await PurchasedProduct._deleteByuuid(uuid);
     res.send(`Product ${uuid} is deleted!`)
@@ -77,7 +77,7 @@ exports.deleteProductByUuid = async (req, res, next) => {
 
 
 //edit a product
-exports.postEditProductByUuid = async (req, res, next) => {
+exports.postEditPurchasedProductByUuid = async (req, res, next) => {
     const uuid = req.params.uuid;
     const serial_no = req.body.serialNo;
     const product_no = req.body.productNo;
