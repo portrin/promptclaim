@@ -56,14 +56,14 @@ module.exports = class PurchasedProduct {
 
     static _readByUuid(uuid, customerId) {
         return db.execute(
-            'SELECT * FROM purchased_product WHERE uuid = ? AND customer_id = ?',
+            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id WHERE p.uuid =? AND p.customer_id = ?',
             [uuid, customerId]
         );
     };
 
     static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT * FROM purchased_product WHERE customer_id = ?',
+            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id WHERE p.customer_id = ?',
             [customerId]
         )
     }
@@ -77,7 +77,7 @@ module.exports = class PurchasedProduct {
 
     static _readByProductNo(productNo, customerId) {
         return db.execute(
-            'SELECT * FROM purchased_product WHERE product_no = ? and customer_id = ?',
+            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id WHERE p.product_no =? AND p.customer_id = ?',
             [productNo, customerId]
         );
     }

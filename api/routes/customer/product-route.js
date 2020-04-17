@@ -16,5 +16,10 @@ router.delete('/deleteByUuid/:uuid', productController.deletePurchasedProductByU
 
 router.post('/editByUuid/:uuid', productController.postEditPurchasedProductByUuid);
 
+// ProductCategory
+router.post('/addProductCategory', productController.postAddPurchasedProductCategory);
+
+router.delete('/deleteProductCategory/:categoryId', productController.deletePurchasedProductCategory);
+
 
 module.exports = router;

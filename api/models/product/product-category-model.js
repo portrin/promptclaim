@@ -19,6 +19,12 @@ module.exports = class ProductCategory {
         );
     };
 
+    _create() {
+        return db.execute(
+            'INSERT INTO product_category(category_id, category_name) VALUES(? ,?)'
+        )
+    }
+
     static _read() {
         return db.execute(
             'SELECT * FROM product_category'
@@ -31,6 +37,7 @@ module.exports = class ProductCategory {
             [categoryId]
         )
     }
+
 
     _update() {
         return db.execute(
