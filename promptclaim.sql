@@ -162,7 +162,7 @@ CREATE TABLE Purchased_product (
     create_timestamp TIMESTAMP,
     branch_id VARCHAR(6),
     retailer_id VARCHAR(6),
-    receipt_photo VARCHAR(80),
+    invoice_photo VARCHAR(80),
 	is_validate BOOLEAN NOT NULL,
     product_photo VARCHAR(80),
     claim_qty INT NOT NULL,
@@ -376,7 +376,7 @@ VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
 ('AAAAA3', 'BBBBB3', 'table', 'A very smart table', '000002'),
 ('AAAAA4', 'BBBBB4', 'sofa', 'A very smart sofa', '000002');
 
-INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo)
+INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
 VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'photo1', '1', 'warrantyphoto1'),
 ('SSSSS2', 'AAAAA2', '2', 'my table', '3000', '000002', '2020-03-03', '00001A', '000001', 'photo2', True, 'photo2', '2', 'warrantyphoto2'),
 ('SSSSS3', 'AAAAA3', '3', 'my bed', '4000', '000003', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '3', 'warrantyphoto3'),
