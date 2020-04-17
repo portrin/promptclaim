@@ -1,10 +1,9 @@
 const express = require('express');
-const controller = require('../../controllers/customer/profile-controller');
-router = express.Router();
+const router = express.Router();
+const controller = require('../../controllers/customer/customer-profile-controller');
 
-router.get('/get', controller.getByCustomerId);
-router.post('/edit', controller.postEditByCustomerId);
-// router.post('/add', controller.postAddByCustomerId); 
+//router.post('/add', controller.postAddProfile);
+router.get('/get', controller.getProfile);
+router.post('/edit', controller.postEditProfile);
 
 module.exports = router;
-

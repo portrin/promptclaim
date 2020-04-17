@@ -2,7 +2,7 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class Customer {
-    constructor({customer_id=null, firstname=null, lastname=null, phone_no=null, birth_date=null, gender=null, account_id} = {}) {
+    constructor({customer_id=null, firstname=null, lastname=null, phone_no=null, birth_date=null, gender=null, account_id=null} = {}) {
         // their own class atrribute ref. from class diagram
         this._customerId = customer_id
         this._firstname = firstname
@@ -35,16 +35,16 @@ module.exports = class Customer {
     }
 
     _read () {
-        db.execute(
+        return db.execute(
             'SELECT * FROM customer WHERE customer_id = ?',
             [this._customerId]
         )
     }
 
     _update () {
-        db.execute(
+        return db.execute(
             'UPDATE customer SET firstname = ?, lastname = ?, phone_no = ?, birth_date = ?, gender = ?, account_id = ? WHERE customer_id = ?',
-            [this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._customerAccount.getProperty.accountId, this._customerId]
+            [this._firstname, this._lastname, this._phoneNo, this._birthDate, this._gender, this._accountId, this._customerId]
         )
     }
 
@@ -96,3 +96,4 @@ module.exports = class Customer {
     }
 
 }
+

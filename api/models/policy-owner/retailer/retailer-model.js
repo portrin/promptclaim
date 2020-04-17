@@ -44,8 +44,8 @@ module.exports = class Retailer {
         );
     }
 
-    _delete() {
-        return db.execute('DELETE FROM retailer WHERE retailer_id = ?', [this._retailerId]);
+    static _delete(retailerId) {
+        return db.execute('DELETE FROM retailer WHERE retailer_id = ?', [retailerId]);
     }
 
     // getter and setter

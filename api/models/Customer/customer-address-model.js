@@ -5,7 +5,7 @@ const checkType = require('../../utils').checkType;
 module.exports = class CustomerAddress {
     constructor({customer_id = null, address_id = null, house_no = null, street = null, sub_district = null, district = null, province = null, zipcode = null} = {}){
         // their own class atrribute ref. from class diagram
-        this._customerId = customer_id
+        this._customerId = customer_id;
         this._addressId = address_id;
         this._houseNo = house_no;
         this._street = street; 
@@ -14,13 +14,13 @@ module.exports = class CustomerAddress {
         this._province = province; 
         this._zipcode = zipcode;
         // from relationship 
-        this._customer = customer;
+        this._customer = null;
     }
 //setter and gett perm and no more getProperty
     //DM Layer CRUD
     _create = () => {
         return db.execute(
-            'INSERT INTO Customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode) VALUES(?,?,?,?,?,?,?)',
+            'INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?,?)',
             [this._customerId,
             this._addressId,
             this._houseNo,
@@ -57,7 +57,7 @@ module.exports = class CustomerAddress {
     //edit customer address
     _update (){
         return db.execute(
-            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id = ?, address_id= ?', 
+            'UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id = ? AND address_id= ?', 
             [this._houseNo, 
             this._street, 
             this._subDistrict, 
@@ -79,6 +79,7 @@ module.exports = class CustomerAddress {
     //getter and setter
     get getProperty() {
         return {
+        customerId: this._customerId,
         addressId: this._addressId,
         houseNo: this._houseNo,
         street: this._street,
@@ -93,6 +94,7 @@ module.exports = class CustomerAddress {
     
     set setProperty({  // set only its own attributes
         // destructuring object as parameter by using old values as a default.
+        customerId = this._customerId,
         addressId = this._addressId,
         houseNo = this._houseNo,
         street = this._street,
@@ -102,6 +104,7 @@ module.exports = class CustomerAddress {
         zipcode = this._zipcode,
     }) {
         // check datatype
+        checkType(customerId, 'String');
         checkType(addressId, 'String');
         checkType(houseNo, 'String');
         checkType(street, 'String');
@@ -110,6 +113,7 @@ module.exports = class CustomerAddress {
         checkType(province, 'String');
         checkType(zipcode, 'String');
         // assign to private variables
+        this._customerId - customerId;
         this._addressId = addressId;
         this._houseNo = houseNo;
         this._street = street; 

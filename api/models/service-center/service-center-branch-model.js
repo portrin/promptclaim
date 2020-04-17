@@ -29,7 +29,7 @@ module.exports = class ServiceCenterBranch {
     }
 
     static _readByUuid(uuid) {
-        return db.execute('SELECT service_center_id, branch_id FROM product_has_policy NATURAL JOIN policy_available_at WHERE uuid = ?', [uuid]);
+        return db.execute('SELECT service_center_id, branch_id, name, branch_name, hq_address, address, contact, service_center_description FROM product_has_policy NATURAL JOIN policy_available_at NATURAL JOIN service_center NATURAL JOIN service_center_branch WHERE uuid = ?', [uuid]);
     }
 
     static _readByPolicyId(policyId) {
