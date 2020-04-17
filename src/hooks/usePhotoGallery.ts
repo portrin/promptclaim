@@ -9,6 +9,7 @@ import {
   CameraPhoto,
   Capacitor,
   FilesystemDirectory,
+  Camera,
 } from "@capacitor/core";
 
 export function usePhotoGallery() {
@@ -22,6 +23,7 @@ export function usePhotoGallery() {
     const cameraPhoto = await getPhoto({
       resultType: CameraResultType.Uri,
       quality: 100,
+      source:CameraSource.Prompt
     });
     const fileName = new Date().getTime() + ".jpeg";
     const newPhotos = [

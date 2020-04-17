@@ -22,6 +22,8 @@ import {
   IonGrid,
   IonRow,
   IonCol,
+  IonSlides,
+  IonSlide,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
@@ -110,10 +112,20 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 </IonButton>
               </IonCol>
             </IonRow>
-            {item.map((item) => (
+            <IonSlides> 
+              <IonSlide>{item.map((item) => (
                     <IonImg src={item.img}></IonImg>
                   ))}
-            
+              </IonSlide>
+              <IonSlide>{item.map((item) => (
+                    <IonImg src={item.img}></IonImg>
+                  ))}
+              </IonSlide> <IonSlide>{item.map((item) => (
+                    <IonImg src={item.img}></IonImg>
+                  ))}
+              </IonSlide>
+            </IonSlides>
+           
 
             <IonGrid>
               <IonRow>
