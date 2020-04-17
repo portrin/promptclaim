@@ -21,6 +21,7 @@ import {
 import { image } from "ionicons/icons";
 import "./AddWarranty.css";
 
+
 const slideOpts = {
   initialSlide: 1,
   speed: 400,
@@ -35,6 +36,9 @@ const AddWarranty: React.FC = () => {
   const [text5, setText5] = useState<string>();
   const [selectedDate, setSelectedDate] = useState<string>(
     "2020-03-27T17:51:31+0000"
+
+
+
   );
   return (
     <IonPage>
@@ -128,7 +132,7 @@ const AddWarranty: React.FC = () => {
           </IonSlide>
           <IonSlide>
             <IonContent>
-              <IonButton fill="outline">
+              <IonButton fill="outline" >
                 <IonIcon icon={image}></IonIcon> Add Receipt Photo
               </IonButton>
             </IonContent>

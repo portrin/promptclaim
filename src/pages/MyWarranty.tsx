@@ -14,7 +14,6 @@ import {
   IonSearchbar,
   IonSelect,
   IonSelectOption,
-  IonSelectPopover
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -66,11 +65,11 @@ const MyWarranty: React.FC<Itemprops> = () => {
     );
   }, [searchText, items]);
 function sortProduct(item: Array<Character> ){
-  if (sortBy=="Name") {
+  if (sortBy==="Name") {
     return   ( item.sort((a,b)=>a.name.localeCompare(b.name)) )
-  } else if(sortBy=="Name Z-A"){
+  } else if(sortBy==="Name Z-A"){
     return ( item.sort().reverse())
-  } else if(sortBy=="Product ID"){
+  } else if(sortBy==="Product ID"){
     return ( item.sort((a,b)=>(parseInt(a.char_id) - parseInt(b.char_id) )))
   }else {
     return ( item)
