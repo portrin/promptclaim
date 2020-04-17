@@ -124,21 +124,21 @@ const AddWarranty: React.FC = () => {
         <IonSlides pager={true} options={slideOpts}>
           <IonSlide>
             <IonContent>
-              <IonButton  fill="outline"  >
+              <IonButton  fill="outline" onClick={takePhoto}  >
                 <IonIcon icon={image}></IonIcon>Add Product Photo
               </IonButton>
             </IonContent>
           </IonSlide>
           <IonSlide>
             <IonContent>
-              <IonButton fill="outline">
+              <IonButton fill="outline" onClick={takePhoto}>
                 <IonIcon icon={image}></IonIcon>Add Warranty Photo
               </IonButton>
             </IonContent>
           </IonSlide>
           <IonSlide>
             <IonContent>
-              <IonButton fill="outline" >
+              <IonButton fill="outline" onClick={takePhoto} >
                 <IonIcon icon={image}></IonIcon> Add Receipt Photo
               </IonButton>
             </IonContent>
