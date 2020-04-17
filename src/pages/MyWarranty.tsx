@@ -20,6 +20,8 @@ import {
   funnelOutline,
   filterOutline,
   personCircleOutline,
+  fileTray,
+  filter,
 } from "ionicons/icons";
 import "./MyWarranty.css";
 
@@ -40,9 +42,8 @@ export interface Itemprops {
 const MyWarranty: React.FC<Itemprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Character[]>([]);
-
   const [sortBy, setsortBy] = useState("");
-  const [filterBy, setfilterBy] = useState("");
+  const [filterBy, setfilterBy] = useState("Alive");
 
   console.log(searchText);
   useEffect(() => {
@@ -64,6 +65,7 @@ const MyWarranty: React.FC<Itemprops> = () => {
       )
     );
   }, [searchText, items]);
+<<<<<<< HEAD
 function sortProduct(item: Array<Character> ){
   if (sortBy==="Name") {
     return   ( item.sort((a,b)=>a.name.localeCompare(b.name)) )
@@ -74,8 +76,24 @@ function sortProduct(item: Array<Character> ){
   }else {
     return ( item)
 }
+=======
+  function sortProduct(item: Array<Character>) {
+    if (sortBy == "Name") {
+      return (item.sort((a, b) => a.name.localeCompare(b.name)))
+    } else if (sortBy == "Name Z-A") {
+      return (item.sort().reverse())
+    } else if (sortBy == "Product ID") {
+      return (item.sort((a, b) => (parseInt(a.char_id) - parseInt(b.char_id))))
+    } else {
+      return (item)
+    }
+>>>>>>> 032703cb54220a8172ec4c4ff2cbd668c216e5a9
 
-}
+  }
+  function filterProduct(item: Array<Character>) {
+    return item.filter(x=>x.status==filterBy)
+      
+  }
 
   return (
     <IonPage>
@@ -148,7 +166,7 @@ function sortProduct(item: Array<Character> ){
             <h2>Products</h2>
           </IonListHeader>
 
-          {sortProduct(searchItem).map((item) => (
+          {sortProduct(filterProduct(searchItem)).map((item) => (
             <Product
               name={item.name}
               serial={item.char_id}
