@@ -235,11 +235,11 @@ CREATE TABLE Claim_log (
 
 CREATE TABLE Policy_available_at (
 	policy_id VARCHAR(6) NOT NULL,
-    branch_id VARCHAR(6) NOT NULL,
+    service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id, branch_id, service_center_id),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
-    FOREIGN KEY(branch_id, service_center_id) REFERENCES Service_center_branch(branch_id, service_center_id)
+    FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES Service_center_branch(service_center_branch_id, service_center_id)
 );
 
 CREATE TABLE Product_has_policy (
