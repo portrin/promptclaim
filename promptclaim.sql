@@ -237,7 +237,7 @@ CREATE TABLE Policy_available_at (
 	policy_id VARCHAR(6) NOT NULL,
     service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
-    PRIMARY KEY(policy_id, branch_id, service_center_id),
+    PRIMARY KEY(policy_id, service_center_branch_id, service_center_id),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
     FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES Service_center_branch(service_center_branch_id, service_center_id)
 );
