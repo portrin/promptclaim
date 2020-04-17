@@ -14,4 +14,8 @@ exports.getByCustomerId = async (req, res, next) => {
 
 exports.postEditByCustomerId = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const phoneNo = req.body.phoneNo;
+    const birthDate = req.body;
 }
