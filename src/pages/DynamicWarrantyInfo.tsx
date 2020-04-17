@@ -45,6 +45,10 @@ interface Match extends RouteComponentProps<RouteParam> {
   params: string;
   //ไม่จำเปน
 }
+const slideOpts = {
+  initialSlide: 1,
+  speed: 400,
+};
 
 const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [checked, setChecked] = useState(false);
@@ -97,7 +101,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   {item.map((item) => (
                     <IonCardSubtitle>{item.status}</IonCardSubtitle>
                   ))}
-                  
                 </IonCardHeader>
               </IonCol>
               <IonCol>
@@ -112,20 +115,23 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 </IonButton>
               </IonCol>
             </IonRow>
-            <IonSlides> 
-              <IonSlide>{item.map((item) => (
-                    <IonImg src={item.img}></IonImg>
-                  ))}
+            <IonSlides pager={true} options={slideOpts}>
+              <IonSlide>
+                {item.map((item) => (
+                  <IonImg src={item.img}></IonImg>
+                ))}
               </IonSlide>
-              <IonSlide>{item.map((item) => (
-                    <IonImg src={item.img}></IonImg>
-                  ))}
-              </IonSlide> <IonSlide>{item.map((item) => (
-                    <IonImg src={item.img}></IonImg>
-                  ))}
+              <IonSlide>
+                {item.map((item) => (
+                  <IonImg src={item.img}></IonImg>
+                ))}
+              </IonSlide>{" "}
+              <IonSlide>
+                {item.map((item) => (
+                  <IonImg src={item.img}></IonImg>
+                ))}
               </IonSlide>
             </IonSlides>
-           
 
             <IonGrid>
               <IonRow>
