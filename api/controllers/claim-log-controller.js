@@ -33,8 +33,10 @@ exports.postEditClaimLog = async (req, res, next) => {
     const status = req.body.status;
     const uuid = req.body.uuid;
     const serviceCenterId = req.body.serviceCenterId;
-    const serviceCenterBranchId = req.body.serviceCentralBranchId;   
-    const updatedClaimLog = new ClaimLog( (await ClaimLog._readByClaimId(claimId, customerId)) [0][0] );      
+    const serviceCenterBranchId = req.body.serviceCenterBranchId;   
+    const updatedClaimLog = new ClaimLog( (await ClaimLog._readByClaimId(claimId, customerId)) [0][0] );   
+    console.log(updatedClaimLog);
+       
     
     updatedClaimLog.setProperty = {
         claimId,
