@@ -10,11 +10,11 @@ CREATE TABLE Customer_account (
 
 CREATE TABLE Customer (
 	customer_id VARCHAR(6) NOT NULL,
-    firstname VARCHAR(80) NOT NULL,
-    lastname VARCHAR(80) NOT NULL,
-    phone_no VARCHAR(12) NOT NULL,
-    birth_date DATE NOT NULL,
-    gender CHAR NOT NULL, 
+    firstname VARCHAR(80),
+    lastname VARCHAR(80),
+    phone_no VARCHAR(12),
+    birth_date DATE,
+    gender CHAR, 
     account_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(customer_id),
     FOREIGN KEY(account_id) REFERENCES Customer_account(account_id)
@@ -276,6 +276,7 @@ VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
 
 INSERT INTO Customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode)
 VALUES ('1','1','23/4','Sathorn','Silom','Sathorn','Bangkok','10120'),
+('1','8','888','Sathorn-test','Silom','Sathorn','Bangkok','10120')
 ('2','2','144/2','-','Ban Nuea','Khwae Yai','Kanchanaburi', '71000'),
 ('3','3','599/97','Nonsi Road','Chongnonsi','Yannawa','Bangkok', '10120'),
 ('3','4','131/9-10','Wat Kak','Silom','Sathorn','Bangkok', '10120'),
@@ -444,6 +445,11 @@ VALUES ('1','1'),
 ('3','3'),
 ('4','4');
 
+CREATE TRIGGER add_profile
+AFTER INSERT ON customer_account
+FOR EACH ROW
+insert into customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
+VALUES(new.account_id, null, null, null, null, null , new.account_id);
 
 
 

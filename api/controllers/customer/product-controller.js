@@ -1,113 +1,135 @@
-const PurchasedProduct = require('../../models/product/product-model');
+const PurchasedProduct = require('../../models/product/purchased-product-model');
+const ProductCategory = require('../../models/product/product-category-model')
 const jwt = require('jsonwebtoken');
 
 //get all products
-exports.getCustomerProducts = async (req, res ,next) => {
+exports.getCustomerPurchasedProducts = async (req, res ,next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
-    const result = await PurchasedProduct._readByCustomerId(customerId) [0];
+    const result = (await PurchasedProduct._readByCustomerId(customerId)) [0];
     res.send(result);   
 };
 
 
 //get product by productNo
-exports.getProductByProductNo = async (req, res, next) => {
+exports.getPurchasedProductByProductNo = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const productNo = req.params.productNo;
-    const result = await PurchasedProduct._readByProductNo(productNo, customerId) [0];
+    const result = (await PurchasedProduct._readByProductNo(productNo, customerId)) [0] ;
     res.send(result);   
 };
 
 //get product by uuid
-exports.getProductByUuid = async (req, res, next) => {
+exports.getPurchasedProductByUuid = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const uuid = req.params.uuid;
-    const result = await PurchasedProduct._readByUuid(uuid, customerId) [0];
+    const result = (await PurchasedProduct._readByUuid(uuid, customerId)) [0];
     res.send(result);
+}
+
+//add product category
+exports.postAddPurchasedProductCategory = async (req, res, next) => {
+    const category_id = req.body.categoryId;
+    const category_name = req.body.categoryName;
+    const productCategory = new ProductCategory(category_id, category_name);
+    const result = (await productCategory._create()) [0];
+    res.send(result) 
+}
+
+//delete product category
+exports.deletePurchasedProductCategory = async (req, res, next) => {
+    const categoryIdParams = req.params.categoryId;
+    await ProductCategory._delete(categoryIdParams);
+    res.send(`Category ${categoryIdParams} is deleted! `)
 }
 
 
 //add a product
-exports.postAddProduct = async (req, res, next) => {
-    const serialNo = req.body.serial_no;
-    const productNo = req.body.product_no;
-    const customerId = jwt.decode(req.headers.authorization).sub;
-    const productNickname = req.body.product_nickname;
+exports.postAddPurchasedProduct = async (req, res, next) => {
+    const uuid = req.body.uuid;
+    const serial_no = req.body.serialNo;
+    const product_no = req.body.productNo;
+    const customer_id = jwt.decode(req.headers.authorization).sub;
+    const product_nickname = req.body.productNickname;
     const price = req.body.price;
-    const invoiceID = req.body.invoice_id;
-    const timestamp = req.body.timestamp;
-    const branchID = req.body.branch_id;
-    const retailerID = req.body.retailer_id;
-    const receiptPhoto = req.body.receipt_photo;
-    const isValidate = req.body.is_validate;
-    const productPhoto = req.body.product_photo;
-    const claimQty = req.body.claim_qty;
-    const warrantyPhoto = req.body.warranty_photo;
-    const product = new PurchasedProduct(
-                            serialNo,
-                            productNo,
-                            customerId,
-                            productNickname, 
+    const invoice_id = req.body.invoiceId;
+    const create_timestamp = req.body.createTimestamp;
+    const branch_id = req.body.branchId;
+    const retailer_id = req.body.retailerId;
+    const invoice_photo = req.body.invoicePhoto;
+    const is_validate = req.body.isValidate;
+    const product_photo = req.body.productPhoto;
+    const claim_qty = req.body.claimQty;
+    const warranty_photo = req.body.warrantyPhoto;
+    const product = new PurchasedProduct({
+                            uuid,
+                            serial_no,
+                            product_no,
+                            customer_id,
+                            product_nickname, 
                             price, 
-                            invoiceID, 
-                            timestamp, 
-                            branchID, 
-                            retailerID, 
-                            receiptPhoto, 
-                            isValidate, 
-                            productPhoto, 
-                            claimQty,
-                            warrantyPhoto
-                            );               
-    const result = await product._create();
+                            invoice_id, 
+                            create_timestamp, 
+                            branch_id, 
+                            retailer_id, 
+                            invoice_photo, 
+                            is_validate, 
+                            product_photo, 
+                            claim_qty,
+                            warranty_photo
+                            });
+    console.log(product);
+                   
+    const result = (await product._create()) [0];
     res.send(result);  
 
 };
 
 
 //delete a product
-exports.deleteProductByUuid = async (req, res, next) => {
+exports.deletePurchasedProductByUuid = async (req, res, next) => {
     const uuid = req.params.uuid;
-    await PurchasedProduct._deleteByKey(uuid);
-    res.send('Product Deleted!')
+    await PurchasedProduct._deleteByuuid(uuid);
+    res.send(`Product ${uuid} is deleted!`)
 };
 
 
 //edit a product
-exports.postEditProductByUuid = async (req, res, next) => {
+exports.postEditPurchasedProductByUuid = async (req, res, next) => {
     const uuid = req.params.uuid;
-    const serialNo = req.body.serial_no;
-    const productNo = req.body.product_no;
-    const customerId = jwt.decode(req.headers.authorization).sub;
-    const productNickname = req.body.product_nickname;
+    const serial_no = req.body.serialNo;
+    const product_no = req.body.productNo;
+    const customer_id = jwt.decode(req.headers.authorization).sub;
+    const product_nickname = req.body.productNickname;
     const price = req.body.price;
-    const invoiceID = req.body.invoice_id;
-    const timestamp = req.body.timestamp;
-    const branchID = req.body.branch_id;
-    const retailerID = req.body.retailer_id;
-    const receiptPhoto = req.body.receipt_photo;
-    const isValidate = req.body.is_validate;
-    const productPhoto = req.body.product_photo;
-    const claimQty = req.body.claim_qty;
-    const warrantyPhoto = req.body.warranty_photo;
-    const updatedProduct = new PurchasedProduct(
+    const invoice_id = req.body.invoiceId;
+    const create_timestamp = req.body.createTimestamp;
+    const branch_id = req.body.branchId;
+    const retailer_id = req.body.retailerId;
+    const invoice_photo = req.body.invoicePhoto;
+    const is_validate = req.body.isValidate;
+    const product_photo = req.body.productPhoto;
+    const claim_qty = req.body.claimQty;
+    const warranty_photo = req.body.warrantyPhoto;
+    const updatedProduct = new PurchasedProduct({
                             uuid,
-                            serialNo,
-                            productNo,
-                            customerId, 
-                            productNickname,
+                            serial_no,
+                            product_no,
+                            customer_id,
+                            product_nickname, 
                             price, 
-                            invoiceID, 
-                            timestamp, 
-                            branchID, 
-                            retailerID, 
-                            receiptPhoto, 
-                            isValidate, 
-                            productPhoto, 
-                            claimQty,
-                            warrantyPhoto
-                            );    
+                            invoice_id, 
+                            create_timestamp, 
+                            branch_id, 
+                            retailer_id, 
+                            invoice_photo, 
+                            is_validate, 
+                            product_photo, 
+                            claim_qty,
+                            warranty_photo
+                            });    
+    console.log(updatedProduct);
     await updatedProduct._update(uuid);
-    res.send('Product ' + updatedProduct.uuid + ' is updated!')
+    res.send(`Product ${uuid} is updated!`)
     
 };
                         
