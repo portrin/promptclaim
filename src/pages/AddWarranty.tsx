@@ -46,6 +46,7 @@ const AddWarranty: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>(
     "2020-03-27T17:51:31+0000"
   );
+  console.log(JSON.stringify(photos[0]));
 
   return (
     <IonPage>
