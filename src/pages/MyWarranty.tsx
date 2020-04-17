@@ -65,7 +65,6 @@ const MyWarranty: React.FC<Itemprops> = () => {
       )
     );
   }, [searchText, items]);
-<<<<<<< HEAD
 function sortProduct(item: Array<Character> ){
   if (sortBy==="Name") {
     return   ( item.sort((a,b)=>a.name.localeCompare(b.name)) )
@@ -76,18 +75,6 @@ function sortProduct(item: Array<Character> ){
   }else {
     return ( item)
 }
-=======
-  function sortProduct(item: Array<Character>) {
-    if (sortBy == "Name") {
-      return (item.sort((a, b) => a.name.localeCompare(b.name)))
-    } else if (sortBy == "Name Z-A") {
-      return (item.sort().reverse())
-    } else if (sortBy == "Product ID") {
-      return (item.sort((a, b) => (parseInt(a.char_id) - parseInt(b.char_id))))
-    } else {
-      return (item)
-    }
->>>>>>> 032703cb54220a8172ec4c4ff2cbd668c216e5a9
 
   }
   function filterProduct(item: Array<Character>) {
