@@ -209,7 +209,7 @@ CREATE TABLE Service_center_branch (
     branch_name VARCHAR(80) NOT NULL,
     contact VARCHAR(10) NOT NULL,
     address VARCHAR(256) NOT NULL,
-    PRIMARY KEY(branch_id, service_center_id),
+    PRIMARY KEY(service_center_branch_id, service_center_id),
     FOREIGN KEY(service_center_id) REFERENCES Service_center(service_center_id)
 );
 
@@ -230,7 +230,7 @@ CREATE TABLE Claim_log (
     service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
-    FOREIGN KEY(service_center_id, branch_id) REFERENCES Service_center_branch(service_center_id, branch_id)
+    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, branch_id)
 );
 
 CREATE TABLE Policy_available_at (
