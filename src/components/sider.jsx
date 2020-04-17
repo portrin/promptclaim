@@ -11,18 +11,21 @@ export const Sidebar = (props) => {
       <Menu
         mode="inline"
         defaultSelectedKeys={
-          (path === '/') ? 'product':
-          (path ==='/view-product') ? 'product':
-          (path ==='/main-policy') ? 'policy':
-          (path ==='/view-policy') ? 'policy':
-          'product'
+          path === '/'
+            ? 'product'
+            : path === '/view-product'
+            ? 'product'
+            : path === '/main-policy'
+            ? 'policy'
+            : path === '/view-policy'
+            ? 'policy'
+            : 'product'
         }
         defaultOpenKeys={['sub1']}
         style={{ height: '100%' }}
       >
         <SubMenu key="sub1" title={<span>View by</span>}>
-          <Menu.Item key="product" 
-          onClick={() => props.history.push('/')}>
+          <Menu.Item key="product" onClick={() => props.history.push('/')}>
             Product
           </Menu.Item>
           <Menu.Item
