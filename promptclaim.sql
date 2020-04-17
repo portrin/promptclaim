@@ -162,7 +162,7 @@ CREATE TABLE Purchased_product (
     create_timestamp TIMESTAMP,
     branch_id VARCHAR(6),
     retailer_id VARCHAR(6),
-    receipt_photo VARCHAR(80),
+    invoice_photo VARCHAR(80),
 	is_validate BOOLEAN NOT NULL,
     product_photo VARCHAR(80),
     claim_qty INT NOT NULL,
@@ -204,12 +204,12 @@ CREATE TABLE Service_center (
 );
 
 CREATE TABLE Service_center_branch (
-	branch_id VARCHAR(6) NOT NULL,
+	service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
     branch_name VARCHAR(80) NOT NULL,
     contact VARCHAR(10) NOT NULL,
     address VARCHAR(256) NOT NULL,
-    PRIMARY KEY(branch_id, service_center_id),
+    PRIMARY KEY(service_center_branch_id, service_center_id),
     FOREIGN KEY(service_center_id) REFERENCES Service_center(service_center_id)
 );
 
@@ -227,19 +227,19 @@ CREATE TABLE Claim_log (
     timestamp TIMESTAMP NOT NULL,
     uuid INT NOT NULL,
     service_center_id VARCHAR(6),
-    branch_id VARCHAR(6),
+    service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
-    FOREIGN KEY(service_center_id, branch_id) REFERENCES Service_center_branch(service_center_id, branch_id)
+    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id)
 );
 
 CREATE TABLE Policy_available_at (
 	policy_id VARCHAR(6) NOT NULL,
-    branch_id VARCHAR(6) NOT NULL,
+    service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
-    PRIMARY KEY(policy_id, branch_id, service_center_id),
+    PRIMARY KEY(policy_id, service_center_branch_id, service_center_id),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
-    FOREIGN KEY(branch_id, service_center_id) REFERENCES Service_center_branch(branch_id, service_center_id)
+    FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES Service_center_branch(service_center_branch_id, service_center_id)
 );
 
 CREATE TABLE Product_has_policy (
@@ -376,7 +376,7 @@ VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
 ('AAAAA3', 'BBBBB3', 'table', 'A very smart table', '000002'),
 ('AAAAA4', 'BBBBB4', 'sofa', 'A very smart sofa', '000002');
 
-INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, receipt_photo, is_validate, product_photo, claim_qty, warranty_photo)
+INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
 VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'photo1', '1', 'warrantyphoto1'),
 ('SSSSS2', 'AAAAA2', '2', 'my table', '3000', '000002', '2020-03-03', '00001A', '000001', 'photo2', True, 'photo2', '2', 'warrantyphoto2'),
 ('SSSSS3', 'AAAAA3', '3', 'my bed', '4000', '000003', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '3', 'warrantyphoto3'),
@@ -404,7 +404,7 @@ VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
 ('2', 'Boonthavorn service', 'Sukhumvit53', 'This place services Boonthavorn'),
 ('3', 'ZARA home service', 'Paragon', 'This place services ZARA home');
 
-INSERT INTO service_center_branch(branch_id, service_center_id, branch_name, contact, address)
+INSERT INTO service_center_branch(service_center_branch_id, service_center_id, branch_name, contact, address)
 VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('1', '2', 'Ratchada', '021234567', 'Ratchada, Bangkok, 12345'),
 ('1', '3', 'Paragon', '027777777', 'Paragon, Bangkok, 12345'),
@@ -412,7 +412,7 @@ VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('2', '2', 'Puttamonthol', '029876543', 'Puttamonthol, Bangkok, 12345'),
 ('2', '3', 'Central World', '028888888', 'Central World, Bangkok, 12345');
 
-INSERT INTO policy_available_at(policy_id, branch_id, service_center_id) 
+INSERT INTO policy_available_at(policy_id, service_center_branch_id, service_center_id) 
 VALUES ('001', '1', '1'),
 ('002', '2', '1'),
 ('003', '1', '2');
@@ -420,7 +420,7 @@ VALUES ('001', '1', '1'),
 INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
-INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, branch_id)
+INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, service_center_branch_id)
 VALUES ('000001', 'status1', '2020-03-03', '1', '1', '1'),
 ('000002', 'status2', '2020-03-04', '2', '2', '2'),
 ('000003', 'status3', '2020-03-05', '3', '3', '2'),

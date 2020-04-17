@@ -96,40 +96,43 @@ exports.deletePurchasedProductByUuid = async (req, res, next) => {
 //edit a product
 exports.postEditPurchasedProductByUuid = async (req, res, next) => {
     const uuid = req.params.uuid;
-    const serial_no = req.body.serialNo;
-    const product_no = req.body.productNo;
-    const customer_id = jwt.decode(req.headers.authorization).sub;
-    const product_nickname = req.body.productNickname;
+    const serialNo = req.body.serialNo;
+    const productNo = req.body.productNo;
+    const customerId = jwt.decode(req.headers.authorization).sub;
+    const productNickname = req.body.productNickname;
     const price = req.body.price;
-    const invoice_id = req.body.invoiceId;
-    const create_timestamp = req.body.createTimestamp;
-    const branch_id = req.body.branchId;
-    const retailer_id = req.body.retailerId;
-    const invoice_photo = req.body.invoicePhoto;
-    const is_validate = req.body.isValidate;
-    const product_photo = req.body.productPhoto;
-    const claim_qty = req.body.claimQty;
-    const warranty_photo = req.body.warrantyPhoto;
-    const updatedProduct = new PurchasedProduct({
+    const invoiceId = req.body.invoiceId;
+    const createTimestamp = req.body.createTimestamp;
+    const branchId = req.body.branchId;
+    const retailerId = req.body.retailerId;
+    const invoicePhoto = req.body.invoicePhoto;
+    const isValidate = req.body.isValidate;
+    const productPhoto = req.body.productPhoto;
+    const claimQty = req.body.claimQty;
+    const warrantyPhoto = req.body.warrantyPhoto;
+    const updatedProduct = new PurchasedProduct( (await PurchasedProduct._readByUuid(uuid, customerId)) [0][0] );
+    updatedProduct.setProperty = {
                             uuid,
-                            serial_no,
-                            product_no,
-                            customer_id,
-                            product_nickname, 
+                            serialNo,
+                            productNo,
+                            customerId,
+                            productNickname, 
                             price, 
-                            invoice_id, 
-                            create_timestamp, 
-                            branch_id, 
-                            retailer_id, 
-                            invoice_photo, 
-                            is_validate, 
-                            product_photo, 
-                            claim_qty,
-                            warranty_photo
-                            });    
-    console.log(updatedProduct);
-    await updatedProduct._update(uuid);
-    res.send(`Product ${uuid} is updated!`)
+                            invoiceId, 
+                            createTimestamp, 
+                            branchId, 
+                            retailerId, 
+                            invoicePhoto, 
+                            isValidate, 
+                            productPhoto, 
+                            claimQty,
+                            warrantyPhoto
+                            };    
+            
+                            console.log(updatedProduct);
+    const status = await updatedProduct._update(uuid);
+    
+    res.send(status)
     
 };
                         
