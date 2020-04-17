@@ -16,7 +16,7 @@ const App = () => {
           <Route path="/" component={MainProductPage} exact />
           <Route path="/view-product/:key" component={ViewProductPage} exact />
           <Route path="/main-policy" component={MainPolicyPage} exact />
-          <Route path="/view-policy" component={ViewPolicyPage} exact />
+          <Route path="/view-policy/:key" component={ViewPolicyPage} exact />
           <Route path="/login" component={LoginPage} exact />
         </Switch>
       </BrowserRouter>
