@@ -36,6 +36,12 @@ module.exports = class Policy {
         );
     }
 
+    static _readByRetailerId(retailerId){
+        return db.execute('SELECT policy_id, policy_period, policy_description, date_created, policy_owner_id FROM policy NATURAL JOIN retailer WHERE retailer_id = ?',
+            [retailerId]
+        );
+    }
+
     static _readByPolicyId(policyId) {
         return db.execute('SELECT * FROM policy WHERE policy_id = ?', [policyId]);
     }

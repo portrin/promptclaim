@@ -59,11 +59,32 @@ module.exports = class PurchasedProduct {
         );
     };
 
+    static _readByUuidRetailer(uuid, retailerId) {
+        return db.execute(
+            'SELECT * FROM purchased_product WHERE uuid = ? AND retailer_id = ?',
+            [uuid, retailerId]
+        );
+    };
+
     static _readByCustomerId(customerId) {
         return db.execute(
             'SELECT * FROM purchased_product WHERE customer_id = ?',
             [customerId]
         )
+    }
+
+    static _readByRetailerId(retailerId) {
+        return db.execute(
+            'SELECT * FROM purchased_product WHERE retailer_id = ?',
+            [retailerId]            
+        );
+    }
+
+    static _readByCategoryIdRetailer(categoryId, retailerId) {
+        return db.execute(
+            'SELECT * FROM purchased_product NATURAL JOIN pp_classify_as WHERE retailer_id = ? AND category_id = ?;',
+            [retailerId, categoryId]
+        );
     }
 
     _read() {
@@ -187,3 +208,4 @@ module.exports = class PurchasedProduct {
     }
 
 }
+
