@@ -1,21 +1,16 @@
 const express = require('express');
-const retailerController = require('../../controllers/retailer/retailer-controller');
 const router = express.Router();
 
-router.get('/profile/get', retailerController.getProfile);
+const profileRoute = require('./profile-route');
+const productRoute = require('./product-route');
+const policyRoute = require('./policy-route');
 
-router.post('/profile/edit', retailerController.postEditProfile);
+const authRoute = require('./auth-route');
+const auth = require('../../middleware/auth-middleware');
 
-router.post('/profile/add', retailerController.postAddProfile);
-
-router.delete('/profile/delete', retailerController.deleteProfile);
-
-router.get('/product/get', retailerController.getProduct);
-
-router.get('/product/getByProductNo/:uuid', retailerController.getProductByUuid);
-
-router.get('/product/getByCategory/:categoryId', retailerController.getProductByCategory);
-
-router.get('/policy/get', retailerController.getPolicy);
+router.use('/profile', auth.requireJwtAuth, profileRoute);
+router.use('/product', auth.requireJwtAuth, productRoute)
+router.use('/policy', auth.requireJwtAuth, policyRoute)
+router.use('/auth', authRoute)
 
 module.exports = router;
