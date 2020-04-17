@@ -16,23 +16,31 @@ export function usePhotoGallery() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [photos1, setPhotos1] = useState<Photo[]>([]);
   const [photos2, setPhotos2] = useState<Photo[]>([]);
+  const { deleteFile, getUri, readFile, writeFile } = useFilesystem();
+  const savePicture = async (photo: CameraPhoto, fileName: string) => {
+    const base64Data = await base64FromPath(photo.webPath!);
+    const savedFile = await writeFile({
+      path: fileName,
+      data: base64Data,
+      directory: FilesystemDirectory.Data,
+    });
 
-
+    // Use webPath to display the new image instead of base64 since it's
+    // already loaded into memory
+    return {
+      filepath: fileName,
+      webviewPath: photo.webPath,
+    };
+  };
   const takePhoto = async () => {
     const cameraPhoto = await getPhoto({
       resultType: CameraResultType.Uri,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
-    const newPhotos = [
-      {
-        filepath: fileName,
-        webviewPath: cameraPhoto.webPath,
-      }
-    ];
+    const savedFileImage = await savePicture(cameraPhoto, fileName);
+    const newPhotos = [savedFileImage];
     setPhotos(newPhotos);
-  
-    
   };
   const takePhoto1 = async () => {
     const cameraPhoto1 = await getPhoto({
@@ -40,31 +48,21 @@ export function usePhotoGallery() {
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
-    const newPhotos1 = [
-      {
-        filepath: fileName,
-        webviewPath: cameraPhoto1.webPath,
-      }
-    ];
+    const savedFileImage = await savePicture(cameraPhoto1, fileName);
+    const newPhotos1 = [savedFileImage];
     setPhotos1(newPhotos1);
-  
-    
   };
+  
   const takePhoto2 = async () => {
     const cameraPhoto2 = await getPhoto({
       resultType: CameraResultType.Uri,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
-    const newPhotos2 = [
-      {
-        filepath: fileName,
-        webviewPath: cameraPhoto2.webPath,
-      }
-    ];
+    const savedFileImage = await savePicture(cameraPhoto2, fileName);
+    const newPhotos2 = [savedFileImage];
     setPhotos2(newPhotos2);
   
-    
   };
 
   return {
@@ -73,8 +71,9 @@ export function usePhotoGallery() {
     photos1,
     takePhoto1,
     photos2,
-    takePhoto2
+    takePhoto2,
   };
+
 }
 export interface Photo {
   filepath: string;
