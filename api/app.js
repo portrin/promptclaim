@@ -24,10 +24,8 @@ const customerRoute = require('./routes/customer/customer-route');
 app.use('/customer', customerRoute);
 
 // retailer routes
-// const retailerRoute = require('./routes/retailer/retailer-route');
-// app.use('/retailer', retailerRoute);
-
-
+const retailerRoute = require('./routes/retailer/retailer-route');
+app.use('/retailer', retailerRoute);
 
 // start server
 app.listen(PORT, () => {

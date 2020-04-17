@@ -29,6 +29,9 @@ module.exports = class Retailer {
         [this._retailerId]
         );
     }
+    static _getPolicyOwnerIdByRetailerId(retailerId){
+        return db.execute('SELECT policy_owner_id FROM retailer WHERE retailer_id = ?', [retailerId]);
+    }
 
     static _readByPolicyOwnerId(policyOwnerId) {
         return db.execute('SELECT * FROM retailer WHERE policy_owner_id = ?', [policyOwnerId]);
