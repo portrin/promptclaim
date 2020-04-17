@@ -230,7 +230,7 @@ CREATE TABLE Claim_log (
     service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
-    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, branch_id)
+    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id)
 );
 
 CREATE TABLE Policy_available_at (
