@@ -404,7 +404,7 @@ VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
 ('2', 'Boonthavorn service', 'Sukhumvit53', 'This place services Boonthavorn'),
 ('3', 'ZARA home service', 'Paragon', 'This place services ZARA home');
 
-INSERT INTO service_center_branch(branch_id, service_center_id, branch_name, contact, address)
+INSERT INTO service_center_branch(service_center_branch_id, service_center_id, branch_name, contact, address)
 VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('1', '2', 'Ratchada', '021234567', 'Ratchada, Bangkok, 12345'),
 ('1', '3', 'Paragon', '027777777', 'Paragon, Bangkok, 12345'),
@@ -412,7 +412,7 @@ VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('2', '2', 'Puttamonthol', '029876543', 'Puttamonthol, Bangkok, 12345'),
 ('2', '3', 'Central World', '028888888', 'Central World, Bangkok, 12345');
 
-INSERT INTO policy_available_at(policy_id, branch_id, service_center_id) 
+INSERT INTO policy_available_at(policy_id, service_center_branch_id, service_center_id) 
 VALUES ('001', '1', '1'),
 ('002', '2', '1'),
 ('003', '1', '2');
@@ -420,7 +420,7 @@ VALUES ('001', '1', '1'),
 INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
-INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, branch_id)
+INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, service_center_branch_id)
 VALUES ('000001', 'status1', '2020-03-03', '1', '1', '1'),
 ('000002', 'status2', '2020-03-04', '2', '2', '2'),
 ('000003', 'status3', '2020-03-05', '3', '3', '2'),
