@@ -20,18 +20,11 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonImg
+  IonImg,
 } from "@ionic/react";
 import { image } from "ionicons/icons";
 import "./AddWarranty.css";
-import { usePhotoGallery } from '../hooks/usePhotoGallery';
-
-
-
-
-
-
-
+import { usePhotoGallery } from "../hooks/usePhotoGallery";
 
 const slideOpts = {
   initialSlide: 1,
@@ -130,45 +123,48 @@ const AddWarranty: React.FC = () => {
         <IonSlides pager={true} options={slideOpts}>
           <IonSlide>
             <IonContent>
-              <IonButton  fill="outline" onClick={takePhoto}  >
+              <IonButton fill="outline" onClick={takePhoto}>
                 <IonIcon icon={image}></IonIcon>Add Product Photo
               </IonButton>
             </IonContent>
           </IonSlide>
           <IonSlide>
             <IonContent>
-              <IonButton fill="outline" onClick={takePhoto}>
+              <IonButton fill="outline" onClick={takePhoto1}>
                 <IonIcon icon={image}></IonIcon>Add Warranty Photo
               </IonButton>
             </IonContent>
           </IonSlide>
           <IonSlide>
             <IonContent>
-              <IonButton fill="outline" onClick={takePhoto} >
+              <IonButton fill="outline" onClick={takePhoto2}>
                 <IonIcon icon={image}></IonIcon> Add Receipt Photo
               </IonButton>
             </IonContent>
           </IonSlide>
         </IonSlides>
         <IonGrid>
-        <IonRow>
-      {photos.map((photo, index) => (
-        <IonCol size="6" key={index}>
-          <IonImg src={photo.webviewPath} />
-        </IonCol>
-      ))}
-       {photos1.map((photo, index) => (
-        <IonCol size="6" key={index}>
-          <IonImg src={photo.webviewPath} />
-        </IonCol>
-      ))}
-       {photos2.map((photo, index) => (
-        <IonCol size="6" key={index}>
-          <IonImg src={photo.webviewPath} />
-        </IonCol>
-      ))}
-    </IonRow>
-          </IonGrid>
+          <IonRow>
+            <p>Product photo</p>
+            {photos.map((photo, index) => (
+              <IonCol size="6" key={index}>
+                <IonImg src={photo.webviewPath} />
+              </IonCol>
+            ))}
+            <p>Warranty Photo</p>
+            {photos1.map((photo, index) => (
+              <IonCol size="6" key={index}>
+                <IonImg src={photo.webviewPath} />
+              </IonCol>
+            ))}
+            <p>Receipt Photo</p>
+            {photos2.map((photo, index) => (
+              <IonCol size="6" key={index}>
+                <IonImg src={photo.webviewPath} />
+              </IonCol>
+            ))}
+          </IonRow>
+        </IonGrid>
 
         <IonButton expand="block">Add</IonButton>
       </IonContent>

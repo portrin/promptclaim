@@ -29,46 +29,43 @@ export function usePhotoGallery() {
       {
         filepath: fileName,
         webviewPath: cameraPhoto.webPath,
-      },
-      ...photos,
+      }
     ];
     setPhotos(newPhotos);
   
     
   };
   const takePhoto1 = async () => {
-    const cameraPhoto = await getPhoto({
+    const cameraPhoto1 = await getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
-    const newPhotos = [
+    const newPhotos1 = [
       {
         filepath: fileName,
-        webviewPath: cameraPhoto.webPath,
-      },
-      ...photos,
+        webviewPath: cameraPhoto1.webPath,
+      }
     ];
-    setPhotos1(newPhotos);
+    setPhotos1(newPhotos1);
   
     
   };
   const takePhoto2 = async () => {
-    const cameraPhoto = await getPhoto({
+    const cameraPhoto2 = await getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       quality: 100,
     });
     const fileName = new Date().getTime() + ".jpeg";
-    const newPhotos = [
+    const newPhotos2 = [
       {
         filepath: fileName,
-        webviewPath: cameraPhoto.webPath,
-      },
-      ...photos,
+        webviewPath: cameraPhoto2.webPath,
+      }
     ];
-    setPhotos2(newPhotos);
+    setPhotos2(newPhotos2);
   
     
   };
