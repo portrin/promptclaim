@@ -204,7 +204,7 @@ CREATE TABLE Service_center (
 );
 
 CREATE TABLE Service_center_branch (
-	branch_id VARCHAR(6) NOT NULL,
+	service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
     branch_name VARCHAR(80) NOT NULL,
     contact VARCHAR(10) NOT NULL,
@@ -227,7 +227,7 @@ CREATE TABLE Claim_log (
     timestamp TIMESTAMP NOT NULL,
     uuid INT NOT NULL,
     service_center_id VARCHAR(6),
-    branch_id VARCHAR(6),
+    service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
     FOREIGN KEY(service_center_id, branch_id) REFERENCES Service_center_branch(service_center_id, branch_id)
