@@ -4,17 +4,17 @@ const router = express.Router();
 
 const productController = require('../../controllers/customer/product-controller');
 
-router.get('/get', productController.getCustomerProducts);
+router.get('/get', productController.getCustomerPurchasedProducts);
 
-router.get('/getByProductNo/:productNo', productController.getProductByProductNo);
+router.get('/getByProductNo/:productNo', productController.getPurchasedProductByProductNo);
 
-router.get('/getByUuid/:uuid', productController.getProductByUuid)
+router.get('/getByUuid/:uuid', productController.getPurchasedProductByUuid)
 
-router.post('/addProduct', productController.postAddProduct);
+router.post('/addProduct', productController.postAddPurchasedProduct);
 
-router.delete('/deleteByUuid/:uuid', productController.deleteProductByUuid);
+router.delete('/deleteByUuid/:uuid', productController.deletePurchasedProductByUuid);
 
-router.post('/editByUuid/:uuid', productController.postEditProductByUuid);
+router.post('/editByUuid/:uuid', productController.postEditPurchasedProductByUuid);
 
 
 module.exports = router;
