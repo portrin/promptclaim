@@ -9,9 +9,7 @@ module.exports = class Product {
         this._productModel = product_model;
         this._productDescription = product_description;
         this._supplierId = supplier_id;
-        // relationships
-        this._productCategory = [];
-        this._supplier = null;
+
     };
     
     //CRUD METHOD
@@ -65,8 +63,7 @@ module.exports = class Product {
             productModel: this._productModel,
             productDescription: this._productDescription,
             supplierId: this._supplierId,
-            productCategory: this._productCategory,
-            supplier: this._supplier
+
         };
     };
 
@@ -76,18 +73,21 @@ module.exports = class Product {
         productNo = this._productNo,
         productName = this._productName,
         productModel = this._productModel,
-        productDescription = this._productDescription
+        productDescription = this._productDescription,
+        supplierId = this._supplierId
     }) {
         //checktype
         checkType(productNo, 'String');
         checkType(productName, 'String');
         checkType(productModel, 'String');
         checkType(productDescription, 'String');
+        checkType(supplierId, 'String');
         //assign to private attribute
         this._productNo = productNo;
         this._productName = productName;
         this._productModel = productModel;
         this._productDescription = productDescription;
+        this._supplierId = supplierId;
     };
 
 };

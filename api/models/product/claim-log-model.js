@@ -10,9 +10,6 @@ module.exports = class ClaimLog {
         this._uuid = uuid;
         this._serviceCenterId = service_center_id;
         this._branchId = branch_id;
-        // relationships
-        this._purchasedProduct = null;      // relationship from purchasedProduct        
-        this._serviceCenterBranch = null;   // relationship from serviceCenterBranch
     };
     // CRUD METHOD
     _create() {
@@ -93,14 +90,23 @@ module.exports = class ClaimLog {
     set setProperty({
         claimId = this._claimId,
         timestamp = this._timestamp,
-        status = this._status
+        status = this._status,
+        uuid = this._uuid,
+        serviceCenterId = this._serviceCenterId,
+        branchId = this._branchId
     }) {
         checkType(claimId, 'String');
         checkType(timestamp, 'String');
         checkType(status, 'String');
+        checkType(uuid, 'Number');
+        checkType(serviceCenterId, 'String');
+        checkType(branchId, 'String');
         this._claimId = claimId;
         this._timestamp = timestamp;
-        this._status = status
+        this._status = status;
+        this._uuid = uuid;
+        this._serviceCenterId = serviceCenterId;
+        this._branchId = branchId
     };
 
 };
