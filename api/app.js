@@ -25,14 +25,20 @@ const retailerRoute = require('./routes/retailer/retailer-route');
 app.use('/retailer', retailerRoute);
 
 // customer add account route
+const addRetailerRoute = require('./routes/retailer/retailer-profile-route');
+app.use('/retailer/profile', addRetailerRoute);
+
+// retailer routes
+const retailerRoute = require('./routes/retailer/retailer-route');
+app.use('/retailer', retailerRoute);
+
+// customer add account route
 const customerAddAccountRoute = require('./routes/customer/customer-account-route');
 app.use('/customer/account', customerAddAccountRoute);
 
 // customer routes
 const customerRoute = require('./routes/customer/customer-route');
 app.use('/customer', customerRoute);
-
-
 
 
 // start server
