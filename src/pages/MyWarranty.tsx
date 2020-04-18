@@ -51,8 +51,13 @@ const MyWarranty: React.FC<Itemprops> = () => {
   }, []);
   const [items, setItems] = useState<Character[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("https://www.breakingbadapi.com/api/characters/");
-
+    const data = await fetch("http://localhost:8001/customer/product/get", {
+      headers: {
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MTk2NjkwNTE3fQ.MucWJSE48rlyezM79nTRU9kqG7FX2RXZMp2vIcAje0s",
+      },
+    });
+    console.log(data);
     const items = await data.json();
     setItems(items);
     console.log(items);
