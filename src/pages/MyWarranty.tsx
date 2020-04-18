@@ -142,8 +142,8 @@ const MyWarranty: React.FC<Productprops> = () => {
                     okText="Done"
                     onIonChange={(e) => setfilterBy(e.detail.value)}
                   >
-                    <IonSelectOption value="Alive">
-                      Category: Alive
+                    <IonSelectOption value="Wall & Floor">
+                      Category: Wall & Floor
                     </IonSelectOption>
                     <IonSelectOption value="Deceased">
                       Category: Deceased{" "}
@@ -186,7 +186,7 @@ const MyWarranty: React.FC<Productprops> = () => {
             <h2>Products</h2>
           </IonListHeader>
 
-          {searchItem.map((item) => (
+          {sortProduct(filterProduct(searchItem)).map((item) => (
             <Product
               name={item.product_name}
               serial={item.uuid}
