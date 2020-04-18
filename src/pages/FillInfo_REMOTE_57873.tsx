@@ -20,11 +20,7 @@ import React, { useState } from "react";
 import "./FillInfo.css";
 import { RouteComponentProps, Link } from "react-router-dom";
 
-interface Prop {
-  custID: string;
-}
-
-const FillInfo: React.FC<Prop> = (props) => {
+const FillInfo: React.FC<RouteComponentProps> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -46,11 +42,7 @@ const FillInfo: React.FC<Prop> = (props) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-<<<<<<< HEAD
-              <Link to={`/verify`}>
-=======
               <Link to={"/verify"}>
->>>>>>> d0f4fa6cd23f2283be4dfb5f553d69f6469ae88f
                 <IonButton color="theme">
                   <IonIcon icon={chevronBackOutline}></IonIcon>
                 </IonButton>
@@ -70,7 +62,6 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="email"
                   value={email}
                   onIonChange={(e) => setEmail(e.detail.value!)}
-                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -82,7 +73,6 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="password"
                   value={password}
                   onIonChange={(e) => setPassword(e.detail.value!)}
-                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -94,7 +84,6 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="password"
                   value={password2}
                   onIonChange={(e) => setPassword2(e.detail.value!)}
-                  placeholder="required"
                 ></IonInput>
               </IonItem>
               <div className="note">
@@ -114,7 +103,6 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="text"
                   value={fname}
                   onIonChange={(e) => setFName(e.detail.value!)}
-                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -126,7 +114,6 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="text"
                   value={lname}
                   onIonChange={(e) => setLName(e.detail.value!)}
-                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -190,7 +177,6 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="text"
                   value={phonenum}
                   onIonChange={(e) => setPhoneNum(e.detail.value!)}
-                  placeholder="required"
                 ></IonInput>
               </IonItem>
             </IonList>
@@ -267,17 +253,19 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonList>
           </IonCard>
 
-          <Link to={`/myWarranty`}>
-            <IonButton
-              class="createacc"
-              strong
-              id="signin"
-              size="large"
-              color="theme"
-            >
-              CREATE ACCOUNT
-            </IonButton>
-          </Link>
+          <IonButton
+            class="createacc"
+            strong
+            id="signin"
+            size="large"
+            color="theme"
+          >
+            CREATE ACCOUNT
+          </IonButton>
+
+          <a className="skip" href="./signup">
+            Skip
+          </a>
         </IonContent>
       </IonPage>
     </IonApp>
