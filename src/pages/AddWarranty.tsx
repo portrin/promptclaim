@@ -17,11 +17,7 @@ import {
   IonLabel,
   IonButton,
   IonIcon,
-  IonGrid,
-  IonRow,
-  IonCol,
   IonImg,
-  IonThumbnail,
   IonCard,
 } from "@ionic/react";
 import { image } from "ionicons/icons";

@@ -39,6 +39,9 @@ export interface Itemprops {
   item: Character;
 }
 
+const token =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjA0ODczMjk1fQ.eqNvP3rP6F_2xxT8EUI5JC2KyZNAyoUPkYKUWTiADSs";
+
 const MyWarranty: React.FC<Itemprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Character[]>([]);
@@ -49,12 +52,13 @@ const MyWarranty: React.FC<Itemprops> = () => {
   useEffect(() => {
     fetchItems();
   }, []);
+
   const [items, setItems] = useState<Character[]>([]);
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get", {
+      method: "GET",
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MTk2NjkwNTE3fQ.MucWJSE48rlyezM79nTRU9kqG7FX2RXZMp2vIcAje0s",
+        Authorization: token,
       },
     });
     console.log(data);
