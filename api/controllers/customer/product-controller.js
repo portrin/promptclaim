@@ -1,10 +1,10 @@
 const PurchasedProduct = require('../../models/product/purchased-product-model');
-const ProductCategory = require('../../models/product/product-category-model')
+const ProductCategory = require('../../models/product/product-category-model');
 const jwt = require('jsonwebtoken');
 
 //get all products
-exports.getCustomerPurchasedProducts = async (req, res ,next) => {
-    const customerId = jwt.decode(req.headers.authorization).sub;
+exports.getCustomerPurchasedProducts = async (req, res ,next) => {    
+    const customerId = jwt.decode(req.headers.authorization).sub;    
     const result = (await PurchasedProduct._readByCustomerId(customerId)) [0];
     res.send(result);   
 };
