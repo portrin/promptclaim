@@ -38,18 +38,28 @@ export interface Character {
 export interface Itemprops {
   item: Character;
 }
+export interface Product {
+  product_name: string;
+  uuid: string;
+  img: string;
+  category_name: string;
+}
+export interface Productprops {
+  item: Product;
+}
 
-const MyWarranty: React.FC<Itemprops> = () => {
+
+const MyWarranty: React.FC<Productprops> = () => {
   const [searchText, setSearchText] = useState("");
-  const [searchItem, setSearchItem] = useState<Character[]>([]);
+  const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [sortBy, setsortBy] = useState("");
-  const [filterBy, setfilterBy] = useState("Alive");
+  const [filterBy, setfilterBy] = useState("");
 
   console.log(searchText);
   useEffect(() => {
     fetchItems();
   }, []);
-  const [items, setItems] = useState<Character[]>([]);
+  const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get", {
       headers: {
@@ -66,23 +76,23 @@ const MyWarranty: React.FC<Itemprops> = () => {
   useEffect(() => {
     setSearchItem(
       items.filter((item) =>
-        item.name.toLowerCase().includes(searchText.toLowerCase())
+        item.product_name.toLowerCase().includes(searchText.toLowerCase())
       )
     );
   }, [searchText, items]);
-  function sortProduct(item: Array<Character>) {
+  function sortProduct(item: Array<Product>) {
     if (sortBy === "Name") {
-      return item.sort((a, b) => a.name.localeCompare(b.name));
+      return item.sort((a, b) => a.product_name.localeCompare(b.product_name));
     } else if (sortBy === "Name Z-A") {
       return item.sort().reverse();
     } else if (sortBy === "Product ID") {
-      return item.sort((a, b) => parseInt(a.char_id) - parseInt(b.char_id));
+      return item.sort((a, b) => parseInt(a.uuid) - parseInt(b.uuid));
     } else {
       return item;
     }
   }
-  function filterProduct(item: Array<Character>) {
-    return item.filter((x) => x.status == filterBy);
+  function filterProduct(item: Array<Product>) {
+    return item.filter((x) => x.category_name == filterBy);
   }
 
   return (
@@ -176,12 +186,12 @@ const MyWarranty: React.FC<Itemprops> = () => {
             <h2>Products</h2>
           </IonListHeader>
 
-          {sortProduct(filterProduct(searchItem)).map((item) => (
+          {searchItem.map((item) => (
             <Product
-              name={item.name}
-              serial={item.char_id}
+              name={item.product_name}
+              serial={item.uuid}
               image={item.img}
-              description={item.status}
+              description={item.category_name}
             ></Product>
           ))}
         </IonList>
