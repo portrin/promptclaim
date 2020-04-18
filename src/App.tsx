@@ -17,8 +17,17 @@ import MyWarranty from "./pages/MyWarranty";
 import AddWarranty from "./pages/AddWarranty";
 import DynamicWarrantyInfo from "./pages/DynamicWarrantyInfo";
 import Notification from "./pages/Notification";
-import AddClaimDate from "./pages/AddClaimDate"
+import AddClaimDate from "./pages/AddClaimDate";
 
+import Authen from "./pages/Authen";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Verify from "./pages/Verify";
+import FillInfo from "./pages/FillInfo";
+import Profile from "./pages/Profile";
+import EditAccount from "./pages/EditAccount";
+import EditProfile from "./pages/EditProfile";
+import EditAddress from "./pages/EditAddress";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -51,7 +60,22 @@ const App: React.FC = () => {
             <Route path="/addWarranty" component={AddWarranty} />
             <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
             <Route path="/notification" component={Notification} />
-            <Route path="/AddClaimDate" component={AddClaimDate}/>
+            <Route path="/AddClaimDate" component={AddClaimDate} />
+
+            <Route path="/authen" component={Authen} exact={true} />
+            <Route exact path="/" render={() => <Redirect to="/authen" />} />
+            <Route path="/signin" component={SignIn} exact={true} />
+            <Route path="/signup" component={SignUp} exact={true} />
+            <Route path="/verify" component={Verify} exact={true} />
+            <Route path="/fillinfo" component={FillInfo} exact={true} />
+            <Route path="/profile" component={Profile} exact={true} />
+            <Route path="/editaccount" component={EditAccount} exact={true} />
+            <Route path="/editprofile" component={EditProfile} exact={true} />
+            <Route path="/editaddress" component={EditAddress} exact={true} />
+            <Route path="/profile/:id" component={Profile} />
+            <Route path="/editaccount/:id" component={EditAccount} />
+            <Route path="/editprofile/:id" component={EditProfile} />
+            <Route path="/editaddress/:id" component={EditAddress} />
 
             <Route
               exact={true}

@@ -65,21 +65,19 @@ const MyWarranty: React.FC<Itemprops> = () => {
       )
     );
   }, [searchText, items]);
-function sortProduct(item: Array<Character> ){
-  if (sortBy==="Name") {
-    return   ( item.sort((a,b)=>a.name.localeCompare(b.name)) )
-  } else if(sortBy==="Name Z-A"){
-    return ( item.sort().reverse())
-  } else if(sortBy==="Product ID"){
-    return ( item.sort((a,b)=>(parseInt(a.char_id) - parseInt(b.char_id) )))
-  }else {
-    return ( item)
-}
-
+  function sortProduct(item: Array<Character>) {
+    if (sortBy === "Name") {
+      return item.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortBy === "Name Z-A") {
+      return item.sort().reverse();
+    } else if (sortBy === "Product ID") {
+      return item.sort((a, b) => parseInt(a.char_id) - parseInt(b.char_id));
+    } else {
+      return item;
+    }
   }
   function filterProduct(item: Array<Character>) {
-    return item.filter(x=>x.status==filterBy)
-      
+    return item.filter((x) => x.status == filterBy);
   }
 
   return (
@@ -123,9 +121,18 @@ function sortProduct(item: Array<Character> ){
                 <IonButton size="small" fill="clear">
                   <IonIcon icon={filterOutline} />
                   Filter by
-                  <IonSelect value={filterBy} cancelText="Cancel" okText="Done" onIonChange={e => setfilterBy(e.detail.value)}>
-                    <IonSelectOption value="Alive">Category: Alive</IonSelectOption>
-                    <IonSelectOption value="Deceased">Category: Deceased </IonSelectOption>
+                  <IonSelect
+                    value={filterBy}
+                    cancelText="Cancel"
+                    okText="Done"
+                    onIonChange={(e) => setfilterBy(e.detail.value)}
+                  >
+                    <IonSelectOption value="Alive">
+                      Category: Alive
+                    </IonSelectOption>
+                    <IonSelectOption value="Deceased">
+                      Category: Deceased{" "}
+                    </IonSelectOption>
                   </IonSelect>
                 </IonButton>
               </IonCol>
@@ -136,11 +143,22 @@ function sortProduct(item: Array<Character> ){
                 <IonButton size="small" fill="clear">
                   <IonIcon icon={funnelOutline} />
                   Sort by
-                  <IonSelect value={sortBy} cancelText="Cancel" okText="Done" onIonChange={e => setsortBy(e.detail.value)}>
+                  <IonSelect
+                    value={sortBy}
+                    cancelText="Cancel"
+                    okText="Done"
+                    onIonChange={(e) => setsortBy(e.detail.value)}
+                  >
                     <IonSelectOption value="Name">Name A-Z</IonSelectOption>
-                    <IonSelectOption value="Name Z-A">Name Z-A </IonSelectOption>
-                    <IonSelectOption value="Expiry Date">Expiry Date</IonSelectOption>
-                    <IonSelectOption value="Product ID">Product ID</IonSelectOption>
+                    <IonSelectOption value="Name Z-A">
+                      Name Z-A{" "}
+                    </IonSelectOption>
+                    <IonSelectOption value="Expiry Date">
+                      Expiry Date
+                    </IonSelectOption>
+                    <IonSelectOption value="Product ID">
+                      Product ID
+                    </IonSelectOption>
                   </IonSelect>
                 </IonButton>
               </IonCol>
@@ -161,7 +179,6 @@ function sortProduct(item: Array<Character> ){
               description={item.status}
             ></Product>
           ))}
-
         </IonList>
       </IonContent>
     </IonPage>
