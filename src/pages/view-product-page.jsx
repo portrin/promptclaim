@@ -15,8 +15,10 @@ export const ViewProductPage = (props) => {
     setItems(item)
     console.log(item)
   }
+
   useEffect(() => {
     fetchItem()
+    //eslint-disable-next-line
   }, [])
   return (
     <AppLayout {...props} nosearch title="Product Information">
