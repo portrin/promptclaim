@@ -29,7 +29,6 @@ import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
 
-
 interface RouteParam {
   id: string;
 }
@@ -71,19 +70,20 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   }, []);
   const [item, setItem] = useState<Product[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/product//getByUuid/"+match.params.id, {
-      headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MTk2NjkwNTE3fQ.MucWJSE48rlyezM79nTRU9kqG7FX2RXZMp2vIcAje0s",
-      },
-    });
+    const data = await fetch(
+      "http://localhost:8001/customer/product//getByUuid/" + match.params.id,
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     console.log(data);
     const item = await data.json();
     setItem(item);
     console.log(item);
     setphoneNum(item[0].contact);
   };
-  
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
@@ -172,7 +172,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                         text: "Contact Supplier",
                         icon: call,
                         handler: () => {
-                          window.location.href = "tel:"+ phoneNum;
+                          window.location.href = "tel:" + phoneNum;
                         },
                       },
 
@@ -216,9 +216,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Purchase Date</h2>
                 {item.map((item) => (
-                    <h3>{item.create_timestamp}</h3>
-                  ))}
-               
+                  <h3>{item.create_timestamp}</h3>
+                ))}
               </IonLabel>
               <IonButton
                 slot="end"
@@ -234,8 +233,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Serial Number</h2>
                 {item.map((item) => (
-                    <h3>{item.serial_no}</h3>
-                  ))}
+                  <h3>{item.serial_no}</h3>
+                ))}
               </IonLabel>
               <IonButton
                 slot="end"
@@ -250,8 +249,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Supplier</h2>
                 {item.map((item) => (
-                    <h3>{item.name}</h3>
-                  ))}
+                  <h3>{item.name}</h3>
+                ))}
               </IonLabel>
               <IonButton
                 slot="end"
@@ -266,8 +265,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Retailer</h2>
                 {item.map((item) => (
-                    <h3>{item.retailer_id}</h3>
-                  ))}
+                  <h3>{item.retailer_id}</h3>
+                ))}
               </IonLabel>
               <IonButton
                 slot="end"
@@ -282,8 +281,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Remaining Warranty Period</h2>
                 {item.map((item) => (
-                    <h3>{item.serial_no}</h3>
-                  ))}
+                  <h3>{item.serial_no}</h3>
+                ))}
               </IonLabel>
               <IonButton
                 slot="end"
