@@ -53,7 +53,7 @@ const MyWarranty: React.FC<Productprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [sortBy, setsortBy] = useState("");
-  const [filterBy, setfilterBy] = useState("");
+  const [filterBy, setfilterBy] = useState("default");
 
   console.log(searchText);
   useEffect(() => {
@@ -92,7 +92,11 @@ const MyWarranty: React.FC<Productprops> = () => {
     }
   }
   function filterProduct(item: Array<Product>) {
-    return item.filter((x) => x.category_name == filterBy);
+    if (filterBy=="default") {
+      return item
+    } else {
+      return item.filter((x) => x.category_name == filterBy);
+    }
   }
 
   return (
@@ -145,8 +149,8 @@ const MyWarranty: React.FC<Productprops> = () => {
                     <IonSelectOption value="Wall & Floor">
                       Category: Wall & Floor
                     </IonSelectOption>
-                    <IonSelectOption value="Deceased">
-                      Category: Deceased{" "}
+                    <IonSelectOption value="Others">
+                      Category: Others
                     </IonSelectOption>
                   </IonSelect>
                 </IonButton>
