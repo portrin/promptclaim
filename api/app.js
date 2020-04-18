@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const errorhandler = require('errorhandler');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 dotenv.config();
 
@@ -14,16 +15,11 @@ const PORT = process.env.API_PORT || 8001;
 app.use(morgan('dev'));
 app.use(errorhandler());
 app.use(bodyParser.json());
-
-
-// customer add account route
-const addRetailerRoute = require('./routes/retailer/retailer-profile-route');
-app.use('/retailer/profile', addRetailerRoute);
+app.use(cors());
 
 // retailer routes
 const retailerRoute = require('./routes/retailer/retailer-route');
 app.use('/retailer', retailerRoute);
-
 
 // customer routes
 const customerRoute = require('./routes/customer/customer-route');
