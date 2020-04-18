@@ -13,7 +13,7 @@ const jwtOptions = {
 };
 
 const jwtAuth = new JwtStrategy(jwtOptions, async (payload, done) => {
-    const result = (await db.execute('SELECT root_id FROM root_account WHERE root_id = ?', [payload.sub]))[0]
+    const result = (await db.execute('SELECT root_id FROM root_account WHERE root_id = ?', [payload.root]))[0]
     console.log(result);
     if (result) {
         done(null, true); // real code will query in SQL database to compare customerId

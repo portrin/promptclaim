@@ -7,9 +7,10 @@ dotenv.config()
 const SECRET = process.env.SECRET; // In production, we need to hide this secret in environment 
 
 const login = async (req, res, next) => {
-    const retailer = (await db.execute('SELECT retailer_id FROM retailer NATURAL JOIN root_account WHERE username = ?', [req.body.username]))[0];
+    const retailer = (await db.execute('SELECT retailer_id, root_id FROM retailer NATURAL JOIN root_account WHERE username = ?', [req.body.username]))[0];
     const payload = {
         sub: retailer[0].retailer_id,
+        root: retailer[0].root_id,
         iat: new Date().getTime()
     }
     res.send(jwt.encode(payload, SECRET));
