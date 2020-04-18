@@ -2,7 +2,7 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class PurchasedProduct {
-    constructor({uuid=null, serial_no=null, product_no=null, customer_id=null, product_nickname = null, price=null, invoice_id=null, create_timestamp=null, branch_id=null, retailer_id=null, invoice_photo=null, is_validate=null, product_photo=null, claim_qty=null, warranty_photo=null} = {}) {
+    constructor({uuid=null, serial_no=null, product_no=null, customer_id=null, product_nickname = null, price=null, invoice_id=null, create_timestamp=null, retailer_branch_id=null, retailer_id=null, invoice_photo=null, is_validate=null, product_photo=null, claim_qty=null, warranty_photo=null} = {}) {
         // their attribute from the class
         this._uuid = uuid; 
         this._serialNo = serial_no;
@@ -12,7 +12,7 @@ module.exports = class PurchasedProduct {
         this._price = price;
         this._invoiceId = invoice_id;
         this._createTimestamp = create_timestamp;
-        this._branchId = branch_id;
+        this._retailerBranchId = retailer_branch_id;
         this._retailerId = retailer_id
         this._invoicePhoto = invoice_photo;
         this._isValidate = is_validate;
@@ -30,7 +30,7 @@ module.exports = class PurchasedProduct {
     _create() {
         console.log(this);
         return db.execute(
-            'INSERT INTO purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [this._serialNo,
             this._productNo,
             this._customerId,
@@ -38,7 +38,7 @@ module.exports = class PurchasedProduct {
             this._price,
             this._invoiceId,
             this._createTimestamp,
-            this._branchId,
+            this._retailerBranchId,
             this._retailerId,
             this._invoicePhoto,
             this._isValidate,
@@ -50,7 +50,7 @@ module.exports = class PurchasedProduct {
 
     static _readByUuid(uuid, customerId) {
         return db.execute(
-            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, p.branch_id, p.retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, su.name, su.contact, su.address, su.root_id, su.policy_owner_id, rr.branch_name, rr.address, rr.contact, rrr.name, rrr.contact, rrr.retailer_description, rrr.hq_address FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id LEFT JOIN retailer_branch rr ON rr.branch_id = p.branch_id LEFT JOIN retailer rrr ON rrr.retailer_id = p.retailer_idWHERE p.uuid =? AND p.customer_id = ?',
+            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, p.retailer_branch_id, p.retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, supplier_name, supplier_contact, supplier_address, retailer_branch_name, retailer_branch_address, retailer_branch_contact, retailer_name, retailer_contact, retailer_description, retailer_hq_address FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id LEFT JOIN retailer_branch rr ON rr.retailer_branch_id = p.retailer_branch_id LEFT JOIN retailer rrr ON rrr.retailer_id = p.retailer_id WHERE p.uuid =? AND p.customer_id = ?',
             [uuid, customerId]
         );
     };
@@ -64,7 +64,7 @@ module.exports = class PurchasedProduct {
 
     static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, p.branch_id, p.retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, su.name, su.contact, su.address, su.root_id, su.policy_owner_id, rr.branch_name, rr.address, rr.contact, rrr.name, rrr.contact, rrr.retailer_description, rrr.hq_address FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id LEFT JOIN retailer_branch rr ON rr.branch_id = p.branch_id LEFT JOIN retailer rrr ON rrr.retailer_id = p.retailer_id WHERE p.customer_id = ?',
+            'SELECT p.uuid, serial_no, p.product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, p.retailer_branch_id, p.retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, c.category_id, category_name, product_model, product_name, product_description, su.supplier_id, supplier_description, supplier_name, supplier_contact, supplier_address, retailer_branch_name, retailer_branch_address, retailer_branch_contact, retailer_name, retailer_contact, retailer_description, retailer_hq_address FROM purchased_product p LEFT JOIN pp_classify_as c ON p.uuid = c.uuid LEFT JOIN product_category pc ON pc.category_id = c.category_id LEFT JOIN product pd ON pd.product_no = p.product_no LEFT JOIN supplier su ON pd.supplier_id = su.supplier_id LEFT JOIN retailer_branch rr ON rr.retailer_branch_id = p.retailer_branch_id LEFT JOIN retailer rrr ON rrr.retailer_id = p.retailer_id WHERE p.customer_id = ?',
             [customerId]
         )
     }
@@ -100,7 +100,7 @@ module.exports = class PurchasedProduct {
 
     _update(uuid) {
         return db.execute(
-            'UPDATE purchased_product SET serial_no =?, product_no = ?,  customer_id = ?, product_nickname = ?, price = ?, invoice_id = ?, create_timestamp = ?, branch_id =?, retailer_id = ?, invoice_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE uuid = ?   ',        
+            'UPDATE purchased_product SET serial_no =?, product_no = ?,  customer_id = ?, product_nickname = ?, price = ?, invoice_id = ?, create_timestamp = ?, retailer_branch_id =?, retailer_id = ?, invoice_photo = ?, is_validate = ?, product_photo = ?, claim_qty = ?, warranty_photo = ? WHERE uuid = ?   ',        
             [this._serialNo,
             this._productNo,
             this._customerId,
@@ -108,7 +108,7 @@ module.exports = class PurchasedProduct {
             this._price,
             this._invoiceId,
             this._createTimestamp,
-            this._branchId,
+            this._retailerBranchId,
             this._retailerId,
             this._invoicePhoto,
             this._isValidate,
@@ -144,7 +144,7 @@ module.exports = class PurchasedProduct {
             price: this._price,
             invoiceId: this._invoiceId,
             createTimestamp: this.createTimestamp,            
-            branchId: this._branchId,
+            retailerBranchId: this._retailerBranchId,
             retailerId: this._retailerId,
             invoicePhoto: this._invoicePhoto,
             isValidate: this._isValidate,
@@ -169,7 +169,7 @@ module.exports = class PurchasedProduct {
         price = this._price,
         invoiceId = this._invoiceId,
         createTimestamp = this._createTimestamp,
-        branchId = this._branchId,
+        retailerBranchId = this._retailerBranchId,
         retailerId = this._retailerId,
         invoicePhoto = this._invoicePhoto,
         isValidate = this._isValidate,
@@ -181,7 +181,7 @@ module.exports = class PurchasedProduct {
         checkType(uuid, 'String');
         checkType(productNo, 'String');
         checkType(customerId, 'String');
-        checkType(branchId, 'String');
+        checkType(retailerBranchId, 'String');
         checkType(retailerId, 'String');
         checkType(invoicePhoto, 'String');
         checkType(productNickname, 'String');
@@ -204,7 +204,7 @@ module.exports = class PurchasedProduct {
         this._price = price;
         this._invoiceId = invoiceId;
         this._createTimestamp = createTimestamp;
-        this._branchId = branchId;
+        this._retailerBranchId = retailerBranchId;
         this._retailerId = retailerId
         this._invoicePhoto = invoicePhoto;
         this._isValidate = isValidate;

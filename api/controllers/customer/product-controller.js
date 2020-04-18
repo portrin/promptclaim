@@ -53,7 +53,7 @@ exports.postAddPurchasedProduct = async (req, res, next) => {
     const price = req.body.price;
     const invoice_id = req.body.invoiceId;
     const create_timestamp = req.body.createTimestamp;
-    const branch_id = req.body.branchId;
+    const retailer_branch_id = req.body.retailerBranchId;
     const retailer_id = req.body.retailerId;
     const invoice_photo = req.body.invoicePhoto;
     const is_validate = req.body.isValidate;
@@ -69,7 +69,7 @@ exports.postAddPurchasedProduct = async (req, res, next) => {
                             price, 
                             invoice_id, 
                             create_timestamp, 
-                            branch_id, 
+                            retailer_branch_id, 
                             retailer_id, 
                             invoice_photo, 
                             is_validate, 
@@ -103,7 +103,7 @@ exports.postEditPurchasedProductByUuid = async (req, res, next) => {
     const price = req.body.price;
     const invoiceId = req.body.invoiceId;
     const createTimestamp = req.body.createTimestamp;
-    const branchId = req.body.branchId;
+    const retailerBranchId = req.body.retailerBranchId;
     const retailerId = req.body.retailerId;
     const invoicePhoto = req.body.invoicePhoto;
     const isValidate = req.body.isValidate;
@@ -120,7 +120,7 @@ exports.postEditPurchasedProductByUuid = async (req, res, next) => {
                             price, 
                             invoiceId, 
                             createTimestamp, 
-                            branchId, 
+                            retailerBranchId, 
                             retailerId, 
                             invoicePhoto, 
                             isValidate, 
