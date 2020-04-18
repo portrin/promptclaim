@@ -38,27 +38,35 @@ export interface Character {
 export interface Itemprops {
   item: Character;
 }
+export interface Product {
+  product_name: string;
+  uuid: string;
+  img: string;
+  category_name: string;
+}
+export interface Productprops {
+  item: Product;
+}
 
 const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjA0ODczMjk1fQ.eqNvP3rP6F_2xxT8EUI5JC2KyZNAyoUPkYKUWTiADSs";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjEwNzIyNTEyfQ.reHTXr9EJrnkCDFlTa5Xx78Lvz8YlVfZE8OvQFj2mX8";
 
-const MyWarranty: React.FC<Itemprops> = () => {
+const MyWarranty: React.FC<Productprops> = () => {
   const [searchText, setSearchText] = useState("");
-  const [searchItem, setSearchItem] = useState<Character[]>([]);
+  const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [sortBy, setsortBy] = useState("");
-  const [filterBy, setfilterBy] = useState("Alive");
+  const [filterBy, setfilterBy] = useState("default");
 
   console.log(searchText);
   useEffect(() => {
     fetchItems();
   }, []);
-
-  const [items, setItems] = useState<Character[]>([]);
+  const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get", {
-      method: "GET",
       headers: {
-        Authorization: token,
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjIzNTE4NjM4fQ.sRGxaDHaWSfMGVqbsyNVctOpNFaXRx2oQP9Qgalg9mg",
       },
     });
     console.log(data);
@@ -70,23 +78,27 @@ const MyWarranty: React.FC<Itemprops> = () => {
   useEffect(() => {
     setSearchItem(
       items.filter((item) =>
-        item.name.toLowerCase().includes(searchText.toLowerCase())
+        item.product_name.toLowerCase().includes(searchText.toLowerCase())
       )
     );
   }, [searchText, items]);
-  function sortProduct(item: Array<Character>) {
+  function sortProduct(item: Array<Product>) {
     if (sortBy === "Name") {
-      return item.sort((a, b) => a.name.localeCompare(b.name));
+      return item.sort((a, b) => a.product_name.localeCompare(b.product_name));
     } else if (sortBy === "Name Z-A") {
       return item.sort().reverse();
     } else if (sortBy === "Product ID") {
-      return item.sort((a, b) => parseInt(a.char_id) - parseInt(b.char_id));
+      return item.sort((a, b) => parseInt(a.uuid) - parseInt(b.uuid));
     } else {
       return item;
     }
   }
-  function filterProduct(item: Array<Character>) {
-    return item.filter((x) => x.status == filterBy);
+  function filterProduct(item: Array<Product>) {
+    if (filterBy == "default") {
+      return item;
+    } else {
+      return item.filter((x) => x.category_name == filterBy);
+    }
   }
 
   return (
@@ -136,11 +148,11 @@ const MyWarranty: React.FC<Itemprops> = () => {
                     okText="Done"
                     onIonChange={(e) => setfilterBy(e.detail.value)}
                   >
-                    <IonSelectOption value="Alive">
-                      Category: Alive
+                    <IonSelectOption value="Wall & Floor">
+                      Category: Wall & Floor
                     </IonSelectOption>
-                    <IonSelectOption value="Deceased">
-                      Category: Deceased{" "}
+                    <IonSelectOption value="Others">
+                      Category: Others
                     </IonSelectOption>
                   </IonSelect>
                 </IonButton>
@@ -182,10 +194,10 @@ const MyWarranty: React.FC<Itemprops> = () => {
 
           {sortProduct(filterProduct(searchItem)).map((item) => (
             <Product
-              name={item.name}
-              serial={item.char_id}
+              name={item.product_name}
+              serial={item.uuid}
               image={item.img}
-              description={item.status}
+              description={item.category_name}
             ></Product>
           ))}
         </IonList>

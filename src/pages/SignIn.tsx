@@ -20,36 +20,19 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    fetchItems();
+    axios
+      .post("http://localhost:8001/customer/auth/login", {
+        email: "chada@gmail.com",
+        password: "chada1",
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.token) {
+          setToken(response.data.token);
+        } else if (response.data === "Incorrect") {
+        }
+      });
   }, []);
-
-  axios
-    .post("http://localhost:8001/customer/auth/login", {
-      email: "chada@gmail.com",
-      password: "chada1",
-    })
-    .then((response) => {
-      console.log(response);
-      if (response.data.token) {
-        setToken(response.data.token);
-      } else if (response.data === "Incorrect") {
-      }
-    });
-
-  const [items, setItems] = useState<Character[]>([]);
-  const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: "chada@gmail.com", password: "chada1" }),
-    });
-    console.log(data);
-    const items = await data.json();
-    setItems(items);
-    console.log(items);
-  };
 
   return (
     <IonApp>
