@@ -63,6 +63,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
     setLName(name);
     setGender(status);
     setBDate(char_id);
+    // bdate format : "2005-04-19T00:12:55.890+07:00"
   };
   return (
     <IonApp>
@@ -141,6 +142,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel position="fixed">Birthdate</IonLabel>
+
                 <IonDatetime
                   class="input"
                   displayFormat="DD MMM YYYY"

@@ -16,7 +16,6 @@ import {
 import { chevronBackOutline, woman } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
-import { RouteComponentProps, Link } from "react-router-dom";
 
 export interface Character {
   name: string;
@@ -24,35 +23,43 @@ export interface Character {
   img: string;
   status: string;
 }
-
 export interface Itemprops {
   item: Character;
 }
 
-interface RouteParam {
-  id: string;
-}
-interface Match extends RouteComponentProps<RouteParam> {
-  params: string;
+export interface Profile {
+  customer_id: string;
+  firstname: string;
+  lastname: string;
+  phone_no: string;
+  birth_date: Date;
+  gender: string;
+  account_id: string;
 }
 
-const Profile: React.FC<Match> = ({ match }) => {
-  console.log(match);
-  console.log(match.params.id);
+export interface ProfileProps {
+  item: Profile;
+}
 
+const token =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjEwNzIyNTEyfQ.reHTXr9EJrnkCDFlTa5Xx78Lvz8YlVfZE8OvQFj2mX8";
+
+const Profile: React.FC<ProfileProps> = () => {
   useEffect(() => {
-    fetchItem();
+    fetchItems();
     // eslint-disable-next-line
   }, []);
-  const [item, setItem] = useState<Character[]>([]);
-  const fetchItem = async () => {
-    const data = await fetch(
-      "https://www.breakingbadapi.com/api/characters/" + match.params.id
-    );
-
-    const item = await data.json();
-    setItem(item);
-    console.log(item);
+  const [items, setItems] = useState<Profile[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch("http://localhost:8001/customer/profile/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data);
+    const items = await data.json();
+    setItems(items);
+    console.log(items);
   };
 
   return (
@@ -70,7 +77,6 @@ const Profile: React.FC<Match> = ({ match }) => {
           </IonHeader>
           <IonLabel class="label">ACCOUNT</IonLabel>
           <IonCard class="card">
-         
             <IonButton
               class="editicon"
               size="small"
@@ -81,10 +87,9 @@ const Profile: React.FC<Match> = ({ match }) => {
               edit
             </IonButton>
             <IonLabel class="sublabel">Email :</IonLabel>
-            {item.map((item) => (
-              <IonLabel class="info">{item.name}</IonLabel>
+            {items.map((item) => (
+              <IonLabel class="info">{item.firstname}</IonLabel>
             ))}
-           
           </IonCard>
 
           <IonLabel class="label">PROFILE</IonLabel>
@@ -100,13 +105,15 @@ const Profile: React.FC<Match> = ({ match }) => {
             </IonButton>
             <IonList class="card">
               <IonLabel class="sublabel">First Name :</IonLabel>
-              {item.map((item) => (
-                <IonLabel class="info">{item.name}</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.firstname}</IonLabel>
               ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Last Name :</IonLabel>
-              <IonLabel class="info">Ariyamakkagul</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.lastname}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Gender :</IonLabel>

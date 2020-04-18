@@ -66,6 +66,7 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="email"
                   value={email}
                   onIonChange={(e) => setEmail(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -77,6 +78,7 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="password"
                   value={password}
                   onIonChange={(e) => setPassword(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -88,6 +90,7 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="password"
                   value={password2}
                   onIonChange={(e) => setPassword2(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
               <div className="note">
@@ -107,6 +110,7 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="text"
                   value={fname}
                   onIonChange={(e) => setFName(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -118,6 +122,7 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="text"
                   value={lname}
                   onIonChange={(e) => setLName(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -181,6 +186,7 @@ const FillInfo: React.FC<Prop> = (props) => {
                   type="text"
                   value={phonenum}
                   onIonChange={(e) => setPhoneNum(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
             </IonList>

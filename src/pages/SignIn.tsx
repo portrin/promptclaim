@@ -13,7 +13,6 @@ import { person, lockClosed } from "ionicons/icons";
 import { RouteComponentProps } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./SignIn.css";
-import { Character } from "./history";
 import axios from "axios";
 
 const SignIn: React.FC<RouteComponentProps> = (props) => {
