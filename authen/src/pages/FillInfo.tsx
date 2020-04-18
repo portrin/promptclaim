@@ -257,6 +257,10 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
           >
             CREATE ACCOUNT
           </IonButton>
+
+          <a className="skip" href="./signup">
+            Skip
+          </a>
         </IonContent>
       </IonPage>
     </IonApp>
