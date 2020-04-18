@@ -20,7 +20,7 @@ module.exports = class Retailer {
     // DM layer CRUD
     _create() {
         return db.execute(
-            'INSERT INTO retailer (retailer_id, name, retailer_description, contact, hq_address, policy_owner_id, root_id) VALUES (?, ?, ?, ?, ?, ?, ?)'
+            'INSERT INTO retailer (retailer_id, name, retailer_description, contact, hq_address, policy_owner_id, root_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
             [this._retailerId, this._name, this._retailerDescription, this._contact, this._hqAddress, this._policyOwnerId, this._rootId]
         )
     }
@@ -29,8 +29,8 @@ module.exports = class Retailer {
         [this._retailerId]
         );
     }
-    static _getPolicyOwnerIdByRetailerId(retailerId){
-        return db.execute('SELECT policy_owner_id FROM retailer WHERE retailer_id = ?', [retailerId]);
+    static async _getPolicyOwnerIdByRetailerId(retailerId){
+        return (await db.execute('SELECT policy_owner_id FROM retailer WHERE retailer_id = ?', [retailerId]))[0][0].policy_owner_id;
     }
 
     static _readByPolicyOwnerId(policyOwnerId) {
@@ -52,7 +52,7 @@ module.exports = class Retailer {
     }
 
     // getter and setter
-    getProperty() {
+    get getProperty() {
         return {
             retailerId: this._retailerId,
             rootId: this._rootId,
@@ -67,7 +67,7 @@ module.exports = class Retailer {
         };
     }
 
-    setProperty({ // set only its own attributes
+    set setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         retailerId = this._retailerId,
         rootId = this._rootId,

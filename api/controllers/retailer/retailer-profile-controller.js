@@ -15,7 +15,7 @@ exports.postEditProfile = async (req, res, next) => {
     const retailerDescription = req.body.retailerDescription;
     const contact = req.body.contact;
     const hqAddress = req.body.hqAddress;
-    const rootId = req.body.rootId;
+    const rootId = jwt.decode(req.headers.authorization).root;
     const policyOwnerId = await Retailer._getPolicyOwnerIdByRetailerId(retailerId)
     const retailer = new Retailer((await Retailer._readByRetailerId(retailerId))[0][0])
     retailer.setProperty = {
@@ -34,13 +34,14 @@ exports.postEditProfile = async (req, res, next) => {
 };
 
 exports.postAddProfile = async (req, res, next) => {
-    const retailer_id = jwt.decode(req.headers.authorization).sub;
+    const retailer_id = req.body.retailerId;
     const name = req.body.name;
     const retailer_description = req.body.retailerDescription;
     const contact = req.body.contact;
     const hq_address = req.body.hqAddress;
     const root_id = req.body.rootId;
-    const policy_owner_id = await Retailer._getPolicyOwnerIdByRetailerId(retailerId)
+    const policy_owner_id = req.body.policyOwnerId;
+    console.log(typeof(retailer_id))
     const retailer = new Retailer({
         retailer_id, 
         name, 
@@ -50,6 +51,7 @@ exports.postAddProfile = async (req, res, next) => {
         root_id, 
         policy_owner_id
     });
+    console.log(retailer)
     const retailerProfile = await retailer._create();
     res.send({
         addRetailer: retailerProfile
