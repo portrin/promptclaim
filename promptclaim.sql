@@ -1,5 +1,3 @@
-/*CREATE DATABASE pclaim;*/
-
 CREATE TABLE Customer_account (
 	account_id INT AUTO_INCREMENT NOT NULL,
     username VARCHAR(80),
@@ -55,9 +53,9 @@ CREATE TABLE Policy_owner (
 
 CREATE TABLE Retailer (
 	retailer_id VARCHAR(6) NOT NULL,
-    contact vARCHAR(12) NOT NULL,
-    name VARCHAR(80) NOT NULL,
-    hq_address VARCHAR(256) NOT NULL,
+    retailer_contact VARCHAR(12) NOT NULL,
+    retailer_name VARCHAR(80) NOT NULL,
+    retailer_hq_address VARCHAR(256) NOT NULL,
     retailer_description VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
@@ -69,11 +67,11 @@ CREATE TABLE Retailer (
 
 CREATE TABLE Retailer_branch (
 	retailer_id VARCHAR(6) NOT NULL,
-    branch_id VARCHAR(6) NOT NULL,
-    branch_name VARCHAR(80) NOT NULL,
-    contact VARCHAR(12) NOT NULL,
-    address VARCHAR(80) NOT NULL,
-    PRIMARY KEY(retailer_id, branch_id),
+    retailer_branch_id VARCHAR(6) NOT NULL,
+    retailer_branch_name VARCHAR(80) NOT NULL,
+    retailer_branch_contact VARCHAR(12) NOT NULL,
+    retailer_branch_address VARCHAR(80) NOT NULL,
+    PRIMARY KEY(retailer_id, retailer_branch_id),
     FOREIGN KEY(retailer_id) REFERENCES Retailer(retailer_id)
 );
 
@@ -131,9 +129,9 @@ CREATE TABLE Role_in_group (
 CREATE TABLE Supplier (
 	supplier_id VARCHAR(6) NOT NULL,
     supplier_description VARCHAR(256),
-    name VARCHAR(80) NOT NULL,
-    contact VARCHAR(10) NOT NULL,
-    address VARCHAR(256) NOT NULL,
+    supplier_name VARCHAR(80) NOT NULL,
+    supplier_contact VARCHAR(10) NOT NULL,
+    supplier_address VARCHAR(256) NOT NULL,
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(supplier_id),
@@ -160,7 +158,7 @@ CREATE TABLE Purchased_product (
     price DOUBLE NOT NULL,
     invoice_id VARCHAR(80),
     create_timestamp TIMESTAMP,
-    branch_id VARCHAR(6),
+    retailer_branch_id VARCHAR(6),
     retailer_id VARCHAR(6),
     invoice_photo VARCHAR(80),
 	is_validate BOOLEAN NOT NULL,
@@ -169,7 +167,8 @@ CREATE TABLE Purchased_product (
     warranty_photo VARCHAR(256),
     PRIMARY KEY(uuid),
     FOREIGN KEY(product_no) REFERENCES Product(product_no),
-    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id)
+    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id),
+    FOREIGN KEY(retailer_id, retailer_branch_id) REFERENCES Retailer_branch(retailer_id, retailer_branch_id)
 );
 
 CREATE TABLE Policy (
@@ -184,9 +183,9 @@ CREATE TABLE Policy (
 
 CREATE TABLE Third_party (
 	third_party_id VARCHAR(6) NOT NULL,
-    address VARCHAR(256) NOT NULL,
-    name VARCHAR(80) NOT NULL,
-    contact VARCHAR(10) NOT NULL,
+    third_party_address VARCHAR(256) NOT NULL,
+    third_party_name VARCHAR(80) NOT NULL,
+    third_party_contact VARCHAR(10) NOT NULL,
     third_party_description VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
@@ -197,8 +196,8 @@ CREATE TABLE Third_party (
 
 CREATE TABLE Service_center (
 	service_center_id VARCHAR(6) NOT NULL,
-    name VARCHAR(80) NOT NULL,
-    hq_address VARCHAR(256) NOT NULL,
+    service_center_name VARCHAR(80) NOT NULL,
+    service_center_hq_address VARCHAR(256) NOT NULL,
     service_center_description VARCHAR(256),
     PRIMARY KEY(service_center_id)
 );
@@ -206,9 +205,9 @@ CREATE TABLE Service_center (
 CREATE TABLE Service_center_branch (
 	service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
-    branch_name VARCHAR(80) NOT NULL,
-    contact VARCHAR(10) NOT NULL,
-    address VARCHAR(256) NOT NULL,
+    service_center_branch_name VARCHAR(80) NOT NULL,
+    service_center_branch_contact VARCHAR(10) NOT NULL,
+    service_center_branch_address VARCHAR(256) NOT NULL,
     PRIMARY KEY(service_center_branch_id, service_center_id),
     FOREIGN KEY(service_center_id) REFERENCES Service_center(service_center_id)
 );
@@ -314,12 +313,12 @@ VALUES ('IKEA01', 'R'),
 ('SH01', 'T');
 
 
-INSERT INTO Retailer(retailer_id, contact, name, hq_address, retailer_description, root_id, policy_owner_id)
+INSERT INTO Retailer(retailer_id, retailer_contact, retailer_name, retailer_hq_address, retailer_description, root_id, policy_owner_id)
 VALUES ('000001','0972279898', 'IKEA','Bangna','Furnitures imported from Sweden','000001','IKEA01'),
 ('000002','0972279898', 'Boothavorn','Suhhumvit53','Mostly about floor','000002','BTV002'),
 ('000003','0852289888', 'Zara home','Paragon','Furnitures with clothing brands','000004','ZARA04');
 
-INSERT INTO Retailer_branch(retailer_id, branch_id, branch_name, contact, address)
+INSERT INTO Retailer_branch(retailer_id, retailer_branch_id, retailer_branch_name, retailer_branch_contact, retailer_branch_address)
 VALUES ('000001', '00001A','IKEA Nonthaburi', '0981234567','56/56 giodano, whatever road, Nonthaburi 10120'),
 ('000001', '00001B','IKEA Bangna', '0123454567','123, bangna road, Bangkok 10520'),
 ('000001', '00001C','IKEA Lat Prao', '0977234567','11/98 Lat Prao road, Bangkok 10500'),
@@ -364,7 +363,7 @@ VALUES ('000001', 'klodkup340', '000001'),
 ('000003', 'teekup340', '000003'),
 ('000004', 'porkup340', '000004');
 
-INSERT INTO Supplier (supplier_id, supplier_description, name, contact, address, root_id, policy_owner_id)
+INSERT INTO Supplier (supplier_id, supplier_description, supplier_name, supplier_contact, supplier_address, root_id, policy_owner_id)
 VALUES ('000001', 'supplier1', 'supplierName1', '0945593841', '5/117', '000001', 'SUP01'),
 ('000002', 'supplier2', 'supplierName2', '0945593842', '5/118', '000002', 'SUP02'),
 ('000003', 'supplier3', 'supplierName3', '0945593843', '5/119', '000003', 'SUP03'),
@@ -376,7 +375,7 @@ VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
 ('AAAAA3', 'BBBBB3', 'table', 'A very smart table', '000002'),
 ('AAAAA4', 'BBBBB4', 'sofa', 'A very smart sofa', '000002');
 
-INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
+INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
 VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'photo1', '1', 'warrantyphoto1'),
 ('SSSSS2', 'AAAAA2', '2', 'my table', '3000', '000002', '2020-03-03', '00001A', '000001', 'photo2', True, 'photo2', '2', 'warrantyphoto2'),
 ('SSSSS3', 'AAAAA3', '3', 'my bed', '4000', '000003', '2020-03-03', '00002A', '000002', 'photo3', True, 'photo3', '3', 'warrantyphoto3'),
@@ -399,12 +398,12 @@ VALUES ('001', '1', DATE'2020-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:
 ('003', '3', DATE'2020-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),
 ('001', '4', DATE'2020-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04');
 
-INSERT INTO service_center(service_center_id, name, hq_address, service_center_description)
+INSERT INTO service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description)
 VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
 ('2', 'Boonthavorn service', 'Sukhumvit53', 'This place services Boonthavorn'),
 ('3', 'ZARA home service', 'Paragon', 'This place services ZARA home');
 
-INSERT INTO service_center_branch(service_center_branch_id, service_center_id, branch_name, contact, address)
+INSERT INTO service_center_branch(service_center_branch_id, service_center_id, service_center_branch_name, service_center_branch_contact, service_center_branch_address)
 VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('1', '2', 'Ratchada', '021234567', 'Ratchada, Bangkok, 12345'),
 ('1', '3', 'Paragon', '027777777', 'Paragon, Bangkok, 12345'),
@@ -417,7 +416,7 @@ VALUES ('001', '1', '1'),
 ('002', '2', '1'),
 ('003', '1', '2');
 
-INSERT INTO third_party(third_party_id, address, name, contact, third_party_description, root_id, policy_owner_id)
+INSERT INTO third_party(third_party_id, third_party_address, third_party_name, third_party_contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
 INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, service_center_branch_id)
