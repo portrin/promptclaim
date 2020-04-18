@@ -18,9 +18,13 @@ import {
 import { chevronBackOutline, chevronDown, man, woman } from "ionicons/icons";
 import React, { useState } from "react";
 import "./FillInfo.css";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 
-const FillInfo: React.FC<RouteComponentProps> = (props) => {
+interface Prop {
+  custID: string;
+}
+
+const FillInfo: React.FC<Prop> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -42,12 +46,11 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                onClick={() => props.history.push("/verify")}
-              >
-                <IonIcon icon={chevronBackOutline}></IonIcon>
-              </IonButton>
+              <Link to={`/verify`}>
+                <IonButton color="theme">
+                  <IonIcon icon={chevronBackOutline}></IonIcon>
+                </IonButton>
+              </Link>
               <IonTitle class="title">Information</IonTitle>
             </IonToolbar>
           </IonHeader>
@@ -254,19 +257,17 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
             </IonList>
           </IonCard>
 
-          <IonButton
-            class="createacc"
-            strong
-            id="signin"
-            size="large"
-            color="theme"
-          >
-            CREATE ACCOUNT
-          </IonButton>
-
-          <a className="skip" href="./signup">
-            Skip
-          </a>
+          <Link to={`/myWarranty`}>
+            <IonButton
+              class="createacc"
+              strong
+              id="signin"
+              size="large"
+              color="theme"
+            >
+              CREATE ACCOUNT
+            </IonButton>
+          </Link>
         </IonContent>
       </IonPage>
     </IonApp>

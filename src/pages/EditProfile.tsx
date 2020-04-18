@@ -70,7 +70,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" routerLink="/Profile">
+              <IonButton color="theme" href="/profile/1">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Profile</IonTitle>
@@ -169,6 +169,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
+            href="/profile/1"
           >
             SAVE
           </IonButton>

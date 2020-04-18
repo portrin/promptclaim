@@ -16,7 +16,7 @@ import {
 import { chevronBackOutline, woman } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 
 export interface Character {
   name: string;
@@ -70,12 +70,13 @@ const Profile: React.FC<Match> = ({ match }) => {
           </IonHeader>
           <IonLabel class="label">ACCOUNT</IonLabel>
           <IonCard class="card">
+         
             <IonButton
               class="editicon"
               size="small"
               color="theme"
               fill="outline"
-              routerLink="/editaccount"
+              href="/editaccount/1"
             >
               edit
             </IonButton>
@@ -83,6 +84,7 @@ const Profile: React.FC<Match> = ({ match }) => {
             {item.map((item) => (
               <IonLabel class="info">{item.name}</IonLabel>
             ))}
+           
           </IonCard>
 
           <IonLabel class="label">PROFILE</IonLabel>
@@ -92,7 +94,7 @@ const Profile: React.FC<Match> = ({ match }) => {
               size="small"
               color="theme"
               fill="outline"
-              routerLink="/editprofile"
+              routerLink="/editprofile/1"
             >
               edit
             </IonButton>
@@ -129,7 +131,7 @@ const Profile: React.FC<Match> = ({ match }) => {
               size="small"
               color="theme"
               fill="outline"
-              routerLink="/editaddress"
+              href="/editaddress/1"
             >
               edit
             </IonButton>
