@@ -24,13 +24,6 @@ app.use('/retailer/profile', addRetailerRoute);
 const retailerRoute = require('./routes/retailer/retailer-route');
 app.use('/retailer', retailerRoute);
 
-// customer add account route
-const addRetailerRoute = require('./routes/retailer/retailer-profile-route');
-app.use('/retailer/profile', addRetailerRoute);
-
-// retailer routes
-const retailerRoute = require('./routes/retailer/retailer-route');
-app.use('/retailer', retailerRoute);
 
 // customer add account route
 const customerAddAccountRoute = require('./routes/customer/customer-account-route');
