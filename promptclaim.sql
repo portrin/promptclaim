@@ -1,7 +1,7 @@
 /*CREATE DATABASE pclaim;*/
 
 CREATE TABLE Customer_account (
-	account_id VARCHAR(6) NOT NULL,
+	account_id INT AUTO_INCREMENT NOT NULL,
     username VARCHAR(80),
     password VARCHAR(80) NOT NULL,
     email VARCHAR(80) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Customer (
     phone_no VARCHAR(12),
     birth_date DATE,
     gender CHAR, 
-    account_id VARCHAR(6) NOT NULL,
+    account_id INT NOT NULL,
     PRIMARY KEY(customer_id),
     FOREIGN KEY(account_id) REFERENCES Customer_account(account_id)
 );
@@ -260,12 +260,12 @@ CREATE TABLE Pp_classify_as (
 );
 
 
-INSERT INTO Customer_account(account_id, username, password, email)
-VALUES ('1','chchadaa','chada1','chada@gmail.com'),
-('2','somd99','som2','somroutine@gmail.com'),
-('3','praaewpun','praew3','merrypraeww@gmail.com'),
-('4','por_trin','por4','melonn.qq@gmail.com'),
-('5','ploinrch','ploi5','ploiniracha@gmail.com');
+INSERT INTO Customer_account(username, password, email)
+VALUES ('chchadaa','chada1','chada@gmail.com'),
+('somd99','som2','somroutine@gmail.com'),
+('praaewpun','praew3','merrypraeww@gmail.com'),
+('por_trin','por4','melonn.qq@gmail.com'),
+('ploinrch','ploi5','ploiniracha@gmail.com');
 
 INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
