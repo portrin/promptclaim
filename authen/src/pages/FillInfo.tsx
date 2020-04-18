@@ -94,7 +94,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
           </IonCard>
 
           <IonLabel class="label">PROFILE</IonLabel>
-          <IonCard class="card">
+          <IonCard class="card3">
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">First Name</IonLabel>
@@ -184,7 +184,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
           </IonCard>
 
           <IonLabel class="label">ADDRESS</IonLabel>
-          <IonCard class="card">
+          <IonCard class="card3">
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">Home No.</IonLabel>

@@ -83,7 +83,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
               <IonTitle class="title">Edit Address</IonTitle>
             </IonToolbar>
           </IonHeader>
-          <IonCard class="card">
+          <IonCard class="card3">
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">Home No.</IonLabel>

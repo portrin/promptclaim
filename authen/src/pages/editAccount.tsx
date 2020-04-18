@@ -72,7 +72,7 @@ const EditAccount: React.FC<Match> = ({ match }) => {
 
           <IonLabel class="label">Change E-mail</IonLabel>
 
-          <IonCard>
+          <IonCard class="card3">
             <IonList>
               <IonItem>
                 <IonLabel>Current E-mail</IonLabel>

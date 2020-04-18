@@ -13,7 +13,7 @@ import {
   IonLabel,
   IonInput,
   IonChip,
-  IonDatetime
+  IonDatetime,
 } from "@ionic/react";
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -77,7 +77,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
             </IonToolbar>
           </IonHeader>
 
-          <IonCard class="card">
+          <IonCard class="card3">
             <IonList>
               <IonItem>
                 <IonLabel position="fixed">First Name</IonLabel>

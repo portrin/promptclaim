@@ -8,7 +8,6 @@ import {
   IonItem,
   IonCard,
   IonIcon,
-
 } from "@ionic/react";
 import { chevronForwardOutline, call } from "ionicons/icons";
 import React from "react";
@@ -24,7 +23,7 @@ const SignUp: React.FC<RouteComponentProps> = (props) => {
             <img src="assets/img/translogo.png" alt="logo" />
           </div>
 
-          <IonCard class="card">
+          <IonCard class="card2">
             <IonItem class="item-input-1">
               <IonLabel position="stacked">Enter your phone number</IonLabel>
               <IonInput class="input" type="number">

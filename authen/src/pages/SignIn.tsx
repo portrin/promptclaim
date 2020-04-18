@@ -23,7 +23,7 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
             <img src="assets/img/translogo.png" alt="logo" />
           </div>
 
-          <IonCard class="card">
+          <IonCard class="card2">
             <IonItem class="item-input-1">
               <IonLabel position="floating">
                 <IonIcon icon={person}></IonIcon> E-mail

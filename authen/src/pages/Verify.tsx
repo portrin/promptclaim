@@ -36,7 +36,7 @@ const Verify: React.FC<RouteComponentProps> = (props) => {
             </p>
           </div>
 
-          <IonCard class="card">
+          <IonCard class="card2">
             <IonItem class="item-input-1">
               <IonLabel position="stacked"></IonLabel>
               <IonInput class="input" type="number">
