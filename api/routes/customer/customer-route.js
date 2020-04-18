@@ -11,6 +11,7 @@ const authRoute = require('./auth-route');
 const auth = require('../../middleware/auth-middleware');
 router = express.Router();
 
+router.use('/account/add', accountRoute)
 
 router.use('/account', auth.requireJwtAuth, accountRoute);
 router.use('/profile', auth.requireJwtAuth, profileRoute);
