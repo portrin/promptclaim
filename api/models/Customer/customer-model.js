@@ -84,7 +84,7 @@ module.exports = class Customer {
         checkType(firstname, 'String');
         checkType(lastname, 'String');
         checkType(phoneNo, 'String');
-        checkType(birthDate, 'String');
+        checkType(birthDate, 'Date');
         checkType(gender, 'String');
         // assign to private variables
         this._customerId = customerId;
