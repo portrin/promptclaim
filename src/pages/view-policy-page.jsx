@@ -29,6 +29,7 @@ export const ViewPolicyPage = (props) => {
           <Descriptions.Item label="Policy Informaion">
             Policy ID: {data[key].policyID}
             <br />
+            <br/>
             <Collapse>
               <Panel header="Policy Description">{data[key].policyDes}</Panel>
             </Collapse>

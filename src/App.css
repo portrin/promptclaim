@@ -43,10 +43,20 @@
   width: 40px;
 }
 
-/* jo */
-.App {
-  text-align: center;
+.ant-descriptions-item-label {
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.5715;
 }
+
+.ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: #d6e4f5;
+}
+/* jo */
+/*.App {
+  text-align: center;
+}*/
 
 .App-logo {
   height: 40vmin;
