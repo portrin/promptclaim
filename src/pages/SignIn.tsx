@@ -27,10 +27,13 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
       })
       .then((response) => {
         console.log(response);
-        if (response.data.token) {
-          setToken(response.data.token);
+
+        if (response.data) {
+          const token: string = response.data;
+          localStorage.setItem("token", token);
         } else if (response.data === "Incorrect") {
         }
+        console.log(localStorage.token);
       });
   }, []);
 

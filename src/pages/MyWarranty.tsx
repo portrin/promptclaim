@@ -61,7 +61,7 @@ const MyWarranty: React.FC<Productprops> = () => {
   const [sortBy, setsortBy] = useState("");
   const [filterBy, setfilterBy] = useState("default");
 
-  console.log(searchText);
+  console.log(localStorage.token);
   useEffect(() => {
     fetchItems();
   }, []);
@@ -69,8 +69,7 @@ const MyWarranty: React.FC<Productprops> = () => {
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get", {
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjIzNTE4NjM4fQ.sRGxaDHaWSfMGVqbsyNVctOpNFaXRx2oQP9Qgalg9mg",
+        Authorization: localStorage.token,
       },
     });
     console.log(data);
