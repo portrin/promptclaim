@@ -39,38 +39,23 @@ export interface Character {
 export interface Itemprops {
   item: Character;
 }
-export interface Product {
-  char_id: string;
-  status: string;
-  name: string;
-  product_name: string;
-  uuid: string;
-  img: string;
-  category_name: string;
-}
-export interface Productprops {
-  item: Product;
-}
 
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjEwNzIyNTEyfQ.reHTXr9EJrnkCDFlTa5Xx78Lvz8YlVfZE8OvQFj2mX8";
-
-const MyWarranty: React.FC<Productprops> = () => {
+const MyWarranty: React.FC<Itemprops> = () => {
   const [searchText, setSearchText] = useState("");
-  const [searchItem, setSearchItem] = useState<Product[]>([]);
+  const [searchItem, setSearchItem] = useState<Character[]>([]);
   const [sortBy, setsortBy] = useState("");
-  const [filterBy, setfilterBy] = useState("default");
+  const [filterBy, setfilterBy] = useState("Alive");
 
   console.log(searchText);
   useEffect(() => {
     fetchItems();
   }, []);
-  const [items, setItems] = useState<Product[]>([]);
+  const [items, setItems] = useState<Character[]>([]);
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get", {
       headers: {
         Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjIzNTE4NjM4fQ.sRGxaDHaWSfMGVqbsyNVctOpNFaXRx2oQP9Qgalg9mg",
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MTk2NjkwNTE3fQ.MucWJSE48rlyezM79nTRU9kqG7FX2RXZMp2vIcAje0s",
       },
     });
     console.log(data);
@@ -82,27 +67,23 @@ const MyWarranty: React.FC<Productprops> = () => {
   useEffect(() => {
     setSearchItem(
       items.filter((item) =>
-        item.product_name.toLowerCase().includes(searchText.toLowerCase())
+        item.name.toLowerCase().includes(searchText.toLowerCase())
       )
     );
   }, [searchText, items]);
-  function sortProduct(item: Array<Product>) {
+  function sortProduct(item: Array<Character>) {
     if (sortBy === "Name") {
-      return item.sort((a, b) => a.product_name.localeCompare(b.product_name));
+      return item.sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortBy === "Name Z-A") {
       return item.sort().reverse();
     } else if (sortBy === "Product ID") {
-      return item.sort((a, b) => parseInt(a.uuid) - parseInt(b.uuid));
+      return item.sort((a, b) => parseInt(a.char_id) - parseInt(b.char_id));
     } else {
       return item;
     }
   }
-  function filterProduct(item: Array<Product>) {
-    if (filterBy == "default") {
-      return item;
-    } else {
-      return item.filter((x) => x.category_name == filterBy);
-    }
+  function filterProduct(item: Array<Character>) {
+    return item.filter((x) => x.status == filterBy);
   }
 
   return (

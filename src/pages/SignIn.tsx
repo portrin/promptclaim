@@ -11,10 +11,29 @@ import {
 } from "@ionic/react";
 import { person, lockClosed } from "ionicons/icons";
 import { RouteComponentProps } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SignIn.css";
+import { Character } from "./history";
+import axios from "axios";
 
 const SignIn: React.FC<RouteComponentProps> = (props) => {
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8001/customer/auth/login", {
+        email: "chada@gmail.com",
+        password: "chada1",
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.token) {
+          setToken(response.data.token);
+        } else if (response.data === "Incorrect") {
+        }
+      });
+  }, []);
+
   return (
     <IonApp>
       <IonPage>
