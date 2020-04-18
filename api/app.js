@@ -25,7 +25,6 @@ app.use('/retailer', retailerRoute);
 const customerRoute = require('./routes/customer/customer-route');
 app.use('/customer', customerRoute);
 
-
 // start server
 app.listen(PORT, () => {
     console.log(`server starts on port ${PORT}`);
