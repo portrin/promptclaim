@@ -39,12 +39,16 @@ interface Match extends RouteComponentProps<RouteParam> {
 const Profile: React.FC<Match> = ({ match }) => {
   console.log(match);
   console.log(match.params.id);
+
   useEffect(() => {
     fetchItem();
+    // eslint-disable-next-line
   }, []);
   const [item, setItem] = useState<Character[]>([]);
   const fetchItem = async () => {
-    const data = await fetch("https://www.breakingbadapi.com/api/characters/" + match.params.id);
+    const data = await fetch(
+      "https://www.breakingbadapi.com/api/characters/" + match.params.id
+    );
 
     const item = await data.json();
     setItem(item);

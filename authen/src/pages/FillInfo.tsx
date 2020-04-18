@@ -172,7 +172,13 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
 
               <IonItem>
                 <IonLabel>Phone No.</IonLabel>
-                <IonLabel class="label"> 081-234-5678</IonLabel>
+                <IonInput
+                  class="input"
+                  required
+                  type="text"
+                  value={phonenum}
+                  onIonChange={(e) => setPhoneNum(e.detail.value!)}
+                ></IonInput>
               </IonItem>
             </IonList>
           </IonCard>

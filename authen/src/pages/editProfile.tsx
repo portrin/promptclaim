@@ -43,6 +43,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
   useEffect(() => {
     fetchItem();
+    // eslint-disable-next-line
   }, []);
   const [item, setItem] = useState<Character[]>([]);
 

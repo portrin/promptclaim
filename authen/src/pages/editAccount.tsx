@@ -41,6 +41,7 @@ const EditAccount: React.FC<Match> = ({ match }) => {
   console.log(match.params.id);
   useEffect(() => {
     fetchItem();
+    // eslint-disable-next-line
   }, []);
   const [item, setItem] = useState<Character[]>([]);
   const [newEmail, setNewEmail] = useState("");

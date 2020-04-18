@@ -41,7 +41,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
   console.log(match.params.id);
   useEffect(() => {
     fetchItem();
+    // eslint-disable-next-line
   }, []);
+  // eslint-disable-next-line
   const [item, setItem] = useState<Character[]>([]);
   const [homenum, setHomeNum] = useState("");
   const [street, setStreet] = useState("");
