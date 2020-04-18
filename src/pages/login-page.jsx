@@ -107,7 +107,6 @@ export const LoginPage = (props) => {
             htmlType="submit"
             className="login-form-button"
             style={{ background: '#0050b3', borderColor: '#0050b3' }}
-            // onClick={() => props.history.push('/')}
             onClick={sendSubmit}
           >
             Log in
