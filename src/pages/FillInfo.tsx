@@ -18,7 +18,7 @@ import {
 import { chevronBackOutline, chevronDown, man, woman } from "ionicons/icons";
 import React, { useState } from "react";
 import "./FillInfo.css";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 
 const FillInfo: React.FC<RouteComponentProps> = (props) => {
   const [email, setEmail] = useState("");
@@ -42,12 +42,11 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                onClick={() => props.history.push("/verify")}
-              >
-                <IonIcon icon={chevronBackOutline}></IonIcon>
-              </IonButton>
+              <Link to={"/verify"}>
+                <IonButton color="theme">
+                  <IonIcon icon={chevronBackOutline}></IonIcon>
+                </IonButton>
+              </Link>
               <IonTitle class="title">Information</IonTitle>
             </IonToolbar>
           </IonHeader>

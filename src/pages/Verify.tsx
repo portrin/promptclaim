@@ -12,7 +12,7 @@ import {
 import { mail } from "ionicons/icons";
 import React from "react";
 import "./Verify.css";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 
 const Verify: React.FC<RouteComponentProps> = (props) => {
   return (
@@ -44,17 +44,17 @@ const Verify: React.FC<RouteComponentProps> = (props) => {
               </IonInput>
             </IonItem>
           </IonCard>
-
-          <IonButton
-            class="confirm"
-            strong
-            id="signin"
-            size="large"
-            color="signinbutton"
-            onClick={() => props.history.push("/fillinfo")}
-          >
-            CONFIRM
-          </IonButton>
+          <Link to={"/fillinfo"}>
+            <IonButton
+              class="confirm"
+              strong
+              id="signin"
+              size="large"
+              color="signinbutton"
+            >
+              CONFIRM
+            </IonButton>
+          </Link>
         </IonContent>
       </IonPage>
     </IonApp>
