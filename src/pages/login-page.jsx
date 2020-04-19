@@ -3,21 +3,31 @@ import { Form, Input, Button, Checkbox, Row, Col } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import logo from '../photo/darktranslogo.png'
+import axios from 'axios'
+
 export const LoginPage = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [isSubmitted, setIsSubmitted] = useState(false)
   // const [isCorrected, setIsCorrected] = useState(false)
 
-  // const sendSubmit = (event) => {
-  //   event.preventDefault()
-  //   console.log('username: ', username, 'password: ', password)
+  const sendSubmit = () => {
+    axios
+      .post('https://localhost:8001/retailer/auth/login', {
+        username: 'IKEA',
+        password: 'Ikeapassword',
+      })
+      .then((response) => {
+        console.log(response)
+      })
+    // event.preventDefault()
+    // console.log('username: ', username, 'password: ', password)
 
-  //   if (username === 'bob' && password === '123456') {
-  //     props.history.push('/')
-  //   } else {
-  //     console.log('wrong')
-  //   }
+    // if (username === 'bob' && password === '123456') {
+    //   props.history.push('/')
+    // } else {
+    //   console.log('wrong')
+    // }
 
     // axios.post("http://propclaim.com"+"/guest/authen", {username: username, password:password}).then(response=>
     // console.log(response)
@@ -46,7 +56,6 @@ export const LoginPage = (props) => {
   // })
   // .then(response => response.json())
   // .then(console.log)
-
 
   return (
     <article>
