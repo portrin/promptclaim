@@ -14,6 +14,7 @@ import {
   IonCardSubtitle,
 } from "@ionic/react";
 import { RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
 
 interface RouteParam {
   id: string;
@@ -53,7 +54,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     fetchItems();
   }, []);
   const [item, setItem] = useState<Product[]>([]);
-  
+  const [dylink, setDyLink]=useState("");
   const fetchItems = async () => {
     const data = await fetch(
       "http://localhost:8001/customer/claimlog/getByUuid/" + match.params.id,
@@ -67,6 +68,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     const item = await data.json();
     setItem(item);
     console.log(item);
+    setDyLink("/myWarranty/"+match.params.id)
   };
   return (
     <IonPage>
@@ -98,7 +100,8 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
           <IonButton
             color="light"
             expand="block"
-            routerLink={`warrantyItem/+{id}`}
+            href={dylink}
+            
           >
             Back
           </IonButton>
