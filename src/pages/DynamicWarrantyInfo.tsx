@@ -30,7 +30,14 @@ import {
   IonInput,
   IonDatetime,
 } from "@ionic/react";
-import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
+import {
+  notifications,
+  call,
+  trash,
+  close,
+  closeCircle,
+  today,
+} from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
 import { triggerAsyncId } from "async_hooks";
@@ -77,6 +84,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [retailer, setRetailer] = useState<string>();
   const [supplier, setSupplier] = useState<string>();
   const [item, setItem] = useState<Product[]>([]);
+  const [todayD, setTodayD] = useState<string>(new Date().toISOString());
   useEffect(() => {
     fetchItems();
   }, []);
@@ -91,10 +99,10 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       sendEdit();
     }
   };
-  console.log(butStat);
+  console.log(displayDate);
 
   const sendEdit = async () => {
-    try{
+    try {
       const data = await fetch(
         "http://localhost:8001/customer/product/editbyuuid/" + match.params.id,
         {
@@ -105,18 +113,15 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
           },
           body: JSON.stringify({
             serialNo: serial,
-            createTimestamp: displayDate
-            
+            createTimestamp: moment(displayDate).add(1, 'days').format()
           }),
         }
       );
+    } catch (error) {
+      //
     }
-    catch (error) { 
-     //
-    }
-    
   };
-  console.log(displayDate);
+  console.log(moment(displayDate).add(1, 'days').format());
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -146,6 +151,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     }
     console.log(countDay());
     setRemainingPeriod(countDay() + "");
+    setTodayD(todayD.split("T")[0]);
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -284,12 +290,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonDatetime
                 displayFormat="DDDD MMM D, YYYY"
                 min="2020"
-                max="2024"
+                max={todayD}
                 disabled={butStat}
                 value={displayDate}
-                displayTimezone='utc'
+            
                 onIonChange={(e) => setdisplayDate(e.detail.value!)}
-                
               ></IonDatetime>
             </IonItem>
 
