@@ -246,7 +246,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             </IonItem>
             <IonItem>
               <IonLabel>
-                <h2>Remaining Warranty Period</h2>
+                <h2>Days Since Purchased</h2>
                 {item.map((item) => (
                   <h3>{remainingPeriod}</h3>
                 ))}
