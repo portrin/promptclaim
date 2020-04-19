@@ -14,6 +14,7 @@ import {
   IonSearchbar,
   IonSelect,
   IonSelectOption,
+  IonApp,
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -39,6 +40,9 @@ export interface Itemprops {
   item: Character;
 }
 export interface Product {
+  char_id: string;
+  status: string;
+  name: string;
   product_name: string;
   uuid: string;
   img: string;
@@ -101,107 +105,109 @@ const MyWarranty: React.FC<Productprops> = () => {
   }
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar color="primary">
-          <IonTitle>MyWarranty</IonTitle>
-          <IonButton
-            fill="clear"
-            slot="end"
-            size="small"
-            class="ion-no-padding"
-            routerLink="/notification"
-          >
-            <IonIcon
-              size="medium"
-              icon={notificationsOutline}
-              color="light"
-            ></IonIcon>
-          </IonButton>
-          <IonButton fill="clear" slot="end" size="small">
-            <IonIcon
-              size="medium"
-              icon={personCircleOutline}
-              color="light"
-            ></IonIcon>
-          </IonButton>
-        </IonToolbar>
-      </IonHeader>
+    <IonApp>
+      <IonPage>
+        <IonHeader class="toolbar">
+          <IonToolbar color="theme">
+            <IonTitle class="title">My Warranty</IonTitle>
+            <IonButton
+              fill="clear"
+              slot="end"
+              size="small"
+              class="ion-no-padding"
+              routerLink="/notification"
+            >
+              <IonIcon
+                size="medium"
+                icon={notificationsOutline}
+                color="light"
+              ></IonIcon>
+            </IonButton>
+            <IonButton fill="clear" slot="end" size="small" href="/profile">
+              <IonIcon
+                size="medium"
+                icon={personCircleOutline}
+                color="light"
+              ></IonIcon>
+            </IonButton>
+          </IonToolbar>
+        </IonHeader>
 
-      <IonContent>
-        <IonSearchbar
-          animated
-          value={searchText}
-          onIonChange={(e) => setSearchText(e.detail.value!)}
-        ></IonSearchbar>
-        <IonToolbar class="ion-no-padding" color="">
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonButton size="small" fill="clear">
-                  <IonIcon icon={filterOutline} />
-                  Filter by
-                  <IonSelect
-                    value={filterBy}
-                    cancelText="Cancel"
-                    okText="Done"
-                    onIonChange={(e) => setfilterBy(e.detail.value)}
-                  >
-                    <IonSelectOption value="Wall & Floor">
-                      Category: Wall & Floor
-                    </IonSelectOption>
-                    <IonSelectOption value="Others">
-                      Category: Others
-                    </IonSelectOption>
-                  </IonSelect>
-                </IonButton>
-              </IonCol>
-              <IonCol></IonCol>
-              <IonCol></IonCol>
-              <IonCol></IonCol>
-              <IonCol>
-                <IonButton size="small" fill="clear">
-                  <IonIcon icon={funnelOutline} />
-                  Sort by
-                  <IonSelect
-                    value={sortBy}
-                    cancelText="Cancel"
-                    okText="Done"
-                    onIonChange={(e) => setsortBy(e.detail.value)}
-                  >
-                    <IonSelectOption value="Name">Name A-Z</IonSelectOption>
-                    <IonSelectOption value="Name Z-A">
-                      Name Z-A{" "}
-                    </IonSelectOption>
-                    <IonSelectOption value="Expiry Date">
-                      Expiry Date
-                    </IonSelectOption>
-                    <IonSelectOption value="Product ID">
-                      Product ID
-                    </IonSelectOption>
-                  </IonSelect>
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonToolbar>
+        <IonContent>
+          <IonSearchbar
+            animated
+            value={searchText}
+            onIonChange={(e) => setSearchText(e.detail.value!)}
+          ></IonSearchbar>
+          <IonToolbar class="ion-no-padding" color="">
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton size="small" fill="clear">
+                    <IonIcon icon={filterOutline} />
+                    Filter by
+                    <IonSelect
+                      value={filterBy}
+                      cancelText="Cancel"
+                      okText="Done"
+                      onIonChange={(e) => setfilterBy(e.detail.value)}
+                    >
+                      <IonSelectOption value="Alive">
+                        Category: Alive
+                      </IonSelectOption>
+                      <IonSelectOption value="Deceased">
+                        Category: Deceased{" "}
+                      </IonSelectOption>
+                    </IonSelect>
+                  </IonButton>
+                </IonCol>
+                <IonCol></IonCol>
+                <IonCol></IonCol>
+                <IonCol></IonCol>
+                <IonCol>
+                  <IonButton size="small" fill="clear">
+                    <IonIcon icon={funnelOutline} />
+                    Sort by
+                    <IonSelect
+                      value={sortBy}
+                      cancelText="Cancel"
+                      okText="Done"
+                      onIonChange={(e) => setsortBy(e.detail.value)}
+                    >
+                      <IonSelectOption value="Name">Name A-Z</IonSelectOption>
+                      <IonSelectOption value="Name Z-A">
+                        Name Z-A{" "}
+                      </IonSelectOption>
+                      <IonSelectOption value="Expiry Date">
+                        Expiry Date
+                      </IonSelectOption>
+                      <IonSelectOption value="Product ID">
+                        Product ID
+                      </IonSelectOption>
+                    </IonSelect>
+                  </IonButton>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonToolbar>
 
-        <IonList>
-          <IonListHeader class="ion-no-start">
-            <h2>Products</h2>
-          </IonListHeader>
+          <IonList>
+            <IonListHeader class="ion-no-start">
+              <h2>Products</h2>
+            </IonListHeader>
 
-          {sortProduct(filterProduct(searchItem)).map((item) => (
-            <Product
-              name={item.product_name}
-              serial={item.uuid}
-              image={item.img}
-              description={item.category_name}
-            ></Product>
-          ))}
-        </IonList>
-      </IonContent>
-    </IonPage>
+            {sortProduct(filterProduct(searchItem)).map((item) => (
+              <Product
+                name={item.name}
+                serial={item.uuid}
+                image={item.img}
+                description={item.status}
+              ></Product>
+            ))}
+          </IonList>
+        </IonContent>
+      </IonPage>
+    </IonApp>
   );
 };
 

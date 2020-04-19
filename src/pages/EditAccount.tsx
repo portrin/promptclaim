@@ -63,7 +63,7 @@ const EditAccount: React.FC<Match> = ({ match }) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" routerLink="/Profile">
+              <IonButton color="theme" href="/profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Account</IonTitle>
@@ -130,6 +130,7 @@ const EditAccount: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
+            href="/profile"
           >
             SAVE
           </IonButton>

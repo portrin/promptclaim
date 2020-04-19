@@ -18,9 +18,13 @@ import {
 import { chevronBackOutline, chevronDown, man, woman } from "ionicons/icons";
 import React, { useState } from "react";
 import "./FillInfo.css";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const FillInfo: React.FC<RouteComponentProps> = (props) => {
+interface Prop {
+  custID: string;
+}
+
+const FillInfo: React.FC<Prop> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -62,6 +66,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   type="email"
                   value={email}
                   onIonChange={(e) => setEmail(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -73,6 +78,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   type="password"
                   value={password}
                   onIonChange={(e) => setPassword(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -84,6 +90,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   type="password"
                   value={password2}
                   onIonChange={(e) => setPassword2(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
               <div className="note">
@@ -103,6 +110,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   type="text"
                   value={fname}
                   onIonChange={(e) => setFName(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -114,6 +122,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   type="text"
                   value={lname}
                   onIonChange={(e) => setLName(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
 
@@ -177,6 +186,7 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
                   type="text"
                   value={phonenum}
                   onIonChange={(e) => setPhoneNum(e.detail.value!)}
+                  placeholder="required"
                 ></IonInput>
               </IonItem>
             </IonList>
@@ -259,13 +269,10 @@ const FillInfo: React.FC<RouteComponentProps> = (props) => {
             id="signin"
             size="large"
             color="theme"
+            href="/mywarranty"
           >
             CREATE ACCOUNT
           </IonButton>
-
-          <a className="skip" href="./signup">
-            Skip
-          </a>
         </IonContent>
       </IonPage>
     </IonApp>

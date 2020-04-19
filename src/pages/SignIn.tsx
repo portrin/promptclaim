@@ -66,7 +66,6 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
               </IonLabel>
               <IonInput
                 value={email}
-                placeholder="Warranty Number"
                 onIonChange={(e) => setEmail(e.detail.value!)}
                 clearInput
               ></IonInput>
@@ -78,7 +77,6 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
               <IonInput
                 type="password"
                 value={pass}
-                placeholder="Warranty Number"
                 onIonChange={(e) => setPass(e.detail.value!)}
                 clearInput
               ></IonInput>

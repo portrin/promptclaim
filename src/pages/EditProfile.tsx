@@ -63,6 +63,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
     setLName(name);
     setGender(status);
     setBDate(char_id);
+    // bdate format : "2005-04-19T00:12:55.890+07:00"
   };
   return (
     <IonApp>
@@ -70,7 +71,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" routerLink="/Profile">
+              <IonButton color="theme" href="/profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Profile</IonTitle>
@@ -141,6 +142,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel position="fixed">Birthdate</IonLabel>
+
                 <IonDatetime
                   class="input"
                   displayFormat="DD MMM YYYY"
@@ -169,6 +171,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
+            href="/profile"
           >
             SAVE
           </IonButton>

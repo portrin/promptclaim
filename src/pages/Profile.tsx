@@ -12,11 +12,11 @@ import {
   IonChip,
   IonContent,
   IonBackButton,
+  IonDatetime,
 } from "@ionic/react";
 import { chevronBackOutline, woman } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
-import { RouteComponentProps } from "react-router-dom";
 
 export interface Character {
   name: string;
@@ -24,35 +24,94 @@ export interface Character {
   img: string;
   status: string;
 }
-
 export interface Itemprops {
   item: Character;
 }
 
-interface RouteParam {
-  id: string;
+export interface Profile {
+  customer_id: string;
+  firstname: string;
+  lastname: string;
+  phone_no: string;
+  birth_date: string;
+  gender: string;
+  account_id: string;
 }
-interface Match extends RouteComponentProps<RouteParam> {
-  params: string;
+export interface Account {
+  email: string;
 }
 
-const Profile: React.FC<Match> = ({ match }) => {
-  console.log(match);
-  console.log(match.params.id);
+export interface Address {
+  house_no: string;
+  street: string;
+  sub_district: string;
+  district: string;
+  province: string;
+  zipcode: string;
+}
 
+export interface ProfileProps {
+  item: Profile;
+  item2: Account;
+  item3: Address;
+}
+
+const token =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjEwNzIyNTEyfQ.reHTXr9EJrnkCDFlTa5Xx78Lvz8YlVfZE8OvQFj2mX8";
+
+const Profile: React.FC<ProfileProps> = () => {
   useEffect(() => {
-    fetchItem();
+    fetchItems();
     // eslint-disable-next-line
   }, []);
-  const [item, setItem] = useState<Character[]>([]);
-  const fetchItem = async () => {
-    const data = await fetch(
-      "https://www.breakingbadapi.com/api/characters/" + match.params.id
-    );
+  const [items, setItems] = useState<Profile[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch("http://localhost:8001/customer/profile/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data);
+    const items = await data.json();
+    setItems(items.getProfile);
+    console.log(items.getProfile);
+  };
 
-    const item = await data.json();
-    setItem(item);
-    console.log(item);
+  useEffect(() => {
+    fetchItems2();
+    // eslint-disable-next-line
+  }, []);
+  const [items2, setItems2] = useState<Account[]>([]);
+  const fetchItems2 = async () => {
+    const data2 = await fetch("http://localhost:8001/customer/account/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data2);
+    const items2 = await data2.json();
+    setItems2(items2.getAccount);
+    console.log(items2.getAccount);
+
+    // bdate format : "2005-04-19T00:12:55.890+07:00"
+  };
+
+  useEffect(() => {
+    fetchItems3();
+    // eslint-disable-next-line
+  }, []);
+  const [items3, setItems3] = useState<Address[]>([]);
+  const fetchItems3 = async () => {
+    const data3 = await fetch("http://localhost:8001/customer/address/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data3);
+    const items3 = await data3.json();
+    setItems3(Array(items3.getAddress[0]));
+    console.log(items3.getAddress);
+    console.log(items3.getAddress[0]);
   };
 
   return (
@@ -61,8 +120,7 @@ const Profile: React.FC<Match> = ({ match }) => {
         <IonContent color="signinbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme">
-                <IonBackButton />
+              <IonButton color="theme" href="/mywarranty">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Profile</IonTitle>
@@ -75,13 +133,13 @@ const Profile: React.FC<Match> = ({ match }) => {
               size="small"
               color="theme"
               fill="outline"
-              routerLink="/editaccount"
+              href="/editaccount"
             >
               edit
             </IonButton>
             <IonLabel class="sublabel">Email :</IonLabel>
-            {item.map((item) => (
-              <IonLabel class="info">{item.name}</IonLabel>
+            {items2.map((item2) => (
+              <IonLabel class="info">{item2.email}</IonLabel>
             ))}
           </IonCard>
 
@@ -98,13 +156,15 @@ const Profile: React.FC<Match> = ({ match }) => {
             </IonButton>
             <IonList class="card">
               <IonLabel class="sublabel">First Name :</IonLabel>
-              {item.map((item) => (
-                <IonLabel class="info">{item.name}</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.firstname}</IonLabel>
               ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Last Name :</IonLabel>
-              <IonLabel class="info">Ariyamakkagul</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.lastname}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Gender :</IonLabel>
@@ -114,11 +174,17 @@ const Profile: React.FC<Match> = ({ match }) => {
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Birthdate :</IonLabel>
-              <IonLabel class="info">14 Sep 1999</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">
+                  {item.birth_date.substring(0, 10)}
+                </IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Phone No. :</IonLabel>
-              <IonLabel class="info">081-234-5678</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.phone_no}</IonLabel>
+              ))}
             </IonList>
           </IonCard>
 
@@ -129,33 +195,45 @@ const Profile: React.FC<Match> = ({ match }) => {
               size="small"
               color="theme"
               fill="outline"
-              routerLink="/editaddress"
+              href="/editaddress"
             >
               edit
             </IonButton>
             <IonList class="card">
               <IonLabel class="sublabel">Home No. :</IonLabel>
-              <IonLabel class="info">42</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.house_no}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Street :</IonLabel>
-              <IonLabel class="info">P. Sherman</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.street}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Sub-District :</IonLabel>
-              <IonLabel class="info">Wallaby Way</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.sub_district}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">District :</IonLabel>
-              <IonLabel class="info">Newman</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.district}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Province :</IonLabel>
-              <IonLabel class="info">Sydney</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.province}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Street Code :</IonLabel>
-              <IonLabel class="info">10130</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.zipcode}</IonLabel>
+              ))}
             </IonList>
           </IonCard>
         </IonContent>
