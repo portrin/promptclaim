@@ -53,7 +53,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     fetchItems();
   }, []);
   const [item, setItem] = useState<Product[]>([]);
-
+  const [dylink, setDyLink] = useState("");
   const fetchItems = async () => {
     const data = await fetch(
       "http://localhost:8001/customer/claimlog/getByUuid/" + match.params.id,
@@ -67,6 +67,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     const item = await data.json();
     setItem(item);
     console.log(item);
+    setDyLink("/myWarranty/" + match.params.id);
   };
   return (
     <IonPage>
@@ -95,11 +96,9 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
             ></IonDatetime>
           </IonItem>
           <IonButton expand="block">Add</IonButton>
-          <Link to={`warrantyItem/${match.params.id}`}>
-            <IonButton color="light" expand="block">
-              Back
-            </IonButton>
-          </Link>
+          <IonButton color="light" expand="block" href={dylink}>
+            Back
+          </IonButton>
         </IonList>
       </IonContent>
     </IonPage>
