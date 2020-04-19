@@ -20,24 +20,35 @@ import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
 import Chandelier from "../pictures/chandelier.jpeg";
 import HistoryItem from "../components/HistoryItem";
 
-export interface Character {
-  name: string;
-  char_id: string;
+export interface Product {
+  product_name: string;
+  uuid: string;
   img: string;
+  category_name: string;
+  create_timestamp: string;
+  serial_no: string;
+  supplier_name: string;
+  contact: string;
+  retailer_branch_name: string;
+  timestamp: string;
   status: string;
 }
-export interface Itemprops {
-  item: Character;
+export interface Productprops {
+  item: Product;
 }
 
 const History: React.FC = () => {
   useEffect(() => {
     fetchItems();
   }, []);
-  const [items, setItems] = useState<Character[]>([]);
+  const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("https://www.breakingbadapi.com/api/characters/");
-
+    const data = await fetch("http://localhost:8001/customer/claimlog/get/", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data);
     const items = await data.json();
     setItems(items);
     console.log(items);
@@ -59,90 +70,13 @@ const History: React.FC = () => {
           {items.map((item) => (
             <HistoryItem
               image={item.img}
-              name={item.name}
-              description={item.char_id}
-              expiredDate={item.status}
-              key={item.char_id}
+              name={item.product_name}
+              description={item.retailer_branch_name}
+              date={item.timestamp}
+              key={item.uuid}
             ></HistoryItem>
           ))}
-          <HistoryItem
-            image={SamsungTV}
-            name="Samsuang Television"
-            description="Powerbuy"
-            expiredDate="yesterday"
-            key="1"
-          />
-          <HistoryItem
-            image={LGTV}
-            name="LG Television"
-            description="Central Rama3"
-            expiredDate="on 12/3"
-          />
-          <HistoryItem
-            image={ToshibaAir}
-            name="Toshiba Air Conditioner"
-            description="Powerbuy"
-            expiredDate="on 3/3"
-          />
-          <IonListHeader>
-            <h2>January</h2>
-          </IonListHeader>
-          <HistoryItem
-            image={WoodTable}
-            name="Wooden Round table "
-            description="Homepro"
-            expiredDate="on 25/1"
-          />
-          <HistoryItem
-            image={Chandelier}
-            name="Chandelier"
-            description="Boonthavorn"
-            expiredDate="on 18/1"
-          />
-          <HistoryItem
-            image={WorkLamp}
-            name="IKEA Work lamp"
-            description="IKEA"
-            expiredDate="on 11/1"
-          />
-          <HistoryItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="on 3/1"
-          />
-          <IonItemDivider color="light">
-            <IonLabel>
-              <h1>2019</h1>
-            </IonLabel>
-          </IonItemDivider>
-          <IonListHeader>
-            <h2>December</h2>
-          </IonListHeader>
-          <HistoryItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="on 3/1"
-          />
-          <HistoryItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="on 3/1"
-          />
-          <HistoryItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="on 3/1"
-          />
-          <HistoryItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="on 3/1"
-          />
+          
         </IonList>
       </IonContent>
     </IonPage>

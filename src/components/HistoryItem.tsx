@@ -4,7 +4,8 @@ interface Prop {
   image: string;
   name: string;
   description: string;
-  expiredDate: string;
+  date: string;
+
 }
 
 const HistoryItem: React.FC<Prop> = (props) => {
@@ -19,7 +20,7 @@ const HistoryItem: React.FC<Prop> = (props) => {
         <h4>{props.description}</h4>
       </IonLabel>
       <IonNote slot="end" color="primary">
-        <h6>{`Claimed  ${props.expiredDate}`}</h6>
+  <h6>Claimed on {props.date.split("T")[0]}</h6>
       </IonNote>
     </IonItem>
   );

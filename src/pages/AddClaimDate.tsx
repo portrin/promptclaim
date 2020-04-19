@@ -14,6 +14,7 @@ import {
   IonCardSubtitle,
 } from "@ionic/react";
 import { RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
 
 interface RouteParam {
   id: string;
@@ -44,29 +45,46 @@ const slideOpts = {
 };
 const AddClaimDate: React.FC<Match> = ({ match }) => {
   console.log(match);
-  const [text, setText] = useState<string>();
-  const [text1, setText1] = useState<string>();
+
   const [selectedDate, setSelectedDate] = useState<string>(
-    "2020-03-27T17:51:31+0000"
+    new Date().toISOString()
   );
   useEffect(() => {
     fetchItems();
   }, []);
   const [item, setItem] = useState<Product[]>([]);
-  
+  const [dylink, setDyLink] = useState("/myWarranty/" + match.params.id);
+
   const fetchItems = async () => {
-    const data = await fetch(
-      "http://localhost:8001/customer/claimlog/getByUuid/" + match.params.id,
-      {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      }
-    );
+    const data = await fetch("http://localhost:8001/customer/claimlog/get/", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
     console.log(data);
     const item = await data.json();
     setItem(item);
     console.log(item);
+    setDyLink("/myWarranty/" + match.params.id);
+  };
+
+  const addClaim = async () => {
+    const data = await fetch("http://localhost:8001/customer/claimlog/add/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({
+        claimId: "000009",
+        timestamp: selectedDate,
+        status: "calimed",
+        uuid: match.params.id,
+        serviceCenterId: null,
+        serviceCenterBranchId: null,
+      }),
+    });
+    fetchItems();
   };
   return (
     <IonPage>
@@ -79,8 +97,8 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
         <IonList>
           <IonListHeader>Claim Date</IonListHeader>
           {item.map((item) => (
-                <IonItem>{item.timestamp.split("T")[0]}</IonItem>  
-                ))}
+            <IonItem>{item.timestamp.split("T")[0]}</IonItem>
+          ))}
 
           <IonItem>
             <IonLabel position="floating" color="medium">
@@ -94,12 +112,10 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
           </IonItem>
-          <IonButton expand="block">Add</IonButton>
-          <IonButton
-            color="light"
-            expand="block"
-            routerLink={`warrantyItem/+{id}`}
-          >
+          <IonButton expand="block" onClick={addClaim}>
+            Add
+          </IonButton>
+          <IonButton color="light" expand="block" href={dylink}>
             Back
           </IonButton>
         </IonList>

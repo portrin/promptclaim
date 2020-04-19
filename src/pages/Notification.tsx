@@ -51,7 +51,7 @@ const Notification: React.FC<Itemprops> = () => {
   }, []);
   const [items, setItems] = useState<Product[]>([]);
   const [remainingPeriod, setRemainingPeriod] = useState("");
-  const [notiItems,setNotiItems] = useState<Product[]>([]);
+  const [notiItems, setNotiItems] = useState<Product[]>([]);
 
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get/", {
@@ -69,19 +69,25 @@ const Notification: React.FC<Itemprops> = () => {
     function countDay() {
       var today = moment();
       var purchase = moment(dateFormat);
+      console.log(purchase);
       return today.diff(purchase, "days");
     }
     console.log(countDay());
     setRemainingPeriod(countDay() + "");
-    for (var i=0; i<items.length;i++) {
-      var tempItem = new Array<Product>()
-      if (moment().diff(moment(items[i].create_timestamp), "days") <= 3) {
-        console.log("(Noti) Days ="+moment().diff(moment(items.create_timestamp), "days"))
-        tempItem.push(items[i])
+    for (var i = 0; i < items.length; i++) {
+      var tempItem = new Array<Product>();
+      if (
+        moment().diff(moment(items[i].create_timestamp), "days") <= 3 &&
+        moment().diff(moment(items[i].create_timestamp), "days") > 0
+      ) {
+        console.log(
+          "(Noti) Days =" +
+            moment().diff(moment(items.create_timestamp), "days")
+        );
+        tempItem.push(items[i]);
         setNotiItems(tempItem);
       }
     }
-    
   };
 
   return (
