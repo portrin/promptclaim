@@ -54,6 +54,8 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
   }, []);
   const [item, setItem] = useState<Product[]>([]);
   const [dylink, setDyLink] = useState("");
+  setDyLink("/myWarranty/" + match.params.id);
+
   const fetchItems = async () => {
     const data = await fetch(
       "http://localhost:8001/customer/claimlog/getByUuid/" + match.params.id,
@@ -67,7 +69,25 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     const item = await data.json();
     setItem(item);
     console.log(item);
-    setDyLink("/myWarranty/" + match.params.id);
+  };
+
+  const addClaim = async () => {
+    const data = await fetch("http://localhost:8001/customer/claimlog/add/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({
+        claimId: "000008",
+        timestamp: selectedDate,
+        status: "calimed",
+        uuid: "2",
+        serviceCenterId: null,
+        serviceCenterBranchId: null,
+      }),
+    });
+    fetchItems();
   };
   return (
     <IonPage>
@@ -95,7 +115,9 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
           </IonItem>
-          <IonButton expand="block">Add</IonButton>
+          <IonButton expand="block" onClick={addClaim}>
+            Add
+          </IonButton>
           <IonButton color="light" expand="block" href={dylink}>
             Back
           </IonButton>

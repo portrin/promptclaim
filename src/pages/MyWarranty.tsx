@@ -44,9 +44,6 @@ export interface Productprops {
   item: Product;
 }
 
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjEwNzIyNTEyfQ.reHTXr9EJrnkCDFlTa5Xx78Lvz8YlVfZE8OvQFj2mX8";
-
 const MyWarranty: React.FC<Productprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Product[]>([]);
