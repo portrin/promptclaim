@@ -34,6 +34,7 @@ const AddWarranty: React.FC = () => {
   const [serial, setSerial] = useState<string>();
   const [wranNumber, setWranNumber] = useState<string>();
   const [wranLife, setWranLife] = useState<string>();
+  const [pNumber, setPnumber] = useState<string>();
   const [retialer, setRetailer] = useState<string>();
   const [supplier, setSupplier] = useState<string>();
   const { photos, takePhoto } = usePhotoGallery();
@@ -43,6 +44,28 @@ const AddWarranty: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
   console.log(JSON.stringify(photos[0]));
+
+  const addProduct = async () => {
+    const data = await fetch(
+      "http://localhost:8001/customer/product/addproduct",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.token,
+        },
+        body: JSON.stringify({
+          serialNo: serial,
+          productNo: 123123,
+          productNickname: pname,
+          price: 100,
+          createTimestamp: selectedDate,
+          isValidate: 0,
+          claimQty: 0,
+        }),
+      }
+    );
+  };
 
   return (
     <IonPage>
@@ -152,7 +175,9 @@ const AddWarranty: React.FC = () => {
           </IonSlide>
         </IonSlides>
 
-        <IonButton expand="block">Add</IonButton>
+        <IonButton onClick={addProduct} expand="block">
+          Add
+        </IonButton>
       </IonContent>
     </IonPage>
   );
