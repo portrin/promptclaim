@@ -251,16 +251,21 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 View Policy
               </IonButton>
 
-              <IonButton expand="block" routerLink="/addClaimDate">
+              <IonButton
+                expand="block"
+                routerLink={`/addClaimDate/${match.params.id}`}
+              >
                 Add Claim Date
               </IonButton>
             </IonGrid>
             <IonListHeader>Warranty Information</IonListHeader>
 
             <IonItem>
-              <IonLabel position="floating">Date of Purchase</IonLabel>
+              <IonLabel color="medium" position="floating">
+                Date of Purchase
+              </IonLabel>
               <IonDatetime
-                displayFormat=" MMM D, YYYY"
+                displayFormat="DDDD MMM D, YYYY"
                 min="2020"
                 max="2024"
                 disabled={butStat}
@@ -268,23 +273,14 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 onIonChange={(e) => setdisplayDate(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
+
             <IonItem>
-              <IonLabel position="floating">
-                <h1>Purchase Date</h1>
-              </IonLabel>
-              <IonInput
+              <IonLabel
+                color="medium"
                 class="ion-no-padding"
-                size={5}
-                required
-                type="text"
-                disabled={butStat}
-                value={displayDate}
-                onIonChange={(e) => setdisplayDate(e.detail.value!)}
-              ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
-                <h1>Days Since Purchased</h1>
+                position="floating"
+              >
+                Days Since Purchased
               </IonLabel>
               <IonInput
                 class="ion-no-padding"

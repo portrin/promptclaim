@@ -60,7 +60,8 @@ const App: React.FC = () => {
             <Route path="/addWarranty" component={AddWarranty} />
             <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
             <Route path="/notification" component={Notification} />
-            <Route path="/AddClaimDate" component={AddClaimDate} />
+            <Route path="/AddClaimDate" exact={true} component={AddClaimDate} />
+            <Route path="/AddClaimDate/:id" component={AddClaimDate} />
 
             <Route path="/authen" component={Authen} exact={true} />
             <Route exact path="/" render={() => <Redirect to="/authen" />} />
@@ -73,7 +74,6 @@ const App: React.FC = () => {
             <Route path="/editaccount" component={EditAccount} exact={true} />
             <Route path="/editprofile" component={EditProfile} exact={true} />
             <Route path="/editaddress" component={EditAddress} exact={true} />
-    
 
             <Route
               exact={true}

@@ -12,11 +12,21 @@ import {
   IonLabel,
   IonDatetime,
 } from "@ionic/react";
+import { RouteComponentProps } from "react-router";
+
+interface RouteParam {
+  id: string;
+}
+interface Match extends RouteComponentProps<RouteParam> {
+  params: string;
+  //ไม่จำเปน
+}
 const slideOpts = {
   initialSlide: 1,
   speed: 400,
 };
-const AddClaimDate: React.FC = () => {
+const AddClaimDate: React.FC<Match> = ({ match }) => {
+  console.log(match);
   const [text, setText] = useState<string>();
   const [text1, setText1] = useState<string>();
   const [selectedDate, setSelectedDate] = useState<string>(
@@ -43,7 +53,9 @@ const AddClaimDate: React.FC = () => {
             </p>
           </IonItem>
           <IonItem>
-            <IonLabel color="medium">Date of Purchase</IonLabel>
+            <IonLabel position="floating" color="medium">
+              Date of Purchase
+            </IonLabel>
             <IonDatetime
               displayFormat="DDDD MMM D, YYYY"
               min="2020"
@@ -56,7 +68,7 @@ const AddClaimDate: React.FC = () => {
           <IonButton
             color="light"
             expand="block"
-            routerLink="warrantyItem/+'{id}'"
+            routerLink={`warrantyItem/+{id}`}
           >
             Back
           </IonButton>
