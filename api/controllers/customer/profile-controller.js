@@ -17,5 +17,5 @@ exports.postEditByCustomerId = async (req, res, next) => {
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const phoneNo = req.body.phoneNo;
-    const birthDate = req.body;
+    const birthDate = req.body.birthDate;
 }
