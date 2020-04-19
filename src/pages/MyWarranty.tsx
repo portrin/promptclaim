@@ -47,6 +47,7 @@ export interface Product {
   uuid: string;
   img: string;
   category_name: string;
+  retailer_branch_name: string;
 }
 export interface Productprops {
   item: Product;
@@ -198,11 +199,12 @@ const MyWarranty: React.FC<Productprops> = () => {
 
             {sortProduct(filterProduct(searchItem)).map((item) => (
               <Product
-                name={item.name}
-                serial={item.uuid}
-                image={item.img}
-                description={item.status}
-              ></Product>
+              name={item.product_name}
+              serial={item.uuid}
+              image={item.img}
+              description={item.retailer_branch_name}
+              category={item.category_name}
+            ></Product>
             ))}
           </IonList>
         </IonContent>

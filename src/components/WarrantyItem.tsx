@@ -15,6 +15,7 @@ interface Prop {
   name: string;
   description: string;
   serial: string;
+  category: string;
 }
 
 const WarrantyItem: React.FC<Prop> = (props) => {
@@ -28,7 +29,7 @@ const WarrantyItem: React.FC<Prop> = (props) => {
         </IonThumbnail>
         <IonLabel>
           <h2>{props.name}</h2>
-          <IonCardSubtitle>{props.serial}</IonCardSubtitle>
+          <IonCardSubtitle>{props.category}</IonCardSubtitle>
         </IonLabel>
         <Link to={`/myWarranty/${props.serial}`}>
           <IonButton fill="outline" slot="end">
