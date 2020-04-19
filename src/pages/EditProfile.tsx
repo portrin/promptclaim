@@ -18,53 +18,74 @@ import {
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import "./EditProfile.css";
-import { RouteComponentProps } from "react-router-dom";
+import { Profile } from "./Profile";
 
-import { Character } from "./Profile";
-
-export interface Itemprops {
-  item: Character;
+export interface ProfileProps {
+  item: Profile;
 }
 
-interface RouteParam {
-  id: string;
-}
-interface Match extends RouteComponentProps<RouteParam> {
-  params: string;
-}
-
-const EditProfile: React.FC<Match> = ({ match }) => {
-  console.log(match);
-  console.log(match.params.id);
+const EditProfile: React.FC<ProfileProps> = () => {
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [gender, setGender] = useState("");
   const [bdate, setBDate] = useState("");
 
+  const [done, setDone] = useState("Edit Profile");
+  const [butStat, setButstat] = useState<boolean>(true);
+
   useEffect(() => {
-    fetchItem();
+    fetchItems();
     // eslint-disable-next-line
   }, []);
-  const [item, setItem] = useState<Character[]>([]);
 
-  const fetchItem = async () => {
-    const data = await fetch(
-      "https://www.breakingbadapi.com/api/characters/" + match.params.id
-    );
-
-    const item = await data.json();
-    const name: string = item[0].name;
-    const char_id: string = item[0].char_id;
-    const status: string = item[0].status;
-
-    setItem(item);
-    console.log(item);
-    setFName(name);
-    setLName(name);
-    setGender(status);
-    setBDate(char_id);
-    // bdate format : "2005-04-19T00:12:55.890+07:00"
+  const trigger = () => {
+    if (butStat === true) {
+      setButstat(false);
+      setDone("Done");
+    } else {
+      setButstat(true);
+      setDone("Edit Warranty");
+      editData();
+    }
   };
+  console.log(butStat);
+
+  const [items, setItems] = useState<Profile[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch("http://localhost:8001/customer/account/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    const item = await data.json();
+    const firstname: string = item[0].firstname;
+    const lastname: string = item[0].lastname;
+    const birthDate: string = item[0].birthDate;
+
+    setItems(item.getProfile);
+    console.log(item.getProfile);
+    setFName(firstname);
+    setLName(lastname);
+    setBDate(birthDate);
+  };
+
+  const [items2, setItems2] = useState<Account[]>([]);
+
+  const editData = async () => {
+    const data2 = await fetch("http://localhost:8001/customer/account/edit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({
+        firstName: fname,
+        lastname: lname,
+        birthDate: bdate,
+      }),
+    });
+  };
+
   return (
     <IonApp>
       <IonPage>
@@ -158,8 +179,8 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel>Phone No.</IonLabel>
-                {item.map((item) => (
-                  <IonLabel class="label"> {item.char_id}</IonLabel>
+                {items.map((items) => (
+                  <IonLabel class="label"> {items.phone_no}</IonLabel>
                 ))}
               </IonItem>
             </IonList>

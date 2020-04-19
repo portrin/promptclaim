@@ -16,46 +16,58 @@ import {
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import "./EditAccount.css";
-import { RouteComponentProps } from "react-router-dom";
+import { Account } from "./Profile";
 
-export interface Character {
-  name: string;
-  char_id: string;
-  img: string;
-  status: string;
+export interface ProfileProps {
+  item: Account;
 }
 
-export interface Itemprops {
-  item: Character;
-}
-
-interface RouteParam {
-  id: string;
-}
-interface Match extends RouteComponentProps<RouteParam> {
-  params: string;
-}
-
-const EditAccount: React.FC<Match> = ({ match }) => {
-  console.log(match);
-  console.log(match.params.id);
+const EditAccount: React.FC<ProfileProps> = () => {
   useEffect(() => {
-    fetchItem();
+    fetchItems();
     // eslint-disable-next-line
   }, []);
-  const [item, setItem] = useState<Character[]>([]);
   const [newEmail, setNewEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
-  const fetchItem = async () => {
-    const data = await fetch(
-      "https://www.breakingbadapi.com/api/characters/" + match.params.id
-    );
-
-    const item = await data.json();
-    setItem(item);
-    console.log(item);
+  const [items, setItems] = useState<Account[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch("http://localhost:8001/customer/account/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data);
+    const items = await data.json();
+    setItems(items.getAccount);
+    console.log(items.getAccount);
+    const password: string = items.getAccount[0].password;
+    console.log(password);
   };
+
+  const [items2, setItems2] = useState<Account[]>([]);
+  const editData = async () => {
+    const data2 = await fetch("http://localhost:8001/customer/account/edit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({
+        email: { newEmail },
+        password: { newPassword },
+      }),
+    });
+    console.log(data2);
+    const items2 = await data2.json();
+    setItems2(items2.getAccount);
+    console.log(items2.getAccount);
+  };
+
+  function validateForm() {
+    return newPassword.length > 8 && newPassword === newPassword2;
+  }
 
   return (
     <IonApp>
@@ -76,8 +88,8 @@ const EditAccount: React.FC<Match> = ({ match }) => {
             <IonList>
               <IonItem>
                 <IonLabel>Current E-mail</IonLabel>
-                {item.map((item) => (
-                  <IonLabel class="info">{item.name}</IonLabel>
+                {items.map((item) => (
+                  <IonLabel class="info">{item.email}</IonLabel>
                 ))}
               </IonItem>
               <IonItem>
@@ -95,7 +107,13 @@ const EditAccount: React.FC<Match> = ({ match }) => {
             <IonList>
               <IonItem>
                 <IonLabel>Current Password</IonLabel>
-                <IonInput class="input" required type="password"></IonInput>
+                <IonInput
+                  class="input"
+                  required
+                  type="password"
+                  value={currentPassword}
+                  onIonChange={(e) => setCurrentPassword(e.detail.value!)}
+                ></IonInput>
               </IonItem>
 
               <IonItem>

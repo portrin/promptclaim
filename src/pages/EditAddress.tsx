@@ -12,22 +12,13 @@ import {
   IonItem,
   IonLabel,
   IonInput,
+  IonToast,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import "./EditAddress.css";
 import { RouteComponentProps } from "react-router-dom";
-
-export interface Character {
-  name: string;
-  char_id: string;
-  img: string;
-  status: string;
-}
-
-export interface Itemprops {
-  item: Character;
-}
+import { Address } from "./Profile";
 
 interface RouteParam {
   id: string;
@@ -37,40 +28,77 @@ interface Match extends RouteComponentProps<RouteParam> {
 }
 
 const EditAddress: React.FC<Match> = ({ match }) => {
-  console.log(match);
-  console.log(match.params.id);
-  useEffect(() => {
-    fetchItem();
-    // eslint-disable-next-line
-  }, []);
-  // eslint-disable-next-line
-  const [item, setItem] = useState<Character[]>([]);
+  const [showToast1, setShowToast1] = useState(false);
+
   const [homenum, setHomeNum] = useState("");
   const [street, setStreet] = useState("");
   const [subdist, setSubDist] = useState("");
   const [dist, setDist] = useState("");
   const [province, setProvince] = useState("");
   const [streetCode, setStreetCode] = useState("");
+
+  const [item, setItem] = useState<Address[]>([]);
+
+  useEffect(() => {
+    fetchItem();
+    // eslint-disable-next-line
+  }, []);
+
+  const editAddress = async () => {
+    try {
+      const data = await fetch(
+        "http://localhost:8001/customer/address/" + match.params.id,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.token,
+          },
+          body: JSON.stringify({
+            houseNo: homenum,
+            street: street,
+            subDistrict: subdist,
+            district: dist,
+            province: province,
+            zipcode: streetCode,
+          }),
+        }
+      );
+    } catch (error) {
+      //
+    }
+  };
+
   const fetchItem = async () => {
-    const data = await fetch(
-      "https://www.breakingbadapi.com/api/characters/" + match.params.id
-    );
+    const data = await fetch("http://localhost:8001/customer/address/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
 
     const item = await data.json();
-    const name: string = item[0].name;
-    const char_id: string = item[0].char_id;
-    const status: string = item[0].status;
-
     setItem(item);
     console.log(item);
 
-    setHomeNum(char_id);
-    setStreet(name);
-    setSubDist(status);
-    setDist(status);
-    setProvince(status);
-    setStreetCode(char_id);
+    const houseNo: string = item.getAddress[0].houseNo;
+    const street: string = item.getAddress[0].street;
+    const subDistrict: string = item.getAddress[0].subDistrict;
+    const district: string = item.getAddress[0].district;
+    const province: string = item.getAddress[0].province;
+    const zipcode: string = item.getAddress[0].zipcode;
+    setHomeNum(houseNo);
+    setStreet(street);
+    setSubDist(subDistrict);
+    setDist(district);
+    setProvince(province);
+    setStreetCode(zipcode);
   };
+
+  const onHandleSave = () => {
+    setShowToast1(true);
+    editAddress();
+  };
+
   return (
     <IonApp>
       <IonPage>
@@ -159,10 +187,17 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
-            href="/profile"
+            routerLink={`/editProfile/${match.params.id}`}
+            onClick={onHandleSave}
           >
             SAVE
           </IonButton>
+          <IonToast
+            isOpen={showToast1}
+            onDidDismiss={() => setShowToast1(false)}
+            message="Your address have been saved."
+            duration={200}
+          />
         </IonContent>
       </IonPage>
     </IonApp>
