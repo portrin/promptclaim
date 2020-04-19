@@ -94,24 +94,29 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   console.log(butStat);
 
   const sendEdit = async () => {
-    const data = await fetch(
-      "http://localhost:8001/customer/product/editbyuuid/" + match.params.id,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.token,
-        },
-        body: JSON.stringify({
-          createTimestamp: displayDate,
-          serialNo: serial,
-          supplierName: supplier,
-          retailerBranchName: retailer,
-        }),
-      }
-    );
-    console.log(serial);
+    try{
+      const data = await fetch(
+        "http://localhost:8001/customer/product/editbyuuid/" + match.params.id,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.token,
+          },
+          body: JSON.stringify({
+            serialNo: serial,
+            createTimestamp: displayDate
+            
+          }),
+        }
+      );
+    }
+    catch (error) { 
+     //
+    }
+    
   };
+  console.log(displayDate);
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -141,7 +146,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     }
     console.log(countDay());
     setRemainingPeriod(countDay() + "");
-    console.log("checkkk");
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -284,6 +288,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 disabled={butStat}
                 value={displayDate}
                 onIonChange={(e) => setdisplayDate(e.detail.value!)}
+                
               ></IonDatetime>
             </IonItem>
 
