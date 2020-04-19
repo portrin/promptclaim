@@ -153,11 +153,11 @@ const MyWarranty: React.FC<Productprops> = () => {
                       okText="Done"
                       onIonChange={(e) => setfilterBy(e.detail.value)}
                     >
-                      <IonSelectOption value="Alive">
-                        Category: Alive
+                      <IonSelectOption value="Bathroom">
+                        Category: Bathroom
                       </IonSelectOption>
-                      <IonSelectOption value="Deceased">
-                        Category: Deceased{" "}
+                      <IonSelectOption value="Others">
+                        Category: Others
                       </IonSelectOption>
                     </IonSelect>
                   </IonButton>
