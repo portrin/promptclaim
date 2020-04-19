@@ -251,14 +251,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   <h3>{remainingPeriod}</h3>
                 ))}
               </IonLabel>
-              <IonButton
-                slot="end"
-                color="medium"
-                fill="outline"
-                expand="block"
-              >
-                Edit
-              </IonButton>
             </IonItem>
 
             <IonItem>
