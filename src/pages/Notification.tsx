@@ -19,6 +19,7 @@ import WoodTable from "../pictures/woodTable.jpg";
 import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
 import Chandelier from "../pictures/chandelier.jpeg";
 import NotificationItem from "../components/NotificationItem";
+import moment from "moment";
 
 export interface Character {
   name: string;
@@ -30,17 +31,57 @@ export interface Itemprops {
   item: Character;
 }
 
+export interface Product {
+  product_name: string;
+  uuid: string;
+  img: string;
+  category_name: string;
+  create_timestamp: string;
+  serial_no: string;
+  supplier_name: string;
+  contact: string;
+  retailer_branch_name: string;
+}
+export interface Productprops {
+  item: Product;
+}
 const Notification: React.FC<Itemprops> = () => {
   useEffect(() => {
     fetchItems();
   }, []);
-  const [items, setItems] = useState<Character[]>([]);
-  const fetchItems = async () => {
-    const data = await fetch("https://www.breakingbadapi.com/api/characters/");
+  const [items, setItems] = useState<Product[]>([]);
+  const [remainingPeriod, setRemainingPeriod] = useState("");
+  const [notiItems,setNotiItems] = useState<Product[]>([]);
 
+  const fetchItems = async () => {
+    const data = await fetch("http://localhost:8001/customer/product/get/", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data);
     const items = await data.json();
     setItems(items);
     console.log(items);
+    var dateFormat = items[0].create_timestamp.split("T")[0];
+    console.log(dateFormat);
+    console.log("Days =");
+    function countDay() {
+      var today = moment();
+      var purchase = moment(dateFormat);
+      return today.diff(purchase, "days");
+    }
+    console.log(countDay());
+    setRemainingPeriod(countDay() + "");
+    for (var i=0; i<items.length;i++) {
+      var tempItem = new Array<Product>()
+      if (moment().diff(moment(items[i].create_timestamp), "days") <= 3) {
+        console.log("(Noti) Days ="+moment().diff(moment(items.create_timestamp), "days"))
+        tempItem.push(items[i])
+        setNotiItems(tempItem);
+      }
+    }
+    
   };
 
   return (
@@ -54,97 +95,18 @@ const Notification: React.FC<Itemprops> = () => {
       <IonContent>
         <IonList>
           <IonListHeader>
-            <h2>March</h2>
+            <h2>Expiring Products</h2>
           </IonListHeader>
-          {items.map((item) => (
+          {notiItems.map((item) => (
             <NotificationItem
               image={item.img}
-              name={item.name}
-              description={item.char_id}
-              expiredDate={item.status}
+              name={item.product_name}
+              description={item.category_name}
+              remainingDate={
+                moment().diff(moment(item.create_timestamp), "days") + ""
+              }
             ></NotificationItem>
           ))}
-          <NotificationItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate="Today"
-          />
-          <NotificationItem
-            image={SamsungTV}
-            name="Samsuang Television"
-            description="Powerbuy"
-            expiredDate="in 2 days"
-          />
-          <NotificationItem
-            image={LGTV}
-            name="LG Television"
-            description="Central Rama3"
-            expiredDate=" in 1 day"
-          />
-          <NotificationItem
-            image={ToshibaAir}
-            name="Toshiba Air Conditioner"
-            description="Powerbuy"
-            expiredDate=""
-          />
-          <IonListHeader>
-            <h2>January</h2>
-          </IonListHeader>
-          <NotificationItem
-            image={WoodTable}
-            name="Wooden Round table "
-            description="Homepro"
-            expiredDate=""
-          />
-          <NotificationItem
-            image={Chandelier}
-            name="Chandelier"
-            description="Boonthavorn"
-            expiredDate=""
-          />
-          <NotificationItem
-            image={WorkLamp}
-            name="IKEA Work lamp"
-            description="IKEA"
-            expiredDate=""
-          />
-          <NotificationItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate=""
-          />
-
-          <IonItemDivider color="light">
-            <IonLabel>
-              <h1>2019</h1>
-            </IonLabel>
-          </IonItemDivider>
-
-          <IonListHeader>
-            <h2>December</h2>
-          </IonListHeader>
-
-          <NotificationItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate=""
-          />
-
-          <NotificationItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate=""
-          />
-          <NotificationItem
-            image={SamsungFrig}
-            name="Samsuang Refrigerator"
-            description="Macro"
-            expiredDate=""
-          />
         </IonList>
       </IonContent>
     </IonPage>

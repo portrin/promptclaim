@@ -5,7 +5,7 @@ interface Prop {
   image: string;
   name: string;
   description: string;
-  expiredDate: string;
+  remainingDate: string;
 }
 
 const NotificationItem: React.FC<Prop> = (props) => {
@@ -20,7 +20,7 @@ const NotificationItem: React.FC<Prop> = (props) => {
         <h4>{props.description}</h4>
       </IonLabel>
       <IonNote slot="end" color="primary">
-        <h6>{`Expired  ${props.expiredDate}`}</h6>
+        <h6>{`Remaining days  ${props.remainingDate}`}</h6>
       </IonNote>
     </IonItem>
   );
