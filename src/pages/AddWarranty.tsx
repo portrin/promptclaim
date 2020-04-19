@@ -30,18 +30,17 @@ const slideOpts = {
 };
 
 const AddWarranty: React.FC = () => {
-  const [text, setText] = useState<string>();
-  const [text1, setText1] = useState<string>();
-  const [text2, setText2] = useState<string>();
-  const [text3, setText3] = useState<string>();
-  const [text4, setText4] = useState<string>();
-  const [text5, setText5] = useState<string>();
+  const [pname, setPname] = useState<string>();
+  const [serial, setSerial] = useState<string>();
+  const [wranNumber, setWranNumber] = useState<string>();
+  const [wranLife, setWranLife] = useState<string>();
+  const [retialer, setRetailer] = useState<string>();
+  const [supplier, setSupplier] = useState<string>();
   const { photos, takePhoto } = usePhotoGallery();
   const { photos1, takePhoto1 } = usePhotoGallery();
   const { photos2, takePhoto2 } = usePhotoGallery();
   const today = new Date().toISOString();
   const [selectedDate, setSelectedDate] = useState<string>(today);
- 
 
   console.log(JSON.stringify(photos[0]));
 
@@ -57,33 +56,33 @@ const AddWarranty: React.FC = () => {
           <IonListHeader>Product Information</IonListHeader>
           <IonItem>
             <IonInput
-              value={text}
+              value={pname}
               placeholder="Product Name"
-              onIonChange={(e) => setText(e.detail.value!)}
+              onIonChange={(e) => setPname(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
             <IonInput
-              value={text1}
+              value={serial}
               placeholder="Serial Number"
-              onIonChange={(e) => setText1(e.detail.value!)}
+              onIonChange={(e) => setSerial(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
             <IonInput
-              value={text2}
+              value={wranNumber}
               placeholder="Warranty Number"
-              onIonChange={(e) => setText2(e.detail.value!)}
+              onIonChange={(e) => setWranNumber(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
             <IonInput
-              value={text3}
+              value={wranLife}
               placeholder="Warranty Life"
-              onIonChange={(e) => setText3(e.detail.value!)}
+              onIonChange={(e) => setWranLife(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
@@ -102,17 +101,17 @@ const AddWarranty: React.FC = () => {
           </IonItem>
           <IonItem>
             <IonInput
-              value={text4}
+              value={retialer}
               placeholder="Retailer"
-              onIonChange={(e) => setText4(e.detail.value!)}
+              onIonChange={(e) => setRetailer(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
             <IonInput
-              value={text5}
+              value={supplier}
               placeholder="Supplier"
-              onIonChange={(e) => setText5(e.detail.value!)}
+              onIonChange={(e) => setSupplier(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>

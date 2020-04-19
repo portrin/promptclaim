@@ -1,0 +1,7 @@
+ion-label {
+  opacity: 1 !important;
+}
+
+.native-input:disabled {
+  opacity: 10 !important;
+}

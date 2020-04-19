@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { RefresherEventDetail } from "@ionic/core";
-import moment from 'moment';
+import moment from "moment";
+import "./DynamicWarrantyInfo.css";
+
 import {
   IonRefresherContent,
   IonRefresher,
@@ -25,10 +27,12 @@ import {
   IonCol,
   IonSlides,
   IonSlide,
+  IonInput,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
+import { triggerAsyncId } from "async_hooks";
 
 interface RouteParam {
   id: string;
@@ -60,19 +64,42 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [checked, setChecked] = useState(false);
   const [showActionSheet, setShowActionSheet] = useState(false);
   const [showActionSheet1, setShowActionSheet1] = useState(false);
+  const [done, setDone] = useState("Edit Warranty");
+  const [fill, setFill] = useState("outline");
+  const [butStat, setButstat] = useState<boolean>(true);
 
   const [showToast1, setShowToast1] = useState(false);
   const [phoneNum, setphoneNum] = useState("");
   const [remainingPeriod, setRemainingPeriod] = useState("");
   const [displayDate, setdisplayDate] = useState("");
-  console.log(match);
-  console.log(match.params);
+  const [serial, setSerial] = useState("");
+  const [retialer, setRetailer] = useState<string>();
+  const [supplier, setSupplier] = useState<string>();
+
+  const trigger = () => {
+    console.log(butStat);
+    if (!butStat) {
+      setButstat(false);
+      setDone("Done");
+    }
+
+    if (butStat === true) {
+      setButstat(false);
+      setDone("Done");
+    } else {
+      setButstat(true);
+      setDone("Edit Warranty");
+    }
+    console.log(butStat);
+  };
+  console.log(butStat);
+
   console.log(match.params.id);
   useEffect(() => {
     fetchItems();
   }, []);
   const [item, setItem] = useState<Product[]>([]);
-  
+
   const fetchItems = async () => {
     const data = await fetch(
       "http://localhost:8001/customer/product//getByUuid/" + match.params.id,
@@ -86,18 +113,21 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     const item = await data.json();
     setItem(item);
     console.log(item);
+    setSerial(item[0].serial_no);
+    setSupplier(item[0].supplier_name);
+    setRetailer(item[0].retailer_branch_name);
     setphoneNum(item[0].contact);
-    var dateFormat = item[0].create_timestamp.split('T')[0];
-    setdisplayDate(item[0].create_timestamp.split('T')[0]);
-    console.log(dateFormat) 
-    console.log("Days =") 
+    var dateFormat = item[0].create_timestamp.split("T")[0];
+    setdisplayDate(item[0].create_timestamp.split("T")[0]);
+    console.log(dateFormat);
+    console.log("Days =");
     function countDay() {
-      var today = moment(); 
-      var purchase = moment(dateFormat); 
-      return today.diff(purchase, 'days')
+      var today = moment();
+      var purchase = moment(dateFormat);
+      return today.diff(purchase, "days");
     }
-    console.log(countDay()) 
-    setRemainingPeriod(countDay()+"")
+    console.log(countDay());
+    setRemainingPeriod(countDay() + "");
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -108,7 +138,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       event.detail.complete();
     }, 2000);
   }
-
 
   type Item = {
     src: string;
@@ -160,7 +189,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 ))}
               </IonSlide>
             </IonSlides>
-
             <IonGrid>
               <IonRow>
                 <IonCol>
@@ -226,85 +254,83 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 Add Claim Date
               </IonButton>
             </IonGrid>
-
             <IonListHeader>Warranty Information</IonListHeader>
             <IonItem>
-              <IonLabel>
-                <h2>Purchase Date</h2>
-                {item.map((item) => (
-                  <h3>{displayDate}</h3>
-                ))}
+              <IonLabel position="floating">
+                <h1>Purchase Date</h1>
               </IonLabel>
-              <IonButton
-                slot="end"
-                color="medium"
-                fill="outline"
-                expand="block"
-              >
-                Edit
-              </IonButton>
+              <IonInput
+                class="ion-no-padding"
+                size={5}
+                required
+                type="text"
+                disabled={butStat}
+                value={displayDate}
+                onIonChange={(e) => setdisplayDate(e.detail.value!)}
+              ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel>
-                <h2>Days Since Purchased</h2>
-                {item.map((item) => (
-                  <h3>{remainingPeriod}</h3>
-                ))}
+              <IonLabel class="ion-no-padding" position="floating">
+                <h1>Days Since Purchased</h1>
               </IonLabel>
+              <IonInput
+                class="ion-no-padding"
+                size={5}
+                required
+                type="text"
+                disabled={butStat}
+                value={remainingPeriod}
+                onIonChange={(e) => setRemainingPeriod(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel class="ion-no-padding" position="floating">
+                <h1> Serial Number</h1>
+              </IonLabel>
+              <IonInput
+                class="ion-no-padding"
+                size={5}
+                required
+                type="text"
+                disabled={butStat}
+                value={serial}
+                onIonChange={(e) => setSerial(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel class="ion-no-padding" position="floating">
+                <h1> Supplier</h1>
+              </IonLabel>
+              <IonInput
+                class="ion-no-padding"
+                size={5}
+                placeholder="-"
+                required
+                type="text"
+                disabled={butStat}
+                value={supplier}
+                onIonChange={(e) => setSupplier(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel class="ion-no-padding" position="floating">
+                <h1> Retailer</h1>
+              </IonLabel>
+              <IonInput
+                class="ion-no-padding"
+                placeholder="-"
+                size={5}
+                required
+                type="text"
+                disabled={butStat}
+                value={retialer}
+                onIonChange={(e) => setRetailer(e.detail.value!)}
+              ></IonInput>
             </IonItem>
 
-            <IonItem>
-              <IonLabel>
-                <h2>Serial Number</h2>
-                {item.map((item) => (
-                  <h3>{item.serial_no}</h3>
-                ))}
-              </IonLabel>
-              <IonButton
-                slot="end"
-                color="medium"
-                fill="outline"
-                expand="block"
-              >
-                Edit
-              </IonButton>
-            </IonItem>
-            <IonItem>
-              <IonLabel>
-                <h2>Supplier</h2>
-                {item.map((item) => (
-                  <h3>{item.supplier_name}</h3>
-                ))}
-              </IonLabel>
-              <IonButton
-                slot="end"
-                color="medium"
-                fill="outline"
-                expand="block"
-              >
-                Edit
-              </IonButton>
-            </IonItem>
-            <IonItem>
-              <IonLabel>
-                <h2>Retailer</h2>
-                {item.map((item) => (
-                  <h3>{item.retailer_branch_name}</h3>
-                ))}
-              </IonLabel>
-              <IonButton
-                slot="end"
-                color="medium"
-                fill="outline"
-                expand="block"
-              >
-                Edit
-              </IonButton>
-            </IonItem>
-            <IonItem>
-              <br></br>
-            </IonItem>
-
+            <IonButton color="primary" expand="block" onClick={() => trigger()}>
+              {done}
+            </IonButton>
             <IonButton
               color="danger"
               onClick={() => setShowActionSheet1(true)}
