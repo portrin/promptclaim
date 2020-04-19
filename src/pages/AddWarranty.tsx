@@ -56,7 +56,7 @@ const AddWarranty: React.FC = () => {
         },
         body: JSON.stringify({
           serialNo: serial,
-          productNo: 123123,
+          productNo: "AAAAA1",
           productNickname: pname,
           price: 100,
           createTimestamp: selectedDate,
