@@ -7,3 +7,11 @@ exports.getPolicy = async (req, res, next) => {
     console.log(policy);
     res.send(policy);
 };
+
+exports.getPolicyByPolicyId = async (req, res, next) => {
+    const retailerId = jwt.decode(req.headers.authorization).sub;
+    const policyId = req.params.policyId;
+    const policy = (await Policy._readByPolicyId(retailerId, policyId))[0];
+    console.log(policy);
+    res.send(policy);
+}
