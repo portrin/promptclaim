@@ -2,32 +2,22 @@ import React from 'react'
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-
+import logo from '../photo/darktranslogo.png'
 export const LoginPage = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   // const [isSubmitted, setIsSubmitted] = useState(false)
   // const [isCorrected, setIsCorrected] = useState(false)
 
-  // function sendChange(event) {
-  //   const {name, value } = event.target;
-  //   setValues({
-  //     ...values,
-  //     [name]: value
-  //   });
-  //   console.log(values);
+  // const sendSubmit = (event) => {
+  //   event.preventDefault()
+  //   console.log('username: ', username, 'password: ', password)
 
-  // }
-
-  const sendSubmit = (event) => {
-    event.preventDefault()
-    console.log('username: ', username, 'password: ', password)
-
-    if (username === 'bob' && password === '123456') {
-      props.history.push('/')
-    } else {
-      console.log('wrong')
-    }
+  //   if (username === 'bob' && password === '123456') {
+  //     props.history.push('/')
+  //   } else {
+  //     console.log('wrong')
+  //   }
 
     // axios.post("http://propclaim.com"+"/guest/authen", {username: username, password:password}).then(response=>
     // console.log(response)
@@ -44,10 +34,24 @@ export const LoginPage = (props) => {
     // console.log(isSubmitted);
   }
 
+  // fetch('url',{
+  //   method:'POST',
+  //   body : JSON.stringify({
+  //     username: username,
+  //     password: password
+  //   }),
+  //   headers: {
+  //     "Content-type": ""// header to called api
+  //   }
+  // })
+  // .then(response => response.json())
+  // .then(console.log)
+
+
   return (
-    <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
-      <Form onSubmit={sendSubmit} name="normal_login" className="login-form">
-        <img className="biglogo" src="darktranslogo.png" alt="logo" />
+    <article>
+      <Form>
+        <img className="logo-login" src={logo} alt="logo" />
         <Row>
           <Col span={8}></Col>
           <Col span={8}>
@@ -95,9 +99,6 @@ export const LoginPage = (props) => {
           <Form.Item name="remember" valuePropName="checked" noStyle>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
         </Form.Item>
 
         <Form.Item>

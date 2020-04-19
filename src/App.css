@@ -29,7 +29,7 @@
   width: 104.25px;
 }
 
-.biglogo {
+.logo-login {
   height: 130;
   width: 280;
 }
@@ -49,10 +49,6 @@
 .ant-descriptions-bordered .ant-descriptions-item-label {
   background-color: #d6e4f5;
 }
-/* jo */
-/*.App {
-  text-align: center;
-}*/
 
 .App-logo {
   height: 40vmin;
@@ -100,4 +96,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Login-Page {
+  text-align: center;
 }

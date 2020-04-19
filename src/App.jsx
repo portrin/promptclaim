@@ -15,7 +15,9 @@ const App = () => {
         <Route path="/view-product/:key" component={ViewProductPage} exact />
         <Route path="/main-policy" component={MainPolicyPage} exact />
         <Route path="/view-policy/:key" component={ViewPolicyPage} exact />
-        <Route path="/login" component={LoginPage} exact />
+        <div className="Login-Page">
+          <Route path="/login" component={LoginPage} exact />
+        </div>
       </Switch>
     </BrowserRouter>
   )
