@@ -44,11 +44,7 @@ const Verify: React.FC<RouteComponentProps> = (props) => {
               </IonInput>
             </IonItem>
           </IonCard>
-<<<<<<< HEAD
-          <Link to={`/fillinfo`}>
-=======
           <Link to={"/fillinfo"}>
->>>>>>> d0f4fa6cd23f2283be4dfb5f553d69f6469ae88f
             <IonButton
               class="confirm"
               strong

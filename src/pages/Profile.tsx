@@ -12,6 +12,7 @@ import {
   IonChip,
   IonContent,
   IonBackButton,
+  IonDatetime,
 } from "@ionic/react";
 import { chevronBackOutline, woman } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
@@ -36,9 +37,23 @@ export interface Profile {
   gender: string;
   account_id: string;
 }
+export interface Account {
+  email: string;
+}
+
+export interface Address {
+  house_no: string;
+  street: string;
+  sub_district: string;
+  district: string;
+  province: string;
+  zipcode: string;
+}
 
 export interface ProfileProps {
   item: Profile;
+  item2: Account;
+  item3: Address;
 }
 
 const token =
@@ -58,8 +73,42 @@ const Profile: React.FC<ProfileProps> = () => {
     });
     console.log(data);
     const items = await data.json();
-    setItems(items);
-    console.log(items);
+    setItems(items.getProfile);
+    console.log(items.getProfile);
+  };
+
+  useEffect(() => {
+    fetchItems2();
+    // eslint-disable-next-line
+  }, []);
+  const [items2, setItems2] = useState<Account[]>([]);
+  const fetchItems2 = async () => {
+    const data2 = await fetch("http://localhost:8001/customer/account/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data2);
+    const items2 = await data2.json();
+    setItems2(items2.getAccount);
+    console.log(items2.getAccount);
+  };
+
+  useEffect(() => {
+    fetchItems3();
+    // eslint-disable-next-line
+  }, []);
+  const [items3, setItems3] = useState<Address[]>([]);
+  const fetchItems3 = async () => {
+    const data3 = await fetch("http://localhost:8001/customer/address/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
+    console.log(data3);
+    const items3 = await data3.json();
+    setItems3(items3.getAddress);
+    console.log(items3.getAddress);
   };
 
   return (
@@ -87,8 +136,8 @@ const Profile: React.FC<ProfileProps> = () => {
               edit
             </IonButton>
             <IonLabel class="sublabel">Email :</IonLabel>
-            {items.map((item) => (
-              <IonLabel class="info">{item.firstname}</IonLabel>
+            {items2.map((item2) => (
+              <IonLabel class="info">{item2.email}</IonLabel>
             ))}
           </IonCard>
 
@@ -123,11 +172,15 @@ const Profile: React.FC<ProfileProps> = () => {
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Birthdate :</IonLabel>
-              <IonLabel class="info">14 Sep 1999</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.birth_date}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Phone No. :</IonLabel>
-              <IonLabel class="info">081-234-5678</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info">{item.phone_no}</IonLabel>
+              ))}
             </IonList>
           </IonCard>
 
@@ -144,27 +197,39 @@ const Profile: React.FC<ProfileProps> = () => {
             </IonButton>
             <IonList class="card">
               <IonLabel class="sublabel">Home No. :</IonLabel>
-              <IonLabel class="info">42</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.house_no}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Street :</IonLabel>
-              <IonLabel class="info">P. Sherman</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.street}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Sub-District :</IonLabel>
-              <IonLabel class="info">Wallaby Way</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.sub_district}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">District :</IonLabel>
-              <IonLabel class="info">Newman</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.district}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Province :</IonLabel>
-              <IonLabel class="info">Sydney</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.province}</IonLabel>
+              ))}
             </IonList>
             <IonList class="card">
               <IonLabel class="sublabel">Street Code :</IonLabel>
-              <IonLabel class="info">10130</IonLabel>
+              {items3.map((item3) => (
+                <IonLabel class="info">{item3.zipcode}</IonLabel>
+              ))}
             </IonList>
           </IonCard>
         </IonContent>
