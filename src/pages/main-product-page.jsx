@@ -6,15 +6,15 @@ import { Table } from 'antd'
 import { AppLayout } from '../components/app-layout'
 
 export const MainProductPage = (props) => {
-  //API Breaking Bad
+  //API backend
   const [items, setItems] = useState([])
   const fetchItem = async () => {
-    const data = await fetch("http://localhost:8001/retailer/product/get", {
+    const data = await fetch('http://localhost:8001/retailer/product/get', {
       headers: {
         Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os',
       },
-    });
+    })
     const items = await data.json()
     setItems(items)
     console.log('items', items)
@@ -29,6 +29,7 @@ export const MainProductPage = (props) => {
     invoice: item.invoice_id,
     expiry: item.create_timestamp,
   }))
+
   //Dashboard
   return (
     <AppLayout {...props} title="Product Dashboard">

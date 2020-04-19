@@ -21,7 +21,12 @@ export const ViewProductPage = (props) => {
     //eslint-disable-next-line
   }, [])
   return (
-    <AppLayout {...props} nosearch title="Product Information" lastpageProduct="Product Dashboard">
+    <AppLayout
+      {...props}
+      nosearch
+      title="Product Information"
+      lastpageProduct="Product Dashboard"
+    >
       <div className="site-layout-content">
         <Descriptions
           title={item.map((item) => item.name)}
@@ -42,7 +47,7 @@ export const ViewProductPage = (props) => {
             <br />
             Serial Number: {data[key].productInfo.serialNum}
             <br />
-            warranty Number: {data[key].productInfo.warrantyNum}
+            Warranty Number: {data[key].productInfo.warrantyNum}
             <br />
             Supplier ID: {data[key].productInfo.warrantyNum}
             <br />

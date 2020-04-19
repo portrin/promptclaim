@@ -19,7 +19,7 @@ export const LoginPage = (props) => {
 
   // }
 
-  function sendSubmit(event) {
+  const sendSubmit = (event) => {
     event.preventDefault()
     console.log('username: ', username, 'password: ', password)
 

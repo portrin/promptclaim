@@ -6,10 +6,6 @@
   min-height: 530px;
 }
 
-.App {
-  text-align: left;
-}
-
 .pointer {
   cursor: pointer;
 }
@@ -65,15 +61,14 @@
 
 .biglogo {
   margin-top: 20px;
-  height:150px ;
-  width:300px ;
+  height: 150px;
+  width: 300px;
+  align-items: center;
 }
 
 .userbox {
   margin-top: 20px;
   width: 600px;
-  
-
 }
 
 @media (prefers-reduced-motion: no-preference) {
