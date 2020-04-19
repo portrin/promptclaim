@@ -74,33 +74,48 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [remainingPeriod, setRemainingPeriod] = useState("");
   const [displayDate, setdisplayDate] = useState("");
   const [serial, setSerial] = useState("");
-  const [retialer, setRetailer] = useState<string>();
+  const [retailer, setRetailer] = useState<string>();
   const [supplier, setSupplier] = useState<string>();
+  const [item, setItem] = useState<Product[]>([]);
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   const trigger = () => {
-    if (!butStat) {
-      setButstat(false);
-      setDone("Done");
-    }
-
     if (butStat === true) {
       setButstat(false);
       setDone("Done");
     } else {
       setButstat(true);
       setDone("Edit Warranty");
+      sendEdit();
     }
   };
+  console.log(butStat);
 
-  console.log(match.params.id);
-  useEffect(() => {
-    fetchItems();
-  }, []);
-  const [item, setItem] = useState<Product[]>([]);
+  const sendEdit = async () => {
+    const data = await fetch(
+      "http://localhost:8001/customer/product/editbyuuid/" + match.params.id,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.token,
+        },
+        body: JSON.stringify({
+          createTimestamp: displayDate,
+          serialNo: serial,
+          supplierName: supplier,
+          retailerBranchName: retailer,
+        }),
+      }
+    );
+    console.log(serial);
+  };
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/product//getByUuid/" + match.params.id,
+      "http://localhost:8001/customer/product/getByUuid/" + match.params.id,
       {
         headers: {
           Authorization: localStorage.token,
@@ -126,6 +141,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     }
     console.log(countDay());
     setRemainingPeriod(countDay() + "");
+    console.log("checkkk");
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -284,7 +300,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 size={5}
                 required
                 type="text"
-                disabled={butStat}
+                disabled={true}
                 value={remainingPeriod}
                 onIonChange={(e) => setRemainingPeriod(e.detail.value!)}
               ></IonInput>
@@ -329,7 +345,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 required
                 type="text"
                 disabled={butStat}
-                value={retialer}
+                value={retailer}
                 onIonChange={(e) => setRetailer(e.detail.value!)}
               ></IonInput>
             </IonItem>
