@@ -199,7 +199,7 @@ const MyWarranty: React.FC<Productprops> = () => {
             {sortProduct(filterProduct(searchItem)).map((item) => (
               <Product
                 name={item.name}
-                serial={item.char_id}
+                serial={item.uuid}
                 image={item.img}
                 description={item.status}
               ></Product>
