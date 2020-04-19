@@ -53,11 +53,11 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     fetchItems();
   }, []);
   const [item, setItem] = useState<Product[]>([]);
-  const [dylink, setDyLink] = useState("");
+  const [dylink, setDyLink] = useState("/myWarranty/" + match.params.id);
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/claimlog/getByUuid/" + match.params.id,
+      "http://localhost:8001/customer/claimlog/get/" + match.params.id,
       {
         headers: {
           Authorization: localStorage.token,
@@ -88,11 +88,6 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
       }),
     });
     fetchItems();
-    console.log(data);
-    const item = await data.json();
-    setItem(item);
-    console.log(item);
-    setDyLink("/myWarranty/" + match.params.id);
   };
   return (
     <IonPage>
