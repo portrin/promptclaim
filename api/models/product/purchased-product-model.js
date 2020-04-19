@@ -128,7 +128,7 @@ module.exports = class PurchasedProduct {
 
     _delete() {
         return db.execute(
-            'DELETE FROM purchased_product WHERE uuid = ?',
+            'DELETE FROM purchased_product p WHERE p.uuid = ?',
             [this._uuid]
         )
     }

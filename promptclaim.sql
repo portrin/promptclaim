@@ -1,4 +1,4 @@
-
+/*CREATE DATABASE promptclaim;*/
 
 CREATE TABLE Customer_account (
 	account_id INT AUTO_INCREMENT NOT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE Claim_log (
     service_center_id VARCHAR(6),
     service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE,
     FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id)
 );
 
@@ -251,7 +251,7 @@ CREATE TABLE Product_has_policy (
     timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid)
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE
 );
 
 CREATE TABLE Pp_classify_as (
@@ -451,8 +451,6 @@ AFTER INSERT ON customer_account
 FOR EACH ROW
 INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES(new.account_id, null, null, null, null, null , new.account_id);
-
-
 
 
 
