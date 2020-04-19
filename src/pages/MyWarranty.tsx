@@ -30,15 +30,6 @@ import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
 
-export interface Character {
-  name: string;
-  char_id: string;
-  img: string;
-  status: string;
-}
-export interface Itemprops {
-  item: Character;
-}
 export interface Product {
   char_id: string;
   status: string;
@@ -199,12 +190,12 @@ const MyWarranty: React.FC<Productprops> = () => {
 
             {sortProduct(filterProduct(searchItem)).map((item) => (
               <Product
-              name={item.product_name}
-              serial={item.uuid}
-              image={item.img}
-              description={item.retailer_branch_name}
-              category={item.category_name}
-            ></Product>
+                name={item.product_name}
+                serial={item.uuid}
+                image={item.img}
+                description={item.retailer_branch_name}
+                category={item.category_name}
+              ></Product>
             ))}
           </IonList>
         </IonContent>
