@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd'
+import { Form, Input, Button, Checkbox, Row, Col, Modal } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import logo from '../photo/darktranslogo.png'
@@ -10,16 +10,52 @@ export const LoginPage = (props) => {
   const [password, setPassword] = useState('')
   // const [isSubmitted, setIsSubmitted] = useState(false)
   // const [isCorrected, setIsCorrected] = useState(false)
-
+  function errorToast() {
+    Modal.error({
+      title: 'This is an error message',
+      content: 'some messages...some messages...',
+    })
+  }
   const sendSubmit = () => {
     axios
-      .post('https://localhost:8001/retailer/auth/login', {
-        username: 'IKEA',
-        password: 'Ikeapassword',
-      })
-      .then((response) => {
-        console.log(response)
-      })
+      .post(
+        'http://localhost:8001/retailer/auth/login',
+        {
+          username: username,
+          password: password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        },
+      )
+      .then(
+        (response) => {
+          console.log('response: ' + response)
+          if (response.data) {
+            const token = response.data
+
+            if (token === 'invalid username or password') {
+              console.log('Bugg invalid username or password')
+              setUsername('')
+              setPassword('')
+              errorToast()
+            } else {
+              localStorage.setItem('token', token)
+              props.history.push('/')
+              console.log('correct')
+            }
+          } else if (response.data === 'Incorrect') {
+          }
+          // console.log(localStorage.token)
+        },
+        (error) => {
+          console.log('error' + error)
+        },
+      )
+
     // event.preventDefault()
     // console.log('username: ', username, 'password: ', password)
 
@@ -44,21 +80,8 @@ export const LoginPage = (props) => {
     // console.log(isSubmitted);
   }
 
-  // fetch('url',{
-  //   method:'POST',
-  //   body : JSON.stringify({
-  //     username: username,
-  //     password: password
-  //   }),
-  //   headers: {
-  //     "Content-type": ""// header to called api
-  //   }
-  // })
-  // .then(response => response.json())
-  // .then(console.log)
-
   return (
-    <article>
+    <article className="Login-Page">
       <Form>
         <img className="logo-login" src={logo} alt="logo" />
         <Row>
