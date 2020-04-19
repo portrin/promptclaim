@@ -113,7 +113,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
           },
           body: JSON.stringify({
             serialNo: serial,
-            createTimestamp: moment(displayDate).add(1, 'days').format()
+            createTimestamp: moment(displayDate).add(1, "days").format(),
           }),
         }
       );
@@ -121,7 +121,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       //
     }
   };
-  console.log(moment(displayDate).add(1, 'days').format());
+  console.log(moment(displayDate).add(1, "days").format());
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -293,7 +293,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 max={todayD}
                 disabled={butStat}
                 value={displayDate}
-            
                 onIonChange={(e) => setdisplayDate(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
