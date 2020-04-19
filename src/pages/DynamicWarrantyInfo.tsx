@@ -62,6 +62,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
   const [showToast1, setShowToast1] = useState(false);
   const [phoneNum, setphoneNum] = useState("");
+  const [remainingPeriod, setRemainingPeriod] = useState("");
   console.log(match);
   console.log(match.params);
   console.log(match.params.id);
@@ -83,6 +84,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     setItem(item);
     console.log(item);
     setphoneNum(item[0].contact);
+    var dateFormat = item[0].create_timestamp.split('T')[0];
+    console.log(dateFormat) 
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
