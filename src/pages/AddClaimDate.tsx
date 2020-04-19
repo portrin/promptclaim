@@ -56,14 +56,11 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
   const [dylink, setDyLink] = useState("/myWarranty/" + match.params.id);
 
   const fetchItems = async () => {
-    const data = await fetch(
-      "http://localhost:8001/customer/claimlog/get/" + match.params.id,
-      {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      }
-    );
+    const data = await fetch("http://localhost:8001/customer/claimlog/get/", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -79,10 +76,10 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
         Authorization: localStorage.token,
       },
       body: JSON.stringify({
-        claimId: "000008",
+        claimId: "000009",
         timestamp: selectedDate,
         status: "calimed",
-        uuid: "2",
+        uuid: match.params.id,
         serviceCenterId: null,
         serviceCenterBranchId: null,
       }),
