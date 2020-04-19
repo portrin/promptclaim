@@ -39,12 +39,10 @@ const AddWarranty: React.FC = () => {
   const { photos, takePhoto } = usePhotoGallery();
   const { photos1, takePhoto1 } = usePhotoGallery();
   const { photos2, takePhoto2 } = usePhotoGallery();
-  const today = new Date().toISOString()
-  const [selectedDate, setSelectedDate] = useState<string>(
-    today
-  );
+  const today = new Date().toISOString();
+  const [selectedDate, setSelectedDate] = useState<string>(today);
+ 
 
-  
   console.log(JSON.stringify(photos[0]));
 
   return (

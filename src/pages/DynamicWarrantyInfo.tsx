@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RefresherEventDetail } from "@ionic/core";
+import moment from 'moment';
 import {
   IonRefresherContent,
   IonRefresher,
@@ -63,6 +64,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [showToast1, setShowToast1] = useState(false);
   const [phoneNum, setphoneNum] = useState("");
   const [remainingPeriod, setRemainingPeriod] = useState("");
+  const [displayDate, setdisplayDate] = useState("");
   console.log(match);
   console.log(match.params);
   console.log(match.params.id);
@@ -70,6 +72,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     fetchItems();
   }, []);
   const [item, setItem] = useState<Product[]>([]);
+  
   const fetchItems = async () => {
     const data = await fetch(
       "http://localhost:8001/customer/product//getByUuid/" + match.params.id,
@@ -85,7 +88,16 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     console.log(item);
     setphoneNum(item[0].contact);
     var dateFormat = item[0].create_timestamp.split('T')[0];
+    setdisplayDate(item[0].create_timestamp.split('T')[0]);
     console.log(dateFormat) 
+    console.log("Days =") 
+    function countDay() {
+      var today = moment(); 
+      var purchase = moment(dateFormat); 
+      return today.diff(purchase, 'days')
+    }
+    console.log(countDay()) 
+    setRemainingPeriod(countDay()+"")
   };
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -96,6 +108,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       event.detail.complete();
     }, 2000);
   }
+
 
   type Item = {
     src: string;
@@ -219,7 +232,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Purchase Date</h2>
                 {item.map((item) => (
-                  <h3>{item.create_timestamp}</h3>
+                  <h3>{displayDate}</h3>
                 ))}
               </IonLabel>
               <IonButton
@@ -235,7 +248,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Remaining Warranty Period</h2>
                 {item.map((item) => (
-                  <h3>{item.serial_no}</h3>
+                  <h3>{remainingPeriod}</h3>
                 ))}
               </IonLabel>
               <IonButton
