@@ -263,17 +263,16 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonList>
           </IonCard>
 
-          <Link to={`/myWarranty`}>
-            <IonButton
-              class="createacc"
-              strong
-              id="signin"
-              size="large"
-              color="theme"
-            >
-              CREATE ACCOUNT
-            </IonButton>
-          </Link>
+          <IonButton
+            class="createacc"
+            strong
+            id="signin"
+            size="large"
+            color="theme"
+            href="/mywarranty"
+          >
+            CREATE ACCOUNT
+          </IonButton>
         </IonContent>
       </IonPage>
     </IonApp>

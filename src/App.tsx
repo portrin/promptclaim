@@ -73,10 +73,7 @@ const App: React.FC = () => {
             <Route path="/editaccount" component={EditAccount} exact={true} />
             <Route path="/editprofile" component={EditProfile} exact={true} />
             <Route path="/editaddress" component={EditAddress} exact={true} />
-            <Route path="/profile/:id" component={Profile} />
-            <Route path="/editaccount/:id" component={EditAccount} />
-            <Route path="/editprofile/:id" component={EditProfile} />
-            <Route path="/editaddress/:id" component={EditAddress} />
+    
 
             <Route
               exact={true}

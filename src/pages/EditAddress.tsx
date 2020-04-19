@@ -77,7 +77,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" href="/profile/1">
+              <IonButton color="theme" href="/profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Address</IonTitle>
@@ -159,7 +159,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
-            href="/profile/1"
+            href="/profile"
           >
             SAVE
           </IonButton>

@@ -123,13 +123,7 @@ const MyWarranty: React.FC<Productprops> = () => {
                 color="light"
               ></IonIcon>
             </IonButton>
-            <IonButton
-              fill="clear"
-              slot="end"
-              size="small"
-              
-              routerLink="/profile/1"
-            >
+            <IonButton fill="clear" slot="end" size="small" href="/profile">
               <IonIcon
                 size="medium"
                 icon={personCircleOutline}

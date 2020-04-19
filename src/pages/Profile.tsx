@@ -33,7 +33,7 @@ export interface Profile {
   firstname: string;
   lastname: string;
   phone_no: string;
-  birth_date: Date;
+  birth_date: string;
   gender: string;
   account_id: string;
 }
@@ -92,6 +92,8 @@ const Profile: React.FC<ProfileProps> = () => {
     const items2 = await data2.json();
     setItems2(items2.getAccount);
     console.log(items2.getAccount);
+
+    // bdate format : "2005-04-19T00:12:55.890+07:00"
   };
 
   useEffect(() => {
@@ -107,8 +109,9 @@ const Profile: React.FC<ProfileProps> = () => {
     });
     console.log(data3);
     const items3 = await data3.json();
-    setItems3(items3.getAddress);
+    setItems3(Array(items3.getAddress[0]));
     console.log(items3.getAddress);
+    console.log(items3.getAddress[0]);
   };
 
   return (
@@ -117,8 +120,7 @@ const Profile: React.FC<ProfileProps> = () => {
         <IonContent color="signinbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme">
-                <IonBackButton />
+              <IonButton color="theme" href="/mywarranty">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Profile</IonTitle>
@@ -131,7 +133,7 @@ const Profile: React.FC<ProfileProps> = () => {
               size="small"
               color="theme"
               fill="outline"
-              href="/editaccount/1"
+              href="/editaccount"
             >
               edit
             </IonButton>
@@ -148,7 +150,7 @@ const Profile: React.FC<ProfileProps> = () => {
               size="small"
               color="theme"
               fill="outline"
-              routerLink="/editprofile/1"
+              routerLink="/editprofile"
             >
               edit
             </IonButton>
@@ -173,7 +175,9 @@ const Profile: React.FC<ProfileProps> = () => {
             <IonList class="card">
               <IonLabel class="sublabel">Birthdate :</IonLabel>
               {items.map((item) => (
-                <IonLabel class="info">{item.birth_date}</IonLabel>
+                <IonLabel class="info">
+                  {item.birth_date.substring(0, 10)}
+                </IonLabel>
               ))}
             </IonList>
             <IonList class="card">
@@ -191,7 +195,7 @@ const Profile: React.FC<ProfileProps> = () => {
               size="small"
               color="theme"
               fill="outline"
-              href="/editaddress/1"
+              href="/editaddress"
             >
               edit
             </IonButton>
