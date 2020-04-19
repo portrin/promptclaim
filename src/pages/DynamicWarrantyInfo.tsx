@@ -43,9 +43,9 @@ export interface Product {
   category_name: string;
   create_timestamp: string;
   serial_no: string;
-  retailer_id: string;
-  name: string;
+  supplier_name: string;
   contact: string;
+  retailer_branch_name: string;
 }
 export interface Productprops {
   item: Product;
@@ -228,6 +228,22 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 Edit
               </IonButton>
             </IonItem>
+            <IonItem>
+              <IonLabel>
+                <h2>Remaining Warranty Period</h2>
+                {item.map((item) => (
+                  <h3>{item.serial_no}</h3>
+                ))}
+              </IonLabel>
+              <IonButton
+                slot="end"
+                color="medium"
+                fill="outline"
+                expand="block"
+              >
+                Edit
+              </IonButton>
+            </IonItem>
 
             <IonItem>
               <IonLabel>
@@ -249,7 +265,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Supplier</h2>
                 {item.map((item) => (
-                  <h3>{item.name}</h3>
+                  <h3>{item.supplier_name}</h3>
                 ))}
               </IonLabel>
               <IonButton
@@ -265,23 +281,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonLabel>
                 <h2>Retailer</h2>
                 {item.map((item) => (
-                  <h3>{item.retailer_id}</h3>
-                ))}
-              </IonLabel>
-              <IonButton
-                slot="end"
-                color="medium"
-                fill="outline"
-                expand="block"
-              >
-                Edit
-              </IonButton>
-            </IonItem>
-            <IonItem>
-              <IonLabel>
-                <h2>Remaining Warranty Period</h2>
-                {item.map((item) => (
-                  <h3>{item.serial_no}</h3>
+                  <h3>{item.retailer_branch_name}</h3>
                 ))}
               </IonLabel>
               <IonButton
