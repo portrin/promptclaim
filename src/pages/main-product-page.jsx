@@ -9,7 +9,12 @@ export const MainProductPage = (props) => {
   //API Breaking Bad
   const [items, setItems] = useState([])
   const fetchItem = async () => {
-    const data = await fetch(`https://www.breakingbadapi.com/api/characters/`)
+    const data = await fetch("http://localhost:8001/retailer/product/get", {
+      headers: {
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+      },
+    });
     const items = await data.json()
     setItems(items)
     console.log('items', items)
@@ -18,11 +23,11 @@ export const MainProductPage = (props) => {
     fetchItem()
   }, [])
   const dataBB = items.map((item, index) => ({
-    key: index + 1,
-    name: item.name,
-    serial: item.char_id,
-    warranty: '1234',
-    expiry: item.birthday,
+    key: item.uuid,
+    name: item.product_nickname,
+    serial: item.serial_no,
+    invoice: item.invoice_id,
+    expiry: item.create_timestamp,
   }))
   //Dashboard
   return (
@@ -96,8 +101,8 @@ const columns = [
     sorter: (a, b) => a.serial - b.serial,
   },
   {
-    title: 'Warranty No.',
-    dataIndex: 'warranty',
+    title: 'Invoice ID',
+    dataIndex: 'invoice',
     sorter: (a, b) => a.warranty - b.warranty,
   },
   {
