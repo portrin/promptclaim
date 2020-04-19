@@ -28,6 +28,7 @@ import {
   IonSlides,
   IonSlide,
   IonInput,
+  IonDatetime,
 } from "@ionic/react";
 import { notifications, call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
@@ -255,6 +256,18 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               </IonButton>
             </IonGrid>
             <IonListHeader>Warranty Information</IonListHeader>
+
+            <IonItem>
+              <IonLabel position="floating">Date of Purchase</IonLabel>
+              <IonDatetime
+                displayFormat=" MMM D, YYYY"
+                min="2020"
+                max="2024"
+                disabled={butStat}
+                value={displayDate}
+                onIonChange={(e) => setdisplayDate(e.detail.value!)}
+              ></IonDatetime>
+            </IonItem>
             <IonItem>
               <IonLabel position="floating">
                 <h1>Purchase Date</h1>
