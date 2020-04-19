@@ -47,7 +47,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
   console.log(match);
 
   const [selectedDate, setSelectedDate] = useState<string>(
-    "2020-03-27T17:51:31+0000"
+    new Date().toISOString()
   );
   useEffect(() => {
     fetchItems();
