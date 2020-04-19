@@ -20,8 +20,8 @@ exports.postAddClaimLog = async (req, res, next) => {
     const status = req.body.status;  
     const uuid = req.body.uuid;
     const service_center_id = req.body.serviceCenterId;
-    const branch_id = req.body.branchId;    
-    const claimLog = new ClaimLog({claim_id, timestamp, status, uuid, service_center_id, branch_id});
+    const service_center_branch_id = req.body.serviceCenterBranchId;    
+    const claimLog = new ClaimLog({claim_id, timestamp, status, uuid, service_center_id, service_center_branch_id});
     const result = (await claimLog._create()) [0]; 
     res.send(result);  
 }
