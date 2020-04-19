@@ -27,8 +27,7 @@ const slideOpts = {
 };
 const AddClaimDate: React.FC<Match> = ({ match }) => {
   console.log(match);
-  const [text, setText] = useState<string>();
-  const [text1, setText1] = useState<string>();
+
   const [selectedDate, setSelectedDate] = useState<string>(
     "2020-03-27T17:51:31+0000"
   );
@@ -68,7 +67,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
           <IonButton
             color="light"
             expand="block"
-            routerLink={`warrantyItem/+{id}`}
+            routerLink={`warrantyItem/+${match.params.id}`}
           >
             Back
           </IonButton>

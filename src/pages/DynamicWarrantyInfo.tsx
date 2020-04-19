@@ -78,7 +78,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [supplier, setSupplier] = useState<string>();
 
   const trigger = () => {
-    console.log(butStat);
     if (!butStat) {
       setButstat(false);
       setDone("Done");
@@ -91,9 +90,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       setButstat(true);
       setDone("Edit Warranty");
     }
-    console.log(butStat);
   };
-  console.log(butStat);
 
   console.log(match.params.id);
   useEffect(() => {
