@@ -287,6 +287,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 max="2024"
                 disabled={butStat}
                 value={displayDate}
+                displayTimezone='utc'
                 onIonChange={(e) => setdisplayDate(e.detail.value!)}
                 
               ></IonDatetime>
