@@ -71,7 +71,7 @@ module.exports = class PurchasedProduct {
 
     static _readByRetailerId(retailerId) {
         return db.execute(
-            'SELECT * FROM purchased_product WHERE retailer_id = ?',
+            'SELECT P1.uuid, serial_no, P1.product_no, product_model, product_name, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo, P1.customer_id, firstname, lastname, phone_no, address_id, house_no, street, sub_district, district, province, zipcode, claim_id, status, C1.timestamp, P2.policy_id, policy_start_date, policy_end_date, P2.timestamp, policy_period, date_created FROM purchased_product P1 LEFT JOIN product P ON P1.product_no = P.product_no LEFT JOIN claim_log C1 ON P1.uuid = C1.uuid LEFT JOIN product_has_policy P2 ON P1.uuid = P2.uuid LEFT JOIN policy P3 ON P2.policy_id = P3.policy_id LEFT JOIN customer C2 ON P1.customer_id = C2.customer_id LEFT JOIN customer_address C3 ON C2.customer_id = C3.customer_id WHERE retailer_id = ?',
             [retailerId]            
         );
     }
