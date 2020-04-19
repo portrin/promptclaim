@@ -2,13 +2,13 @@ const db = require('../../../config/db');
 const checkType = require('../../../utils').checkType;
 
 module.exports = class Retailer {
-    constructor({retailer_id = null, name = null, contact = null, hq_address = null, retailer_description = null, root_id = null, policy_owner_id = null} = {}) {
+    constructor({retailer_id = null, retailer_name = null, retailer_contact = null, retailer_hq_address = null, retailer_description = null, root_id = null, policy_owner_id = null} = {}) {
         // their own class atrribute ref. from class diagram
         this._retailerId = retailer_id;
-        this._name = name;
+        this._retailerName = retailer_name;
         this._retailerDescription = retailer_description;
-        this._contact = contact;
-        this._hqAddress = hq_address;
+        this._retailerContact = retailer_contact;
+        this._retailerHqAddress = retailer_hq_address;
         this._rootId = root_id;
         this._policyOwnerId = policy_owner_id;
         // their relationships to its neighbor ref. from class diagram
@@ -20,8 +20,8 @@ module.exports = class Retailer {
     // DM layer CRUD
     _create() {
         return db.execute(
-            'INSERT INTO retailer (retailer_id, name, retailer_description, contact, hq_address, policy_owner_id, root_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [this._retailerId, this._name, this._retailerDescription, this._contact, this._hqAddress, this._policyOwnerId, this._rootId]
+            'INSERT INTO retailer (retailer_id, retailer_name, retailer_description, retailer_contact, retailer_hq_address, policy_owner_id, root_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [this._retailerId, this._retailerName, this._retailerDescription, this._retailerContact, this._retailerHqAddress, this._policyOwnerId, this._rootId]
         )
     }
     _read() {
@@ -42,8 +42,8 @@ module.exports = class Retailer {
     }
 
     _update() {
-        return db.execute('UPDATE retailer SET contact = ?, name = ?, hq_address = ?, retailer_description = ?, root_id = ?, policy_owner_id = ? WHERE retailer_id = ?',
-            [this._contact, this._name, this._hqAddress, this._retailerDescription, this._rootId, this._policyOwnerId, this._retailerId]
+        return db.execute('UPDATE retailer SET retailer_contact = ?, retailer_name = ?, retailer_hq_address = ?, retailer_description = ?, root_id = ?, policy_owner_id = ? WHERE retailer_id = ?',
+            [this._retailerContact, this._retailerName, this._retailerHqAddress, this._retailerDescription, this._rootId, this._policyOwnerId, this._retailerId]
         );
     }
 
@@ -57,10 +57,10 @@ module.exports = class Retailer {
             retailerId: this._retailerId,
             rootId: this._rootId,
             policyOwnerId: policyOwnerId,
-            name: this._name,
+            retailerName: this._retailerName,
             retailerDescription: this._retailerDescription,
-            contact: this._contact,
-            hqAddress: this._hqAddress,
+            retailerContact: this._retailerContact,
+            retailerHqAddress: this._retailerHqAddress,
             retailerBranch: this._retailerBranch,
             rootAccount: this._rootAccount,
             policyOwner: this._policyOwner
@@ -72,29 +72,26 @@ module.exports = class Retailer {
         retailerId = this._retailerId,
         rootId = this._rootId,
         policyOwnerId = this._policyOwnerId,
-        name = this._name,
+        retailerName = this._retailerName,
         retailerDescription = this._retailerDescription,
-        contact = this._contact,
-        hqAddress = this._hqAddress
+        retailerContact = this._retailerContact,
+        retailerHqAddress = this._retailerHqAddress
     }) {
         // check datatype
         checkType(retailerId, 'String');
         checkType(rootId, 'String');
         checkType(policyOwnerId, 'String');
-        checkType(name, 'String');
+        checkType(retailerName, 'String');
         checkType(retailerDescription, 'String');
-        checkType(contact, 'String');
-        checkType(hqAddress, 'String');
+        checkType(retailerContact, 'String');
+        checkType(retailerHqAddress, 'String');
         // assign to private variables
         this._retailerId = retailerId;
         this._rootId = rootId;
         this.policyOwnerId = policyOwnerId;
-        this._name = name;
+        this._retailerName = retailerName;
         this._retailerDescription = retailerDescription;
-        this._contact = contact;
-        this._hqAddress = hqAddress;
+        this._retailerContact = retailerContact;
+        this._retailerHqAddress = retailerHqAddress;
     }
 }
-
-
-

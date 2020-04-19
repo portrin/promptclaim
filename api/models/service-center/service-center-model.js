@@ -2,11 +2,11 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ServiceCenter {
-    constructor({ service_center_id = null, hq_address = null, name = null, service_center_description = null } = {}) {
+    constructor({ service_center_id = null, service_center_hq_address = null, service_center_name = null, service_center_description = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._serviceCenterId = service_center_id;
-        this._name = name;
-        this._hqAddress = hq_address;
+        this._serviceCenterName = service_center_name;
+        this._serviceCenterHqAddress = service_center_hq_address;
         this._serviceCenterDescription = service_center_description;
         // their relationships to its neighbor ref. from class diagram
         this._serviceCenterBranch = []; // relationship to ServiceCenterBranch
@@ -16,8 +16,8 @@ module.exports = class ServiceCenter {
     _create() {
         //get policyOwnerId
         return db.execute(
-            'INSERT INTO service_center(service_center_id, name, hq_address, service_center_description) VALUES (?, ?, ?, ?)',
-            [this._serviceCenterId, this._name, this.hqAddress, this._serviceCenterDescription]
+            'INSERT INTO service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description) VALUES (?, ?, ?, ?)',
+            [this._serviceCenterId, this._serviceCenterName, this.serviceCenterHqAddress, this._serviceCenterDescription]
         );
     }
 
@@ -30,8 +30,8 @@ module.exports = class ServiceCenter {
     }
 
     _update() {
-        return db.execute('UPDATE service_center SET name = ?, hq_address = ?, service_center_description= ? WHERE service_center_id = ?',
-            [this._name, this._hqAddress, this._serviceCenterDescription, this._serviceCenterId]);
+        return db.execute('UPDATE service_center SET service_center_name = ?, service_center_hq_address = ?, service_center_description= ? WHERE service_center_id = ?',
+            [this._serviceCenterName, this._serviceCenterHqAddress, this._serviceCenterDescription, this._serviceCenterId]);
     }
 
     _delete() {
@@ -42,8 +42,8 @@ module.exports = class ServiceCenter {
     get getProperty() {
         return {
             serviceCenterId: this._serviceCenterId,
-            name: this._name,
-            hqAddress: this._hqAddress,
+            serviceCenterName: this._serviceCenterName,
+            serviceCenterHqAddress: this._serviceCenterHqAddress,
             serviceCenterDesciption: this._serviceCenterDescription,
             serviceCenterBranch: this._serviceCenterBranch
         };
@@ -52,20 +52,20 @@ module.exports = class ServiceCenter {
     set setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         serviceCenterId = this._serviceCenterId,
-        name = this._name,
+        serviceCenterName = this._serviceCenterName,
         serviceCenterDesciption = this._serviceCenterDescription,
-        hqAddress = this._hqAddress
+        serviceCenterHqAddress = this._serviceCenterHqAddress
     }) {
         // check datatype
         checkType(serviceCenterId, 'String');
-        checkType(name, 'String');
+        checkType(serviceCenterName, 'String');
         checkType(serviceCenterDescription, 'String');
-        checkType(hqAddress, 'String');
+        checkType(serviceCenterHqAddress, 'String');
         // assign to private variables
         this._serviceCenterId = serviceCenterId;
-        this._name = name;
+        this._serviceCenterName = serviceCenterName;
         this._serviceCenterDescription = serviceCenterDesciption;
-        this._hqAddress = hqAddress;
+        this._serviceCenterHqAddress = serviceCenterHqAddress;
     }
 
 }

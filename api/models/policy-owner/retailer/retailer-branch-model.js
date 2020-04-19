@@ -2,13 +2,13 @@ const db = require('../../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class RetailerBranch {
-    constructor({retailer_id = null, branch_id = null, branch_name = null, contact = null, address = null } = {}) {
+    constructor({retailer_id = null, retailer_branch_id = null, retailer_branch_name = null, retailer_branch_contact = null, retailer_branch_address = null } = {}) {
         // their own class atrribute ref. from class diagram
         this._retailerId = retailer_id;
-        this._branchId = branch_id;
-        this._branchName = branch_name;
-        this._contact = contact;
-        this._address = address;
+        this._retailerBranchId = retailer_branch_id;
+        this._retailerBranchName = retailer_branch_name;
+        this._retailerBranchContact = retailer_branch_contact;
+        this._retailerBranchAddress = retailer_branch_address;
         // their relationships to its neighbor ref. from class diagram
         this._retailer = null;        // relationship to Retailer
         this._purchasedProduct = [];  // relationship to PurchasedProduct
@@ -16,13 +16,13 @@ module.exports = class RetailerBranch {
 
     // DM layer CRUD
     _create() {
-        return db.execute('INSERT INTO retailer_branch(retailer_id, branch_id, branch_name, contact, address) VALUES (?,?,?,?,?)',
-            [this._retailerId, this._branchId, this._branchName, this._contact, this._address]
+        return db.execute('INSERT INTO retailer_branch(retailer_id, retailer_branch_id, retailer_branch_name, retailer_branch_contact, retailer_branch_address) VALUES (?,?,?,?,?)',
+            [this._retailerId, this._retailerBranchId, this._retailerBranchName, this._retailerBranchContact, this._retailerBranchAddress]
         );
     }
 
     _read() {
-        return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND branch_id = ?', [this._retailerId, this._branchId]);
+        return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND retailer_branch_id = ?', [this._retailerId, this._retailerBranchId]);
     }
 
     static _readByRetailerId(retailerId) {
@@ -32,28 +32,28 @@ module.exports = class RetailerBranch {
         )
     }
 
-    static _readByPk(retailerId, branchId) {
-        return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND branch_id = ?', [retailerId, branchId]);
+    static _readByPk(retailerId, retailerBranchId) {
+        return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND retailer_branch_id = ?', [retailerId, retailerBranchId]);
     }
 
     _update() {
-        return db.execute('UPDATE retailer_branch SET branch_name = ?, contact = ?, address = ? WHERE retailer_id = ? AND branch_id = ?',
-            [this._branchName, this._contact, this._address, this._retailerId, this._branchId]
+        return db.execute('UPDATE retailer_branch SET retailer_branch_name = ?, retailer_branch_contact = ?, retailer_branch_address = ? WHERE retailer_id = ? AND retailer_branch_id = ?',
+            [this._retailerBranchName, this._retailerBranchContact, this._retailerBranchAddress, this._retailerId, this._retailerBranchId]
         );
     }
 
     _delete() {
-        return db.execute('DELETE FROM retailer_branch WHERE retailer_id = ? AND branch_id = ?', [this._retailerId, this._branchId]);
+        return db.execute('DELETE FROM retailer_branch WHERE retailer_id = ? AND retailer_branch_id = ?', [this._retailerId, this._retailerBranchId]);
     }
 
     // getter and setter
     getProperty() {
         return {
             retailerId: this._retailerId,
-            branchId: this._branchId,
-            branchName: this._branchName,
-            contact: this._contact,
-            address: this._address,
+            retailerBranchId: this._retailerBranchId,
+            retailerBranchName: this._retailerBranchName,
+            retailerBranchContact: this._retailerBranchContact,
+            retailerBranchAddress: this._retailerBranchAddress,
             retailer: this._retailer,
             purchasedProduct: this._purchasedProduct
         };
@@ -62,23 +62,23 @@ module.exports = class RetailerBranch {
     setProperty({ // set only its own attributes
         // destructuring object as parameter by using old values as a default.
         retailerId = this._retailerId,
-        branchId = this._branchId,
-        branchName = this._branchName,
-        contact = this._contact,
-        address = this._address
+        retailerBranchId = this._retailerBranchId,
+        retailerBranchName = this._retailerBranchName,
+        retailerBranchContact = this._retailerBranchContact,
+        retailerBranchAddress = this._retailerBranchAddress
     }) {
         // check datatype
         checkType(retailerId, 'String');
-        checkType(branchId, 'String');
-        checkType(branchName, 'String');
-        checkType(contact, 'String');
-        checkType(address, 'String');
+        checkType(retailerBranchId, 'String');
+        checkType(retailerBranchName, 'String');
+        checkType(retailerBranchContact, 'String');
+        checkType(retailerBranchAddress, 'String');
         // assign to private variables
         this._retailerId = retailerId;
-        this._branchId = branchId;
-        this._branchName = branchName;
-        this._contact = contact;
-        this._address = address;
+        this._retailerBranchId = retailerBranchId;
+        this._retailerBranchName = retailerBranchName;
+        this._retailerBranchContact = retailerBranchContact;
+        this._retailerBranchAddress = retailerBtanchAddress;
     }
 }
 
