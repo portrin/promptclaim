@@ -38,12 +38,12 @@ const EditProfile: React.FC<Match> = ({ match }) => {
   const [phonenum, setPhoneNum] = useState("");
 
   useEffect(() => {
-    fetchItems();
+    fetchItem();
     // eslint-disable-next-line
   }, []);
 
-  const [items, setItems] = useState<Profile[]>([]);
-  const fetchItems = async () => {
+  const [item, setItems] = useState<Profile[]>([]);
+  const fetchItem = async () => {
     const data = await fetch("http://localhost:8001/customer/profile/get", {
       headers: {
         Authorization: localStorage.token,
@@ -69,7 +69,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
   const editData = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/profile/edit" + match.params.id,
+      "http://localhost:8001/customer/profile/edit/" + match.params.id,
       {
         method: "POST",
         headers: {
@@ -184,8 +184,8 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel>Phone No.</IonLabel>
-                {items.map((items) => (
-                  <IonLabel class="label"> {items.phone_no}</IonLabel>
+                {item.map((item) => (
+                  <IonLabel class="label"> {item.phone_no}</IonLabel>
                 ))}
               </IonItem>
             </IonList>
