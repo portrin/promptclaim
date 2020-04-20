@@ -36,8 +36,8 @@ module.exports = class RetailerBranch {
         return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND retailer_branch_id = ?', [retailerId, retailerBranchId]);
     }
 
-    static _readRetailerBranch(){
-        return db.execute('SELECT retailer_branch_id, retailer_branch_name FROM retailer_branch')
+    static _readRetailerBranch(retailerId){
+        return db.execute('SELECT retailer_branch_id, retailer_branch_name FROM retailer_branch WHERE retailer_id =?',[retailerId])
     }
 
     _update() {
