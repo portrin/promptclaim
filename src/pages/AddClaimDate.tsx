@@ -15,6 +15,7 @@ import {
 } from "@ionic/react";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 interface RouteParam {
   id: string;
@@ -49,6 +50,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString()
   );
+  const [todayD, setTodayD] = useState<string>(new Date().toISOString());
   useEffect(() => {
     fetchItems();
   }, []);
@@ -66,6 +68,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     setItem(item);
     console.log(item);
     setDyLink("/myWarranty/" + match.params.id);
+    setTodayD(moment(todayD).add(0, "days").format());
   };
 
   const addClaim = async () => {
@@ -76,9 +79,8 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
         Authorization: localStorage.token,
       },
       body: JSON.stringify({
-        claimId: "000009",
         timestamp: selectedDate,
-        status: "calimed",
+        status: "claimed",
         uuid: match.params.id,
         serviceCenterId: null,
         serviceCenterBranchId: null,
@@ -107,7 +109,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
             <IonDatetime
               displayFormat="DDDD MMM D, YYYY"
               min="2020"
-              max="2024"
+              max={todayD}
               value={selectedDate}
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>

@@ -119,7 +119,6 @@ const AddWarranty: React.FC = () => {
               min="2020"
               max="2024"
               value={selectedDate}
-              displayTimezone='utc'
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
           </IonItem>

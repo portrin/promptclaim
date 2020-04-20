@@ -29,6 +29,7 @@ import {
   IonSlide,
   IonInput,
   IonDatetime,
+  IonRouterLink,
 } from "@ionic/react";
 import {
   notifications,
@@ -113,7 +114,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
           },
           body: JSON.stringify({
             serialNo: serial,
-            createTimestamp: moment(displayDate).add(1, 'days').format()
+            createTimestamp: moment(displayDate).add(1, "days").format(),
           }),
         }
       );
@@ -121,7 +122,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       //
     }
   };
-  console.log(moment(displayDate).add(1, 'days').format());
+  console.log(moment(displayDate).add(1, "days").format());
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -166,6 +167,20 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   type Item = {
     src: string;
     text: string;
+  };
+
+  const removeProduct = async () => {
+    const data = await fetch("http://localhost:8001/customer/product/deleteByUuid/"+match.params.id,
+     {
+      method: "DELETE",
+      
+        headers: {
+          Authorization: localStorage.token,
+        },
+    });
+    window.location.href = "/mywarranty";
+    fetchItems();
+
   };
 
   return (
@@ -293,7 +308,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 max={todayD}
                 disabled={butStat}
                 value={displayDate}
-            
                 onIonChange={(e) => setdisplayDate(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
@@ -386,9 +400,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 {
                   text: "Remove Warranty",
                   icon: trash,
+                  role: "destructive",
                   handler: () => {
-                    console.log("Contact Re clicked");
-                  },
+                    removeProduct();
+                    console.log("Removed");
+                  }
                 },
               ]}
             ></IonActionSheet>
