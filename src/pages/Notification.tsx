@@ -84,8 +84,6 @@ const Notification: React.FC<Itemprops> = () => {
     setItems(items);
     console.log(items);
 
-    //var dateFormat = policy[0].policy_end_date.split("T")[0];
-    //console.log(dateFormat);
   };
 
   const fetchPolicy = async () => {
@@ -140,30 +138,10 @@ const Notification: React.FC<Itemprops> = () => {
             size="small"
             class="ion-no-padding"
             href="/myWarranty"
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            routerDirection="root"
-          >
-            <IonIcon size="medium" icon={notifications} color="light"></IonIcon>
-          </IonButton>
-          <IonButton
-            fill="clear"
-            slot="end"
-            size="small"
-            href="/profile"
-            routerDirection="root"
-          >
-=======
->>>>>>> 71d758786d0ad46c46bbfb24fd27908b7bec98f0
           >
             <IonIcon size="medium" icon={notifications} color="light"></IonIcon>
           </IonButton>
           <IonButton fill="clear" slot="end" size="small" href="/profile">
-<<<<<<< HEAD
-=======
->>>>>>> 40b49fdbb72321a1ae71d77dc5c134cb213abe15
->>>>>>> 71d758786d0ad46c46bbfb24fd27908b7bec98f0
             <IonIcon
               size="medium"
               icon={personCircleOutline}
