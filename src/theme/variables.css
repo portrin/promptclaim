@@ -4,6 +4,7 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 :root {
   --ion-color-theme: #367fcc;
+  --ion-font-family: 'OpenSans' !important; 
 
   /** primary **/
   --ion-color-primary: #367fcc;
@@ -76,7 +77,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
-  --ion-font-family: 'Opensans' !important; 
+
 }
 
 @media (prefers-color-scheme: dark) {
