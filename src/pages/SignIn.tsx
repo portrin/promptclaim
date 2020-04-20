@@ -90,6 +90,7 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
             size="large"
             color="signinbutton"
             onClick={authen}
+            routerDirection="root"
           >
             SIGN IN
           </IonButton>

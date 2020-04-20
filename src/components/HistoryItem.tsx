@@ -1,26 +1,22 @@
 import React from "react";
-import { IonItem, IonAvatar, IonLabel, IonNote } from "@ionic/react";
+import { IonItem, IonAvatar, IonLabel, IonNote, IonImg } from "@ionic/react";
 interface Prop {
   image: string;
   name: string;
   description: string;
   date: string;
-
 }
 
 const HistoryItem: React.FC<Prop> = (props) => {
-  const img = props.image;
   return (
     <IonItem>
       <IonAvatar slot="start">
-        <img src={img} alt="img" />
+        <IonImg src={props.image} alt="img" />
       </IonAvatar>
-      <IonLabel>
-        <h3>{props.name}</h3>
-        <h4>{props.description}</h4>
-      </IonLabel>
+      <IonLabel>{props.name}</IonLabel>
+      <IonLabel>{props.description}</IonLabel>
       <IonNote slot="end" color="primary">
-  <h6>Claimed on {props.date.split("T")[0]}</h6>
+        <IonLabel>Claimed on {props.date.split("T")[0]}</IonLabel>
       </IonNote>
     </IonItem>
   );

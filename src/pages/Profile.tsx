@@ -124,7 +124,11 @@ const Profile: React.FC<ProfileProps> = () => {
         <IonContent color="signinbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" href="/mywarranty">
+              <IonButton
+                color="theme"
+                routerLink="/mywarranty"
+                routerDirection="root"
+              >
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Profile</IonTitle>
@@ -138,7 +142,8 @@ const Profile: React.FC<ProfileProps> = () => {
                 size="small"
                 color="theme"
                 fill="outline"
-                href={"/editaccount"}
+                routerLink={"/editaccount"}
+                routerDirection="root"
               >
                 edit
               </IonButton>
@@ -157,7 +162,8 @@ const Profile: React.FC<ProfileProps> = () => {
                 size="small"
                 color="theme"
                 fill="outline"
-                href={"/editProfile"}
+                routerLink={"/editProfile"}
+                routerDirection="root"
               >
                 edit
               </IonButton>
@@ -204,7 +210,8 @@ const Profile: React.FC<ProfileProps> = () => {
                 size="small"
                 color="theme"
                 fill="outline"
-                href={`/editaddress/${item3.address_id}`}
+                routerLink={`/editaddress/${item3.address_id}`}
+                routerDirection="root"
               >
                 edit
               </IonButton>
@@ -256,6 +263,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 color="theme"
                 fill="outline"
                 routerLink={`/editaddress/${item3.address_id}`}
+                routerDirection="root"
               >
                 edit
               </IonButton>

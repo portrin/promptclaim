@@ -93,7 +93,11 @@ const EditProfile: React.FC<ProfileProps> = () => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" href="/profile">
+              <IonButton
+                color="theme"
+                routerLink="/Profile"
+                routerDirection="root"
+              >
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Profile</IonTitle>
@@ -194,6 +198,7 @@ const EditProfile: React.FC<ProfileProps> = () => {
             color="theme"
             expand="block"
             routerLink={"/Profile"}
+            routerDirection="root"
             onClick={onHandleSave}
           >
             SAVE
