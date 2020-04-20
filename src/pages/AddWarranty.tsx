@@ -44,11 +44,10 @@ const AddWarranty: React.FC = () => {
   const today = new Date().toISOString();
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
-  const [response, setReponse] = useState();
   const [showToast1, setShowToast1] = useState(false);
   const [showToast2, setShowToast2] = useState(false);
 
-  console.log(JSON.stringify(photos[0]));
+  console.log(JSON.stringify(photos));
 
   const addProduct = async () => {
     if (serial === "" || pname === "") {
@@ -74,11 +73,10 @@ const AddWarranty: React.FC = () => {
           }),
         }
       );
+      console.log(data);
       const response = await data.json();
-      setReponse(response);
       console.log(response);
-      console.log(response.fieldCount);
-      if (response) {
+      if (data.status === 200) {
         console.log("Sucess Add");
         setSerial("");
         setPname("");

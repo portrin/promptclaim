@@ -12,6 +12,7 @@ import {
   IonLabel,
   IonDatetime,
   IonCardSubtitle,
+  IonToast,
 } from "@ionic/react";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
@@ -46,7 +47,7 @@ const slideOpts = {
 };
 const AddClaimDate: React.FC<Match> = ({ match }) => {
   console.log(match);
-
+  const [showToast1, setShowToast1] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>(
     new Date().toISOString()
   );
@@ -86,6 +87,10 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
         serviceCenterBranchId: null,
       }),
     });
+    console.log(data);
+    if (data.status === 200) {
+      setShowToast1(true);
+    }
     fetchItems();
   };
   return (
@@ -121,6 +126,14 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
             Back
           </IonButton>
         </IonList>
+        <IonToast
+          position="bottom"
+          color="primary"
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Log Update"
+          duration={2000}
+        />
       </IonContent>
     </IonPage>
   );
