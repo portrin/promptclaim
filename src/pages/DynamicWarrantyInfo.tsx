@@ -29,6 +29,7 @@ import {
   IonSlide,
   IonInput,
   IonDatetime,
+  IonRouterLink,
 } from "@ionic/react";
 import {
   notifications,
@@ -177,7 +178,9 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
           Authorization: localStorage.token,
         },
     });
+    window.location.href = "/mywarranty";
     fetchItems();
+
   };
 
   return (
@@ -399,9 +402,9 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   icon: trash,
                   role: "destructive",
                   handler: () => {
-                    removeProduct()
+                    removeProduct();
                     console.log("Removed");
-                  },
+                  }
                 },
               ]}
             ></IonActionSheet>
