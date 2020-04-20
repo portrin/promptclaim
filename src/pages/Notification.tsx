@@ -6,9 +6,18 @@ import {
   IonToolbar,
   IonList,
   IonListHeader,
+  IonButton,
+  IonIcon
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
+import {
+  notificationsOutline,
+  funnelOutline,
+  filterOutline,
+  personCircleOutline,
+  notifications
+} from "ionicons/icons";
 
 import NotificationItem from "../components/NotificationItem";
 import moment from "moment";
@@ -91,9 +100,29 @@ const Notification: React.FC<Itemprops> = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
-          <IonTitle>Notification</IonTitle>
-        </IonToolbar>
+      <IonToolbar color="theme">
+            <IonTitle class="title">My Warranty</IonTitle>
+            <IonButton
+              fill="clear"
+              slot="end"
+              size="small"
+              class="ion-no-padding"
+              href="/myWarranty"
+            >
+              <IonIcon
+                size="medium"
+                icon={notifications}
+                color="light"
+              ></IonIcon>
+            </IonButton>
+            <IonButton fill="clear" slot="end" size="small" href="/profile">
+              <IonIcon
+                size="medium"
+                icon={personCircleOutline}
+                color="light"
+              ></IonIcon>
+            </IonButton>
+          </IonToolbar>
       </IonHeader>
 
       <IonContent>

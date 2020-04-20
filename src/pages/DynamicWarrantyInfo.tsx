@@ -64,6 +64,12 @@ export interface Product {
 export interface Productprops {
   item: Product;
 }
+export interface Policy {
+  item: Policy;
+}
+export interface Policyprops {
+  item: Policy;
+}
 const slideOpts = {
   initialSlide: 1,
   speed: 400,
@@ -76,6 +82,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [done, setDone] = useState("Edit Warranty");
   const [fill, setFill] = useState("outline");
   const [butStat, setButstat] = useState<boolean>(true);
+  const [textColor, setTextColor] = useState("");
 
   const [showToast1, setShowToast1] = useState(false);
   const [phoneNum, setphoneNum] = useState("");
@@ -85,19 +92,23 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [retailer, setRetailer] = useState<string>();
   const [supplier, setSupplier] = useState<string>();
   const [item, setItem] = useState<Product[]>([]);
+  const [policy, setPolicy] = useState<Policy[]>([]);
   const [todayD, setTodayD] = useState<string>(new Date().toISOString());
   useEffect(() => {
     fetchItems();
+    fetchPolicy();
   }, []);
 
   const trigger = () => {
     if (butStat === true) {
       setButstat(false);
       setDone("Done");
+      setTextColor("primary");
     } else {
       setButstat(true);
       setDone("Edit Warranty");
       sendEdit();
+      setTextColor("");
     }
   };
   console.log(displayDate);
@@ -123,6 +134,19 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     }
   };
   console.log(moment(displayDate).add(1, "days").format());
+  const fetchPolicy = async () => {
+  const data = await fetch(
+    "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
+    {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    }
+  );
+  const policy = await data.json();
+  setPolicy(policy);
+  console.log(policy)
+}
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -133,6 +157,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
         },
       }
     );
+    
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -170,17 +195,18 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   };
 
   const removeProduct = async () => {
-    const data = await fetch("http://localhost:8001/customer/product/deleteByUuid/"+match.params.id,
-     {
-      method: "DELETE",
-      
+    const data = await fetch(
+      "http://localhost:8001/customer/product/deleteByUuid/" + match.params.id,
+      {
+        method: "DELETE",
+
         headers: {
           Authorization: localStorage.token,
         },
-    });
+      }
+    );
     window.location.href = "/mywarranty";
     fetchItems();
-
   };
 
   return (
@@ -269,17 +295,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                     ]}
                   ></IonActionSheet>
                 </IonCol>
-                <IonCol>
-                  <IonButton fill="outline" size="large" expand="block">
-                    <IonIcon icon={notifications}></IonIcon>
-                    <IonToggle
-                      onClick={() => setShowToast1(true)}
-                      color="success"
-                      checked={checked}
-                      onIonChange={(e) => setChecked(e.detail.checked)}
-                    />
-                  </IonButton>
-                </IonCol>
+               
               </IonRow>
               <IonButton
                 expand="block"
@@ -299,8 +315,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             <IonListHeader>Warranty Information</IonListHeader>
 
             <IonItem>
-              <IonLabel color="medium" position="floating">
-                Date of Purchase
+              <IonLabel color={textColor} position="floating">
+                <h1>Date of Purchase</h1>
               </IonLabel>
               <IonDatetime
                 displayFormat="DDDD MMM D, YYYY"
@@ -313,12 +329,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel
-                color="medium"
-                class="ion-no-padding"
-                position="floating"
-              >
-                Days Since Purchased
+              <IonLabel class="ion-no-padding" position="floating">
+                <h1>Days Since Purchased</h1>
               </IonLabel>
               <IonInput
                 class="ion-no-padding"
@@ -331,7 +343,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
+              <IonLabel
+                color={textColor}
+                class="ion-no-padding"
+                position="floating"
+              >
                 <h1> Serial Number</h1>
               </IonLabel>
               <IonInput
@@ -345,7 +361,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
+              <IonLabel
+                color={textColor}
+                class="ion-no-padding"
+                position="floating"
+              >
                 <h1> Supplier</h1>
               </IonLabel>
               <IonInput
@@ -360,7 +380,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
+              <IonLabel
+                color={textColor}
+                class="ion-no-padding"
+                position="floating"
+              >
                 <h1> Retailer</h1>
               </IonLabel>
               <IonInput
@@ -404,7 +428,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   handler: () => {
                     removeProduct();
                     console.log("Removed");
-                  }
+                  },
                 },
               ]}
             ></IonActionSheet>
