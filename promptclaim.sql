@@ -424,7 +424,7 @@ VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
 
 
 INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
-VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'hhttps://www.ikea.com/th/en/images/products/stefan-chair__0727320_PE735593_S5.JPG', '1', 'warrantyphoto1'),
+VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'https://www.ikea.com/th/en/images/products/stefan-chair__0727320_PE735593_S5.JPG', '1', 'warrantyphoto1'),
 ('SSSSS2', 'AAAAA2', '2', 'my table', '3000', '000002', '2020-03-03', '00001A', '000001', 'photo2', True, 'https://www.ikea.com/th/en/images/products/ingo-table-pine__0737092_PE740877_S5.JPG', '1', 'warrantyphoto4'),
 ('SSSSS7', 'AAAAA6', '1', 'my fridge', '6000', '000006', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://images-na.ssl-images-amazon.com/images/I/61TPUNRED3L._AC_SX522_.jpg', '1', 'warrantyphoto4'),
 ('SSSSS8', 'AAAAA7', '1', 'my washing machine', '2500', '000007', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://reviewed-com-res.cloudinary.com/image/fetch/s--66CnV-qU--/b_white,c_limit,cs_srgb,f_auto,fl_progressive.strip_profile,g_center,h_668,q_auto,w_1187/https://reviewed-production.s3.amazonaws.com/1572277950000/LG-WM3900HWA-Vanity.jpg', '1', 'warrantyphoto4'),
