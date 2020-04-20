@@ -103,7 +103,7 @@ export const ViewPolicyPage = (props) => {
     </AppLayout>
   )
 }
-
+// eslint-disable-next-line
 const data = {
   '1': {
     key: '1',
