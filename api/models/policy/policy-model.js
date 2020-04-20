@@ -38,14 +38,14 @@ module.exports = class Policy {
 
   static _readByCustomerId(customerId) {
     return db.execute(
-      "SELECT policy_id, policy_period, policy_description, date_created, policy_owner_id FROM policy NATURAL JOIN product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ?",
+      "SELECT P.policy_id, policy_period, policy_description, date_created, P.policy_owner_id, policy_start_date, policy_end_date, timestamp FROM policy P LEFT JOIN product_has_policy P2 ON P.policy_id = P2.policy_id LEFT JOIN purchased_product P3 ON P2.uuid = P3.uuid WHERE customer_id = ?",
       [customerId]
     );
   }
 
   static _readByUuid(customerId, uuid) {
     return db.execute(
-      "SELECT policy_id, policy_period, policy_description, date_created, policy_owner_id FROM policy NATURAL JOIN product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ? AND uuid = ?",
+      "SELECT P.policy_id, policy_period, policy_description, date_created, P.policy_owner_id, policy_start_date, policy_end_date, timestamp FROM policy P LEFT JOIN product_has_policy P2 ON P.policy_id = P2.policy_id LEFT JOIN purchased_product P3 ON P2.uuid = P3.uuid WHERE customer_id = ? AND P3.uuid = ?",
       [customerId, uuid]
     );
   }
