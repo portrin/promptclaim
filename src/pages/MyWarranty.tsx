@@ -103,6 +103,7 @@ const MyWarranty: React.FC<Productprops> = () => {
               size="small"
               class="ion-no-padding"
               routerLink="/notification"
+              routerDirection="root"
             >
               <IonIcon
                 size="medium"
