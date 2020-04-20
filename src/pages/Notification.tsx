@@ -6,18 +6,10 @@ import {
   IonToolbar,
   IonList,
   IonListHeader,
-  IonItemDivider,
-  IonLabel,
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
-import SamsungTV from "../pictures/samsungTV.jpg";
-import LGTV from "../pictures/LGTV.jpeg";
-import ToshibaAir from "../pictures/toshibaAir.jpg";
-import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
-import WoodTable from "../pictures/woodTable.jpg";
-import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
-import Chandelier from "../pictures/chandelier.jpeg";
+
 import NotificationItem from "../components/NotificationItem";
 import moment from "moment";
 
@@ -63,7 +55,9 @@ const Notification: React.FC<Itemprops> = () => {
     const items = await data.json();
     setItems(items);
     console.log(items);
+    if (items[0]!=null) {
     var dateFormat = items[0].create_timestamp.split("T")[0];
+    }
     console.log(dateFormat);
     console.log("Days =");
     function countDay() {
@@ -73,20 +67,24 @@ const Notification: React.FC<Itemprops> = () => {
       return today.diff(purchase, "days");
     }
     console.log(countDay());
-    setRemainingPeriod(countDay() + "");
-    for (var i = 0; i < items.length; i++) {
-      var tempItem = new Array<Product>();
-      if (
-        moment().diff(moment(items[i].create_timestamp), "days") <= 3 &&
-        moment().diff(moment(items[i].create_timestamp), "days") > 0
-      ) {
-        console.log(
-          "(Noti) Days =" +
-            moment().diff(moment(items.create_timestamp), "days")
-        );
-        tempItem.push(items[i]);
-        setNotiItems(tempItem);
+    try {
+      setRemainingPeriod(countDay() + "");
+      for (var i = 0; i < items.length; i++) {
+        var tempItem = new Array<Product>();
+        if (
+          moment().diff(moment(items[i].create_timestamp), "days") <= 3 &&
+          moment().diff(moment(items[i].create_timestamp), "days") > 0
+        ) {
+          console.log(
+            "(Noti) Days =" +
+              moment().diff(moment(items.create_timestamp), "days")
+          );
+          tempItem.push(items[i]);
+          setNotiItems(tempItem);
+        }
       }
+    } catch (error) {
+      
     }
   };
 

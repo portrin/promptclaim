@@ -19,10 +19,12 @@ import {
   IonIcon,
   IonImg,
   IonCard,
+  IonToast,
 } from "@ionic/react";
-import { image } from "ionicons/icons";
+import { image, contractOutline } from "ionicons/icons";
 import "./AddWarranty.css";
 import { usePhotoGallery } from "../hooks/usePhotoGallery";
+import moment from "moment";
 
 const slideOpts = {
   initialSlide: 1,
@@ -30,8 +32,8 @@ const slideOpts = {
 };
 
 const AddWarranty: React.FC = () => {
-  const [pname, setPname] = useState<string>();
-  const [serial, setSerial] = useState<string>();
+  const [pname, setPname] = useState<string>("");
+  const [serial, setSerial] = useState<string>("");
   const [wranNumber, setWranNumber] = useState<string>();
   const [wranLife, setWranLife] = useState<string>();
   const [pNumber, setPnumber] = useState<string>();
@@ -41,30 +43,53 @@ const AddWarranty: React.FC = () => {
   const { photos1, takePhoto1 } = usePhotoGallery();
   const { photos2, takePhoto2 } = usePhotoGallery();
   const today = new Date().toISOString();
-  const [selectedDate, setSelectedDate] = useState<string>(today);
+  const [selectedDate, setSelectedDate] = useState<string>(
+    moment(today).add(0, "days").format()
+  );
 
-  console.log(JSON.stringify(photos[0]));
+  const [showToast1, setShowToast1] = useState(false);
+  const [showToast2, setShowToast2] = useState(false);
+  const [todayD, setTodayD] = useState<string>(new Date().toISOString());
+
+  console.log(JSON.stringify(photos));
 
   const addProduct = async () => {
-    const data = await fetch(
-      "http://localhost:8001/customer/product/addproduct",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.token,
-        },
-        body: JSON.stringify({
-          serialNo: serial,
-          productNo: "AAAAA1",
-          productNickname: pname,
-          price: 100,
-          createTimestamp: selectedDate,
-          isValidate: 0,
-          claimQty: 0,
-        }),
+    if (serial === "" || pname === "") {
+      console.log("no input");
+      setShowToast2(true);
+    } else {
+      const data = await fetch(
+        "http://localhost:8001/customer/product/addproduct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.token,
+          },
+          body: JSON.stringify({
+            serialNo: serial,
+            productNo: "AAAAA1",
+            productNickname: pname,
+            price: 100,
+            createTimestamp: selectedDate,
+            isValidate: 0,
+            claimQty: 0,
+          }),
+        }
+      );
+      console.log(data);
+      const response = await data.json();
+      console.log(response);
+      if (data.status === 200) {
+        console.log("Sucess Add");
+        setSerial("");
+        setPname("");
+        setSelectedDate(today);
+        setShowToast1(true);
+      } else {
+        console.log("Fail Add");
       }
-    );
+    }
   };
 
   return (
@@ -116,10 +141,9 @@ const AddWarranty: React.FC = () => {
             <IonLabel color="medium">Date of Purchase</IonLabel>
             <IonDatetime
               displayFormat="DDDD MMM D, YYYY"
-              min="2020"
-              max="2024"
+              min="2017"
+              max={todayD}
               value={selectedDate}
-              displayTimezone='utc'
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
           </IonItem>
@@ -176,9 +200,25 @@ const AddWarranty: React.FC = () => {
           </IonSlide>
         </IonSlides>
 
-        <IonButton onClick={addProduct} expand="block">
+        <IonButton onClick={addProduct} href="/myWarranty" expand="block">
           Add
         </IonButton>
+        <IonToast
+          position="bottom"
+          color="primary"
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Product Added"
+          duration={2000}
+        />
+        <IonToast
+          position="bottom"
+          color="danger"
+          isOpen={showToast2}
+          onDidDismiss={() => setShowToast2(false)}
+          message="Input Require"
+          duration={2000}
+        />
       </IonContent>
     </IonPage>
   );

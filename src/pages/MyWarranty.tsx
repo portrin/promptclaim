@@ -144,7 +144,7 @@ const MyWarranty: React.FC<Productprops> = () => {
                       <IonSelectOption value="Bathroom">
                         Category: Bathroom
                       </IonSelectOption>
-                      <IonSelectOption value="Others">
+                      <IonSelectOption value="default">
                         Category: Others
                       </IonSelectOption>
                     </IonSelect>
