@@ -5,11 +5,11 @@ CREATE TABLE Customer_account (
     username VARCHAR(80),
     password VARCHAR(80) NOT NULL,
     email VARCHAR(80) NOT NULL,
-    PRIMARY KEY(account_id)
+    PRIMARY KEY(account_id) 
 );
 
 CREATE TABLE Customer (
-	customer_id VARCHAR(6) NOT NULL,
+	customer_id INT NOT NULL,
     firstname VARCHAR(80),
     lastname VARCHAR(80),
     phone_no VARCHAR(12),
@@ -17,11 +17,11 @@ CREATE TABLE Customer (
     gender CHAR, 
     account_id INT NOT NULL,
     PRIMARY KEY(customer_id),
-    FOREIGN KEY(account_id) REFERENCES Customer_account(account_id)
+    FOREIGN KEY(account_id) REFERENCES Customer_account(account_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Customer_address (
-	customer_id VARCHAR(6) NOT NULL,
+	customer_id INT NOT NULL,
     address_id VARCHAR(6) NOT NULL,
     house_no VARCHAR(80) NOT NULL,
     street VARCHAR(80),
@@ -30,7 +30,7 @@ CREATE TABLE Customer_address (
     province VARCHAR(80) NOT NULL,
     zipcode VARCHAR(5) NOT NULL,
     PRIMARY KEY(customer_id, address_id),
-    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id)
+    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Product_category (
@@ -62,8 +62,8 @@ CREATE TABLE Retailer (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(retailer_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE,
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
 
 );
 
@@ -74,7 +74,7 @@ CREATE TABLE Retailer_branch (
     retailer_branch_contact VARCHAR(12) NOT NULL,
     retailer_branch_address VARCHAR(80) NOT NULL,
     PRIMARY KEY(retailer_id, retailer_branch_id),
-    FOREIGN KEY(retailer_id) REFERENCES Retailer(retailer_id)
+    FOREIGN KEY(retailer_id) REFERENCES Retailer(retailer_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Role (
@@ -84,7 +84,7 @@ CREATE TABLE Role (
     password VARCHAR(80) NOT NULL,
     role_description VARCHAR(256),
     PRIMARY KEY(root_id, username),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE
 );
 
 CREATE TABLE _Group (
@@ -106,8 +106,8 @@ CREATE TABLE Group_has_permission (
 	group_id VARCHAR(6) NOT NULL,
     per_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(group_id, per_id),
-    FOREIGN KEY(group_id) REFERENCES _Group(group_id),
-    FOREIGN KEY(per_id) REFERENCES Permission(per_id)
+    FOREIGN KEY(group_id) REFERENCES _Group(group_id) ON DELETE CASCADE,
+    FOREIGN KEY(per_id) REFERENCES Permission(per_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Role_has_permission (
@@ -115,8 +115,8 @@ CREATE TABLE Role_has_permission (
     username VARCHAR(80) NOT NULL,
     per_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(root_id, username, per_id),
-    FOREIGN KEY(root_id, username) REFERENCES Role(root_id, username),
-    FOREIGN KEY(per_id) REFERENCES Permission(per_id)
+    FOREIGN KEY(root_id, username) REFERENCES Role(root_id, username) ON DELETE CASCADE,
+    FOREIGN KEY(per_id) REFERENCES Permission(per_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Role_in_group (
@@ -124,8 +124,8 @@ CREATE TABLE Role_in_group (
     username VARCHAR(80) NOT NULL,
     root_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(group_id, username, root_id),
-    FOREIGN KEY(root_id, username) REFERENCES Role(root_id, username),
-    FOREIGN KEY(group_id) REFERENCES _Group(group_id)
+    FOREIGN KEY(root_id, username) REFERENCES Role(root_id, username) ON DELETE CASCADE,
+    FOREIGN KEY(group_id) REFERENCES _Group(group_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Supplier (
@@ -137,8 +137,8 @@ CREATE TABLE Supplier (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(supplier_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE,
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Product (
@@ -148,14 +148,14 @@ CREATE TABLE Product (
     product_description VARCHAR(256),
     supplier_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(product_no),
-    FOREIGN KEY(supplier_id) REFERENCES Supplier(supplier_id)
+    FOREIGN KEY(supplier_id) REFERENCES Supplier(supplier_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Purchased_product (
 	uuid INT AUTO_INCREMENT NOT NULL,
 	serial_no VARCHAR(80) NOT NULL,
     product_no VARCHAR(80) NOT NULL,
-    customer_id VARCHAR(6) NOT NULL,
+    customer_id INT NOT NULL,
     product_nickname VARCHAR(80),
     price DOUBLE NOT NULL,
     invoice_id VARCHAR(80),
@@ -168,9 +168,9 @@ CREATE TABLE Purchased_product (
     claim_qty INT NOT NULL,
     warranty_photo VARCHAR(256),
     PRIMARY KEY(uuid),
-    FOREIGN KEY(product_no) REFERENCES Product(product_no),
-    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id),
-    FOREIGN KEY(retailer_id, retailer_branch_id) REFERENCES Retailer_branch(retailer_id, retailer_branch_id)
+    FOREIGN KEY(product_no) REFERENCES Product(product_no) ON DELETE CASCADE,
+    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY(retailer_id, retailer_branch_id) REFERENCES Retailer_branch(retailer_id, retailer_branch_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Policy (
@@ -180,7 +180,7 @@ CREATE TABLE Policy (
     date_created DATE NOT NULL,
     policy_owner_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id)
+    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Third_party (
@@ -192,8 +192,8 @@ CREATE TABLE Third_party (
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(third_party_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id)
+    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE,
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Service_center (
@@ -211,15 +211,15 @@ CREATE TABLE Service_center_branch (
     service_center_branch_contact VARCHAR(10) NOT NULL,
     service_center_branch_address VARCHAR(256) NOT NULL,
     PRIMARY KEY(service_center_branch_id, service_center_id),
-    FOREIGN KEY(service_center_id) REFERENCES Service_center(service_center_id)
+    FOREIGN KEY(service_center_id) REFERENCES Service_center(service_center_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Product_classify_as (
 	category_id INT NOT NULL,
     product_no VARCHAR(6) NOT NULL,
     PRIMARY KEY(category_id, product_no),
-    FOREIGN KEY(category_id) REFERENCES Product_category(category_id),
-    FOREIGN KEY(product_no) REFERENCES Product(product_no)
+    FOREIGN KEY(category_id) REFERENCES Product_category(category_id) ON DELETE CASCADE,
+    FOREIGN KEY(product_no) REFERENCES Product(product_no) ON DELETE CASCADE
 );
 
 CREATE TABLE Claim_log (
@@ -231,7 +231,7 @@ CREATE TABLE Claim_log (
     service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE,
-    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id)
+    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Policy_available_at (
@@ -239,8 +239,8 @@ CREATE TABLE Policy_available_at (
     service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id, service_center_branch_id, service_center_id),
-    FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
-    FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES Service_center_branch(service_center_branch_id, service_center_id)
+    FOREIGN KEY(policy_id) REFERENCES Policy(policy_id) ON DELETE CASCADE,
+    FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES Service_center_branch(service_center_branch_id, service_center_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Product_has_policy (
@@ -250,7 +250,7 @@ CREATE TABLE Product_has_policy (
     policy_end_date DATE,
     timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
-    FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
+    FOREIGN KEY(policy_id) REFERENCES Policy(policy_id) ON DELETE CASCADE,
     FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE
 );
 
@@ -258,8 +258,8 @@ CREATE TABLE Pp_classify_as (
 	uuid INT NOT NULL,
     category_id INT NOT NULL,
     PRIMARY KEY(uuid, category_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
-    FOREIGN KEY(category_id) REFERENCES Product_category(category_id)
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE,
+    FOREIGN KEY(category_id) REFERENCES Product_category(category_id) ON DELETE CASCADE
 );
 
 
@@ -433,7 +433,7 @@ CREATE TABLE Notification (
 	noti_id INT AUTO_INCREMENT NOT NULL,
 	message VARCHAR(256) NOT NULL,
 	timestamp TIMESTAMP NOT NULL,
-    customer_id VARCHAR(6) NOT NULL,
+    customer_id INT NOT NULL,
     PRIMARY KEY (noti_id),
 	FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)); 
     

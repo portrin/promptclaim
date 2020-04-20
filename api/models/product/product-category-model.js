@@ -12,16 +12,11 @@ module.exports = class ProductCategory {
     //CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO product_category(category_id, category_name) VALUES(?, ?)',
-            [this._categoryId, this._categoryName]
+            'INSERT INTO product_category(category_name) VALUES(?)',
+            [this._categoryName]
         );
     };
 
-    _create() {
-        return db.execute(
-            'INSERT INTO product_category(category_id, category_name) VALUES(? ,?)'
-        )
-    }
 
     static _read() {
         return db.execute(
