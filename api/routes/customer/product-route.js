@@ -22,10 +22,10 @@ router.post('/addProductCategory', productController.postAddPurchasedProductCate
 router.delete('/deleteProductCategory/:categoryId', productController.deletePurchasedProductCategory);
 
 //Product Retailer
-const retailerController = require('../../controllers/retailer/retailer-profile-controller')
+const retailerController = require('../../controllers/retailer/retailer-profile-controller');
 
-router.get('/getRetailer', retailerController.getRetailer)
+router.get('/getRetailer', retailerController.getRetailer);
 
-router.get('/getRetailerBranch', retailerController.getRetailerBranch)
+router.get('/getRetailerBranch', retailerController.getRetailerBranch);
 
 module.exports = router;

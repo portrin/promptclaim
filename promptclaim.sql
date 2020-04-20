@@ -398,7 +398,24 @@ INSERT INTO Product (product_no, product_model, product_name, product_descriptio
 VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
 ('AAAAA2', 'BBBBB2', 'bed', 'A very smart bed', '000001'),
 ('AAAAA3', 'BBBBB3', 'table', 'A very smart table', '000002'),
-('AAAAA4', 'BBBBB4', 'sofa', 'A very smart sofa', '000002');
+('AAAAA4', 'BBBBB4', 'sofa', 'A very smart sofa', '000002'),
+('AAAAA5', 'BBBBB5', 'sofa', 'A very smart sofa', '000003'),
+('AAAAA6', 'BBBBB6', 'sofa', 'A very smart sofa', '000003'),
+('AAAAA7', 'BBBBB7', 'sofa', 'A very smart sofa', '000004'),
+('AAAAA8', 'BBBBB8', 'sofa', 'A very smart sofa', '000004'),
+('AAAAA9', 'BBBBB9', 'sofa', 'A very smart sofa', '000005'),
+('AAAA10', 'BBBB10', 'sofa', 'A very smart sofa', '000005'),
+('AAAA11', 'BBBB11', 'sofa', 'A very smart sofa', '000006'),
+('AAAA12', 'BBBB12', 'sofa', 'A very smart sofa', '000006'),
+('AAAA13', 'BBBB13', 'sofa', 'A very smart sofa', '000007'),
+('AAAA14', 'BBBB14', 'sofa', 'A very smart sofa', '000007'),
+('AAAA15', 'BBBB15', 'sofa', 'A very smart sofa', '000001'),
+('AAAA16', 'BBBB16', 'sofa', 'A very smart sofa', '000002'),
+('AAAA17', 'BBBB17', 'sofa', 'A very smart sofa', '000003'),
+('AAAA18', 'BBBB18', 'sofa', 'A very smart sofa', '000004'),
+('AAAA19', 'BBBB19', 'sofa', 'A very smart sofa', '000005'),
+('AAAA20', 'BBBB20', 'sofa', 'A very smart sofa', '000006');
+
 
 INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
 VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'photo1', '1', 'warrantyphoto1'),
