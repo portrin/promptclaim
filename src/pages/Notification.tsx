@@ -75,19 +75,21 @@ const Notification: React.FC<Itemprops> = () => {
       return today.diff(purchase, "days");
     }
     console.log(countDay());
-    setRemainingPeriod(countDay() + "");
-    for (var i = 0; i < items.length; i++) {
-      var tempItem = new Array<Product>();
-      if (
-        moment().diff(moment(items[i].create_timestamp), "days") <= 30 &&
-        moment().diff(moment(items[i].create_timestamp), "days") > 0
-      ) {
-        console.log(
-          "(Noti) Days =" +
-            moment().diff(moment(items.create_timestamp), "days")
-        );
-        tempItem.push(items[i]);
-        setNotiItems(tempItem);
+    try {
+      setRemainingPeriod(countDay() + "");
+      for (var i = 0; i < items.length; i++) {
+        var tempItem = new Array<Product>();
+        if (
+          moment().diff(moment(items[i].create_timestamp), "days") <= 3 &&
+          moment().diff(moment(items[i].create_timestamp), "days") > 0
+        ) {
+          console.log(
+            "(Noti) Days =" +
+              moment().diff(moment(items.create_timestamp), "days")
+          );
+          tempItem.push(items[i]);
+          setNotiItems(tempItem);
+        }
       }
     } catch (error) {
       
