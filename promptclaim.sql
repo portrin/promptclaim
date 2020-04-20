@@ -266,14 +266,18 @@ VALUES ('chchadaa','chada1','chada@gmail.com'),
 ('somd99','som2','somroutine@gmail.com'),
 ('praaewpun','praew3','merrypraeww@gmail.com'),
 ('por_trin','por4','melonn.qq@gmail.com'),
-('ploinrch','ploi5','ploiniracha@gmail.com');
+('ploinrch','ploi5','ploiniracha@gmail.com'),
+('Ohmpudit','ohmpwd','ohmpudit@gmail.com'),
+('lonelyboi','klodpwd','klod@gmail.com');
 
 INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
 ('2','Som','Somlastname','0895511663','1999-1-20','M','2'),
 ('3','Praewpun','Praewlastname','0972279898','1998-11-24','F','3'),
 ('4','Trin','Porlastname','0837779292','1998-5-4','M','4'),
-('5','Niracha','Ploilastname','0877150888', '1998-9-14','F','5');
+('5','Niracha','Ploilastname','0877150888', '1998-9-14','F','5'),
+('6','Pudit','Deawpanich','0814094784','1999-2-12','M','6'),
+('7','Sagun','Phetkaew','0945593842','1998-7-3','M','7');
 
 INSERT INTO Customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode)
 VALUES ('1','1','23/4','Sathorn','Silom','Sathorn','Bangkok','10120'),
@@ -302,7 +306,9 @@ INSERT INTO Root_account(root_id, username, password, type)
 VALUES ('000001','IKEA', 'Ikeapassword','S'),
 ('000002','Boonthavorn', 'BTVpassword','R'),
 ('000003','Show Huay', 'showhuaypwd','T'),
-('000004','ZARA HOME', 'ZARApwd','R');
+('000004','ZARA HOME', 'ZARApwd','R'),
+('R00005','Tesco Lotus', 'TCpwd','R'),
+('R00006','IT city', 'ITpwd','R');
 
 INSERT INTO Policy_owner(policy_owner_id, owner_type) 
 VALUES ('IKEA01', 'R'),
@@ -312,13 +318,17 @@ VALUES ('IKEA01', 'R'),
 ('SUP02', 'S'),
 ('SUP03', 'S'),
 ('SUP04', 'S'),
-('SH01', 'T');
+('SH01', 'T'),
+('TC0001','R'),
+('IT0001','R');
 
 
 INSERT INTO Retailer(retailer_id, retailer_contact, retailer_name, retailer_hq_address, retailer_description, root_id, policy_owner_id)
 VALUES ('000001','0972279898', 'IKEA','Bangna','Furnitures imported from Sweden','000001','IKEA01'),
 ('000002','0972279898', 'Boothavorn','Suhhumvit53','Mostly about floor','000002','BTV002'),
-('000003','0852289888', 'Zara home','Paragon','Furnitures with clothing brands','000004','ZARA04');
+('000003','0852289888', 'Zara home','Paragon','Furnitures with clothing brands','000004','ZARA04'),
+('R00004','026576031','Tesco Lotus','Rama 3','Sell daily-life furnitures','R00005','TC0001'),
+('R00005','026565030','IT city', 'Pantip','Sell technology','R00006','IT0001');
 
 INSERT INTO Retailer_branch(retailer_id, retailer_branch_id, retailer_branch_name, retailer_branch_contact, retailer_branch_address)
 VALUES ('000001', '00001A','IKEA Nonthaburi', '0981234567','56/56 giodano, whatever road, Nonthaburi 10120'),
@@ -327,7 +337,12 @@ VALUES ('000001', '00001A','IKEA Nonthaburi', '0981234567','56/56 giodano, whate
 ('000002', '00002A','Boothavorn Nonthaburi', '0881234567','131/11, whatever road, Nonthaburi 13100'),
 ('000002', '00002B','Boothavorn Sukhumvit', '0811234567','123/44 Sukhumvit 77, Bangkok 10120'),
 ('000002', '00002C','Boothavorn Lat yao', '0981234598','Lat Yao, Bangkok 10120'),
-('000003', '00003A','Zara Paragon', '0981234556','44 Rama1 road, Bangkok 10120');
+('000003', '00003A','Zara Paragon', '0981234556','44 Rama1 road, Bangkok 10120'),
+('R00004', 'R0004A','Tesco lotus rama3', '026810920','172 Narathiwat Rajanagarindra road, Chongnonsi, Yannawa, Bangkok 10120'),
+('R00004', 'R0004B','Tesco Lotus Chamchuri Square', '026576031','317 Rama4 road, Pathum Wan, Bangkok 10330'),
+('R00004', 'R0004C','Tesco Lotus Fortune Town', '026420500','7/1 Ratchadaphisek road, Din Daeng, Bangkok 10320'),
+('R00005', 'R0005A','IT City Lak4', '025670576','333/100 Lak4 Plaza, Bang Khan, Lak4, Bangkok, 10210'),
+('R00005', 'R0005B','IT City Pantip Plaza', '026565030','604/3 Pantip Plaza, Phetburi road, Bangkok 10400');
 
 INSERT INTO Role (root_id, username, role_name, password, role_description)
 VALUES ('000001', 'klodkup340', 'role1', 'password1', 'roledescription1'),
