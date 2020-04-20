@@ -13,7 +13,7 @@ import React, { useState, useEffect } from "react";
 import HistoryItem from "../components/HistoryItem";
 
 export interface Product {
-  product_name: string;
+  product_nickname: string;
   uuid: string;
   product_photo: string;
   category_name: string;
@@ -62,7 +62,7 @@ const History: React.FC = () => {
           {items.map((item) => (
             <HistoryItem
               image={item.product_photo}
-              name={item.product_name}
+              name={item.product_nickname}
               description={item.retailer_branch_name}
               date={item.timestamp}
               key={item.uuid}
