@@ -65,7 +65,7 @@ export interface Productprops {
   item: Product;
 }
 export interface Policy {
-  item: Policy;
+  policy_end_date: string;
 }
 export interface Policyprops {
   item: Policy;
@@ -135,18 +135,27 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   };
   console.log(moment(displayDate).add(1, "days").format());
   const fetchPolicy = async () => {
-  const data = await fetch(
-    "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
-    {
-      headers: {
-        Authorization: localStorage.token,
-      },
+    const data = await fetch(
+      "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    const policy = await data.json();
+    setPolicy(policy);
+    console.log(policy);
+    var dateFormat = policy[0].policy_end_date.split("T")[0];
+    console.log(dateFormat);
+    console.log("Days =");
+    function countDay() {
+      var today = moment();
+      var purchase = moment(dateFormat);
+      return purchase.diff(today, "days");
     }
-  );
-  const policy = await data.json();
-  setPolicy(policy);
-  console.log(policy)
-}
+    setRemainingPeriod(countDay() + "");
+  };
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -157,7 +166,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
         },
       }
     );
-    
+
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -166,17 +175,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     setSupplier(item[0].supplier_name);
     setRetailer(item[0].retailer_branch_name);
     setphoneNum(item[0].contact);
-    var dateFormat = item[0].create_timestamp.split("T")[0];
+
     setdisplayDate(item[0].create_timestamp.split("T")[0]);
-    console.log(dateFormat);
+
     console.log("Days =");
-    function countDay() {
-      var today = moment();
-      var purchase = moment(dateFormat);
-      return today.diff(purchase, "days");
-    }
-    console.log(countDay());
-    setRemainingPeriod(countDay() + "");
+
     setTodayD(todayD.split("T")[0]);
   };
 
@@ -295,7 +298,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                     ]}
                   ></IonActionSheet>
                 </IonCol>
-               
               </IonRow>
               <IonButton
                 expand="block"
@@ -330,7 +332,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
             <IonItem>
               <IonLabel class="ion-no-padding" position="floating">
-                <h1>Days Since Purchased</h1>
+                <h1>Expiring in</h1>
               </IonLabel>
               <IonInput
                 class="ion-no-padding"
@@ -338,8 +340,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 required
                 type="text"
                 disabled={true}
-                value={remainingPeriod}
-                onIonChange={(e) => setRemainingPeriod(e.detail.value!)}
+                value={remainingPeriod + " days"}
               ></IonInput>
             </IonItem>
             <IonItem>
