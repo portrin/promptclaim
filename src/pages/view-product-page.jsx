@@ -82,7 +82,7 @@ export const ViewProductPage = (props) => {
     </AppLayout>
   )
 }
-
+// eslint-disable-next-line
 const data = {
   '1': {
     key: '1',
