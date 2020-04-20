@@ -69,7 +69,7 @@ const Notification: React.FC<Itemprops> = () => {
     for (var i = 0; i < items.length; i++) {
       var tempItem = new Array<Product>();
       if (
-        moment().diff(moment(items[i].create_timestamp), "days") <= 3 &&
+        moment().diff(moment(items[i].create_timestamp), "days") <= 30 &&
         moment().diff(moment(items[i].create_timestamp), "days") > 0
       ) {
         console.log(

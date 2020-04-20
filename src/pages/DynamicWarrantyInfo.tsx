@@ -76,6 +76,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [done, setDone] = useState("Edit Warranty");
   const [fill, setFill] = useState("outline");
   const [butStat, setButstat] = useState<boolean>(true);
+  const [textColor, setTextColor] = useState("");
 
   const [showToast1, setShowToast1] = useState(false);
   const [phoneNum, setphoneNum] = useState("");
@@ -94,10 +95,12 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     if (butStat === true) {
       setButstat(false);
       setDone("Done");
+      setTextColor("primary");
     } else {
       setButstat(true);
       setDone("Edit Warranty");
       sendEdit();
+      setTextColor("");
     }
   };
   console.log(displayDate);
@@ -170,17 +173,18 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   };
 
   const removeProduct = async () => {
-    const data = await fetch("http://localhost:8001/customer/product/deleteByUuid/"+match.params.id,
-     {
-      method: "DELETE",
-      
+    const data = await fetch(
+      "http://localhost:8001/customer/product/deleteByUuid/" + match.params.id,
+      {
+        method: "DELETE",
+
         headers: {
           Authorization: localStorage.token,
         },
-    });
+      }
+    );
     window.location.href = "/mywarranty";
     fetchItems();
-
   };
 
   return (
@@ -299,8 +303,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             <IonListHeader>Warranty Information</IonListHeader>
 
             <IonItem>
-              <IonLabel color="medium" position="floating">
-                Date of Purchase
+              <IonLabel color={textColor} position="floating">
+                <h1>Date of Purchase</h1>
               </IonLabel>
               <IonDatetime
                 displayFormat="DDDD MMM D, YYYY"
@@ -313,12 +317,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel
-                color="medium"
-                class="ion-no-padding"
-                position="floating"
-              >
-                Days Since Purchased
+              <IonLabel class="ion-no-padding" position="floating">
+                <h1>Days Since Purchased</h1>
               </IonLabel>
               <IonInput
                 class="ion-no-padding"
@@ -331,7 +331,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
+              <IonLabel
+                color={textColor}
+                class="ion-no-padding"
+                position="floating"
+              >
                 <h1> Serial Number</h1>
               </IonLabel>
               <IonInput
@@ -345,7 +349,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
+              <IonLabel
+                color={textColor}
+                class="ion-no-padding"
+                position="floating"
+              >
                 <h1> Supplier</h1>
               </IonLabel>
               <IonInput
@@ -360,7 +368,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
+              <IonLabel
+                color={textColor}
+                class="ion-no-padding"
+                position="floating"
+              >
                 <h1> Retailer</h1>
               </IonLabel>
               <IonInput
@@ -404,7 +416,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   handler: () => {
                     removeProduct();
                     console.log("Removed");
-                  }
+                  },
                 },
               ]}
             ></IonActionSheet>
