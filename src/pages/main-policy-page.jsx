@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Table } from 'antd'
 
 import { AppLayout } from '../components/app-layout'
@@ -6,12 +6,11 @@ import { AppLayout } from '../components/app-layout'
 export const MainPolicyPage = (props) => {
   const [items, setItems] = useState([])
   const fetchItem = async () => {
-    const data = await fetch("http://localhost:8001/retailer/policy/get", {
+    const data = await fetch('http://localhost:8001/retailer/policy/get', {
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+        Authorization: localStorage.token,
       },
-    });
+    })
     const items = await data.json()
     setItems(items)
     console.log('items', items)
@@ -31,14 +30,16 @@ export const MainPolicyPage = (props) => {
 
   //filtered duplicated data
 
-  const distinctValues = Array.from(new Set(items.map(elem => `${elem.policy_id}-${elem.policy_owner_id}`))).map(distinctVal => {
-    const [ policy_id, policy_owner_id ] = distinctVal.split("-");
-    return ({
+  const distinctValues = Array.from(
+    new Set(items.map((elem) => `${elem.policy_id}-${elem.policy_owner_id}`)),
+  ).map((distinctVal) => {
+    const [policy_id, policy_owner_id] = distinctVal.split('-')
+    return {
       policy_id,
-      policy_owner_id
-    });
-  });
-  console.log(distinctValues);
+      policy_owner_id,
+    }
+  })
+  console.log(distinctValues)
 
   console.log(Object.keys(items).length)
 

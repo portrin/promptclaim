@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Descriptions, Collapse } from 'antd'
 import { AppLayout } from '../components/app-layout'
 import { useParams } from 'react-router-dom'
@@ -26,12 +26,13 @@ export const ViewPolicyPage = (props) => {
   const [item, setItems] = useState([])
   const fetchItem = async () => {
     const data = await fetch(
-      "http://localhost:8001/retailer/policy/getByPolicyId/" + key,{
+      'http://localhost:8001/retailer/policy/getByPolicyId/' + key,
+      {
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+          Authorization: localStorage.token,
         },
-      });
+      },
+    )
     const item = await data.json()
     setItems(item)
     console.log(item)
@@ -42,15 +43,22 @@ export const ViewPolicyPage = (props) => {
     //eslint-disable-next-line
   }, [])
   return (
-    <AppLayout {...props} nosearch title="Policy Information" lastpagePolicy="Policy Dashboard">
+    <AppLayout
+      {...props}
+      nosearch
+      title="Policy Information"
+      lastpagePolicy="Policy Dashboard"
+    >
       <div className="site-layout-content">
         <Descriptions layout="vertical" bordered>
           <Descriptions.Item label="Policy Informaion">
             Policy ID: {item.map((item) => item.policy_id)}
             <br />
-            <br/>
+            <br />
             <Collapse>
-              <Panel header="Policy Description">{item.map((item) => item.policy_description)}</Panel>
+              <Panel header="Policy Description">
+                {item.map((item) => item.policy_description)}
+              </Panel>
             </Collapse>
           </Descriptions.Item>
         </Descriptions>
@@ -60,31 +68,31 @@ export const ViewPolicyPage = (props) => {
               <Panel header={item.map((item) => item.product_name)} key="1">
                 <Collapse>
                   <Panel header="Customer 1" key="1">
-                    Customer ID: 
+                    Customer ID:
                     <br />
-                    Product ID: 
+                    Product ID:
                     <br />
-                    Serial Number: 
+                    Serial Number:
                     <br />
-                    Policy Period: 
+                    Policy Period:
                   </Panel>
                   <Panel header="Customer 2" key="2">
-                    Customer ID: 
+                    Customer ID:
                     <br />
-                    Product Number: 
+                    Product Number:
                     <br />
-                    Serial Number: 
+                    Serial Number:
                     <br />
-                    Policy Period: 
+                    Policy Period:
                   </Panel>
                   <Panel header="Customer 3" key="3">
-                    Customer ID: 
+                    Customer ID:
                     <br />
-                    Product Number: 
+                    Product Number:
                     <br />
-                    Serial Number: 
+                    Serial Number:
                     <br />
-                    Policy Period: 
+                    Policy Period:
                   </Panel>
                 </Collapse>
               </Panel>
