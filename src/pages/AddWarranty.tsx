@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   IonSlides,
@@ -20,6 +20,8 @@ import {
   IonImg,
   IonCard,
   IonToast,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/react";
 import { image } from "ionicons/icons";
 import "./AddWarranty.css";
@@ -31,14 +33,32 @@ const slideOpts = {
   speed: 400,
 };
 
+export interface Retailer {
+  retailer_name: string;
+  retailer_id: string;
+}
+export interface Retailerprops {
+  item: Retailer;
+}
+
+export interface Branch {
+  retailer_branch_id: string;
+  retailer_branch_name: string;
+}
+export interface Branchprops {
+  item: Branch;
+}
+
 const AddWarranty: React.FC = () => {
   const [pname, setPname] = useState<string>("");
   const [serial, setSerial] = useState<string>("");
   const [wranNumber, setWranNumber] = useState<string>();
   const [wranLife, setWranLife] = useState<string>();
   const [pNumber, setPnumber] = useState<string>();
-  const [retialer, setRetailer] = useState<string>();
-  const [supplier, setSupplier] = useState<string>();
+  const [retailer, setRetailer] = useState<Retailer[]>([]);
+  const [retailerName, setRetailerName] = useState<string>();
+  const [branchList, setBranchList] = useState<Branch[]>([]);
+  const [branchName, setBranchName] = useState<string>("");
   const { photos, takePhoto } = usePhotoGallery();
   const { photos1, takePhoto1 } = usePhotoGallery();
   const { photos2, takePhoto2 } = usePhotoGallery();
@@ -47,11 +67,32 @@ const AddWarranty: React.FC = () => {
     moment(today).add(0, "days").format()
   );
 
+  const [idRetail, setIdRetail] = useState<string>();
+  const [preId, setPreId] = useState<Branch[]>([]);
+  const [idBranch, setIdBranch] = useState<string>();
   const [showToast1, setShowToast1] = useState(false);
   const [showToast2, setShowToast2] = useState(false);
   const [todayD, setTodayD] = useState<string>(new Date().toISOString());
 
-  console.log(JSON.stringify(photos));
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    const data = await fetch(
+      "http://localhost:8001/customer/product/getRetailer",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    console.log(data);
+    const item = await data.json();
+    console.log(item);
+    setRetailer(item);
+    console.log(retailer);
+  };
 
   const addProduct = async () => {
     if (serial === "" || pname === "") {
@@ -68,12 +109,14 @@ const AddWarranty: React.FC = () => {
           },
           body: JSON.stringify({
             serialNo: serial,
-            productNo: "AAAAA1",
+            productNo: pNumber,
             productNickname: pname,
-            price: 100,
             createTimestamp: selectedDate,
+            price: 100,
             isValidate: 0,
             claimQty: 0,
+            retailerName: idRetail,
+            retailerBranchName: idBranch,
           }),
         }
       );
@@ -84,12 +127,48 @@ const AddWarranty: React.FC = () => {
         console.log("Sucess Add");
         setSerial("");
         setPname("");
+        setPnumber("");
         setSelectedDate(today);
+        setRetailerName("");
+        setBranchName("");
         setShowToast1(true);
       } else {
         console.log("Fail Add");
       }
     }
+  };
+
+  const fetchBranch = async (name: string) => {
+    setRetailerName(name);
+    console.log(retailerName);
+    setBranchName("");
+    console.log(name);
+    const final = retailer.filter((item) => item.retailer_name === name);
+    console.log(final[0]);
+    setIdRetail(final[0].retailer_id);
+    const branchRes = await fetch(
+      "http://localhost:8001/customer/product/getRetailerBranchByRetailerId/" +
+        final[0].retailer_id,
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    console.log(branchRes);
+    const braItem = await branchRes.json();
+    console.log(braItem);
+    setBranchList(braItem);
+  };
+
+  const forBranchId = async (name: string) => {
+    setBranchName(name);
+    console.log(branchName);
+
+    const ress = branchList.filter(
+      (item) => item.retailer_branch_name === name
+    );
+    await setIdBranch(ress[0].retailer_branch_id);
   };
 
   return (
@@ -110,6 +189,17 @@ const AddWarranty: React.FC = () => {
             <IonInput
               value={pname}
               onIonChange={(e) => setPname(e.detail.value!)}
+              clearInput
+            ></IonInput>
+          </IonItem>
+          <IonItem>
+            <IonLabel position="floating" color="medium">
+              Product Number
+            </IonLabel>
+
+            <IonInput
+              value={pNumber}
+              onIonChange={(e) => setPnumber(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
@@ -160,24 +250,32 @@ const AddWarranty: React.FC = () => {
             ></IonDatetime>
           </IonItem>
           <IonItem>
-            <IonLabel position="floating" color="medium">
-              Retailer
-            </IonLabel>
-            <IonInput
-              value={retialer}
-              onIonChange={(e) => setRetailer(e.detail.value!)}
-              clearInput
-            ></IonInput>
+            <IonLabel position="floating">Retailer</IonLabel>
+            <IonSelect
+              value={retailerName}
+              placeholder="Select One"
+              onIonChange={(e) => fetchBranch(e.detail.value)}
+            >
+              {retailer.map((item) => (
+                <IonSelectOption value={item.retailer_name}>
+                  {item.retailer_name}
+                </IonSelectOption>
+              ))}
+            </IonSelect>
           </IonItem>
           <IonItem>
-            <IonLabel position="floating" color="medium">
-              Supplier
-            </IonLabel>
-            <IonInput
-              value={supplier}
-              onIonChange={(e) => setSupplier(e.detail.value!)}
-              clearInput
-            ></IonInput>
+            <IonLabel position="floating">Retailer Branch</IonLabel>
+            <IonSelect
+              value={branchName}
+              placeholder="Select One"
+              onIonChange={(e) => forBranchId(e.detail.value)}
+            >
+              {branchList.map((item) => (
+                <IonSelectOption value={item.retailer_branch_name}>
+                  {item.retailer_branch_name}
+                </IonSelectOption>
+              ))}
+            </IonSelect>
           </IonItem>
         </IonList>
         <IonItemDivider></IonItemDivider>
@@ -216,7 +314,7 @@ const AddWarranty: React.FC = () => {
           </IonSlide>
         </IonSlides>
 
-        <IonButton onClick={addProduct} href="/myWarranty" expand="block">
+        <IonButton onClick={addProduct} expand="block">
           Add
         </IonButton>
         <IonToast

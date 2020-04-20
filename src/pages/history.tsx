@@ -49,8 +49,8 @@ const History: React.FC = () => {
       },
     });
     console.log(data);
-    const items = await data.json();
-    setItems(items);
+    const res = await data.json();
+    setItems(res);
     console.log(items);
   };
 
@@ -76,7 +76,6 @@ const History: React.FC = () => {
               key={item.uuid}
             ></HistoryItem>
           ))}
-          
         </IonList>
       </IonContent>
     </IonPage>

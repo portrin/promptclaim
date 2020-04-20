@@ -60,8 +60,9 @@ const MyWarranty: React.FC<Productprops> = () => {
       },
     });
     console.log(data);
-    const items = await data.json();
-    setItems(items);
+    const item = await data.json();
+    console.log(item);
+    setItems(item);
     console.log(items);
   };
 
@@ -133,16 +134,14 @@ const MyWarranty: React.FC<Productprops> = () => {
                 <IonCol>
                   <IonButton size="small" fill="clear">
                     <IonIcon icon={filterOutline} />
-                    
+
                     <IonSelect
                       value={filterBy}
                       cancelText="Cancel"
                       okText="Done"
                       onIonChange={(e) => setfilterBy(e.detail.value)}
                     >
-                      <IonSelectOption value="default">
-                        All
-                      </IonSelectOption>
+                      <IonSelectOption value="default">All</IonSelectOption>
                       <IonSelectOption value="Wall & Floor">
                         Wall & Floor
                       </IonSelectOption>
@@ -189,7 +188,9 @@ const MyWarranty: React.FC<Productprops> = () => {
                       okText="Done"
                       onIonChange={(e) => setsortBy(e.detail.value)}
                     >
-                      <IonSelectOption value="Name">By name A-Z</IonSelectOption>
+                      <IonSelectOption value="Name">
+                        By name A-Z
+                      </IonSelectOption>
                       <IonSelectOption value="Name Z-A">
                         By name Z-A{" "}
                       </IonSelectOption>
