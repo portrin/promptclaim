@@ -113,7 +113,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
             </IonLabel>
             <IonDatetime
               displayFormat="DDDD MMM D, YYYY"
-              min="2020"
+              min="2017"
               max={todayD}
               value={selectedDate}
               onIonChange={(e) => setSelectedDate(e.detail.value!)}

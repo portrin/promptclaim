@@ -24,6 +24,7 @@ import {
 import { image, contractOutline } from "ionicons/icons";
 import "./AddWarranty.css";
 import { usePhotoGallery } from "../hooks/usePhotoGallery";
+import moment from "moment";
 
 const slideOpts = {
   initialSlide: 1,
@@ -42,10 +43,13 @@ const AddWarranty: React.FC = () => {
   const { photos1, takePhoto1 } = usePhotoGallery();
   const { photos2, takePhoto2 } = usePhotoGallery();
   const today = new Date().toISOString();
-  const [selectedDate, setSelectedDate] = useState<string>(today);
+  const [selectedDate, setSelectedDate] = useState<string>(
+    moment(today).add(0, "days").format()
+  );
 
   const [showToast1, setShowToast1] = useState(false);
   const [showToast2, setShowToast2] = useState(false);
+  const [todayD, setTodayD] = useState<string>(new Date().toISOString());
 
   console.log(JSON.stringify(photos));
 
@@ -137,8 +141,8 @@ const AddWarranty: React.FC = () => {
             <IonLabel color="medium">Date of Purchase</IonLabel>
             <IonDatetime
               displayFormat="DDDD MMM D, YYYY"
-              min="2020"
-              max="2024"
+              min="2017"
+              max={todayD}
               value={selectedDate}
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
