@@ -40,6 +40,7 @@ export interface Profile {
 export interface Account {
   email: string;
   password: string;
+  account_id: string;
 }
 
 export interface Address {
@@ -49,6 +50,7 @@ export interface Address {
   district: string;
   province: string;
   zipcode: string;
+  address_id: string;
 }
 
 export interface ProfileProps {
@@ -130,15 +132,17 @@ const Profile: React.FC<ProfileProps> = () => {
           </IonHeader>
           <IonLabel class="label">ACCOUNT</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              href="/editaccount"
-            >
-              edit
-            </IonButton>
+            {items2.map((item2) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editaccount/${item2.account_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonLabel class="sublabel">Email :</IonLabel>
             {items2.map((item2) => (
               <IonLabel class="info">{item2.email}</IonLabel>
@@ -147,15 +151,17 @@ const Profile: React.FC<ProfileProps> = () => {
 
           <IonLabel class="label">PROFILE</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink="/editprofile"
-            >
-              edit
-            </IonButton>
+            {items.map((item) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editprofile/${item.account_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonList class="card">
               <IonLabel class="sublabel">First Name :</IonLabel>
               {items.map((item) => (
@@ -192,15 +198,17 @@ const Profile: React.FC<ProfileProps> = () => {
 
           <IonLabel class="label">ADDRESS</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              href="/editaddress"
-            >
-              edit
-            </IonButton>
+            {items3.map((item3) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editaddress/${item3.address_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonList class="card">
               <IonLabel class="sublabel">Home No. :</IonLabel>
               {items3.map((item3) => (
@@ -241,15 +249,17 @@ const Profile: React.FC<ProfileProps> = () => {
 
           <IonLabel class="label">ADDRESS 2</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              href="/editaddress"
-            >
-              edit
-            </IonButton>
+            {items3.map((item3) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editaddress/${item3.address_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonList class="card">
               <IonLabel class="sublabel">Home No. :</IonLabel>
               {items4.map((item4) => (

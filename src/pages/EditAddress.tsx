@@ -37,8 +37,6 @@ const EditAddress: React.FC<Match> = ({ match }) => {
   const [province, setProvince] = useState("");
   const [streetCode, setStreetCode] = useState("");
 
-  const [item, setItem] = useState<Address[]>([]);
-
   useEffect(() => {
     fetchItem();
     // eslint-disable-next-line
@@ -47,7 +45,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
   const editAddress = async () => {
     try {
       const data = await fetch(
-        "http://localhost:8001/customer/address/" + match.params.id,
+        "http://localhost:8001/customer/address/edit/" + match.params.id,
         {
           method: "POST",
           headers: {
@@ -68,7 +66,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
       //
     }
   };
-
+  const [item, setItem] = useState<Address[]>([]);
   const fetchItem = async () => {
     const data = await fetch("http://localhost:8001/customer/address/get", {
       headers: {
@@ -80,15 +78,15 @@ const EditAddress: React.FC<Match> = ({ match }) => {
     setItem(item);
     console.log(item);
 
-    const houseNo: string = item.getAddress[0].houseNo;
+    const house_no: string = item.getAddress[0].house_no;
     const street: string = item.getAddress[0].street;
-    const subDistrict: string = item.getAddress[0].subDistrict;
+    const subdistrict: string = item.getAddress[0].subdistrict;
     const district: string = item.getAddress[0].district;
     const province: string = item.getAddress[0].province;
     const zipcode: string = item.getAddress[0].zipcode;
-    setHomeNum(houseNo);
+    setHomeNum(house_no);
     setStreet(street);
-    setSubDist(subDistrict);
+    setSubDist(subdistrict);
     setDist(district);
     setProvince(province);
     setStreetCode(zipcode);
@@ -187,7 +185,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
-            routerLink={`/editProfile/${match.params.id}`}
+            routerLink={`/editAddress/${match.params.id}`}
             onClick={onHandleSave}
           >
             SAVE
@@ -197,6 +195,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             onDidDismiss={() => setShowToast1(false)}
             message="Your address have been saved."
             duration={200}
+            position="middle"
           />
         </IonContent>
       </IonPage>

@@ -12,6 +12,7 @@ import {
   IonList,
   IonItem,
   IonInput,
+  IonToast,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -23,6 +24,8 @@ export interface ProfileProps {
 }
 
 const EditAccount: React.FC<ProfileProps> = () => {
+  const [showToast1, setShowToast1] = useState(false);
+  const [oldPass, setOldPass] = useState("");
   useEffect(() => {
     fetchItems();
     // eslint-disable-next-line
@@ -42,8 +45,9 @@ const EditAccount: React.FC<ProfileProps> = () => {
     const items = await data.json();
     setItems(items.getAccount);
     console.log(items.getAccount);
-    const password: string = items.getAccount[0].password;
-    console.log(password);
+    const password1: string = items.getAccount[0].password;
+    console.log(password1);
+    setOldPass(password1);
   };
 
   const [items2, setItems2] = useState<Account[]>([]);
@@ -55,8 +59,8 @@ const EditAccount: React.FC<ProfileProps> = () => {
         Authorization: localStorage.token,
       },
       body: JSON.stringify({
-        email: { newEmail },
-        password: { newPassword },
+        email: newEmail,
+        password: newPassword,
       }),
     });
     console.log(data2);
@@ -65,9 +69,26 @@ const EditAccount: React.FC<ProfileProps> = () => {
     console.log(items2.getAccount);
   };
 
-  function validateForm() {
-    return newPassword.length > 8 && newPassword === newPassword2;
+  function validateForm(password: string) {
+    return (
+      password === currentPassword &&
+      newPassword.length > 8 &&
+      newPassword === newPassword2
+    );
   }
+
+  const sendNewPass = () => {
+    if (validateForm(oldPass)) {
+      editData();
+    } else {
+      console.log("bug");
+    }
+  };
+
+  const onHandleSave = () => {
+    setShowToast1(true);
+    sendNewPass();
+  };
 
   return (
     <IonApp>
@@ -148,10 +169,18 @@ const EditAccount: React.FC<ProfileProps> = () => {
             size="large"
             color="theme"
             expand="block"
-            href="/profile"
+            routerLink={"/Profile"}
+            onClick={onHandleSave}
           >
             SAVE
           </IonButton>
+          <IonToast
+            isOpen={showToast1}
+            onDidDismiss={() => setShowToast1(false)}
+            message="Your account have been saved."
+            duration={200}
+            position="middle"
+          />
         </IonContent>
       </IonPage>
     </IonApp>
