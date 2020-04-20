@@ -17,23 +17,21 @@ import {
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import "./EditAccount.css";
-import { Account } from "./Profile";
-
-export interface ProfileProps {
-  item: Account;
-}
+import { Account, ProfileProps } from "./Profile";
 
 const EditAccount: React.FC<ProfileProps> = () => {
   const [showToast1, setShowToast1] = useState(false);
   const [oldPass, setOldPass] = useState("");
-  useEffect(() => {
-    fetchItems();
-    // eslint-disable-next-line
-  }, []);
   const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
+
+  useEffect(() => {
+    fetchItems();
+    // eslint-disable-next-line
+  }, []);
+
   const [items, setItems] = useState<Account[]>([]);
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/account/get", {
@@ -96,7 +94,7 @@ const EditAccount: React.FC<ProfileProps> = () => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" href="/profile">
+              <IonButton color="theme" href="/Profile">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Account</IonTitle>
@@ -108,9 +106,11 @@ const EditAccount: React.FC<ProfileProps> = () => {
           <IonCard class="card3">
             <IonList>
               <IonItem>
-                <IonLabel>Current E-mail</IonLabel>
+                <IonLabel>E-mail</IonLabel>
                 {items.map((item) => (
-                  <IonLabel class="info">{item.email}</IonLabel>
+                  <IonLabel class="info" position="stacked">
+                    {item.email}
+                  </IonLabel>
                 ))}
               </IonItem>
               <IonItem>

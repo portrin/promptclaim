@@ -19,17 +19,9 @@ import {
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import "./EditProfile.css";
-import { Profile } from "./Profile";
-import { RouteComponentProps } from "react-router";
+import { Profile, ProfileProps } from "./Profile";
 
-interface RouteParam {
-  id: string;
-}
-interface Match extends RouteComponentProps<RouteParam> {
-  params: string;
-}
-
-const EditProfile: React.FC<Match> = ({ match }) => {
+const EditProfile: React.FC<ProfileProps> = () => {
   const [showToast1, setShowToast1] = useState(false);
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
@@ -38,54 +30,58 @@ const EditProfile: React.FC<Match> = ({ match }) => {
   const [phonenum, setPhoneNum] = useState("");
 
   useEffect(() => {
-    fetchItem();
+    fetchItems();
     // eslint-disable-next-line
   }, []);
 
-  const [item, setItems] = useState<Profile[]>([]);
-  const fetchItem = async () => {
+  const [items, setItems] = useState<Profile[]>([]);
+  const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/profile/get", {
       headers: {
         Authorization: localStorage.token,
       },
     });
 
-    const item = await data.json();
-    setItems(item.getProfile);
-    console.log(item.getProfile);
-    console.log(item);
+    const items = await data.json();
+    setItems(items.getProfile);
+    console.log(items.getProfile);
+    console.log(items);
 
-    const firstname: string = item.getProfile[0].firstname;
-    const lastname: string = item.getProfile[0].lastname;
-    const birth_date: string = item.getProfile[0].birth_date;
-    const phone_no: string = item.getProfile[0].phone_no;
+    const firstname: string = items.getProfile[0].firstname;
+    const lastname: string = items.getProfile[0].lastname;
+    const birth_date: string = items.getProfile[0].birth_date;
+    const phone_no: string = items.getProfile[0].phone_no;
 
-    setFName(firstname);
     console.log(firstname);
+    setFName(firstname);
+
     setLName(lastname);
     setBDate(birth_date);
     setPhoneNum(phone_no);
   };
 
+  const [items2, setItems2] = useState<Profile[]>([]);
   const editData = async () => {
-    const data = await fetch(
-      "http://localhost:8001/customer/profile/edit/" + match.params.id,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.token,
-        },
-        body: JSON.stringify({
-          firstName: fname,
-          lastname: lname,
-          birthDate: bdate,
-          phone_no: phonenum,
-          birth_date: bdate,
-        }),
-      }
-    );
+    const data2 = await fetch("http://localhost:8001/customer/profile/edit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.token,
+      },
+      body: JSON.stringify({
+        firstname: fname,
+        lastname: lname,
+        phone_no: phonenum,
+        birth_date: bdate,
+      }),
+    });
+    console.log(data2);
+
+    const items2 = await data2.json();
+    setItems2(items2.getProfile);
+    console.log(fname);
   };
+
   const onHandleSave = () => {
     setShowToast1(true);
     editData();
@@ -184,7 +180,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
 
               <IonItem>
                 <IonLabel>Phone No.</IonLabel>
-                {item.map((item) => (
+                {items.map((item) => (
                   <IonLabel class="label"> {item.phone_no}</IonLabel>
                 ))}
               </IonItem>
@@ -197,7 +193,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
-            routerLink={`/editProfile/${match.params.id}`}
+            routerLink={"/Profile"}
             onClick={onHandleSave}
           >
             SAVE

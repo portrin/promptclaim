@@ -138,7 +138,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 size="small"
                 color="theme"
                 fill="outline"
-                routerLink={`/editaccount/${item2.account_id}`}
+                href={"/editaccount"}
               >
                 edit
               </IonButton>
@@ -157,7 +157,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 size="small"
                 color="theme"
                 fill="outline"
-                routerLink={`/editprofile/${item.account_id}`}
+                href={"/editProfile"}
               >
                 edit
               </IonButton>
@@ -204,7 +204,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 size="small"
                 color="theme"
                 fill="outline"
-                routerLink={`/editaddress/${item3.address_id}`}
+                href={`/editaddress/${item3.address_id}`}
               >
                 edit
               </IonButton>
