@@ -10,17 +10,7 @@ export const Sidebar = (props) => {
     <Sider className="site-layout-background" width={200}>
       <Menu
         mode="inline"
-        defaultSelectedKeys={
-          path === '/'
-            ? 'product'
-            : path === '/view-product'
-            ? 'product'
-            : path === '/main-policy'
-            ? 'policy'
-            : path === '/view-policy'
-            ? 'policy'
-            : 'product'
-        }
+        defaultSelectedKeys={path.includes('product') ? 'product' : 'policy'}
         defaultOpenKeys={['sub1']}
         style={{ height: '100%' }}
       >

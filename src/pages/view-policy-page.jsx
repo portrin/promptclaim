@@ -23,12 +23,13 @@ function callback(key) {
 export const ViewPolicyPage = (props) => {
   let { key } = useParams()
   return (
-    <AppLayout {...props} nosearch title="Product Information">
+    <AppLayout {...props} nosearch title="Policy Information" lastpagePolicy="Policy Dashboard">
       <div className="site-layout-content">
         <Descriptions layout="vertical" bordered>
           <Descriptions.Item label="Policy Informaion">
             Policy ID: {data[key].policyID}
             <br />
+            <br/>
             <Collapse>
               <Panel header="Policy Description">{data[key].policyDes}</Panel>
             </Collapse>

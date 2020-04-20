@@ -1,4 +1,4 @@
-import React , { useState, useEffect }from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Descriptions } from 'antd'
 import { AppLayout } from '../components/app-layout'
@@ -8,22 +8,28 @@ export const ViewProductPage = (props) => {
   //API Breaking Bad
   const [item, setItems] = useState([])
   const fetchItem = async () => {
-    const data = await fetch(`https://www.breakingbadapi.com/api/characters/`+key)
+    const data = await fetch(
+      `https://www.breakingbadapi.com/api/characters/` + key,
+    )
     const item = await data.json()
     setItems(item)
     console.log(item)
   }
+
   useEffect(() => {
     fetchItem()
+    //eslint-disable-next-line
   }, [])
   return (
-    <AppLayout {...props} nosearch title="Product Information">
+    <AppLayout
+      {...props}
+      nosearch
+      title="Product Information"
+      lastpageProduct="Product Dashboard"
+    >
       <div className="site-layout-content">
         <Descriptions
-          title=
-          {item.map((item) => (
-            item.name
-          ))}
+          title={item.map((item) => item.name)}
           layout="vertical"
           bordered
           column={2}
@@ -32,10 +38,7 @@ export const ViewProductPage = (props) => {
             <img
               className="product-image"
               //src={data[key].image}
-              src=
-              {item.map((item) => (
-                item.img
-              ))}
+              src={item.map((item) => item.img)}
               alt="product"
             />
           </Descriptions.Item>
@@ -44,7 +47,7 @@ export const ViewProductPage = (props) => {
             <br />
             Serial Number: {data[key].productInfo.serialNum}
             <br />
-            warranty Number: {data[key].productInfo.warrantyNum}
+            Warranty Number: {data[key].productInfo.warrantyNum}
             <br />
             Supplier ID: {data[key].productInfo.warrantyNum}
             <br />

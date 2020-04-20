@@ -21,6 +21,12 @@ export const AppLayout = (props) => {
         </Content>
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item onClick={() => props.history.push(`/`)}>
+              {props.lastpageProduct}
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="/main-policy">
+              {props.lastpagePolicy}
+            </Breadcrumb.Item>
             <Breadcrumb.Item>{props.title}</Breadcrumb.Item>
           </Breadcrumb>
           <Layout
@@ -28,7 +34,7 @@ export const AppLayout = (props) => {
             style={{ padding: '24px 0' }}
           >
             <Sidebar {...props} />
-            <Content>{props.children} </Content>
+            <Content>{props.children}</Content>
           </Layout>
         </Content>
         <Bottombar />
