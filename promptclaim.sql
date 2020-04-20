@@ -34,7 +34,7 @@ CREATE TABLE Customer_address (
 );
 
 CREATE TABLE Product_category (
-	category_id VARCHAR(6) NOT NULL,
+	category_id INT AUTO_INCREMENT NOT NULL,
     category_name VARCHAR(80),
     PRIMARY KEY(category_id)
 );
@@ -215,7 +215,7 @@ CREATE TABLE Service_center_branch (
 );
 
 CREATE TABLE Product_classify_as (
-	category_id VARCHAR(6) NOT NULL,
+	category_id INT NOT NULL,
     product_no VARCHAR(6) NOT NULL,
     PRIMARY KEY(category_id, product_no),
     FOREIGN KEY(category_id) REFERENCES Product_category(category_id),
@@ -256,8 +256,10 @@ CREATE TABLE Product_has_policy (
 
 CREATE TABLE Pp_classify_as (
 	uuid INT NOT NULL,
-    category_id VARCHAR(80) NOT NULL,
-    PRIMARY KEY(uuid)
+    category_id INT NOT NULL,
+    PRIMARY KEY(uuid, category_id),
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
+    FOREIGN KEY(category_id) REFERENCES Product_category(category_id)
 );
 
 
@@ -285,18 +287,18 @@ VALUES ('1','1','23/4','Sathorn','Silom','Sathorn','Bangkok','10120'),
 ('4','6','100/21','Trin Road','Vertical','Ari','Bangkok','12100'),
 ('5','7','5/123','Q-house road', 'Krung thonburi','Fung thon','Bangkok','10300');
 
-INSERT INTO Product_category(category_id, category_name)
-VALUES ('1','Wall & Floor'),
-('2','Bathroom'),
-('3','Kitchen'),
-('4','Furniture Lifestyle'),
-('5','Lighting'),
-('6','Home Appliances'),
-('7','Doors & Windows'),
-('8','Paint & Equipment'),
-('9','Tools & Hardware'),
-('10','Garden - Plumbing - DIY'),
-('11','Promotion');
+INSERT INTO Product_category(category_name)
+VALUES ('Wall & Floor'),
+('Bathroom'),
+('Kitchen'),
+('Furniture Lifestyle'),
+('Lighting'),
+('Home Appliances'),
+('Doors & Windows'),
+('Paint & Equipment'),
+('Tools & Hardware'),
+('Garden - Plumbing - DIY'),
+('Promotion');
 
 INSERT INTO Root_account(root_id, username, password, type)
 VALUES ('000001','IKEA', 'Ikeapassword','S'),
@@ -428,17 +430,17 @@ VALUES ('status1', '2020-03-03', '1', '1', '1'),
 ('status4', '2020-03-06','4', '2', '1');
 
 CREATE TABLE Notification (
-	noti_id VARCHAR(6) NOT NULL,
+	noti_id INT AUTO_INCREMENT NOT NULL,
 	message VARCHAR(256) NOT NULL,
 	timestamp TIMESTAMP NOT NULL,
     customer_id VARCHAR(6) NOT NULL,
     PRIMARY KEY (noti_id),
 	FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)); 
     
-INSERT INTO notification(noti_id, message, timestamp, customer_id) 
-VALUES ('01', 'The product has been claimed', '2020-01-18 11:00:01', '1'),
-('02', 'Expiration date tomorrow', '2020-02-18 11:00:01', '2'),
-('03', 'Promotion for curry', '2020-03-18 11:00:01', '3');
+INSERT INTO notification(message, timestamp, customer_id) 
+VALUES ('The product has been claimed', '2020-01-18 11:00:01', '1'),
+('Expiration date tomorrow', '2020-02-18 11:00:01', '2'),
+('Promotion for curry', '2020-03-18 11:00:01', '3');
 
 INSERT INTO Pp_classify_as(uuid, category_id)
 VALUES ('1','1'),
