@@ -1,4 +1,5 @@
 const Retailer = require('../../models/policy-owner/retailer/retailer-model');
+const RetailerBranch = require('../../models/policy-owner/retailer/retailer-branch-model');
 const jwt = require('jsonwebtoken')
 
 exports.getProfile = async (req, res, next) => {
@@ -8,6 +9,16 @@ exports.getProfile = async (req, res, next) => {
         getProfile: retailerProfile
     })
 };
+
+exports.getRetailerBranch = async (req, res, next) => {
+    const retailerBranch = (await RetailerBranch._readRetailerBranch())[0];
+    res.send(retailerBranch)
+}
+
+exports.getRetailer =  async (req, res, next) => {
+    const retailer = (await Retailer._read())[0];
+    res.send(retailer)
+}
 
 exports.postEditProfile = async (req, res, next) => {
     const retailerId = jwt.decode(req.headers.authorization).sub;

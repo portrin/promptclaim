@@ -1,5 +1,5 @@
 const db = require('../../../config/db');
-const checkType = require('../../utils').checkType;
+const checkType = require('../../../utils').checkType;
 
 module.exports = class RetailerBranch {
     constructor({retailer_id = null, retailer_branch_id = null, retailer_branch_name = null, retailer_branch_contact = null, retailer_branch_address = null } = {}) {
@@ -34,6 +34,10 @@ module.exports = class RetailerBranch {
 
     static _readByPk(retailerId, retailerBranchId) {
         return db.execute('SELECT * FROM retailer_branch WHERE retailer_id = ? AND retailer_branch_id = ?', [retailerId, retailerBranchId]);
+    }
+
+    static _readRetailerBranch(){
+        return db.execute('SELECT retailer_branch_id, retailer_branch_name FROM retailer_branch')
     }
 
     _update() {

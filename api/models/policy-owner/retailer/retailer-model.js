@@ -24,11 +24,10 @@ module.exports = class Retailer {
             [this._retailerId, this._retailerName, this._retailerDescription, this._retailerContact, this._retailerHqAddress, this._policyOwnerId, this._rootId]
         )
     }
-    _read() {
-        return db.execute('SELECT * FROM retailer WHERE = ?',
-        [this._retailerId]
-        );
+    static _read() {
+        return db.execute('SELECT retailer_name, retailer_id FROM retailer');
     }
+
     static async _getPolicyOwnerIdByRetailerId(retailerId){
         return (await db.execute('SELECT policy_owner_id FROM retailer WHERE retailer_id = ?', [retailerId]))[0][0].policy_owner_id;
     }
