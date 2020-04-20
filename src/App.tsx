@@ -82,7 +82,7 @@ const App: React.FC = () => {
             <Route
               exact={true}
               path="/"
-              render={() => <Redirect to="/myWarranty" />}
+              render={() => <Redirect to="/authen" />}
             />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">

@@ -28,4 +28,4 @@ import React from "react";
       <IonBackButton defaultHref="/home" />
     </IonButtons>
   </IonToolbar>
-</IonPage>;
+</IonPage>

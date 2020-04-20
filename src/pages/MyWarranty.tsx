@@ -15,6 +15,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonApp,
+  IonLabel,
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -32,9 +33,9 @@ export interface Product {
   char_id: string;
   status: string;
   name: string;
-  product_name: string;
+  product_nickname: string;
   uuid: string;
-  img: string;
+  product_photo: string;
   category_name: string;
   retailer_branch_name: string;
 }
@@ -68,13 +69,15 @@ const MyWarranty: React.FC<Productprops> = () => {
   useEffect(() => {
     setSearchItem(
       items.filter((item) =>
-        item.product_name.toLowerCase().includes(searchText.toLowerCase())
+        item.product_nickname.toLowerCase().includes(searchText.toLowerCase())
       )
     );
   }, [searchText, items]);
   function sortProduct(item: Array<Product>) {
     if (sortBy === "Name") {
-      return item.sort((a, b) => a.product_name.localeCompare(b.product_name));
+      return item.sort((a, b) =>
+        a.product_nickname.localeCompare(b.product_nickname)
+      );
     } else if (sortBy === "Name Z-A") {
       return item.sort().reverse();
     } else if (sortBy === "Product ID") {
@@ -94,8 +97,8 @@ const MyWarranty: React.FC<Productprops> = () => {
   return (
     <IonApp>
       <IonPage>
-        <IonHeader class="toolbar">
-          <IonToolbar color="theme">
+        <IonHeader>
+          <IonToolbar color="theme" class="toolbar2">
             <IonTitle class="title">My Warranty</IonTitle>
             <IonButton
               fill="clear"
@@ -129,6 +132,7 @@ const MyWarranty: React.FC<Productprops> = () => {
 
         <IonContent>
           <IonSearchbar
+            color="lightbutton"
             animated
             value={searchText}
             onIonChange={(e) => setSearchText(e.detail.value!)}
@@ -139,16 +143,14 @@ const MyWarranty: React.FC<Productprops> = () => {
                 <IonCol>
                   <IonButton size="small" fill="clear">
                     <IonIcon icon={filterOutline} />
-                    
+
                     <IonSelect
                       value={filterBy}
                       cancelText="Cancel"
                       okText="Done"
                       onIonChange={(e) => setfilterBy(e.detail.value)}
                     >
-                      <IonSelectOption value="default">
-                        All
-                      </IonSelectOption>
+                      <IonSelectOption value="default">All</IonSelectOption>
                       <IonSelectOption value="Wall & Floor">
                         Wall & Floor
                       </IonSelectOption>
@@ -195,7 +197,9 @@ const MyWarranty: React.FC<Productprops> = () => {
                       okText="Done"
                       onIonChange={(e) => setsortBy(e.detail.value)}
                     >
-                      <IonSelectOption value="Name">By name A-Z</IonSelectOption>
+                      <IonSelectOption value="Name">
+                        By name A-Z
+                      </IonSelectOption>
                       <IonSelectOption value="Name Z-A">
                         By name Z-A{" "}
                       </IonSelectOption>
@@ -210,15 +214,13 @@ const MyWarranty: React.FC<Productprops> = () => {
           </IonToolbar>
 
           <IonList>
-            <IonListHeader class="ion-no-start">
-              <h2>Products</h2>
-            </IonListHeader>
+            <IonLabel class="label2">Products</IonLabel>
 
             {sortProduct(filterProduct(searchItem)).map((item) => (
               <Product
-                name={item.product_name}
+                name={item.product_nickname}
                 serial={item.uuid}
-                image={item.img}
+                image={item.product_photo}
                 description={item.retailer_branch_name}
                 category={item.category_name}
               ></Product>

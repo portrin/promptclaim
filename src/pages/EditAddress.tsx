@@ -81,7 +81,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
 
     const house_no: string = item.getAddress[0].house_no;
     const street: string = item.getAddress[0].street;
-    const subdistrict: string = item.getAddress[0].subdistrict;
+    const subdistrict: string = item.getAddress[0].sub_district;
     const district: string = item.getAddress[0].district;
     const province: string = item.getAddress[0].province;
     const zipcode: string = item.getAddress[0].zipcode;
@@ -104,7 +104,11 @@ const EditAddress: React.FC<Match> = ({ match }) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" routerLink="/Profile" routerDirection="root">
+              <IonButton
+                color="theme"
+                routerLink="/Profile"
+                routerDirection="root"
+              >
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Address</IonTitle>

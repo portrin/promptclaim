@@ -46,17 +46,16 @@ const FillInfo: React.FC<Prop> = (props) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <Link to={"/verify"}>
-                <IonButton color="theme">
-                  <IonIcon icon={chevronBackOutline}></IonIcon>
-                </IonButton>
-              </Link>
+              <IonButton color="theme" routerLink="/verify">
+                <IonIcon icon={chevronBackOutline}></IonIcon>
+              </IonButton>
+
               <IonTitle class="title">Information</IonTitle>
             </IonToolbar>
           </IonHeader>
 
           <IonLabel class="label">ACCOUNT</IonLabel>
-          <IonCard>
+          <IonCard class="card3">
             <IonList>
               <IonItem>
                 <IonLabel>E-mail</IonLabel>
