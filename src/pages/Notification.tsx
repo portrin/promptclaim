@@ -16,6 +16,7 @@ import {
   funnelOutline,
   filterOutline,
   personCircleOutline,
+  notifications
 } from "ionicons/icons";
 
 import NotificationItem from "../components/NotificationItem";
@@ -110,7 +111,7 @@ const Notification: React.FC<Itemprops> = () => {
             >
               <IonIcon
                 size="medium"
-                icon={notificationsOutline}
+                icon={notifications}
                 color="light"
               ></IonIcon>
             </IonButton>
