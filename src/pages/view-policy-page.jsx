@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import { Descriptions, Collapse } from 'antd'
 import { AppLayout } from '../components/app-layout'
 import { useParams } from 'react-router-dom'
@@ -22,112 +22,69 @@ function callback(key) {
 
 export const ViewPolicyPage = (props) => {
   let { key } = useParams()
+  //API
+  const [item, setItems] = useState([])
+  const fetchItem = async () => {
+    const data = await fetch(
+      "http://localhost:8001/retailer/policy/getByPolicyId/" + key,{
+        headers: {
+          Authorization:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+        },
+      });
+    const item = await data.json()
+    setItems(item)
+    console.log(item)
+  }
+
+  useEffect(() => {
+    fetchItem()
+    //eslint-disable-next-line
+  }, [])
   return (
     <AppLayout {...props} nosearch title="Policy Information" lastpagePolicy="Policy Dashboard">
       <div className="site-layout-content">
         <Descriptions layout="vertical" bordered>
           <Descriptions.Item label="Policy Informaion">
-            Policy ID: {data[key].policyID}
+            Policy ID: {item.map((item) => item.policy_id)}
             <br />
             <br/>
             <Collapse>
-              <Panel header="Policy Description">{data[key].policyDes}</Panel>
+              <Panel header="Policy Description">{item.map((item) => item.policy_description)}</Panel>
             </Collapse>
           </Descriptions.Item>
         </Descriptions>
         <Descriptions layout="vertical" bordered>
-          <Descriptions.Item label="Product Information">
+          <Descriptions.Item label="Products that hold this policy">
             <Collapse onChange={callback}>
-              <Panel header="AMERICAN STANDARD Automatic Toilet Bowl" key="1">
+              <Panel header={item.map((item) => item.product_name)} key="1">
                 <Collapse>
                   <Panel header="Customer 1" key="1">
-                    Customer ID: {data[key].product1.customer1.CustomerID}
+                    Customer ID: 
                     <br />
-                    Product Number: {data[key].product1.customer1.ProductNumber}
+                    Product ID: 
                     <br />
-                    Serial Number: {data[key].product1.customer1.SerialNumber}
+                    Serial Number: 
                     <br />
-                    Policy Period: {data[key].product1.customer1.PolicyPeriod}
+                    Policy Period: 
                   </Panel>
                   <Panel header="Customer 2" key="2">
-                    Customer ID: {data[key].product1.customer2.CustomerID}
+                    Customer ID: 
                     <br />
-                    Product Number: {data[key].product1.customer2.ProductNumber}
+                    Product Number: 
                     <br />
-                    Serial Number: {data[key].product1.customer2.SerialNumber}
+                    Serial Number: 
                     <br />
-                    Policy Period: {data[key].product1.customer2.PolicyPeriod}
+                    Policy Period: 
                   </Panel>
                   <Panel header="Customer 3" key="3">
-                    Customer ID: {data[key].product1.customer3.CustomerID}
+                    Customer ID: 
                     <br />
-                    Product Number: {data[key].product1.customer3.ProductNumber}
+                    Product Number: 
                     <br />
-                    Serial Number: {data[key].product1.customer3.SerialNumber}
+                    Serial Number: 
                     <br />
-                    Policy Period: {data[key].product1.customer3.PolicyPeriod}
-                  </Panel>
-                </Collapse>
-              </Panel>
-              <Panel header="AMERICAN STANDARD Toilet Bowl" key="2">
-                <Collapse>
-                  <Panel header="Customer 1" key="1">
-                    Customer ID: 000293
-                    <br />
-                    Product Number: 000001
-                    <br />
-                    Serial Number: 000056
-                    <br />
-                    Policy Period: 10/3/20 to 10/3/22
-                  </Panel>
-                  <Panel header="Customer 2" key="2">
-                    Customer ID: 000353
-                    <br />
-                    Product Number: 000005
-                    <br />
-                    Serial Number: 000012
-                    <br />
-                    Policy Period: 14/4/19 to 14/4/21
-                  </Panel>
-                  <Panel header="Customer 3" key="3">
-                    Customer ID: 000353
-                    <br />
-                    Product Number: 000005
-                    <br />
-                    Serial Number: 000012
-                    <br />
-                    Policy Period: 14/4/19 to 14/4/21
-                  </Panel>
-                </Collapse>
-              </Panel>
-              <Panel header="AMERICAN STANDARD Water Heater" key="3">
-                <Collapse>
-                  <Panel header="Customer 1" key="1">
-                    Customer ID: 000293
-                    <br />
-                    Product Number: 000001
-                    <br />
-                    Serial Number: 000056
-                    <br />
-                    Policy Period: 10/3/20 to 10/3/22
-                  </Panel>
-                  <Panel header="Customer 2" key="2">
-                    Customer ID: 000353
-                    <br />
-                    Product Number: 000005
-                    <br />
-                    Serial Number: 000012
-                    <br />
-                    Policy Period: 14/4/19 to 14/4/21
-                  </Panel>
-                  <Panel header="Customer 3" key="3">
-                    Customer ID: 000353
-                    <br />
-                    Product Number: 000005
-                    <br />
-                    Serial Number: 000012
-                    <br />
-                    Policy Period: 14/4/19 to 14/4/21
+                    Policy Period: 
                   </Panel>
                 </Collapse>
               </Panel>

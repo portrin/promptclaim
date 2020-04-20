@@ -5,12 +5,16 @@ import { AppLayout } from '../components/app-layout'
 
 export const ViewProductPage = (props) => {
   let { key } = useParams()
-  //API Breaking Bad
+  //API
   const [item, setItems] = useState([])
   const fetchItem = async () => {
     const data = await fetch(
-      `https://www.breakingbadapi.com/api/characters/` + key,
-    )
+      "http://localhost:8001/retailer/product/getByProductNo/" + key,{
+        headers: {
+          Authorization:
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+        },
+      });
     const item = await data.json()
     setItems(item)
     console.log(item)
@@ -29,7 +33,7 @@ export const ViewProductPage = (props) => {
     >
       <div className="site-layout-content">
         <Descriptions
-          title={item.map((item) => item.name)}
+          title={item.map((item) => item.product_name)}
           layout="vertical"
           bordered
           column={2}
@@ -38,40 +42,38 @@ export const ViewProductPage = (props) => {
             <img
               className="product-image"
               //src={data[key].image}
-              src={item.map((item) => item.img)}
+              src={item.map((item) => item.product_photo)}
               alt="product"
             />
           </Descriptions.Item>
           <Descriptions.Item label="Product Information">
-            Purchase date: {data[key].productInfo.purchaseDate}
+            Purchase date: {item.map((item) => item.create_timestamp)}
             <br />
-            Serial Number: {data[key].productInfo.serialNum}
+            Serial Number: {item.map((item) => item.serial_no)}
             <br />
-            Warranty Number: {data[key].productInfo.warrantyNum}
+            Product Number: {item.map((item) => item.product_no)}
             <br />
-            Supplier ID: {data[key].productInfo.warrantyNum}
+            Branch ID: {item.map((item) => item.retailer_branch_id)}
             <br />
-            Retailer ID: {data[key].productInfo.retailerID}
+            Invoice ID: {item.map((item) => item.invoice_id)}
           </Descriptions.Item>
           <Descriptions.Item label="Customer Information">
-            Customer ID: {data[key].customerInfo.customerID}
+            Customer ID: {item.map((item) => item.customer_id)}
             <br />
-            Customer Name: {data[key].customerInfo.customerName}
+            Customer Name: {item.map((item) => item.firstname)} {item.map((item) => item.lastname)}
             <br />
-            Phone Number: {data[key].customerInfo.phoneNum}
+            Phone Number: {item.map((item) => item.phone_no)}
             <br />
-            Birth Date: {data[key].customerInfo.birthDate}
-            <br />
-            Address: {data[key].customerInfo.address}
+            Birth Date: {item.map((item) => item.birth_date)}
           </Descriptions.Item>
           <Descriptions.Item label="Claim Information">
-            Expiry date: {data[key].claimInfo.expiryDate}
+            Start Date: {item.map((item) => item.policy_start_date)}
             <br />
-            Claim Period: {data[key].claimInfo.claimPeriod}
+            End Date: {item.map((item) => item.policy_end_date)}
             <br />
-            Claim Period Left: {data[key].claimInfo.claimLeft}
+            Claim Period: {item.map((item) => item.policy_period)}
             <br />
-            Status: {data[key].claimInfo.status}
+            Status: {item.map((item) => item.status)}
           </Descriptions.Item>
         </Descriptions>
       </div>

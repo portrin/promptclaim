@@ -6,7 +6,7 @@ import { Table } from 'antd'
 import { AppLayout } from '../components/app-layout'
 
 export const MainProductPage = (props) => {
-  //API backend
+  //API
   const [items, setItems] = useState([])
   const fetchItem = async () => {
     const data = await fetch('http://localhost:8001/retailer/product/get', {
@@ -24,10 +24,10 @@ export const MainProductPage = (props) => {
   }, [])
   const dataBB = items.map((item, index) => ({
     key: item.uuid,
-    name: item.product_nickname,
+    name: item.product_name,
     serial: item.serial_no,
-    invoice: item.invoice_id,
-    expiry: item.create_timestamp,
+    product: item.product_no,
+    expiry: item.policy_end_date,
   }))
 
   //Dashboard
@@ -102,8 +102,8 @@ const columns = [
     sorter: (a, b) => a.serial - b.serial,
   },
   {
-    title: 'Invoice ID',
-    dataIndex: 'invoice',
+    title: 'Product No.',
+    dataIndex: 'product',
     sorter: (a, b) => a.warranty - b.warranty,
   },
   {
