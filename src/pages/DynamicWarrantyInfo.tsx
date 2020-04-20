@@ -15,7 +15,6 @@ import {
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
-  IonToggle,
   IonListHeader,
   IonCardTitle,
   IonItem,
@@ -29,16 +28,8 @@ import {
   IonSlide,
   IonInput,
   IonDatetime,
-  IonRouterLink,
 } from "@ionic/react";
-import {
-  notifications,
-  call,
-  trash,
-  close,
-  closeCircle,
-  today,
-} from "ionicons/icons";
+import { call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
 import { triggerAsyncId } from "async_hooks";
@@ -135,18 +126,18 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   };
   console.log(moment(displayDate).add(1, "days").format());
   const fetchPolicy = async () => {
-  const data = await fetch(
-    "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
-    {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    }
-  );
-  const policy = await data.json();
-  setPolicy(policy);
-  console.log(policy)
-}
+    const data = await fetch(
+      "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    const policy = await data.json();
+    setPolicy(policy);
+    console.log(policy);
+  };
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -157,7 +148,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
         },
       }
     );
-    
+
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -295,7 +286,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                     ]}
                   ></IonActionSheet>
                 </IonCol>
-               
               </IonRow>
               <IonButton
                 expand="block"
@@ -308,6 +298,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonButton
                 expand="block"
                 routerLink={`/addClaimDate/${match.params.id}`}
+                routerDirection="root"
               >
                 Add Claim Date
               </IonButton>

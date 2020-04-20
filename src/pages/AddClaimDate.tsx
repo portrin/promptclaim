@@ -119,10 +119,10 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
           </IonItem>
-          <IonButton expand="block" onClick={addClaim}>
+          <IonButton expand="block" onClick={addClaim} routerDirection="root">
             Add
           </IonButton>
-          <IonButton color="light" expand="block" href={dylink}>
+          <IonButton color="light" expand="block" routerLink={dylink} routerDirection="root">
             Back
           </IonButton>
         </IonList>

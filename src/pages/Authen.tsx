@@ -1,9 +1,9 @@
 import { IonContent, IonPage, IonButton, IonApp } from "@ionic/react";
 import React from "react";
 import "./Authen.css";
-import { RouteComponentProps } from "react-router-dom";
 
-const Authen: React.FC<RouteComponentProps> = (props) => {
+
+const Authen: React.FC = () => {
   return (
     <IonApp>
       <IonPage>
@@ -18,7 +18,8 @@ const Authen: React.FC<RouteComponentProps> = (props) => {
             size="large"
             expand="block"
             color="lightbutton"
-            onClick={() => props.history.push("/signin")}
+            routerLink="/signin"
+            routerDirection="root"
           >
             SIGN IN
           </IonButton>
@@ -30,7 +31,8 @@ const Authen: React.FC<RouteComponentProps> = (props) => {
             size="large"
             expand="block"
             color="lightbutton"
-            onClick={() => props.history.push("/signup")}
+            routerLink="/signup"
+            routerDirection="root"
           >
             SIGN UP
           </IonButton>

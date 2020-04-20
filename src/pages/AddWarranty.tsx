@@ -200,7 +200,7 @@ const AddWarranty: React.FC = () => {
           </IonSlide>
         </IonSlides>
 
-        <IonButton onClick={addProduct} href="/myWarranty" expand="block">
+        <IonButton onClick={addProduct} routerLink="/myWarranty" routerDirection="root" expand="block">
           Add
         </IonButton>
         <IonToast

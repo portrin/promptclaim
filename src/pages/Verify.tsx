@@ -51,7 +51,8 @@ const Verify: React.FC<RouteComponentProps> = (props) => {
             id="signin"
             size="large"
             color="signinbutton"
-            href="/fillinfo"
+            routerLink="/fillinfo"
+            routerDirection="root"
           >
             CONFIRM
           </IonButton>

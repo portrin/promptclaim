@@ -7,7 +7,7 @@ import {
   IonList,
   IonListHeader,
   IonButton,
-  IonIcon
+  IonIcon,
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
@@ -16,7 +16,7 @@ import {
   funnelOutline,
   filterOutline,
   personCircleOutline,
-  notifications
+  notifications,
 } from "ionicons/icons";
 
 import NotificationItem from "../components/NotificationItem";
@@ -64,8 +64,8 @@ const Notification: React.FC<Itemprops> = () => {
     const items = await data.json();
     setItems(items);
     console.log(items);
-    if (items[0]!=null) {
-    var dateFormat = items[0].create_timestamp.split("T")[0];
+    if (items[0] != null) {
+      var dateFormat = items[0].create_timestamp.split("T")[0];
     }
     console.log(dateFormat);
     console.log("Days =");
@@ -92,37 +92,38 @@ const Notification: React.FC<Itemprops> = () => {
           setNotiItems(tempItem);
         }
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
     <IonPage>
       <IonHeader>
-      <IonToolbar color="theme">
-            <IonTitle class="title">My Warranty</IonTitle>
-            <IonButton
-              fill="clear"
-              slot="end"
-              size="small"
-              class="ion-no-padding"
-              href="/myWarranty"
-            >
-              <IonIcon
-                size="medium"
-                icon={notifications}
-                color="light"
-              ></IonIcon>
-            </IonButton>
-            <IonButton fill="clear" slot="end" size="small" href="/profile">
-              <IonIcon
-                size="medium"
-                icon={personCircleOutline}
-                color="light"
-              ></IonIcon>
-            </IonButton>
-          </IonToolbar>
+        <IonToolbar color="theme">
+          <IonTitle class="title">My Warranty</IonTitle>
+          <IonButton
+            fill="clear"
+            slot="end"
+            size="small"
+            class="ion-no-padding"
+            href="/myWarranty"
+            routerDirection="root"
+          >
+            <IonIcon size="medium" icon={notifications} color="light"></IonIcon>
+          </IonButton>
+          <IonButton
+            fill="clear"
+            slot="end"
+            size="small"
+            href="/profile"
+            routerDirection="root"
+          >
+            <IonIcon
+              size="medium"
+              icon={personCircleOutline}
+              color="light"
+            ></IonIcon>
+          </IonButton>
+        </IonToolbar>
       </IonHeader>
 
       <IonContent>
