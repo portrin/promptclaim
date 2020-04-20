@@ -9,8 +9,8 @@ export const LoginPage = (props) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isCorrected, setIsCorrected] = useState(false);
+  // const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [isCorrected, setIsCorrected] = useState(false);
 
   // function sendChange(event) {
   //   const {name, value } = event.target;
@@ -24,13 +24,28 @@ export const LoginPage = (props) => {
 
   function sendSubmit(event) {
     event.preventDefault();
-    console.log("username: ", username, "password: ",password);
+    // console.log("username: ", username, "password: ",password);
 
-    if(username==="bob" && password==="123456"){
-      props.history.push("/")
-    }else{
-      console.log("wrong")
-    }
+    // if(username==="bob" && password==="123456"){
+    //   props.history.push("/")
+    // }else{
+    //   console.log("wrong")
+    // }
+
+    fetch('url',{
+      method:'POST',
+      body : JSON.stringify({
+        username: username,
+        password: password
+      }),
+      headers: {
+        "Content-type": ""// header to called api
+      }
+    })
+    .then(response => response.json())
+    .then(console.log)
+
+
 
 
     // axios.post("http://propclaim.com"+"/guest/authen", {username: username, password:password}).then(response=>
@@ -50,7 +65,7 @@ export const LoginPage = (props) => {
 
 
   return (
-    <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
+    <article class="Login">
       <Form 
         onSubmit = {sendSubmit}
         name="normal_login"
