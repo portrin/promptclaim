@@ -113,18 +113,22 @@ const Notification: React.FC<Itemprops> = () => {
   function loopCheck() {
     var arr = new Array<Product>();
     for (var i = 0; i < policy.length; i++) {
-      console.log("loop")
+      console.log("loop");
       for (var j = 0; j < items.length; j++) {
-        console.log("loop")
-        if (items[j].uuid == policy[i].uuid && moment(policy[j].policy_end_date).diff(moment(), "days") <30 &&moment(policy[j].policy_end_date).diff(moment(), "days") >0) {
-          
-          items[j].remaining=moment(policy[j].policy_end_date).diff(moment(), "days")+""
+        console.log("loop");
+        if (
+          items[j].uuid == policy[i].uuid &&
+          moment(policy[j].policy_end_date).diff(moment(), "days") < 30 &&
+          moment(policy[j].policy_end_date).diff(moment(), "days") > 0
+        ) {
+          items[j].remaining =
+            moment(policy[j].policy_end_date).diff(moment(), "days") + "";
           arr.push(items[j]);
-          console.log( moment(policy[j].policy_end_date).diff(moment(), "days") )
+          console.log(moment(policy[j].policy_end_date).diff(moment(), "days"));
         }
       }
     }
-    return arr
+    return arr;
   }
 
   return (

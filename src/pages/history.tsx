@@ -6,24 +6,16 @@ import {
   IonToolbar,
   IonList,
   IonListHeader,
-  IonItemDivider,
   IonLabel,
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
-import SamsungTV from "../pictures/samsungTV.jpg";
-import LGTV from "../pictures/LGTV.jpeg";
-import ToshibaAir from "../pictures/toshibaAir.jpg";
-import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
-import WoodTable from "../pictures/woodTable.jpg";
-import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
-import Chandelier from "../pictures/chandelier.jpeg";
 import HistoryItem from "../components/HistoryItem";
 
 export interface Product {
   product_name: string;
   uuid: string;
-  img: string;
+  product_photo: string;
   category_name: string;
   create_timestamp: string;
   serial_no: string;
@@ -57,26 +49,25 @@ const History: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
-          <IonTitle>History</IonTitle>
+        <IonToolbar color="theme" class="toolbar2">
+          <IonTitle class="title">History</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent>
         <IonList>
           <IonListHeader>
-            <h2>March</h2>
+            <IonLabel>March</IonLabel>
           </IonListHeader>
           {items.map((item) => (
             <HistoryItem
-              image={item.img}
+              image={item.product_photo}
               name={item.product_name}
               description={item.retailer_branch_name}
               date={item.timestamp}
               key={item.uuid}
             ></HistoryItem>
           ))}
-          
         </IonList>
       </IonContent>
     </IonPage>

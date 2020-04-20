@@ -7,6 +7,7 @@ import {
   IonButton,
   IonCardContent,
   IonThumbnail,
+  IonImg,
 } from "@ionic/react";
 import { Link } from "react-router-dom";
 
@@ -19,16 +20,15 @@ interface Prop {
 }
 
 const WarrantyItem: React.FC<Prop> = (props) => {
-  const img = props.image;
 
   return (
     <IonCard>
       <IonItem>
         <IonThumbnail slot="start">
-          <img src={props.image} alt="product img" />
+        <IonImg src={props.image} alt="product img" />
         </IonThumbnail>
         <IonLabel>
-          <h2>{props.name}</h2>
+          <IonLabel>{props.name}</IonLabel>
           <IonCardSubtitle>{props.category}</IonCardSubtitle>
         </IonLabel>
         <Link to={`/myWarranty/${props.serial}`}>
