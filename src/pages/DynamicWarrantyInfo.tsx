@@ -15,7 +15,6 @@ import {
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
-  IonToggle,
   IonListHeader,
   IonCardTitle,
   IonItem,
@@ -29,16 +28,8 @@ import {
   IonSlide,
   IonInput,
   IonDatetime,
-  IonRouterLink,
 } from "@ionic/react";
-import {
-  notifications,
-  call,
-  trash,
-  close,
-  closeCircle,
-  today,
-} from "ionicons/icons";
+import { call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
 import { triggerAsyncId } from "async_hooks";
@@ -310,6 +301,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonButton
                 expand="block"
                 routerLink={`/addClaimDate/${match.params.id}`}
+                routerDirection="root"
               >
                 Add Claim Date
               </IonButton>

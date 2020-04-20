@@ -11,11 +11,9 @@ import {
   IonButton,
   IonLabel,
   IonDatetime,
-  IonCardSubtitle,
   IonToast,
 } from "@ionic/react";
 import { RouteComponentProps } from "react-router";
-import { Link } from "react-router-dom";
 import moment from "moment";
 
 interface RouteParam {
@@ -41,10 +39,6 @@ export interface Productprops {
   item: Product;
 }
 
-const slideOpts = {
-  initialSlide: 1,
-  speed: 400,
-};
 const AddClaimDate: React.FC<Match> = ({ match }) => {
   console.log(match);
   const [showToast1, setShowToast1] = useState(false);
@@ -119,10 +113,10 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
               onIonChange={(e) => setSelectedDate(e.detail.value!)}
             ></IonDatetime>
           </IonItem>
-          <IonButton expand="block" onClick={addClaim}>
+          <IonButton expand="block" onClick={addClaim} routerDirection="root">
             Add
           </IonButton>
-          <IonButton color="light" expand="block" href={dylink}>
+          <IonButton color="light" expand="block" routerLink={dylink} routerDirection="root">
             Back
           </IonButton>
         </IonList>

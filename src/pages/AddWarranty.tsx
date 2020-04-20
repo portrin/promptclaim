@@ -21,7 +21,7 @@ import {
   IonCard,
   IonToast,
 } from "@ionic/react";
-import { image, contractOutline } from "ionicons/icons";
+import { image } from "ionicons/icons";
 import "./AddWarranty.css";
 import { usePhotoGallery } from "../hooks/usePhotoGallery";
 import moment from "moment";
@@ -102,34 +102,44 @@ const AddWarranty: React.FC = () => {
       <IonContent>
         <IonList>
           <IonListHeader>Product Information</IonListHeader>
+
           <IonItem>
+            <IonLabel position="floating" color="medium">
+              Product Name
+            </IonLabel>
             <IonInput
               value={pname}
-              placeholder="Product Name"
               onIonChange={(e) => setPname(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
+            <IonLabel position="floating" color="medium">
+              Serial Number
+            </IonLabel>
+
             <IonInput
               value={serial}
-              placeholder="Serial Number"
               onIonChange={(e) => setSerial(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
+            <IonLabel position="floating" color="medium">
+              Warranty Number
+            </IonLabel>
             <IonInput
               value={wranNumber}
-              placeholder="Warranty Number"
               onIonChange={(e) => setWranNumber(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
+            <IonLabel position="floating" color="medium">
+              Warranty Life
+            </IonLabel>
             <IonInput
               value={wranLife}
-              placeholder="Warranty Life"
               onIonChange={(e) => setWranLife(e.detail.value!)}
               clearInput
             ></IonInput>
@@ -138,7 +148,9 @@ const AddWarranty: React.FC = () => {
           <IonItemDivider></IonItemDivider>
           <IonListHeader>Purchase Information</IonListHeader>
           <IonItem>
-            <IonLabel color="medium">Date of Purchase</IonLabel>
+            <IonLabel position="floating" color="medium">
+              Date of Purchase
+            </IonLabel>
             <IonDatetime
               displayFormat="DDDD MMM D, YYYY"
               min="2017"
@@ -148,17 +160,21 @@ const AddWarranty: React.FC = () => {
             ></IonDatetime>
           </IonItem>
           <IonItem>
+            <IonLabel position="floating" color="medium">
+              Retailer
+            </IonLabel>
             <IonInput
               value={retialer}
-              placeholder="Retailer"
               onIonChange={(e) => setRetailer(e.detail.value!)}
               clearInput
             ></IonInput>
           </IonItem>
           <IonItem>
+            <IonLabel position="floating" color="medium">
+              Supplier
+            </IonLabel>
             <IonInput
               value={supplier}
-              placeholder="Supplier"
               onIonChange={(e) => setSupplier(e.detail.value!)}
               clearInput
             ></IonInput>
@@ -200,7 +216,7 @@ const AddWarranty: React.FC = () => {
           </IonSlide>
         </IonSlides>
 
-        <IonButton onClick={addProduct} href="/myWarranty" expand="block">
+        <IonButton onClick={addProduct} routerLink="/myWarranty" routerDirection="root" expand="block">
           Add
         </IonButton>
         <IonToast

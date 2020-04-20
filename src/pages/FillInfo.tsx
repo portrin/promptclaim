@@ -270,6 +270,7 @@ const FillInfo: React.FC<Prop> = (props) => {
             size="large"
             color="theme"
             routerLink="/mywarranty"
+            routerDirection="root"
           >
             CREATE ACCOUNT
           </IonButton>

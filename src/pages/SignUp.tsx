@@ -12,9 +12,8 @@ import {
 import { chevronForwardOutline, call } from "ionicons/icons";
 import React from "react";
 import "./SignUp.css";
-import { RouteComponentProps } from "react-router-dom";
 
-const SignUp: React.FC<RouteComponentProps> = (props) => {
+const SignUp: React.FC = () => {
   return (
     <IonApp>
       <IonPage>
@@ -39,7 +38,8 @@ const SignUp: React.FC<RouteComponentProps> = (props) => {
             id="signin"
             size="large"
             color="signinbutton"
-            onClick={() => props.history.push("/verify")}
+            routerLink="/verify"
+            routerDirection="root"
           >
             NEXT
             <IonIcon

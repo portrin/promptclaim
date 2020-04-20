@@ -13,6 +13,7 @@ import {
   IonLabel,
   IonInput,
   IonToast,
+  IonTabBar,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -103,7 +104,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
         <IonContent color="lightbutton">
           <IonHeader class="toolbar">
             <IonToolbar color="theme">
-              <IonButton color="theme" href="/profile">
+              <IonButton color="theme" routerLink="/Profile" routerDirection="root">
                 <IonIcon icon={chevronBackOutline}></IonIcon>
               </IonButton>
               <IonTitle class="title">Edit Address</IonTitle>
@@ -186,6 +187,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             color="theme"
             expand="block"
             routerLink={`/editAddress/${match.params.id}`}
+            routerDirection="root"
             onClick={onHandleSave}
           >
             SAVE
