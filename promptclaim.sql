@@ -1,3 +1,5 @@
+/*CREATE DATABASE promptclaim;*/
+
 CREATE TABLE Customer_account (
 	account_id INT AUTO_INCREMENT NOT NULL,
     username VARCHAR(80),
@@ -221,14 +223,14 @@ CREATE TABLE Product_classify_as (
 );
 
 CREATE TABLE Claim_log (
-	claim_id VARCHAR(6) NOT NULL,
+	claim_id INT AUTO_INCREMENT NOT NULL,
     status VARCHAR(256) NOT NULL,
     timestamp TIMESTAMP NOT NULL,
     uuid INT NOT NULL,
     service_center_id VARCHAR(6),
     service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid),
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE,
     FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id)
 );
 
@@ -249,7 +251,7 @@ CREATE TABLE Product_has_policy (
     timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
     FOREIGN KEY(policy_id) REFERENCES Policy(policy_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid)
+    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE
 );
 
 CREATE TABLE Pp_classify_as (
@@ -419,11 +421,11 @@ VALUES ('001', '1', '1'),
 INSERT INTO third_party(third_party_id, third_party_address, third_party_name, third_party_contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
-INSERT INTO Claim_log (claim_id, status, timestamp, uuid, service_center_id, service_center_branch_id)
-VALUES ('000001', 'status1', '2020-03-03', '1', '1', '1'),
-('000002', 'status2', '2020-03-04', '2', '2', '2'),
-('000003', 'status3', '2020-03-05', '3', '3', '2'),
-('000004', 'status4', '2020-03-06','4', '2', '1');
+INSERT INTO Claim_log (status, timestamp, uuid, service_center_id, service_center_branch_id)
+VALUES ('status1', '2020-03-03', '1', '1', '1'),
+('status2', '2020-03-04', '2', '2', '2'),
+('status3', '2020-03-05', '3', '3', '2'),
+('status4', '2020-03-06','4', '2', '1');
 
 CREATE TABLE Notification (
 	noti_id VARCHAR(6) NOT NULL,
@@ -449,8 +451,6 @@ AFTER INSERT ON customer_account
 FOR EACH ROW
 INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES(new.account_id, null, null, null, null, null , new.account_id);
-
-
 
 
 

@@ -77,7 +77,7 @@ exports.postAddPurchasedProduct = async (req, res, next) => {
                             claim_qty,
                             warranty_photo
                             });
-    console.log(product);
+    console.log('hi');
                    
     const result = (await product._create()) [0];
     res.send(result);  

@@ -14,9 +14,8 @@ module.exports = class ClaimLog {
     // CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO claim_log(claim_id, status, timestamp, uuid, service_center_id, service_center_branch_id) VALUES(?, ?, ?, ?, ?, ?)',
-            [this._claimId, 
-            this._status, 
+            'INSERT INTO claim_log(status, timestamp, uuid, service_center_id, service_center_branch_id) VALUES(?, ?, ?, ?, ?)',
+            [this._status, 
             this._timestamp,
             this._uuid, 
             this._serviceCenterId,

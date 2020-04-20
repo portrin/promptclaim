@@ -128,7 +128,7 @@ module.exports = class PurchasedProduct {
 
     _delete() {
         return db.execute(
-            'DELETE FROM purchased_product WHERE uuid = ?',
+            'DELETE FROM purchased_product p WHERE p.uuid = ?',
             [this._uuid]
         )
     }
@@ -191,7 +191,7 @@ module.exports = class PurchasedProduct {
         checkType(isValidate, 'Number');
         checkType(productPhoto, 'String');
         checkType(claimQty, 'Number');
-        checkType(createTimestamp, 'Date');
+        checkType(createTimestamp, 'String');
         checkType(invoicePhoto, 'String');
         checkType(warrantyPhoto, 'String');
 
