@@ -3,7 +3,7 @@ import { IonItem, IonAvatar, IonLabel, IonNote, IonImg } from "@ionic/react";
 interface Prop {
   image: string;
   name: string;
-  description: string;
+
   date: string;
 }
 
@@ -13,11 +13,12 @@ const HistoryItem: React.FC<Prop> = (props) => {
       <IonAvatar slot="start">
         <IonImg src={props.image} alt="img" />
       </IonAvatar>
-      <IonLabel>{props.name}</IonLabel>
-      <IonLabel>{props.description}</IonLabel>
-      <IonNote slot="end" color="primary">
-        <IonLabel>Claimed on {props.date.split("T")[0]}</IonLabel>
-      </IonNote>
+      <IonLabel>
+        {props.name}
+        <IonNote slot="end" color="primary">
+          <p>Claimed on {props.date.split("T")[0]}</p>
+        </IonNote>
+      </IonLabel>
     </IonItem>
   );
 };
