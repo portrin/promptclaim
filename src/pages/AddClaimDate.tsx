@@ -79,9 +79,8 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
         Authorization: localStorage.token,
       },
       body: JSON.stringify({
-        claimId: "000009",
         timestamp: selectedDate,
-        status: "calimed",
+        status: "claimed",
         uuid: match.params.id,
         serviceCenterId: null,
         serviceCenterBranchId: null,

@@ -168,6 +168,18 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     text: string;
   };
 
+  const removeProduct = async () => {
+    const data = await fetch("http://localhost:8001/customer/product/deleteByUuid/"+match.params.id,
+     {
+      method: "DELETE",
+      
+        headers: {
+          Authorization: localStorage.token,
+        },
+    });
+    fetchItems();
+  };
+
   return (
     <IonPage>
       <IonContent>
@@ -385,8 +397,10 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 {
                   text: "Remove Warranty",
                   icon: trash,
+                  role: "destructive",
                   handler: () => {
-                    console.log("Contact Re clicked");
+                    removeProduct()
+                    console.log("Removed");
                   },
                 },
               ]}
