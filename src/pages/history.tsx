@@ -63,7 +63,7 @@ const History: React.FC = () => {
             <HistoryItem
               image={item.product_photo}
               name={item.product_nickname}
-              description={item.retailer_branch_name}
+              
               date={item.timestamp}
               key={item.uuid}
             ></HistoryItem>
