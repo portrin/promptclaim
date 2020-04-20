@@ -31,7 +31,7 @@ const login = async (req, res, next) => {
         res.send('invalid username or password');
     } else if (req.body.username === result[0].username && req.body.password === result[0].password) {
         next();
-    }
+    } else res.status(400).send('invalid username or password');
 }
 
 const requireJwtAuth = passport.authenticate("jwt",{session:false});
