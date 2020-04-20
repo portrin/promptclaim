@@ -109,7 +109,7 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
             isOpen={showToast}
             onDidDismiss={() => setShowToast(false)}
             message=" Invalid Email or Password"
-            duration={1000}
+            duration={2000}
           />
         </IonContent>
       </IonPage>

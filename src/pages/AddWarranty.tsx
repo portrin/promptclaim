@@ -19,8 +19,9 @@ import {
   IonIcon,
   IonImg,
   IonCard,
+  IonToast,
 } from "@ionic/react";
-import { image } from "ionicons/icons";
+import { image, contractOutline } from "ionicons/icons";
 import "./AddWarranty.css";
 import { usePhotoGallery } from "../hooks/usePhotoGallery";
 
@@ -30,8 +31,8 @@ const slideOpts = {
 };
 
 const AddWarranty: React.FC = () => {
-  const [pname, setPname] = useState<string>();
-  const [serial, setSerial] = useState<string>();
+  const [pname, setPname] = useState<string>("");
+  const [serial, setSerial] = useState<string>("");
   const [wranNumber, setWranNumber] = useState<string>();
   const [wranLife, setWranLife] = useState<string>();
   const [pNumber, setPnumber] = useState<string>();
@@ -43,28 +44,50 @@ const AddWarranty: React.FC = () => {
   const today = new Date().toISOString();
   const [selectedDate, setSelectedDate] = useState<string>(today);
 
+  const [response, setReponse] = useState();
+  const [showToast1, setShowToast1] = useState(false);
+  const [showToast2, setShowToast2] = useState(false);
+
   console.log(JSON.stringify(photos[0]));
 
   const addProduct = async () => {
-    const data = await fetch(
-      "http://localhost:8001/customer/product/addproduct",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.token,
-        },
-        body: JSON.stringify({
-          serialNo: serial,
-          productNo: "AAAAA1",
-          productNickname: pname,
-          price: 100,
-          createTimestamp: selectedDate,
-          isValidate: 0,
-          claimQty: 0,
-        }),
+    if (serial === "" || pname === "") {
+      console.log("no input");
+      setShowToast2(true);
+    } else {
+      const data = await fetch(
+        "http://localhost:8001/customer/product/addproduct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.token,
+          },
+          body: JSON.stringify({
+            serialNo: serial,
+            productNo: "AAAAA1",
+            productNickname: pname,
+            price: 100,
+            createTimestamp: selectedDate,
+            isValidate: 0,
+            claimQty: 0,
+          }),
+        }
+      );
+      const response = await data.json();
+      setReponse(response);
+      console.log(response);
+      console.log(response.fieldCount);
+      if (response) {
+        console.log("Sucess Add");
+        setSerial("");
+        setPname("");
+        setSelectedDate(today);
+        setShowToast1(true);
+      } else {
+        console.log("Fail Add");
       }
-    );
+    }
   };
 
   return (
@@ -178,6 +201,22 @@ const AddWarranty: React.FC = () => {
         <IonButton onClick={addProduct} expand="block">
           Add
         </IonButton>
+        <IonToast
+          position="bottom"
+          color="primary"
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Product Added"
+          duration={2000}
+        />
+        <IonToast
+          position="bottom"
+          color="danger"
+          isOpen={showToast2}
+          onDidDismiss={() => setShowToast2(false)}
+          message="Input Require"
+          duration={2000}
+        />
       </IonContent>
     </IonPage>
   );

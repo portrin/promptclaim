@@ -6,18 +6,10 @@ import {
   IonToolbar,
   IonList,
   IonListHeader,
-  IonItemDivider,
-  IonLabel,
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
-import SamsungTV from "../pictures/samsungTV.jpg";
-import LGTV from "../pictures/LGTV.jpeg";
-import ToshibaAir from "../pictures/toshibaAir.jpg";
-import WorkLamp from "../pictures/hektar-work-lamp.jpeg";
-import WoodTable from "../pictures/woodTable.jpg";
-import SamsungFrig from "../pictures/samsungRefrigerator.jpg";
-import Chandelier from "../pictures/chandelier.jpeg";
+
 import NotificationItem from "../components/NotificationItem";
 import moment from "moment";
 
