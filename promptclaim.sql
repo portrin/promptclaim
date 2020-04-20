@@ -305,12 +305,14 @@ VALUES ('Wall & Floor'),
 ('Promotion');
 
 INSERT INTO Root_account(root_id, username, password, type)
-VALUES ('000001','IKEA', 'Ikeapassword','S'),
+VALUES ('000001','IKEA', 'Ikeapassword','R'),
 ('000002','Boonthavorn', 'BTVpassword','R'),
 ('000003','Show Huay', 'showhuaypwd','T'),
 ('000004','ZARA HOME', 'ZARApwd','R'),
 ('R00005','Tesco Lotus', 'TCpwd','R'),
-('R00006','IT city', 'ITpwd','R');
+('R00006','IT city', 'ITpwd','R'),
+('R00007','HP', 'HPpwd','S'),
+('R00008','Dell', 'DELLpwd','S');
 
 INSERT INTO Policy_owner(policy_owner_id, owner_type) 
 VALUES ('IKEA01', 'R'),
@@ -322,7 +324,9 @@ VALUES ('IKEA01', 'R'),
 ('SUP04', 'S'),
 ('SH01', 'T'),
 ('TC0001','R'),
-('IT0001','R');
+('IT0001','R'),
+('HP0001','S'),
+('DE0001','S');
 
 
 INSERT INTO Retailer(retailer_id, retailer_contact, retailer_name, retailer_hq_address, retailer_description, root_id, policy_owner_id)
@@ -386,7 +390,9 @@ INSERT INTO Supplier (supplier_id, supplier_description, supplier_name, supplier
 VALUES ('000001', 'supplier1', 'supplierName1', '0945593841', '5/117', '000001', 'SUP01'),
 ('000002', 'supplier2', 'supplierName2', '0945593842', '5/118', '000002', 'SUP02'),
 ('000003', 'supplier3', 'supplierName3', '0945593843', '5/119', '000003', 'SUP03'),
-('000004', 'supplier4', 'supplierName4', '0945593844', '5/120', '000004', 'SUP04');
+('000004', 'supplier4', 'supplierName4', '0945593844', '5/120', '000004', 'SUP04'),
+('000005', 'Sell HP product and OEM', 'HP', '0945593843', '345 HP quarter, Bang Khan, Bangkok 10300', 'R00007', 'HP0001'),
+('000006', 'Sell DELL product and OEM', 'Dell', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', 'R00008', 'DE0001');
 
 INSERT INTO Product (product_no, product_model, product_name, product_description, supplier_id)
 VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
@@ -468,6 +474,3 @@ AFTER INSERT ON customer_account
 FOR EACH ROW
 INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES(new.account_id, null, null, null, null, null , new.account_id);
-
-
-
