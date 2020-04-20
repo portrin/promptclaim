@@ -135,18 +135,18 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   };
   console.log(moment(displayDate).add(1, "days").format());
   const fetchPolicy = async () => {
-  const data = await fetch(
-    "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
-    {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    }
-  );
-  const policy = await data.json();
-  setPolicy(policy);
-  console.log(policy)
-}
+    const data = await fetch(
+      "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    const policy = await data.json();
+    setPolicy(policy);
+    console.log(policy);
+  };
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -157,7 +157,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
         },
       }
     );
-    
+
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -295,7 +295,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                     ]}
                   ></IonActionSheet>
                 </IonCol>
-               
               </IonRow>
               <IonButton
                 expand="block"

@@ -55,8 +55,8 @@ const Notification: React.FC<Itemprops> = () => {
     const items = await data.json();
     setItems(items);
     console.log(items);
-    if (items[0]!=null) {
-    var dateFormat = items[0].create_timestamp.split("T")[0];
+    if (items[0] != null) {
+      var dateFormat = items[0].create_timestamp.split("T")[0];
     }
     console.log(dateFormat);
     console.log("Days =");
@@ -67,23 +67,23 @@ const Notification: React.FC<Itemprops> = () => {
       return today.diff(purchase, "days");
     }
     console.log(countDay());
-    setRemainingPeriod(countDay() + "");
-    for (var i = 0; i < items.length; i++) {
-      var tempItem = new Array<Product>();
-      if (
-        moment().diff(moment(items[i].create_timestamp), "days") <= 30 &&
-        moment().diff(moment(items[i].create_timestamp), "days") > 0
-      ) {
-        console.log(
-          "(Noti) Days =" +
-            moment().diff(moment(items.create_timestamp), "days")
-        );
-        tempItem.push(items[i]);
-        setNotiItems(tempItem);
+    try {
+      setRemainingPeriod(countDay() + "");
+      for (var i = 0; i < items.length; i++) {
+        var tempItem = new Array<Product>();
+        if (
+          moment().diff(moment(items[i].create_timestamp), "days") <= 30 &&
+          moment().diff(moment(items[i].create_timestamp), "days") > 0
+        ) {
+          console.log(
+            "(Noti) Days =" +
+              moment().diff(moment(items.create_timestamp), "days")
+          );
+          tempItem.push(items[i]);
+          setNotiItems(tempItem);
+        }
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
