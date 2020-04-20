@@ -81,7 +81,7 @@ const Notification: React.FC<Itemprops> = () => {
       for (var i = 0; i < items.length; i++) {
         var tempItem = new Array<Product>();
         if (
-          moment().diff(moment(items[i].create_timestamp), "days") <= 3 &&
+          moment().diff(moment(items[i].create_timestamp), "days") <= 30 &&
           moment().diff(moment(items[i].create_timestamp), "days") > 0
         ) {
           console.log(
@@ -106,6 +106,7 @@ const Notification: React.FC<Itemprops> = () => {
             size="small"
             class="ion-no-padding"
             href="/myWarranty"
+<<<<<<< HEAD
             routerDirection="root"
           >
             <IonIcon size="medium" icon={notifications} color="light"></IonIcon>
@@ -117,6 +118,12 @@ const Notification: React.FC<Itemprops> = () => {
             href="/profile"
             routerDirection="root"
           >
+=======
+          >
+            <IonIcon size="medium" icon={notifications} color="light"></IonIcon>
+          </IonButton>
+          <IonButton fill="clear" slot="end" size="small" href="/profile">
+>>>>>>> 40b49fdbb72321a1ae71d77dc5c134cb213abe15
             <IonIcon
               size="medium"
               icon={personCircleOutline}

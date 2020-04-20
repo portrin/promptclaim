@@ -139,18 +139,45 @@ const MyWarranty: React.FC<Productprops> = () => {
                 <IonCol>
                   <IonButton size="small" fill="clear">
                     <IonIcon icon={filterOutline} />
-                    Filter by
+                    
                     <IonSelect
                       value={filterBy}
                       cancelText="Cancel"
                       okText="Done"
                       onIonChange={(e) => setfilterBy(e.detail.value)}
                     >
-                      <IonSelectOption value="Bathroom">
-                        Category: Bathroom
-                      </IonSelectOption>
                       <IonSelectOption value="default">
-                        Category: Others
+                        All
+                      </IonSelectOption>
+                      <IonSelectOption value="Wall & Floor">
+                        Wall & Floor
+                      </IonSelectOption>
+                      <IonSelectOption value="Bathroom">
+                        Bathroom
+                      </IonSelectOption>
+                      <IonSelectOption value="Furniture Lifestyle">
+                        Furniture Lifestyle
+                      </IonSelectOption>
+                      <IonSelectOption value="Lighting">
+                        Lighting
+                      </IonSelectOption>
+                      <IonSelectOption value="Home Appliances">
+                        Home Appliances
+                      </IonSelectOption>
+                      <IonSelectOption value="Doors & Windows">
+                        Doors & Windows
+                      </IonSelectOption>
+                      <IonSelectOption value="Paint & Equipment">
+                        Paint & Equipment
+                      </IonSelectOption>
+                      <IonSelectOption value="Tools & Hardware">
+                        Tools & Hardware
+                      </IonSelectOption>
+                      <IonSelectOption value="Garden - Plumbing - DIY">
+                        Garden-Plumbing-DIY
+                      </IonSelectOption>
+                      <IonSelectOption value="Promotion">
+                        Promotion
                       </IonSelectOption>
                     </IonSelect>
                   </IonButton>
@@ -161,22 +188,19 @@ const MyWarranty: React.FC<Productprops> = () => {
                 <IonCol>
                   <IonButton size="small" fill="clear">
                     <IonIcon icon={funnelOutline} />
-                    Sort by
+                    Sort
                     <IonSelect
                       value={sortBy}
                       cancelText="Cancel"
                       okText="Done"
                       onIonChange={(e) => setsortBy(e.detail.value)}
                     >
-                      <IonSelectOption value="Name">Name A-Z</IonSelectOption>
+                      <IonSelectOption value="Name">By name A-Z</IonSelectOption>
+                      <IonSelectOption value="Name Z-A">
+                        By name Z-A{" "}
+                      </IonSelectOption>
                       <IonSelectOption value="Name Z-A">
                         Name Z-A{" "}
-                      </IonSelectOption>
-                      <IonSelectOption value="Expiry Date">
-                        Expiry Date
-                      </IonSelectOption>
-                      <IonSelectOption value="Product ID">
-                        Product ID
                       </IonSelectOption>
                     </IonSelect>
                   </IonButton>
