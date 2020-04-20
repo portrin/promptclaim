@@ -64,6 +64,12 @@ export interface Product {
 export interface Productprops {
   item: Product;
 }
+export interface Policy {
+  item: Policy;
+}
+export interface Policyprops {
+  item: Policy;
+}
 const slideOpts = {
   initialSlide: 1,
   speed: 400,
@@ -86,9 +92,11 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const [retailer, setRetailer] = useState<string>();
   const [supplier, setSupplier] = useState<string>();
   const [item, setItem] = useState<Product[]>([]);
+  const [policy, setPolicy] = useState<Policy[]>([]);
   const [todayD, setTodayD] = useState<string>(new Date().toISOString());
   useEffect(() => {
     fetchItems();
+    fetchPolicy();
   }, []);
 
   const trigger = () => {
@@ -126,6 +134,19 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     }
   };
   console.log(moment(displayDate).add(1, "days").format());
+  const fetchPolicy = async () => {
+  const data = await fetch(
+    "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
+    {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    }
+  );
+  const policy = await data.json();
+  setPolicy(policy);
+  console.log(policy)
+}
 
   const fetchItems = async () => {
     const data = await fetch(
@@ -136,6 +157,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
         },
       }
     );
+    
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -273,17 +295,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                     ]}
                   ></IonActionSheet>
                 </IonCol>
-                <IonCol>
-                  <IonButton fill="outline" size="large" expand="block">
-                    <IonIcon icon={notifications}></IonIcon>
-                    <IonToggle
-                      onClick={() => setShowToast1(true)}
-                      color="success"
-                      checked={checked}
-                      onIonChange={(e) => setChecked(e.detail.checked)}
-                    />
-                  </IonButton>
-                </IonCol>
+               
               </IonRow>
               <IonButton
                 expand="block"

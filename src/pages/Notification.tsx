@@ -55,7 +55,9 @@ const Notification: React.FC<Itemprops> = () => {
     const items = await data.json();
     setItems(items);
     console.log(items);
+    if (items[0]!=null) {
     var dateFormat = items[0].create_timestamp.split("T")[0];
+    }
     console.log(dateFormat);
     console.log("Days =");
     function countDay() {
@@ -79,6 +81,8 @@ const Notification: React.FC<Itemprops> = () => {
         tempItem.push(items[i]);
         setNotiItems(tempItem);
       }
+    } catch (error) {
+      
     }
   };
 

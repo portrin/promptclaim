@@ -14,17 +14,13 @@ import {
   IonInput,
   IonChip,
   IonDatetime,
+  IonToast,
 } from "@ionic/react";
 import { chevronBackOutline, man, woman, chevronDown } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import "./EditProfile.css";
-import { RouteComponentProps } from "react-router-dom";
-
-import { Character } from "./Profile";
-
-export interface Itemprops {
-  item: Character;
-}
+import { Profile } from "./Profile";
+import { RouteComponentProps } from "react-router";
 
 interface RouteParam {
   id: string;
@@ -34,37 +30,67 @@ interface Match extends RouteComponentProps<RouteParam> {
 }
 
 const EditProfile: React.FC<Match> = ({ match }) => {
-  console.log(match);
-  console.log(match.params.id);
+  const [showToast1, setShowToast1] = useState(false);
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [gender, setGender] = useState("");
   const [bdate, setBDate] = useState("");
+  const [phonenum, setPhoneNum] = useState("");
 
   useEffect(() => {
     fetchItem();
     // eslint-disable-next-line
   }, []);
-  const [item, setItem] = useState<Character[]>([]);
 
+  const [item, setItems] = useState<Profile[]>([]);
   const fetchItem = async () => {
-    const data = await fetch(
-      "https://www.breakingbadapi.com/api/characters/" + match.params.id
-    );
+    const data = await fetch("http://localhost:8001/customer/profile/get", {
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
 
     const item = await data.json();
-    const name: string = item[0].name;
-    const char_id: string = item[0].char_id;
-    const status: string = item[0].status;
-
-    setItem(item);
+    setItems(item.getProfile);
+    console.log(item.getProfile);
     console.log(item);
-    setFName(name);
-    setLName(name);
-    setGender(status);
-    setBDate(char_id);
-    // bdate format : "2005-04-19T00:12:55.890+07:00"
+
+    const firstname: string = item.getProfile[0].firstname;
+    const lastname: string = item.getProfile[0].lastname;
+    const birth_date: string = item.getProfile[0].birth_date;
+    const phone_no: string = item.getProfile[0].phone_no;
+
+    setFName(firstname);
+    console.log(firstname);
+    setLName(lastname);
+    setBDate(birth_date);
+    setPhoneNum(phone_no);
   };
+
+  const editData = async () => {
+    const data = await fetch(
+      "http://localhost:8001/customer/profile/edit/" + match.params.id,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.token,
+        },
+        body: JSON.stringify({
+          firstName: fname,
+          lastname: lname,
+          birthDate: bdate,
+          phone_no: phonenum,
+          birth_date: bdate,
+        }),
+      }
+    );
+  };
+  const onHandleSave = () => {
+    setShowToast1(true);
+    editData();
+  };
+
   return (
     <IonApp>
       <IonPage>
@@ -159,7 +185,7 @@ const EditProfile: React.FC<Match> = ({ match }) => {
               <IonItem>
                 <IonLabel>Phone No.</IonLabel>
                 {item.map((item) => (
-                  <IonLabel class="label"> {item.char_id}</IonLabel>
+                  <IonLabel class="label"> {item.phone_no}</IonLabel>
                 ))}
               </IonItem>
             </IonList>
@@ -171,10 +197,18 @@ const EditProfile: React.FC<Match> = ({ match }) => {
             size="large"
             color="theme"
             expand="block"
-            href="/profile"
+            routerLink={`/editProfile/${match.params.id}`}
+            onClick={onHandleSave}
           >
             SAVE
           </IonButton>
+          <IonToast
+            isOpen={showToast1}
+            onDidDismiss={() => setShowToast1(false)}
+            message="Your address have been saved."
+            duration={200}
+            position="middle"
+          />
         </IonContent>
       </IonPage>
     </IonApp>

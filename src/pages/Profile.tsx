@@ -39,6 +39,8 @@ export interface Profile {
 }
 export interface Account {
   email: string;
+  password: string;
+  account_id: string;
 }
 
 export interface Address {
@@ -48,6 +50,7 @@ export interface Address {
   district: string;
   province: string;
   zipcode: string;
+  address_id: string;
 }
 
 export interface ProfileProps {
@@ -92,7 +95,6 @@ const Profile: React.FC<ProfileProps> = () => {
     const items2 = await data2.json();
     setItems2(items2.getAccount);
     console.log(items2.getAccount);
-
     // bdate format : "2005-04-19T00:12:55.890+07:00"
   };
 
@@ -101,6 +103,7 @@ const Profile: React.FC<ProfileProps> = () => {
     // eslint-disable-next-line
   }, []);
   const [items3, setItems3] = useState<Address[]>([]);
+  const [items4, setItems4] = useState<Address[]>([]);
   const fetchItems3 = async () => {
     const data3 = await fetch("http://localhost:8001/customer/address/get", {
       headers: {
@@ -109,9 +112,10 @@ const Profile: React.FC<ProfileProps> = () => {
     });
     console.log(data3);
     const items3 = await data3.json();
+
     setItems3(Array(items3.getAddress[0]));
+    setItems4(Array(items3.getAddress[1]));
     console.log(items3.getAddress);
-    console.log(items3.getAddress[0]);
   };
 
   return (
@@ -128,15 +132,17 @@ const Profile: React.FC<ProfileProps> = () => {
           </IonHeader>
           <IonLabel class="label">ACCOUNT</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              href="/editaccount"
-            >
-              edit
-            </IonButton>
+            {items2.map((item2) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editaccount/${item2.account_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonLabel class="sublabel">Email :</IonLabel>
             {items2.map((item2) => (
               <IonLabel class="info">{item2.email}</IonLabel>
@@ -145,15 +151,17 @@ const Profile: React.FC<ProfileProps> = () => {
 
           <IonLabel class="label">PROFILE</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink="/editprofile"
-            >
-              edit
-            </IonButton>
+            {items.map((item) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editprofile/${item.account_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonList class="card">
               <IonLabel class="sublabel">First Name :</IonLabel>
               {items.map((item) => (
@@ -190,15 +198,17 @@ const Profile: React.FC<ProfileProps> = () => {
 
           <IonLabel class="label">ADDRESS</IonLabel>
           <IonCard class="card">
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              href="/editaddress"
-            >
-              edit
-            </IonButton>
+            {items3.map((item3) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editaddress/${item3.address_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
             <IonList class="card">
               <IonLabel class="sublabel">Home No. :</IonLabel>
               {items3.map((item3) => (
@@ -233,6 +243,57 @@ const Profile: React.FC<ProfileProps> = () => {
               <IonLabel class="sublabel">Street Code :</IonLabel>
               {items3.map((item3) => (
                 <IonLabel class="info">{item3.zipcode}</IonLabel>
+              ))}
+            </IonList>
+          </IonCard>
+
+          <IonLabel class="label">ADDRESS 2</IonLabel>
+          <IonCard class="card">
+            {items3.map((item3) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                routerLink={`/editaddress/${item3.address_id}`}
+              >
+                edit
+              </IonButton>
+            ))}
+            <IonList class="card">
+              <IonLabel class="sublabel">Home No. :</IonLabel>
+              {items4.map((item4) => (
+                <IonLabel class="info">{item4.house_no}</IonLabel>
+              ))}
+            </IonList>
+            <IonList class="card">
+              <IonLabel class="sublabel">Street :</IonLabel>
+              {items4.map((item4) => (
+                <IonLabel class="info">{item4.street}</IonLabel>
+              ))}
+            </IonList>
+            <IonList class="card">
+              <IonLabel class="sublabel">Sub-District :</IonLabel>
+              {items4.map((item4) => (
+                <IonLabel class="info">{item4.sub_district}</IonLabel>
+              ))}
+            </IonList>
+            <IonList class="card">
+              <IonLabel class="sublabel">District :</IonLabel>
+              {items4.map((item4) => (
+                <IonLabel class="info">{item4.district}</IonLabel>
+              ))}
+            </IonList>
+            <IonList class="card">
+              <IonLabel class="sublabel">Province :</IonLabel>
+              {items4.map((item4) => (
+                <IonLabel class="info">{item4.province}</IonLabel>
+              ))}
+            </IonList>
+            <IonList class="card">
+              <IonLabel class="sublabel">Street Code :</IonLabel>
+              {items4.map((item4) => (
+                <IonLabel class="info">{item4.zipcode}</IonLabel>
               ))}
             </IonList>
           </IonCard>

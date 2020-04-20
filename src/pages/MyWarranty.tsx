@@ -21,8 +21,6 @@ import {
   funnelOutline,
   filterOutline,
   personCircleOutline,
-  fileTray,
-  filter,
 } from "ionicons/icons";
 import "./MyWarranty.css";
 
