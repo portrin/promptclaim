@@ -38,7 +38,7 @@ module.exports = class Policy {
 
   static _readByCustomerId(customerId) {
     return db.execute(
-      "SELECT P.policy_id, policy_period, policy_description, date_created, P.policy_owner_id, policy_start_date, policy_end_date, timestamp FROM policy P LEFT JOIN product_has_policy P2 ON P.policy_id = P2.policy_id LEFT JOIN purchased_product P3 ON P2.uuid = P3.uuid WHERE customer_id = ?",
+      "SELECT P.policy_id, policy_period, policy_description, date_created, P.policy_owner_id, policy_start_date, policy_end_date, timestamp, P2.uuid FROM policy P LEFT JOIN product_has_policy P2 ON P.policy_id = P2.policy_id LEFT JOIN purchased_product P3 ON P2.uuid = P3.uuid WHERE customer_id = ?",
       [customerId]
     );
   }
