@@ -312,7 +312,11 @@ VALUES ('000001','IKEA', 'Ikeapassword','R'),
 ('R00005','Tesco Lotus', 'TCpwd','R'),
 ('R00006','IT city', 'ITpwd','R'),
 ('R00007','HP', 'HPpwd','S'),
-('R00008','Dell', 'DELLpwd','S');
+('R00008','Dell', 'DELLpwd','S'),
+('S00001','Power Buy','PBpwd','S'),
+('S00002','INDEX Living furnitures','INDEXpwd','S'),
+('S00003','SB Furniture','SBpwwd','S'),
+('S00004','HOME PRO','HPpwd','S');
 
 INSERT INTO Policy_owner(policy_owner_id, owner_type) 
 VALUES ('IKEA01', 'R'),
@@ -326,7 +330,8 @@ VALUES ('IKEA01', 'R'),
 ('TC0001','R'),
 ('IT0001','R'),
 ('HP0001','S'),
-('DE0001','S');
+('DE0001','S'),
+('KC0001','S');
 
 
 INSERT INTO Retailer(retailer_id, retailer_contact, retailer_name, retailer_hq_address, retailer_description, root_id, policy_owner_id)
@@ -387,12 +392,13 @@ VALUES ('000001', 'klodkup340', '000001'),
 ('000004', 'porkup340', '000004');
 
 INSERT INTO Supplier (supplier_id, supplier_description, supplier_name, supplier_contact, supplier_address, root_id, policy_owner_id)
-VALUES ('000001', 'supplier1', 'supplierName1', '0945593841', '5/117', '000001', 'SUP01'),
-('000002', 'supplier2', 'supplierName2', '0945593842', '5/118', '000002', 'SUP02'),
-('000003', 'supplier3', 'supplierName3', '0945593843', '5/119', '000003', 'SUP03'),
-('000004', 'supplier4', 'supplierName4', '0945593844', '5/120', '000004', 'SUP04'),
+VALUES ('000001', 'Sell IT stuffs', 'Power Buy', '0945593841', '5/117', 'S00001', 'SUP01'),
+('000002', 'Sell quality furnitures', 'INDEX living malls', '0945593842', '5/118', 'S00002', 'SUP02'),
+('000003', 'Sell furnitures', 'SB Furniture', '0945593843', '5/119', 'S00003', 'SUP03'),
+('000004', 'Sell trendy furnitures', 'HOME PRO', '0945593844', '5/120', 'S00004', 'SUP04'),
 ('000005', 'Sell HP product and OEM', 'HP', '0945593843', '345 HP quarter, Bang Khan, Bangkok 10300', 'R00007', 'HP0001'),
-('000006', 'Sell DELL product and OEM', 'Dell', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', 'R00008', 'DE0001');
+('000006', 'Sell DELL product and OEM', 'Dell', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', 'R00008', 'DE0001'),
+('000007', 'Sell furnitures', 'Koncept', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', null, 'KC0001');
 
 INSERT INTO Product (product_no, product_model, product_name, product_description, supplier_id)
 VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),

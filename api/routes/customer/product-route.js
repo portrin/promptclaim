@@ -26,6 +26,6 @@ const retailerController = require('../../controllers/retailer/retailer-profile-
 
 router.get('/getRetailer', retailerController.getRetailer)
 
-router.get('/getRetailerBranch', retailerController.getRetailerBranch)
+router.get('/getRetailerBranchByRetailerId/:retailerId', retailerController.getRetailerBranch)
 
 module.exports = router;

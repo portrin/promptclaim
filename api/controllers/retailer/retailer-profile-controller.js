@@ -11,7 +11,8 @@ exports.getProfile = async (req, res, next) => {
 };
 
 exports.getRetailerBranch = async (req, res, next) => {
-    const retailerBranch = (await RetailerBranch._readRetailerBranch())[0];
+    const retailerId = req.params.retailerId;
+    const retailerBranch = (await RetailerBranch._readRetailerBranch(retailerId))[0];
     res.send(retailerBranch)
 }
 
