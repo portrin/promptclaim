@@ -4,10 +4,19 @@ import { Table } from 'antd'
 // import { DataTable } from '../components/table'
 
 import { AppLayout } from '../components/app-layout'
+import { Input } from 'antd'
+
+const { Search } = Input
 
 export const MainProductPage = (props) => {
   //API
   const [items, setItems] = useState([])
+  const [searchText, setSearchText] = useState('')
+  const [searchItem, setSearchItem] = useState([])
+  console.log(searchText)
+  useEffect(() => {
+    fetchItem()
+  }, [])
   const fetchItem = async () => {
     const data = await fetch('http://localhost:8001/retailer/product/get', {
       headers: {
@@ -20,9 +29,13 @@ export const MainProductPage = (props) => {
     console.log('items', items)
   }
   useEffect(() => {
-    fetchItem()
-  }, [])
-  const dataBB = items.map((item, index) => ({
+      setSearchItem(
+      items.filter((item) =>
+        item.product_name.toLowerCase().includes(searchText.toLowerCase()),
+      )
+    )
+  }, [searchText, items])
+  const dataBB = searchItem.map((item) => ({
     key: item.uuid,
     name: item.product_name,
     serial: item.serial_no,
@@ -54,6 +67,10 @@ export const MainProductPage = (props) => {
             }}
           />
         ))} */}
+        <Search
+          placeholder="Search by product name"
+          onSearch={(value) => setSearchText(value)}
+        />
         <Table
           columns={columns}
           dataSource={dataBB}

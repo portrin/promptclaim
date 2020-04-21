@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from 'react'
 import { Table } from 'antd'
 
 import { AppLayout } from '../components/app-layout'
+import Item from 'antd/lib/list/Item'
 
 export const MainPolicyPage = (props) => {
   const [items, setItems] = useState([])
@@ -19,34 +20,23 @@ export const MainPolicyPage = (props) => {
   useEffect(() => {
     fetchItem()
   }, [])
-  const dataBB = items.map((item, index) => ({
-    key: item.uuid,
-    policy: item.policy_id,
-    type: '3',
-    num: '30',
-    owner: item.policy_owner_id,
-  }))
-
-  console.log(dataBB)
-
   //filtered duplicated data
 
-  const distinctValues = Array.from(new Set(items.map(elem => `${elem.policy_id}-${elem.policy_owner_id}`))).map(distinctVal => {
-    const [ policy_id, policy_owner_id ] = distinctVal.split("-");
+  const distinctValues = Array.from(new Set(items.map(elem => `${elem.policy_id}-${elem.policy_owner_id}-${elem.date_created}`))).map(distinctVal => {
+    const [ policy_id, policy_owner_id,date_created ] = distinctVal.split("-");
     return ({
+      date_created,
       policy_id,
       policy_owner_id
     });
   });
   console.log(distinctValues);
 
-  console.log(Object.keys(items).length)
-
   const filteredData = distinctValues.map((item, index) => ({
     policy: item.policy_id,
-    type: Object.keys(items).length,
-    num: Object.keys(items).length,
     owner: item.policy_owner_id,
+    date: item.date_created,
+    num: Object.keys(items).length
   }))
 
   console.log(filteredData)
@@ -79,19 +69,19 @@ const columns = [
     sorter: (a, b) => a.policy - b.policy,
   },
   {
-    title: 'Number of Product Type',
-    dataIndex: 'type',
-    sorter: (a, b) => a.type - b.type,
-  },
-  {
-    title: 'Total Number of Product',
-    dataIndex: 'num',
-    sorter: (a, b) => a.num - b.num,
-  },
-  {
     title: 'Policy Owner',
     dataIndex: 'owner',
     sorter: (a, b) => a.owner.length - b.owner.length,
+  },
+  {
+    title: 'Year Created',
+    dataIndex: 'date',
+    sorter: (a, b) => a.date - b.date,
+  },
+  {
+    title: 'Number of Products',
+    dataIndex: 'num',
+    sorter: (a, b) => a.num - b.num,
   },
 ]
 

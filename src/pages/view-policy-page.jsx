@@ -41,6 +41,14 @@ export const ViewPolicyPage = (props) => {
     fetchItem()
     //eslint-disable-next-line
   }, [])
+
+  const dataBB = item.map((item) => ({
+    key: item.uuid,
+    name: item.product_name,
+  }))
+
+  console.log(dataBB)
+
   return (
     <AppLayout {...props} nosearch title="Policy Information" lastpagePolicy="Policy Dashboard">
       <div className="site-layout-content">
