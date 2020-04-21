@@ -42,7 +42,7 @@ interface Match extends RouteComponentProps<RouteParam> {
   //ไม่จำเปน
 }
 export interface Product {
-  product_name: string;
+  product_nickname: string;
   uuid: string;
   img: string;
   category_name: string;
@@ -212,7 +212,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
               <IonCol>
                 <IonCardHeader>
                   {item.map((item) => (
-                    <IonCardTitle>{item.product_name}</IonCardTitle>
+                    <IonCardTitle>{item.product_nickname}</IonCardTitle>
                   ))}
                   {item.map((item) => (
                     <IonCardSubtitle>{item.category_name}</IonCardSubtitle>
