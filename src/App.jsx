@@ -11,7 +11,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Redirect exact from="/" to="/main-product" />
+        <Redirect exact from="/" to="/login" />
         <Route path="/main-product" component={MainProductPage} exact />
         <Route path="/view-product/:key" component={ViewProductPage} exact />
         <Route path="/main-policy" component={MainPolicyPage} exact />

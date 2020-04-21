@@ -11,8 +11,8 @@ export const LoginPage = (props) => {
 
   function errorToast() {
     Modal.error({
-      title: 'This is an error message',
-      content: 'some messages...some messages...',
+      title: 'Invalid Username or Password',
+      content: 'please try again',
     })
   }
   const sendSubmit = () => {
@@ -36,7 +36,6 @@ export const LoginPage = (props) => {
           console.log('response: ' + response)
           if (response.data) {
             const token = response.data
-
             if (token === 'invalid username or password') {
               console.log('Bugg invalid username or password')
               setUsername('')
@@ -44,7 +43,7 @@ export const LoginPage = (props) => {
               errorToast()
             } else {
               localStorage.setItem('token', token)
-              props.history.push('/')
+              props.history.push('/main-product')
               console.log('correct')
             }
           } else if (response.data === 'Incorrect') {

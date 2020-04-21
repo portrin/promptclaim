@@ -15,7 +15,10 @@ export const Sidebar = (props) => {
         style={{ height: '100%' }}
       >
         <SubMenu key="sub1" title={<span>View by</span>}>
-          <Menu.Item key="product" onClick={() => props.history.push('/')}>
+          <Menu.Item
+            key="product"
+            onClick={() => props.history.push('/main-product')}
+          >
             Product
           </Menu.Item>
           <Menu.Item
