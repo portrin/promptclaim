@@ -21,10 +21,16 @@ export const AppLayout = (props) => {
         </Content>
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item onClick={() => props.history.push(`/`)}>
+            <Breadcrumb.Item
+              className="pointer"
+              onClick={() => props.history.push(`/`)}
+            >
               {props.lastpageProduct}
             </Breadcrumb.Item>
-            <Breadcrumb.Item href="/main-policy">
+            <Breadcrumb.Item
+              className="pointer"
+              onClick={() => props.history.push('/main-policy')}
+            >
               {props.lastpagePolicy}
             </Breadcrumb.Item>
             <Breadcrumb.Item>{props.title}</Breadcrumb.Item>

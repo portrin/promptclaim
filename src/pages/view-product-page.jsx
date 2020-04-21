@@ -9,12 +9,13 @@ export const ViewProductPage = (props) => {
   const [item, setItems] = useState([])
   const fetchItem = async () => {
     const data = await fetch(
-      "http://localhost:8001/retailer/product/getByProductNo/" + key,{
+      'http://localhost:8001/retailer/product/getByProductNo/' + key,
+      {
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os",
+          Authorization: localStorage.token,
         },
-      });
+      },
+    )
     const item = await data.json()
     setItems(item)
     console.log(item)
@@ -60,7 +61,8 @@ export const ViewProductPage = (props) => {
           <Descriptions.Item label="Customer Information">
             Customer ID: {item.map((item) => item.customer_id)}
             <br />
-            Customer Name: {item.map((item) => item.firstname)} {item.map((item) => item.lastname)}
+            Customer Name: {item.map((item) => item.firstname)}{' '}
+            {item.map((item) => item.lastname)}
             <br />
             Phone Number: {item.map((item) => item.phone_no)}
             <br />
@@ -80,7 +82,7 @@ export const ViewProductPage = (props) => {
     </AppLayout>
   )
 }
-
+// eslint-disable-next-line
 const data = {
   '1': {
     key: '1',

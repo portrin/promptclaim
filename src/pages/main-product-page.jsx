@@ -20,8 +20,7 @@ export const MainProductPage = (props) => {
   const fetchItem = async () => {
     const data = await fetch('http://localhost:8001/retailer/product/get', {
       headers: {
-        Authorization:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDAwMDEiLCJyb290IjoiMDAwMDAxIiwiaWF0IjoxNTg3MjAyNTgyMDQ3fQ.nUlP-m1e1XkZBbX0oDXW-tvLAmm9Gvs82nWza_756Os',
+        Authorization: localStorage.token,
       },
     })
     const items = await data.json()
