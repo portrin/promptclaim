@@ -8,8 +8,7 @@ import axios from 'axios'
 export const LoginPage = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  // const [isSubmitted, setIsSubmitted] = useState(false)
-  // const [isCorrected, setIsCorrected] = useState(false)
+
   function errorToast() {
     Modal.error({
       title: 'This is an error message',
@@ -56,29 +55,6 @@ export const LoginPage = (props) => {
           console.log('error' + error)
         },
       )
-
-    // event.preventDefault()
-    // console.log('username: ', username, 'password: ', password)
-
-    // if (username === 'bob' && password === '123456') {
-    //   props.history.push('/')
-    // } else {
-    //   console.log('wrong')
-    // }
-
-    // axios.post("http://propclaim.com"+"/guest/authen", {username: username, password:password}).then(response=>
-    // console.log(response)
-    // if (response.data.token){
-    //   localStorage.setItem("token", response.data.token)
-
-    // }else if(response.data === "incorrect"){
-
-    // }
-
-    // )
-
-    // setIsSubmitted(true);
-    // console.log(isSubmitted);
   }
 
   return (
