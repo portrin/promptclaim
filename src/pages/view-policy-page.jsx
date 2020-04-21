@@ -24,6 +24,8 @@ export const ViewPolicyPage = (props) => {
   let { key } = useParams()
   //API
   const [item, setItems] = useState([])
+  const [policyId,setPolicyId] = useState('')
+  const [policyDes,setPolicyDes] = useState('')
   const fetchItem = async () => {
     const data = await fetch(
       'http://localhost:8001/retailer/policy/getByPolicyId/' + key,
@@ -36,19 +38,14 @@ export const ViewPolicyPage = (props) => {
     const item = await data.json()
     setItems(item)
     console.log(item)
+    await setPolicyId(item[0].policy_id)
+    await setPolicyDes(item[0].policy_description)
   }
 
   useEffect(() => {
     fetchItem()
     //eslint-disable-next-line
   }, [])
-
-  const dataBB = item.map((item) => ({
-    key: item.uuid,
-    name: item.product_name,
-  }))
-
-  console.log(dataBB)
 
   return (
     <AppLayout
@@ -60,51 +57,28 @@ export const ViewPolicyPage = (props) => {
       <div className="site-layout-content">
         <Descriptions layout="vertical" bordered>
           <Descriptions.Item label="Policy Informaion">
-            Policy ID: {item.map((item) => item.policy_id)}
+            Policy ID: {policyId}
             <br />
             <br />
             <Collapse>
               <Panel header="Policy Description">
-                {item.map((item) => item.policy_description)}
+                {policyDes}
               </Panel>
             </Collapse>
           </Descriptions.Item>
         </Descriptions>
         <Descriptions layout="vertical" bordered>
           <Descriptions.Item label="Products that hold this policy">
+          {item.map((item) => 
             <Collapse onChange={callback}>
-              <Panel header={item.map((item) => item.product_name)} key="1">
-                <Collapse>
-                  <Panel header="Customer 1" key="1">
-                    Customer ID:
-                    <br />
-                    Product ID:
-                    <br />
-                    Serial Number:
-                    <br />
-                    Policy Period:
-                  </Panel>
-                  <Panel header="Customer 2" key="2">
-                    Customer ID:
-                    <br />
-                    Product Number:
-                    <br />
-                    Serial Number:
-                    <br />
-                    Policy Period:
-                  </Panel>
-                  <Panel header="Customer 3" key="3">
-                    Customer ID:
-                    <br />
-                    Product Number:
-                    <br />
-                    Serial Number:
-                    <br />
-                    Policy Period:
-                  </Panel>
-                </Collapse>
+              <Panel header={item.product_name}>
+                ID: {item.uuid}
+                <br/>
+                Serial No: {item.serial_no}
+                <br/>
+                Product No: {item.product_no}
               </Panel>
-            </Collapse>
+            </Collapse>)}
           </Descriptions.Item>
         </Descriptions>
       </div>
