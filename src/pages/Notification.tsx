@@ -34,7 +34,7 @@ export interface Itemprops {
 }
 
 export interface Product {
-  product_name: string;
+  product_nickname: string;
   uuid: string;
   img: string;
   category_name: string;
@@ -166,7 +166,7 @@ const Notification: React.FC<Itemprops> = () => {
               (
                 <NotificationItem
                   image={item.img}
-                  name={item.product_name}
+                  name={item.product_nickname}
                   description={item.category_name}
                   remainingDate={item.remaining}
                 ></NotificationItem>
