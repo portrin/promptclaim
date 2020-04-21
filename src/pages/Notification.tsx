@@ -83,7 +83,6 @@ const Notification: React.FC<Itemprops> = () => {
     const items = await data.json();
     setItems(items);
     console.log(items);
-
   };
 
   const fetchPolicy = async () => {
@@ -113,21 +112,31 @@ const Notification: React.FC<Itemprops> = () => {
   function loopCheck() {
     var arr = new Array<Product>();
     for (var i = 0; i < policy.length; i++) {
-      console.log("loop");
       for (var j = 0; j < items.length; j++) {
-        console.log("loop");
         if (
           items[j].uuid == policy[i].uuid &&
-          moment(policy[j].policy_end_date).diff(moment(), "days") < 30 &&
-          moment(policy[j].policy_end_date).diff(moment(), "days") > 0
+          moment(policy[i].policy_end_date.split("T")[0]).diff(
+            moment(),
+            "days"
+          ) < 30 &&
+          moment(policy[i].policy_end_date.split("T")[0]).diff(
+            moment(),
+            "days"
+          ) > 0
         ) {
+          console.log(items[j])
+          console.log(policy[i])
+          arr.push(items[j])
           items[j].remaining =
-            moment(policy[j].policy_end_date).diff(moment(), "days") + "";
-          arr.push(items[j]);
-          console.log(moment(policy[j].policy_end_date).diff(moment(), "days"));
+            moment(policy[i].policy_end_date.split("T")[0]).diff(
+              moment(),
+              "days"
+            ) + "";
+          
         }
       }
     }
+    console.log(arr)
     return arr;
   }
 
