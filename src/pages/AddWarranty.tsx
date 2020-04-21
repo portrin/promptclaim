@@ -165,11 +165,12 @@ const AddWarranty: React.FC = () => {
   const forBranchId = async (name: string) => {
     setBranchName(name);
     console.log(branchName);
-
-    const ress = branchList.filter(
-      (item) => item.retailer_branch_name === name
-    );
-    await setIdBranch(ress[0].retailer_branch_id);
+    if (branchName === "") {
+      const ress = branchList.filter(
+        (item) => item.retailer_branch_name === name
+      );
+      await setIdBranch(ress[0].retailer_branch_id);
+    }
   };
 
   return (
