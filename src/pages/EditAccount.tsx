@@ -89,102 +89,102 @@ const EditAccount: React.FC<ProfileProps> = () => {
   };
 
   return (
-    <IonApp>
-      <IonPage>
-        <IonContent color="lightbutton">
-          <IonHeader class="toolbar">
-            <IonToolbar color="theme">
-              <IonButton color="theme" routerLink="/Profile" routerDirection="root">
-                <IonIcon icon={chevronBackOutline}></IonIcon>
-              </IonButton>
-              <IonTitle class="title">Edit Account</IonTitle>
-            </IonToolbar>
-          </IonHeader>
+    <IonPage>
+      <IonContent color="lightbutton">
+        <IonHeader class="toolbar">
+          <IonToolbar color="theme">
+            <IonButton
+              color="theme"
+              routerLink="/Profile"
+              routerDirection="root"
+            >
+              <IonIcon icon={chevronBackOutline}></IonIcon>
+            </IonButton>
+            <IonTitle class="title">Edit Account</IonTitle>
+          </IonToolbar>
+        </IonHeader>
 
-          <IonLabel class="label">Change E-mail</IonLabel>
+        <IonLabel class="label">Change E-mail</IonLabel>
 
-          <IonCard class="card3">
-            <IonList>
-              <IonItem>
-                <IonLabel>E-mail</IonLabel>
-                {items.map((item) => (
-                  <IonLabel class="info" position="stacked">
-                    {item.email}
-                  </IonLabel>
-                ))}
-              </IonItem>
-              <IonItem>
-                <IonLabel>New E-mail</IonLabel>
-                <IonInput
-                  class="input"
-                  value={newEmail}
-                  onIonChange={(e) => setNewEmail(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-            </IonList>
-          </IonCard>
-          <IonLabel class="label">Change Password</IonLabel>
-          <IonCard>
-            <IonList>
-              <IonItem>
-                <IonLabel>Current Password</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="password"
-                  value={currentPassword}
-                  onIonChange={(e) => setCurrentPassword(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+        <IonCard class="card3">
+          <IonList>
+            <IonItem>
+              <IonLabel>E-mail</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="info" position="stacked">
+                  {item.email}
+                </IonLabel>
+              ))}
+            </IonItem>
+            <IonItem>
+              <IonLabel>New E-mail</IonLabel>
+              <IonInput
+                class="input"
+                value={newEmail}
+                onIonChange={(e) => setNewEmail(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+          </IonList>
+        </IonCard>
+        <IonLabel class="label">Change Password</IonLabel>
+        <IonCard>
+          <IonList>
+            <IonItem>
+              <IonLabel>Current Password</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="password"
+                value={currentPassword}
+                onIonChange={(e) => setCurrentPassword(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel>New Password</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="password"
-                  value={newPassword}
-                  onIonChange={(e) => setNewPassword(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Confirm New Password</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="password"
-                  value={newPassword2}
-                  onIonChange={(e) => setNewPassword2(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-              <div className="note">
-                * Password must be at least 8 characters
-              </div>
-            </IonList>
-          </IonCard>
-          <IonButton
-            class="savebutt"
-            strong
-            id="saveacc"
-            size="large"
-            color="theme"
-            expand="block"
-            routerLink={"/Profile"}
-            routerDirection="root"
-            onClick={onHandleSave}
-          >
-            SAVE
-          </IonButton>
-          <IonToast
-            isOpen={showToast1}
-            onDidDismiss={() => setShowToast1(false)}
-            message="Your account have been saved."
-            duration={200}
-            position="middle"
-          />
-        </IonContent>
-      </IonPage>
-    </IonApp>
+            <IonItem>
+              <IonLabel>New Password</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="password"
+                value={newPassword}
+                onIonChange={(e) => setNewPassword(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Confirm New Password</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="password"
+                value={newPassword2}
+                onIonChange={(e) => setNewPassword2(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+            <div className="note">* Password must be at least 8 characters</div>
+          </IonList>
+        </IonCard>
+        <IonButton
+          class="savebutt"
+          strong
+          id="saveacc"
+          size="large"
+          color="theme"
+          expand="block"
+          routerLink={"/Profile"}
+          routerDirection="root"
+          onClick={onHandleSave}
+        >
+          SAVE
+        </IonButton>
+        <IonToast
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Your account have been saved."
+          duration={200}
+          position="middle"
+        />
+      </IonContent>
+    </IonPage>
   );
 };
 export default EditAccount;

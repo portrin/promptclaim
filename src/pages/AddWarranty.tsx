@@ -19,7 +19,6 @@ import {
   IonToast,
   IonSelect,
   IonSelectOption,
-  IonApp,
 } from "@ionic/react";
 import { image } from "ionicons/icons";
 import "./AddWarranty.css";
@@ -136,26 +135,27 @@ const AddWarranty: React.FC = () => {
   };
 
   const fetchBranch = async (name: string) => {
-    setRetailerName(name);
-    console.log(retailerName);
-    setBranchName("");
-    console.log(name);
-    const final = retailer.filter((item) => item.retailer_name === name);
-    console.log(final[0]);
-    setIdRetail(final[0].retailer_id);
-    const branchRes = await fetch(
-      "http://localhost:8001/customer/product/getRetailerBranchByRetailerId/" +
-        final[0].retailer_id,
-      {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      }
-    );
-    console.log(branchRes);
-    const braItem = await branchRes.json();
-    console.log(braItem);
-    setBranchList(braItem);
+    if (retailerName === "") {
+      setRetailerName(name);
+      console.log(retailerName);
+      setBranchName("");
+      console.log(name);
+      const final = retailer.filter((item) => item.retailer_name === name);
+      await setIdRetail(final[0].retailer_id);
+      const branchRes = await fetch(
+        "http://localhost:8001/customer/product/getRetailerBranchByRetailerId/" +
+          final[0].retailer_id,
+        {
+          headers: {
+            Authorization: localStorage.token,
+          },
+        }
+      );
+      console.log(branchRes);
+      const braItem = await branchRes.json();
+      console.log(braItem);
+      setBranchList(braItem);
+    }
   };
 
   const forBranchId = async (name: string) => {
@@ -170,171 +170,168 @@ const AddWarranty: React.FC = () => {
   };
 
   return (
-    <IonApp>
-      <IonPage>
-        <IonContent color="lightbutton">
-          <IonHeader>
-            <IonToolbar color="theme" class="toolbar2">
-              <IonTitle class="title">Add Warranty</IonTitle>
-            </IonToolbar>
-          </IonHeader>
+    <IonPage>
+      <IonContent color="lightbutton">
+        <IonHeader>
+          <IonToolbar color="theme" class="toolbar2">
+            <IonTitle class="title">Add Warranty</IonTitle>
+          </IonToolbar>
+        </IonHeader>
 
-          <IonLabel class="label3">Product Information</IonLabel>
-          <IonCard class="addcard">
-            <IonList>
-              <IonItem>
-                <IonLabel position="floating" color="medium">
-                  Product Name
-                </IonLabel>
-                <IonInput
-                  value={pname}
-                  onIonChange={(e) => setPname(e.detail.value!)}
-                  clearInput
-                ></IonInput>
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating" color="medium">
-                  Serial Number
-                </IonLabel>
+        <IonLabel class="label3">Product Information</IonLabel>
+        <IonCard class="addcard">
+          <IonList>
+            <IonItem>
+              <IonLabel position="floating" color="medium">
+                Product Name
+              </IonLabel>
+              <IonInput
+                value={pname}
+                onIonChange={(e) => setPname(e.detail.value!)}
+                clearInput
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating" color="medium">
+                Serial Number
+              </IonLabel>
 
-                <IonInput
-                  value={serial}
-                  onIonChange={(e) => setSerial(e.detail.value!)}
-                  clearInput
-                ></IonInput>
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating" color="medium">
-                  Warranty Number
-                </IonLabel>
-                <IonInput
-                  value={wranNumber}
-                  onIonChange={(e) => setWranNumber(e.detail.value!)}
-                  clearInput
-                ></IonInput>
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating" color="medium">
-                  Warranty Life
-                </IonLabel>
-                <IonInput
-                  value={wranLife}
-                  onIonChange={(e) => setWranLife(e.detail.value!)}
-                  clearInput
-                ></IonInput>
-              </IonItem>
-            </IonList>
-          </IonCard>
+              <IonInput
+                value={serial}
+                onIonChange={(e) => setSerial(e.detail.value!)}
+                clearInput
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating" color="medium">
+                Warranty Number
+              </IonLabel>
+              <IonInput
+                value={wranNumber}
+                onIonChange={(e) => setWranNumber(e.detail.value!)}
+                clearInput
+              ></IonInput>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating" color="medium">
+                Warranty Life
+              </IonLabel>
+              <IonInput
+                value={wranLife}
+                onIonChange={(e) => setWranLife(e.detail.value!)}
+                clearInput
+              ></IonInput>
+            </IonItem>
+          </IonList>
+        </IonCard>
 
-          <IonLabel class="label">Purchase Information</IonLabel>
-          <IonCard class="addcard">
-            <IonList>
-              <IonItem>
-                <IonLabel position="floating" color="medium">
-                  Date of Purchase
-                </IonLabel>
-                <IonDatetime
-                  displayFormat="DDDD MMM D, YYYY"
-                  min="2017"
-                  max={todayD}
-                  value={selectedDate}
-                  onIonChange={(e) => setSelectedDate(e.detail.value!)}
-                ></IonDatetime>
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating">Retailer</IonLabel>
-                <IonSelect
-                  value={retailerName}
-                  placeholder="Select One"
-                  onIonChange={(e) => fetchBranch(e.detail.value)}
-                >
-                  {retailer.map((item) => (
-                    <IonSelectOption value={item.retailer_name}>
-                      {item.retailer_name}
-                    </IonSelectOption>
-                  ))}
-                </IonSelect>
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating">Retailer Branch</IonLabel>
-                <IonSelect
-                  value={branchName}
-                  placeholder="Select One"
-                  onIonChange={(e) => forBranchId(e.detail.value)}
-                >
-                  {branchList.map((item) => (
-                    <IonSelectOption value={item.retailer_branch_name}>
-                      {item.retailer_branch_name}
-                    </IonSelectOption>
-                  ))}
-                </IonSelect>
-              </IonItem>
-            </IonList>
-          </IonCard>
-
-          <IonLabel class="label">Photo</IonLabel>
-
-          <IonSlides scrollbar={true} pager={true} options={slideOpts}>
-            <IonSlide>
-              <IonCard>
-                <IonButton fill="clear" onClick={takePhoto}>
-                  <IonIcon icon={image}></IonIcon>Add Product Photo
-                </IonButton>
-                {photos.map((photo, index) => (
-                  <img src={photo.webviewPath} />
+        <IonLabel class="label">Purchase Information</IonLabel>
+        <IonCard class="addcard">
+          <IonList>
+            <IonItem>
+              <IonLabel position="floating" color="medium">
+                Date of Purchase
+              </IonLabel>
+              <IonDatetime
+                displayFormat="DDDD MMM D, YYYY"
+                min="2017"
+                max={todayD}
+                value={selectedDate}
+                onIonChange={(e) => setSelectedDate(e.detail.value!)}
+              ></IonDatetime>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">Retailer</IonLabel>
+              <IonSelect
+                value={retailerName}
+                placeholder="Select One"
+                onIonChange={(e) => fetchBranch(e.detail.value)}
+              >
+                {retailer.map((item) => (
+                  <IonSelectOption value={item.retailer_name}>
+                    {item.retailer_name}
+                  </IonSelectOption>
                 ))}
-              </IonCard>
-            </IonSlide>
-            <IonSlide>
-              <IonCard>
-                <IonButton fill="clear" onClick={takePhoto1}>
-                  <IonIcon icon={image}></IonIcon> Add Warranty Photo
-                </IonButton>
-                {photos1.map((photo, index) => (
-                  <img src={photo.webviewPath} />
+              </IonSelect>
+            </IonItem>
+            <IonItem>
+              <IonLabel position="floating">Retailer Branch</IonLabel>
+              <IonSelect
+                value={branchName}
+                placeholder="Select One"
+                onIonChange={(e) => forBranchId(e.detail.value)}
+              >
+                {branchList.map((item) => (
+                  <IonSelectOption value={item.retailer_branch_name}>
+                    {item.retailer_branch_name}
+                  </IonSelectOption>
                 ))}
-              </IonCard>
-            </IonSlide>
-            <IonSlide>
-              <IonCard>
-                <IonButton fill="clear" onClick={takePhoto2}>
-                  <IonIcon icon={image}></IonIcon> Add Receipt Photo
-                </IonButton>
-                {photos2.map((photo, index) => (
-                  <img src={photo.webviewPath} />
-                ))}
-              </IonCard>
-            </IonSlide>
-          </IonSlides>
+              </IonSelect>
+            </IonItem>
+          </IonList>
+        </IonCard>
 
-          <IonButton
-            onClick={addProduct}
-            routerLink="/myWarranty"
-            routerDirection="root"
-            expand="block"
-            strong
-          >
-            Add
-          </IonButton>
-          <IonToast
-            position="bottom"
-            color="primary"
-            isOpen={showToast1}
-            onDidDismiss={() => setShowToast1(false)}
-            message="Product Added"
-            duration={2000}
-          />
-          <IonToast
-            position="bottom"
-            color="danger"
-            isOpen={showToast2}
-            onDidDismiss={() => setShowToast2(false)}
-            message="Input Require"
-            duration={2000}
-          />
-        </IonContent>
-      </IonPage>
-    </IonApp>
+        <IonLabel class="label">Photo</IonLabel>
+
+        <IonSlides scrollbar={true} pager={true} options={slideOpts}>
+          <IonSlide>
+            <IonCard>
+              <IonButton fill="clear" onClick={takePhoto}>
+                <IonIcon icon={image}></IonIcon>Add Product Photo
+              </IonButton>
+              {photos.map((photo, index) => (
+                <img src={photo.webviewPath} />
+              ))}
+            </IonCard>
+          </IonSlide>
+          <IonSlide>
+            <IonCard>
+              <IonButton fill="clear" onClick={takePhoto1}>
+                <IonIcon icon={image}></IonIcon> Add Warranty Photo
+              </IonButton>
+              {photos1.map((photo, index) => (
+                <img src={photo.webviewPath} />
+              ))}
+            </IonCard>
+          </IonSlide>
+          <IonSlide>
+            <IonCard>
+              <IonButton fill="clear" onClick={takePhoto2}>
+                <IonIcon icon={image}></IonIcon> Add Receipt Photo
+              </IonButton>
+              {photos2.map((photo, index) => (
+                <img src={photo.webviewPath} />
+              ))}
+            </IonCard>
+          </IonSlide>
+        </IonSlides>
+
+        <IonButton
+          onClick={addProduct}
+          routerDirection="root"
+          expand="block"
+          strong
+        >
+          Add
+        </IonButton>
+        <IonToast
+          position="bottom"
+          color="primary"
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Product Added"
+          duration={2000}
+        />
+        <IonToast
+          position="bottom"
+          color="danger"
+          isOpen={showToast2}
+          onDidDismiss={() => setShowToast2(false)}
+          message="Input Require"
+          duration={2000}
+        />
+      </IonContent>
+    </IonPage>
   );
 };
 

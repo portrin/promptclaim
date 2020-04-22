@@ -116,13 +116,13 @@ const WarrantyInfo: React.FC<RouteComponentProps> = (props) => {
                   </IonButton>
                 </IonCol>
               </IonRow>
+              <IonButton expand="block" fill="outline">
+                View Policy
+              </IonButton>
               <IonButton
                 expand="block"
-                fill="outline"
+                onClick={() => props.history.push("/AddClaimDate")}
               >
-                View Policy
-              </IonButton>   
-              <IonButton expand="block" onClick={() => props.history.push("/AddClaimDate")}>
                 Add Claim Date
               </IonButton>
             </IonGrid>

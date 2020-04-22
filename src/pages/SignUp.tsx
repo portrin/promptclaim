@@ -15,42 +15,40 @@ import "./SignUp.css";
 
 const SignUp: React.FC = () => {
   return (
-    <IonApp>
-      <IonPage>
-        <IonContent color="theme">
-          <div className="image">
-            <img src="assets/translogo.png" alt="logo" />
-          </div>
+    <IonPage>
+      <IonContent color="theme">
+        <div className="image">
+          <img src="assets/translogo.png" alt="logo" />
+        </div>
 
-          <IonCard class="card2">
-            <IonItem class="item-input-1">
-              <IonLabel position="stacked">Enter your phone number</IonLabel>
-              <IonInput class="input" type="number">
-                {" "}
-                <IonIcon class="icon" icon={call}></IonIcon>
-              </IonInput>
-            </IonItem>
-          </IonCard>
+        <IonCard class="card2">
+          <IonItem class="item-input-1">
+            <IonLabel position="stacked">Enter your phone number</IonLabel>
+            <IonInput class="input" type="number">
+              {" "}
+              <IonIcon class="icon" icon={call}></IonIcon>
+            </IonInput>
+          </IonItem>
+        </IonCard>
 
-          <IonButton
-            class="next"
-            strong
-            id="signin"
-            size="large"
-            color="signinbutton"
-            routerLink="/verify"
-            routerDirection="root"
-          >
-            NEXT
-            <IonIcon
-              class="icon"
-              size="small"
-              icon={chevronForwardOutline}
-            ></IonIcon>
-          </IonButton>
-        </IonContent>
-      </IonPage>
-    </IonApp>
+        <IonButton
+          class="next"
+          strong
+          id="signin"
+          size="large"
+          color="signinbutton"
+          routerLink="/verify"
+          routerDirection="root"
+        >
+          NEXT
+          <IonIcon
+            class="icon"
+            size="small"
+            icon={chevronForwardOutline}
+          ></IonIcon>
+        </IonButton>
+      </IonContent>
+    </IonPage>
   );
 };
 
