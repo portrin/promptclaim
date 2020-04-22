@@ -23,7 +23,7 @@ export const AppLayout = (props) => {
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item
               className="pointer"
-              onClick={() => props.history.push(`/`)}
+              onClick={() => props.history.push(`/main-product`)}
             >
               {props.lastpageProduct}
             </Breadcrumb.Item>

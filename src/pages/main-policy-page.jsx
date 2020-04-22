@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Table } from 'antd'
 
 import { AppLayout } from '../components/app-layout'
-import Item from 'antd/lib/list/Item'
+// import Item from 'antd/lib/list/Item'
 
 export const MainPolicyPage = (props) => {
   const [items, setItems] = useState([])
@@ -21,21 +21,28 @@ export const MainPolicyPage = (props) => {
   }, [])
   //filtered duplicated data
 
-  const distinctValues = Array.from(new Set(items.map(elem => `${elem.policy_id}-${elem.policy_owner_id}-${elem.date_created}`))).map(distinctVal => {
-    const [ policy_id, policy_owner_id,date_created ] = distinctVal.split("-");
+  const distinctValues = Array.from(
+    new Set(
+      items.map(
+        (elem) =>
+          `${elem.policy_id}-${elem.policy_owner_id}-${elem.date_created}`,
+      ),
+    ),
+  ).map((distinctVal) => {
+    const [policy_id, policy_owner_id, date_created] = distinctVal.split('-')
     return {
       date_created,
       policy_id,
       policy_owner_id,
     }
   })
-  console.log(distinctValues)
+  console.log('q', distinctValues)
 
-  const filteredData = distinctValues.map((item, index) => ({
+  const filteredData = distinctValues.map((item) => ({
     policy: item.policy_id,
     owner: item.policy_owner_id,
     date: item.date_created,
-    num: Object.keys(items).length
+    num: Object.keys(items).length,
   }))
 
   console.log(filteredData)
@@ -84,6 +91,7 @@ const columns = [
   },
 ]
 
+// eslint-disable-next-line no-unused-vars
 const data = [
   {
     key: '1',

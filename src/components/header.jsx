@@ -36,7 +36,7 @@ const menu = (
       <a href="http://www.taobao.com/">2nd menu item</a>
     </Menu.Item>
     <Menu.Divider />
-    <Menu.Item key="2" onClick={localStorage.clear()}>
+    <Menu.Item key="2" onClick={() => localStorage.clear()}>
       <a href="/login">LogOut</a>
     </Menu.Item>
   </Menu>

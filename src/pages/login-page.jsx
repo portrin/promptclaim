@@ -36,6 +36,7 @@ export const LoginPage = (props) => {
           console.log('response: ' + response)
           if (response.data) {
             const token = response.data
+            console.log('token: ', token)
             if (token === 'invalid username or password') {
               console.log('Bugg invalid username or password')
               setUsername('')
@@ -43,6 +44,7 @@ export const LoginPage = (props) => {
               errorToast()
             } else {
               localStorage.setItem('token', token)
+              // localstorage.setItem('username', response.data.username)
               props.history.push('/main-product')
               console.log('correct')
             }

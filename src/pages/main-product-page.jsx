@@ -28,13 +28,13 @@ export const MainProductPage = (props) => {
     console.log('items', items)
   }
   useEffect(() => {
-      setSearchItem(
+    setSearchItem(
       items.filter((item) =>
         item.product_name.toLowerCase().includes(searchText.toLowerCase()),
-      )
+      ),
     )
   }, [searchText, items])
-  const dataBB = searchItem.map((item) => ({
+  const data = searchItem.map((item) => ({
     key: item.uuid,
     name: item.product_name,
     serial: item.serial_no,
@@ -46,33 +46,13 @@ export const MainProductPage = (props) => {
   return (
     <AppLayout {...props} title="Product Dashboard">
       <div className="site-layout-content">
-        {/* <div>
-          {items.map((item) => (
-            <h1 key={items.char_id}>{item.name}</h1>
-          ))}
-        </div> */}
-        {/* {items.map((item) => (
-          <Table
-            columns={columns}
-            dataSource={item}
-            onChange={onChange}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: () => {
-                  console.log({ record, rowIndex })
-                  props.history.push(`/view-product/${record.key}`)
-                },
-              }
-            }}
-          />
-        ))} */}
         <Search
           placeholder="Search by product name"
           onSearch={(value) => setSearchText(value)}
         />
         <Table
           columns={columns}
-          dataSource={dataBB}
+          dataSource={data}
           onChange={onChange}
           onRow={(record, rowIndex) => {
             return {
@@ -131,7 +111,7 @@ const columns = [
 
 //Mock data
 // eslint-disable-next-line no-unused-vars
-const data = [
+const dataMock = [
   {
     key: '1',
     name: 'COTTO Automatic Toilet Bowl',
