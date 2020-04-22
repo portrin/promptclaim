@@ -285,8 +285,8 @@ const AddWarranty: React.FC = () => {
                   <IonIcon icon={image}></IonIcon>Add Product Photo
                 </IonButton>
                 {photos.map((photo, index) => (
-                  <IonImg src={photo.webviewPath} />
-                ))}{" "}
+                  <img src={photo.webviewPath} />
+                ))}
               </IonCard>
             </IonSlide>
             <IonSlide>
@@ -295,7 +295,7 @@ const AddWarranty: React.FC = () => {
                   <IonIcon icon={image}></IonIcon> Add Warranty Photo
                 </IonButton>
                 {photos1.map((photo, index) => (
-                  <IonImg src={photo.webviewPath} />
+                  <img src={photo.webviewPath} />
                 ))}
               </IonCard>
             </IonSlide>
@@ -305,7 +305,7 @@ const AddWarranty: React.FC = () => {
                   <IonIcon icon={image}></IonIcon> Add Receipt Photo
                 </IonButton>
                 {photos2.map((photo, index) => (
-                  <IonImg src={photo.webviewPath} />
+                  <img src={photo.webviewPath} />
                 ))}
               </IonCard>
             </IonSlide>
