@@ -18,7 +18,6 @@ import {
 import { chevronBackOutline, chevronDown, man, woman } from "ionicons/icons";
 import React, { useState } from "react";
 import "./FillInfo.css";
-import { Link } from "react-router-dom";
 
 interface Prop {
   custID: string;

@@ -11,8 +11,6 @@ import {
   IonLabel,
   IonChip,
   IonContent,
-  IonBackButton,
-  IonDatetime,
 } from "@ionic/react";
 import { chevronBackOutline, woman } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
@@ -58,9 +56,6 @@ export interface ProfileProps {
   item2: Account;
   item3: Address;
 }
-
-const token =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTg3MjEwNzIyNTEyfQ.reHTXr9EJrnkCDFlTa5Xx78Lvz8YlVfZE8OvQFj2mX8";
 
 const Profile: React.FC<ProfileProps> = () => {
   useEffect(() => {

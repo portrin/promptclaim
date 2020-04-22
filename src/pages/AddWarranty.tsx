@@ -11,13 +11,10 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonItemDivider,
-  IonListHeader,
   IonItem,
   IonLabel,
   IonButton,
   IonIcon,
-  IonImg,
   IonCard,
   IonToast,
   IonSelect,
@@ -69,7 +66,6 @@ const AddWarranty: React.FC = () => {
   );
 
   const [idRetail, setIdRetail] = useState<string>();
-  const [preId, setPreId] = useState<Branch[]>([]);
   const [idBranch, setIdBranch] = useState<string>();
   const [showToast1, setShowToast1] = useState(false);
   const [showToast2, setShowToast2] = useState(false);

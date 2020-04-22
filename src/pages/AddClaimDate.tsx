@@ -116,7 +116,12 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
           <IonButton expand="block" onClick={addClaim} routerDirection="root">
             Add
           </IonButton>
-          <IonButton color="light" expand="block" routerLink={dylink} routerDirection="root">
+          <IonButton
+            color="light"
+            expand="block"
+            routerLink={dylink}
+            routerDirection="root"
+          >
             Back
           </IonButton>
         </IonList>

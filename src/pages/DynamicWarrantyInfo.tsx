@@ -32,7 +32,6 @@ import {
 import { call, trash, close, closeCircle } from "ionicons/icons";
 import "./WarrantyInfo.css";
 import { RouteComponentProps } from "react-router-dom";
-import { triggerAsyncId } from "async_hooks";
 
 interface RouteParam {
   id: string;
@@ -67,11 +66,9 @@ const slideOpts = {
 };
 
 const WarrantyInfo: React.FC<Match> = ({ match }) => {
-  const [checked, setChecked] = useState(false);
   const [showActionSheet, setShowActionSheet] = useState(false);
   const [showActionSheet1, setShowActionSheet1] = useState(false);
   const [done, setDone] = useState("Edit Warranty");
-  const [fill, setFill] = useState("outline");
   const [butStat, setButstat] = useState<boolean>(true);
   const [textColor, setTextColor] = useState("");
 

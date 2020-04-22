@@ -13,7 +13,6 @@ import {
   IonLabel,
   IonInput,
   IonToast,
-  IonTabBar,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -63,6 +62,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
           }),
         }
       );
+      console.log(data);
     } catch (error) {
       //
     }

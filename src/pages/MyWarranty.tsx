@@ -10,7 +10,6 @@ import {
   IonIcon,
   IonButton,
   IonList,
-  IonListHeader,
   IonSearchbar,
   IonSelect,
   IonSelectOption,
@@ -88,10 +87,10 @@ const MyWarranty: React.FC<Productprops> = () => {
     }
   }
   function filterProduct(item: Array<Product>) {
-    if (filterBy == "default") {
+    if (filterBy === "default") {
       return item;
     } else {
-      return item.filter((x) => x.category_name == filterBy);
+      return item.filter((x) => x.category_name === filterBy);
     }
   }
 
