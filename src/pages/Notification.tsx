@@ -11,17 +11,10 @@ import {
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
-import {
-  notificationsOutline,
-  funnelOutline,
-  filterOutline,
-  personCircleOutline,
-  notifications,
-} from "ionicons/icons";
+import { personCircleOutline, notifications } from "ionicons/icons";
 
 import NotificationItem from "../components/NotificationItem";
 import moment from "moment";
-import { CONNREFUSED } from "dns";
 
 export interface Character {
   name: string;
@@ -61,18 +54,7 @@ const Notification: React.FC<Itemprops> = () => {
     fetchPolicy();
   }, []);
   const [items, setItems] = useState<Product[]>([]);
-  const [remainingPeriod, setRemainingPeriod] = useState("");
-  const [notiItems, setNotiItems] = useState<Product[]>([]);
-  const [som, setSom] = useState<Product[]>([]);
-  const [poliItems, setPoliItems] = useState<Policy[]>([]);
   const [policy, setPolicy] = useState<Policy[]>([]);
-  const [listP, setListP] = useState<Product[]>([]);
-  const [UUID, setUUID] = useState<String[]>([]);
-  function countDay(dateFormat: string) {
-    var today = moment();
-    var end = moment();
-    return end.diff(today, "days");
-  }
 
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get/", {
@@ -95,26 +77,13 @@ const Notification: React.FC<Itemprops> = () => {
     console.log(policy);
     setPolicy(policy);
   };
-  const fetchPolicyUUID = async (a: string) => {
-    const data = await fetch(
-      "http://localhost:8001/customer/policy/getbyUUID/" + a,
-      {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      }
-    );
-    const sss = await data.json();
-    console.log(sss);
-    setUUID(sss);
-    return UUID;
-  };
+
   function loopCheck() {
     var arr = new Array<Product>();
     for (var i = 0; i < policy.length; i++) {
       for (var j = 0; j < items.length; j++) {
         if (
-          items[j].uuid == policy[i].uuid &&
+          items[j].uuid === policy[i].uuid &&
           moment(policy[i].policy_end_date.split("T")[0]).diff(
             moment(),
             "days"
@@ -124,19 +93,18 @@ const Notification: React.FC<Itemprops> = () => {
             "days"
           ) > 0
         ) {
-          console.log(items[j])
-          console.log(policy[i])
-          arr.push(items[j])
+          console.log(items[j]);
+          console.log(policy[i]);
+          arr.push(items[j]);
           items[j].remaining =
             moment(policy[i].policy_end_date.split("T")[0]).diff(
               moment(),
               "days"
             ) + "";
-          
         }
       }
     }
-    console.log(arr)
+    console.log(arr);
     return arr;
   }
 
@@ -169,19 +137,14 @@ const Notification: React.FC<Itemprops> = () => {
           <IonListHeader>
             <h2>Expiring Products</h2>
           </IonListHeader>
-          {loopCheck().map(
-            (item) => (
-              console.log(policy),
-              (
-                <NotificationItem
-                  image={item.product_photo}
-                  name={item.product_nickname}
-                  description={item.category_name}
-                  remainingDate={item.remaining}
-                ></NotificationItem>
-              )
-            )
-          )}
+          {loopCheck().map((item) => (
+            <NotificationItem
+              image={item.product_photo}
+              name={item.product_nickname}
+              description={item.category_name}
+              remainingDate={item.remaining}
+            ></NotificationItem>
+          ))}
         </IonList>
       </IonContent>
     </IonPage>

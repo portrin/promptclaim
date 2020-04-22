@@ -11,7 +11,6 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { refresh, addCircleOutline, document } from "ionicons/icons";
-import Home from "./pages/Home";
 import HistoryPage from "./pages/history";
 import MyWarranty from "./pages/MyWarranty";
 import AddWarranty from "./pages/AddWarranty";
@@ -54,8 +53,7 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <Route path="/home" component={Home} />
-            <Route path="/myWarranty" component={MyWarranty} exact={true}  />
+            <Route path="/myWarranty" component={MyWarranty} exact={true} />
             <Route path="/history" component={HistoryPage} />
             <Route path="/addWarranty" component={AddWarranty}  />
             <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />

@@ -88,131 +88,129 @@ const EditProfile: React.FC<ProfileProps> = () => {
   };
 
   return (
-    <IonApp>
-      <IonPage>
-        <IonContent color="lightbutton">
-          <IonHeader class="toolbar">
-            <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                routerLink="/Profile"
-                routerDirection="root"
+    <IonPage>
+      <IonContent color="lightbutton">
+        <IonHeader class="toolbar">
+          <IonToolbar color="theme">
+            <IonButton
+              color="theme"
+              routerLink="/Profile"
+              routerDirection="root"
+            >
+              <IonIcon icon={chevronBackOutline}></IonIcon>
+            </IonButton>
+            <IonTitle class="title">Edit Profile</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonCard class="card3">
+          <IonList>
+            <IonItem>
+              <IonLabel position="fixed">First Name</IonLabel>
+
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={fname}
+                onIonChange={(e) => setFName(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+
+            <IonItem>
+              <IonLabel position="fixed">Last Name</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={lname}
+                onIonChange={(e) => setLName(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+
+            <IonItem>
+              <IonLabel position="fixed">Gender</IonLabel>
+              <IonChip
+                class="chip"
+                outline
+                color="primary"
+                id={gender}
+                onClick={() => {
+                  setGender("male");
+                }}
               >
-                <IonIcon icon={chevronBackOutline}></IonIcon>
-              </IonButton>
-              <IonTitle class="title">Edit Profile</IonTitle>
-            </IonToolbar>
-          </IonHeader>
+                <IonIcon size="large" icon={man} color="primary" />
+              </IonChip>
+              <IonChip
+                class="chip"
+                outline
+                color="primary"
+                id={gender}
+                onClick={() => {
+                  setGender("female");
+                }}
+              >
+                <IonIcon size="large" icon={woman} color="primary" />
+              </IonChip>
+              <IonChip
+                class="chip2"
+                outline
+                color="primary"
+                id={gender}
+                onClick={() => {
+                  setGender("notspecified");
+                }}
+              >
+                <p>Not Specified </p>
+              </IonChip>
+            </IonItem>
 
-          <IonCard class="card3">
-            <IonList>
-              <IonItem>
-                <IonLabel position="fixed">First Name</IonLabel>
+            <IonItem>
+              <IonLabel position="fixed">Birthdate</IonLabel>
 
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={fname}
-                  onIonChange={(e) => setFName(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+              <IonDatetime
+                class="input"
+                displayFormat="DD MMM YYYY"
+                pickerFormat="DD MMM YYYY"
+                max="2005"
+                value={bdate}
+                onIonChange={(e) => setBDate(e.detail.value!)}
+              >
+                {" "}
+              </IonDatetime>
+              <IonIcon slot="end" size="small" icon={chevronDown}></IonIcon>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel position="fixed">Last Name</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={lname}
-                  onIonChange={(e) => setLName(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-
-              <IonItem>
-                <IonLabel position="fixed">Gender</IonLabel>
-                <IonChip
-                  class="chip"
-                  outline
-                  color="primary"
-                  id={gender}
-                  onClick={() => {
-                    setGender("male");
-                  }}
-                >
-                  <IonIcon size="large" icon={man} color="primary" />
-                </IonChip>
-                <IonChip
-                  class="chip"
-                  outline
-                  color="primary"
-                  id={gender}
-                  onClick={() => {
-                    setGender("female");
-                  }}
-                >
-                  <IonIcon size="large" icon={woman} color="primary" />
-                </IonChip>
-                <IonChip
-                  class="chip2"
-                  outline
-                  color="primary"
-                  id={gender}
-                  onClick={() => {
-                    setGender("notspecified");
-                  }}
-                >
-                  <p>Not Specified </p>
-                </IonChip>
-              </IonItem>
-
-              <IonItem>
-                <IonLabel position="fixed">Birthdate</IonLabel>
-
-                <IonDatetime
-                  class="input"
-                  displayFormat="DD MMM YYYY"
-                  pickerFormat="DD MMM YYYY"
-                  max="2005"
-                  value={bdate}
-                  onIonChange={(e) => setBDate(e.detail.value!)}
-                >
-                  {" "}
-                </IonDatetime>
-                <IonIcon slot="end" size="small" icon={chevronDown}></IonIcon>
-              </IonItem>
-
-              <IonItem>
-                <IonLabel>Phone No.</IonLabel>
-                {items.map((item) => (
-                  <IonLabel class="label"> {item.phone_no}</IonLabel>
-                ))}
-              </IonItem>
-            </IonList>
-          </IonCard>
-          <IonButton
-            class="savebutt"
-            strong
-            id="saveacc"
-            size="large"
-            color="theme"
-            expand="block"
-            routerLink={"/Profile"}
-            routerDirection="root"
-            onClick={onHandleSave}
-          >
-            SAVE
-          </IonButton>
-          <IonToast
-            isOpen={showToast1}
-            onDidDismiss={() => setShowToast1(false)}
-            message="Your address have been saved."
-            duration={200}
-            position="middle"
-          />
-        </IonContent>
-      </IonPage>
-    </IonApp>
+            <IonItem>
+              <IonLabel>Phone No.</IonLabel>
+              {items.map((item) => (
+                <IonLabel class="label"> {item.phone_no}</IonLabel>
+              ))}
+            </IonItem>
+          </IonList>
+        </IonCard>
+        <IonButton
+          class="savebutt"
+          strong
+          id="saveacc"
+          size="large"
+          color="theme"
+          expand="block"
+          routerLink={"/Profile"}
+          routerDirection="root"
+          onClick={onHandleSave}
+        >
+          SAVE
+        </IonButton>
+        <IonToast
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Your address have been saved."
+          duration={200}
+          position="middle"
+        />
+      </IonContent>
+    </IonPage>
   );
 };
 export default EditProfile;

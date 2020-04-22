@@ -13,7 +13,6 @@ import {
   IonLabel,
   IonInput,
   IonToast,
-  IonTabBar,
 } from "@ionic/react";
 import { chevronBackOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
@@ -63,6 +62,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
           }),
         }
       );
+      console.log(data);
     } catch (error) {
       //
     }
@@ -99,113 +99,111 @@ const EditAddress: React.FC<Match> = ({ match }) => {
   };
 
   return (
-    <IonApp>
-      <IonPage>
-        <IonContent color="lightbutton">
-          <IonHeader class="toolbar">
-            <IonToolbar color="theme">
-              <IonButton
-                color="theme"
-                routerLink="/Profile"
-                routerDirection="root"
-              >
-                <IonIcon icon={chevronBackOutline}></IonIcon>
-              </IonButton>
-              <IonTitle class="title">Edit Address</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <IonCard class="card3">
-            <IonList>
-              <IonItem>
-                <IonLabel position="fixed">Home No.</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={homenum}
-                  onIonChange={(e) => setHomeNum(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+    <IonPage>
+      <IonContent color="lightbutton">
+        <IonHeader class="toolbar">
+          <IonToolbar color="theme">
+            <IonButton
+              color="theme"
+              routerLink="/Profile"
+              routerDirection="root"
+            >
+              <IonIcon icon={chevronBackOutline}></IonIcon>
+            </IonButton>
+            <IonTitle class="title">Edit Address</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonCard class="card3">
+          <IonList>
+            <IonItem>
+              <IonLabel position="fixed">Home No.</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={homenum}
+                onIonChange={(e) => setHomeNum(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel position="fixed">Street</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={street}
-                  onIonChange={(e) => setStreet(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel position="fixed">Street</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={street}
+                onIonChange={(e) => setStreet(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel position="fixed">Sub-District</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={subdist}
-                  onIonChange={(e) => setSubDist(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel position="fixed">Sub-District</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={subdist}
+                onIonChange={(e) => setSubDist(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel position="fixed">District</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={dist}
-                  onIonChange={(e) => setDist(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel position="fixed">District</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={dist}
+                onIonChange={(e) => setDist(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel position="fixed">Province</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="text"
-                  value={province}
-                  onIonChange={(e) => setProvince(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
+            <IonItem>
+              <IonLabel position="fixed">Province</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="text"
+                value={province}
+                onIonChange={(e) => setProvince(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
 
-              <IonItem>
-                <IonLabel position="fixed">Street Code</IonLabel>
-                <IonInput
-                  class="input"
-                  required
-                  type="number"
-                  value={streetCode}
-                  onIonChange={(e) => setStreetCode(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-            </IonList>
-          </IonCard>
-          <IonButton
-            class="savebutt"
-            strong
-            id="saveacc"
-            size="large"
-            color="theme"
-            expand="block"
-            routerLink={`/editAddress/${match.params.id}`}
-            routerDirection="root"
-            onClick={onHandleSave}
-          >
-            SAVE
-          </IonButton>
-          <IonToast
-            isOpen={showToast1}
-            onDidDismiss={() => setShowToast1(false)}
-            message="Your address have been saved."
-            duration={200}
-            position="middle"
-          />
-        </IonContent>
-      </IonPage>
-    </IonApp>
+            <IonItem>
+              <IonLabel position="fixed">Street Code</IonLabel>
+              <IonInput
+                class="input"
+                required
+                type="number"
+                value={streetCode}
+                onIonChange={(e) => setStreetCode(e.detail.value!)}
+              ></IonInput>
+            </IonItem>
+          </IonList>
+        </IonCard>
+        <IonButton
+          class="savebutt"
+          strong
+          id="saveacc"
+          size="large"
+          color="theme"
+          expand="block"
+          routerLink={`/editAddress/${match.params.id}`}
+          routerDirection="root"
+          onClick={onHandleSave}
+        >
+          SAVE
+        </IonButton>
+        <IonToast
+          isOpen={showToast1}
+          onDidDismiss={() => setShowToast1(false)}
+          message="Your address have been saved."
+          duration={200}
+          position="middle"
+        />
+      </IonContent>
+    </IonPage>
   );
 };
 export default EditAddress;
