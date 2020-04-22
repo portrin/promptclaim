@@ -16,6 +16,7 @@ import {
   IonSelectOption,
   IonApp,
   IonLabel,
+  useIonViewWillEnter
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -28,6 +29,8 @@ import "./MyWarranty.css";
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
+import { RefresherEventDetail } from '@ionic/core';
+
 
 export interface Product {
   char_id: string;
@@ -48,11 +51,12 @@ const MyWarranty: React.FC<Productprops> = () => {
   const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [sortBy, setsortBy] = useState("");
   const [filterBy, setfilterBy] = useState("default");
-
+  
   console.log(localStorage.token);
   useEffect(() => {
     fetchItems();
-  }, []);
+  }, [],);
+  
   const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
     const data = await fetch("http://localhost:8001/customer/product/get", {
@@ -94,6 +98,11 @@ const MyWarranty: React.FC<Productprops> = () => {
       return item.filter((x) => x.category_name == filterBy);
     }
   }
+  useIonViewWillEnter(() => {
+    console.log('ionViewWillEnter event fired');
+    fetchItems();
+  });
+  
 
   return (
     <IonApp>
@@ -218,7 +227,7 @@ const MyWarranty: React.FC<Productprops> = () => {
             <IonLabel class="label2">Products</IonLabel>
 
             {sortProduct(filterProduct(searchItem)).map((item) => (
-              <Product
+              <Product key={item.uuid}
                 name={item.product_nickname}
                 serial={item.uuid}
                 image={item.product_photo}
