@@ -4,6 +4,7 @@
   "description": "",
   "main": "",
   "scripts": {
+    "start": "node app.js",
     "test": "mocha ./test/*-test.js",
     "dev": "nodemon app.js",
     "dbstart": "docker-compose up -d",
