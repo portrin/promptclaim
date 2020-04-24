@@ -8,6 +8,7 @@ import {
   IonListHeader,
   IonButton,
   IonIcon,
+  IonLabel,
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
@@ -135,7 +136,7 @@ const Notification: React.FC<Itemprops> = () => {
       <IonContent>
         <IonList>
           <IonListHeader>
-            <h2>Expiring Products</h2>
+            <IonLabel>Expiring Products</IonLabel>
           </IonListHeader>
           {loopCheck().map((item) => (
             <NotificationItem

@@ -49,11 +49,10 @@ const History: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="theme" class="toolbar2">
+        <IonToolbar color="theme">
           <IonTitle class="title">History</IonTitle>
         </IonToolbar>
       </IonHeader>
-
       <IonContent>
         <IonList>
           <IonListHeader>
