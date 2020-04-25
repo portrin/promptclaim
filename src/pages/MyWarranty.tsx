@@ -86,8 +86,8 @@ const MyWarranty: React.FC<Productprops> = () => {
       );
     } else if (sortBy === "Name Z-A") {
       return item.sort().reverse();
-    } else if (sortBy === "Product ID") {
-      return item.sort((a, b) => parseInt(a.uuid) - parseInt(b.uuid));
+    } else if (sortBy === "Retailer") {
+      return item.sort((a, b) => parseInt(a.retailer_branch_name) - parseInt(b.retailer_branch_name));
     } else {
       return item;
     }
@@ -206,8 +206,8 @@ const MyWarranty: React.FC<Productprops> = () => {
                     <IonSelectOption value="Name Z-A">
                       By Name Z-A{" "}
                     </IonSelectOption>
-                    <IonSelectOption value="Name Z-A">
-                      Name Z-A{" "}
+                    <IonSelectOption value="Retailer">
+                      Retailer Name{" "}
                     </IonSelectOption>
                   </IonSelect>
                 </IonButton>
