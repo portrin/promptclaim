@@ -400,7 +400,7 @@ VALUES ('000001', 'Sell IT stuffs', 'Power Buy', '0945593841', '5/117', 'S00001'
 ('000006', 'Sell DELL product and OEM', 'Dell', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', 'R00008', 'DE0001'),
 ('000007', 'Sell furnitures', 'Koncept', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', null, 'KC0001');
 
-INSERT INTO Product (product_no, product_model, product_name, product_description, supplier_id)
+INSERT INTO product (product_no, product_model, product_name, product_description, supplier_id)
 VALUES ('AAAAA1', 'BBBBB1', 'STEFAN chair', 'A very smart chair', '000001'),
 ('AAAAA2', 'BBBBB2', 'INGO table', 'A very smart table', '000001'),
 ('AAAAA3', 'BBBBB3', 'table', 'A very smart table', '000002'),
@@ -440,7 +440,7 @@ VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00
 ('SSSS16', 'AAAA21', '1', 'my chair', '2500', '000014', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://www.ikea.com/th/en/images/products/janinge-chair__0728156_PE736116_S5.JPG', '1', 'warrantyphoto4'),
 ('SSSS17', 'AAAA22', '1', 'my table', '2500', '000014', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://www.ikea.com/th/en/images/products/vangsta-extendable-table__0809397_PE771036_S5.JPG', '1', 'warrantyphoto4');
 
-INSERT INTO Policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) 
+INSERT INTO policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) 
 VALUES ('001', '3 years', 'The guarantee remains in force for 3 years and is valid from the date of purchase. The original purchase receipt is required as proof of purchase.', DATE'2020-12-15', 'IKEA01'),
 ('002', '1 year', 'Mediocre policy', DATE'2020-1-9', 'BTV002'),
 ('003', '0.5 year', 'Awful policy', DATE'2020-4-13', 'ZARA04');
