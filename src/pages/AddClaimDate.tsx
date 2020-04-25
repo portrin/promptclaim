@@ -54,7 +54,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/get/",
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/getbyUUid/" + match.params.id,
       {
         headers: {
           Authorization: localStorage.token,
