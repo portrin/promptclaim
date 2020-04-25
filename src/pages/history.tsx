@@ -52,7 +52,7 @@ const History: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="theme">
+        <IonToolbar color="theme" class="toolbar2">
           <IonTitle class="title">History</IonTitle>
         </IonToolbar>
       </IonHeader>

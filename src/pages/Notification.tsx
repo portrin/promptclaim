@@ -116,6 +116,7 @@ const Notification: React.FC<Itemprops> = () => {
       }
     }
     console.log(arr);
+    arr.sort((a,b)=>parseInt(a.remaining)-parseInt(b.remaining))
     return arr;
   }
 
