@@ -294,7 +294,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   ></IonActionSheet>
                 </IonCol>
               </IonRow>
-            
 
               <IonButton
                 expand="block"
