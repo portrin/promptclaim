@@ -190,7 +190,7 @@ const EditProfile: React.FC<ProfileProps> = () => {
             <IonItem>
               <IonLabel>Phone No.</IonLabel>
               {items.map((item) => (
-                <IonLabel class="label"> {item.phone_no}</IonLabel>
+                <IonLabel class="labelpn"> {item.phone_no}</IonLabel>
               ))}
             </IonItem>
           </IonList>

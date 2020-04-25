@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11E6E4A62454988C00F6D45D /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E6E4A32454981700F6D45D /* OpenSans-Bold.ttf */; };
+		11E6E4A72454989200F6D45D /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E6E4A42454981700F6D45D /* OpenSans-ExtraBold.ttf */; };
+		11E6E4A82454989500F6D45D /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E6E49E2454981700F6D45D /* OpenSans-Semibold.ttf */; };
+		11E6E4A92454989900F6D45D /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 11E6E4A22454981700F6D45D /* OpenSans-Regular.ttf */; };
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
@@ -18,6 +22,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11E6E49C2454981600F6D45D /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		11E6E49D2454981600F6D45D /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		11E6E49E2454981700F6D45D /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		11E6E49F2454981700F6D45D /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		11E6E4A02454981700F6D45D /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		11E6E4A12454981700F6D45D /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		11E6E4A22454981700F6D45D /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		11E6E4A32454981700F6D45D /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		11E6E4A42454981700F6D45D /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		11E6E4A52454981800F6D45D /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +87,16 @@
 		504EC3061FED79650016851F /* App */ = {
 			isa = PBXGroup;
 			children = (
+				11E6E4A32454981700F6D45D /* OpenSans-Bold.ttf */,
+				11E6E49D2454981600F6D45D /* OpenSans-BoldItalic.ttf */,
+				11E6E4A42454981700F6D45D /* OpenSans-ExtraBold.ttf */,
+				11E6E4A02454981700F6D45D /* OpenSans-ExtraBoldItalic.ttf */,
+				11E6E49F2454981700F6D45D /* OpenSans-Italic.ttf */,
+				11E6E4A52454981800F6D45D /* OpenSans-Light.ttf */,
+				11E6E49C2454981600F6D45D /* OpenSans-LightItalic.ttf */,
+				11E6E4A22454981700F6D45D /* OpenSans-Regular.ttf */,
+				11E6E49E2454981700F6D45D /* OpenSans-Semibold.ttf */,
+				11E6E4A12454981700F6D45D /* OpenSans-SemiboldItalic.ttf */,
 				50379B222058CBB4000EE86E /* capacitor.config.json */,
 				504EC3071FED79650016851F /* AppDelegate.swift */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
@@ -155,8 +179,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11E6E4A92454989900F6D45D /* OpenSans-Regular.ttf in Resources */,
 				504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */,
+				11E6E4A62454988C00F6D45D /* OpenSans-Bold.ttf in Resources */,
 				50B271D11FEDC1A000F3C39B /* public in Resources */,
+				11E6E4A82454989500F6D45D /* OpenSans-Semibold.ttf in Resources */,
+				11E6E4A72454989200F6D45D /* OpenSans-ExtraBold.ttf in Resources */,
 				504EC30F1FED79650016851F /* Assets.xcassets in Resources */,
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
