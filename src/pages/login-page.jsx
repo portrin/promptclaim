@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox, Row, Col, Modal } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import logo from '../photo/darktranslogo.png'
-import axios from 'axios'
+import api from '../api.jsx'
 
 export const LoginPage = (props) => {
   const [username, setUsername] = useState('')
@@ -16,9 +16,9 @@ export const LoginPage = (props) => {
     })
   }
   const sendSubmit = () => {
-    axios
+    api
       .post(
-        'http://localhost:8001/retailer/auth/login',
+        '/retailer/auth/login',
         {
           username: username,
           password: password,
@@ -61,7 +61,11 @@ export const LoginPage = (props) => {
   return (
     <article className="Login-Page">
       <Form>
-        <img className="logo-login" src={logo} alt="logo" />
+        <img
+          className="logo-login animated infinite bounce delay-2s"
+          src={logo}
+          alt="logo"
+        />
         <Row>
           <Col span={8}></Col>
           <Col span={8}>
