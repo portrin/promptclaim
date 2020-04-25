@@ -1,6 +1,6 @@
 /*CREATE DATABASE promptclaim;*/
 
-CREATE TABLE Customer_account (
+CREATE TABLE customer_account (
 	account_id INT AUTO_INCREMENT NOT NULL,
     username VARCHAR(80),
     password VARCHAR(80) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE Customer_account (
     PRIMARY KEY(account_id) 
 );
 
-CREATE TABLE Customer (
+CREATE TABLE customer (
 	customer_id INT NOT NULL,
     firstname VARCHAR(80),
     lastname VARCHAR(80),
@@ -17,29 +17,29 @@ CREATE TABLE Customer (
     gender CHAR, 
     account_id INT NOT NULL,
     PRIMARY KEY(customer_id),
-    FOREIGN KEY(account_id) REFERENCES Customer_account(account_id) ON DELETE CASCADE
+    FOREIGN KEY(account_id) REFERENCES customer_account(account_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Customer_address (
+CREATE TABLE customer_address (
 	customer_id INT NOT NULL,
     address_id VARCHAR(6) NOT NULL,
-    house_no VARCHAR(80) NOT NULL,
+    house_no VARCHAR(80),
     street VARCHAR(80),
-    sub_district VARCHAR(80) NOT NULL,
-    district VARCHAR(80) NOT NULL,
-    province VARCHAR(80) NOT NULL,
-    zipcode VARCHAR(5) NOT NULL,
+    sub_district VARCHAR(80),
+    district VARCHAR(80),
+    province VARCHAR(80),
+    zipcode VARCHAR(5),
     PRIMARY KEY(customer_id, address_id),
-    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE
+    FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Product_category (
+CREATE TABLE product_category (
 	category_id INT AUTO_INCREMENT NOT NULL,
     category_name VARCHAR(80),
     PRIMARY KEY(category_id)
 );
 
-CREATE TABLE Root_account (
+CREATE TABLE root_account (
 	root_id VARCHAR(6) NOT NULL,
     username VARCHAR(80) NOT NULL,
     password VARCHAR(80) NOT NULL,
@@ -47,54 +47,54 @@ CREATE TABLE Root_account (
     PRIMARY KEY(root_id)
 );
 
-CREATE TABLE Policy_owner (
+CREATE TABLE policy_owner (
     policy_owner_id VARCHAR(6) NOT NULL,
     owner_type VARCHAR(12) NOT NULL,
     PRIMARY KEY (policy_owner_id)
 );
 
-CREATE TABLE Retailer (
+CREATE TABLE retailer (
 	retailer_id VARCHAR(6) NOT NULL,
-    retailer_contact VARCHAR(12) NOT NULL,
-    retailer_name VARCHAR(80) NOT NULL,
-    retailer_hq_address VARCHAR(256) NOT NULL,
+    retailer_contact VARCHAR(12),
+    retailer_name VARCHAR(80),
+    retailer_hq_address VARCHAR(256),
     retailer_description VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(retailer_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE,
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
+    FOREIGN KEY(root_id) REFERENCES root_account(root_id) ON DELETE CASCADE,
+    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
 
 );
 
-CREATE TABLE Retailer_branch (
+CREATE TABLE retailer_branch (
 	retailer_id VARCHAR(6) NOT NULL,
     retailer_branch_id VARCHAR(6) NOT NULL,
-    retailer_branch_name VARCHAR(80) NOT NULL,
-    retailer_branch_contact VARCHAR(12) NOT NULL,
-    retailer_branch_address VARCHAR(80) NOT NULL,
+    retailer_branch_name VARCHAR(80),
+    retailer_branch_contact VARCHAR(12),
+    retailer_branch_address VARCHAR(80),
     PRIMARY KEY(retailer_id, retailer_branch_id),
-    FOREIGN KEY(retailer_id) REFERENCES Retailer(retailer_id) ON DELETE CASCADE
+    FOREIGN KEY(retailer_id) REFERENCES retailer(retailer_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Role (
+CREATE TABLE role (
 	root_id VARCHAR(6) NOT NULL,
     username VARCHAR(80) NOT NULL,
     role_name VARCHAR(80) NOT NULL,
     password VARCHAR(80) NOT NULL,
     role_description VARCHAR(256),
     PRIMARY KEY(root_id, username),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE
+    FOREIGN KEY(root_id) REFERENCES root_account(root_id) ON DELETE CASCADE
 );
 
-CREATE TABLE _Group (
+CREATE TABLE _group (
 	group_id VARCHAR(6) NOT NULL,
     group_name VARCHAR(80) NOT NULL,
     group_description VARCHAR(256),
     PRIMARY KEY(group_id)
 );
 
-CREATE TABLE Permission (
+CREATE TABLE permission (
 	per_id VARCHAR(6) NOT NULL,
 	per_description VARCHAR(256),
 	per_name VARCHAR(80) NOT NULL,
@@ -102,168 +102,168 @@ CREATE TABLE Permission (
 	PRIMARY KEY(per_id)
 );
 
-CREATE TABLE Group_has_permission (
+CREATE TABLE group_has_permission (
 	group_id VARCHAR(6) NOT NULL,
     per_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(group_id, per_id),
-    FOREIGN KEY(group_id) REFERENCES _Group(group_id) ON DELETE CASCADE,
-    FOREIGN KEY(per_id) REFERENCES Permission(per_id) ON DELETE CASCADE
+    FOREIGN KEY(group_id) REFERENCES _group(group_id) ON DELETE CASCADE,
+    FOREIGN KEY(per_id) REFERENCES permission(per_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Role_has_permission (
+CREATE TABLE role_has_permission (
 	root_id VARCHAR(6) NOT NULL,
     username VARCHAR(80) NOT NULL,
     per_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(root_id, username, per_id),
-    FOREIGN KEY(root_id, username) REFERENCES Role(root_id, username) ON DELETE CASCADE,
-    FOREIGN KEY(per_id) REFERENCES Permission(per_id) ON DELETE CASCADE
+    FOREIGN KEY(root_id, username) REFERENCES role(root_id, username) ON DELETE CASCADE,
+    FOREIGN KEY(per_id) REFERENCES permission(per_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Role_in_group (
+CREATE TABLE role_in_group (
 	group_id VARCHAR(6) NOT NULL,
     username VARCHAR(80) NOT NULL,
     root_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(group_id, username, root_id),
-    FOREIGN KEY(root_id, username) REFERENCES Role(root_id, username) ON DELETE CASCADE,
-    FOREIGN KEY(group_id) REFERENCES _Group(group_id) ON DELETE CASCADE
+    FOREIGN KEY(root_id, username) REFERENCES role(root_id, username) ON DELETE CASCADE,
+    FOREIGN KEY(group_id) REFERENCES _group(group_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Supplier (
+CREATE TABLE supplier (
 	supplier_id VARCHAR(6) NOT NULL,
     supplier_description VARCHAR(256),
-    supplier_name VARCHAR(80) NOT NULL,
-    supplier_contact VARCHAR(10) NOT NULL,
-    supplier_address VARCHAR(256) NOT NULL,
+    supplier_name VARCHAR(80),
+    supplier_contact VARCHAR(10),
+    supplier_address VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(supplier_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE,
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
+    FOREIGN KEY(root_id) REFERENCES root_account(root_id) ON DELETE CASCADE,
+    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Product (
+CREATE TABLE product (
 	product_no VARCHAR(80) NOT NULL,
-    product_model VARCHAR(80) NOT NULL,
-    product_name VARCHAR(80) NOT NULL,
+    product_model VARCHAR(80),
+    product_name VARCHAR(80),
     product_description VARCHAR(256),
     supplier_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(product_no),
-    FOREIGN KEY(supplier_id) REFERENCES Supplier(supplier_id) ON DELETE CASCADE
+    FOREIGN KEY(supplier_id) REFERENCES supplier(supplier_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Purchased_product (
+CREATE TABLE purchased_product (
 	uuid INT AUTO_INCREMENT NOT NULL,
-	serial_no VARCHAR(80) NOT NULL,
-    product_no VARCHAR(80) NOT NULL,
+	serial_no VARCHAR(80),
+    product_no VARCHAR(80),
     customer_id INT NOT NULL,
     product_nickname VARCHAR(80),
-    price DOUBLE NOT NULL,
+    price DOUBLE,
     invoice_id VARCHAR(80),
     create_timestamp TIMESTAMP,
     retailer_branch_id VARCHAR(6),
     retailer_id VARCHAR(6),
     invoice_photo VARCHAR(1000),
-	is_validate BOOLEAN NOT NULL,
+	is_validate BOOLEAN,
     product_photo VARCHAR(1000),
-    claim_qty INT NOT NULL,
+    claim_qty INT,
     warranty_photo VARCHAR(1000),
     PRIMARY KEY(uuid),
-    FOREIGN KEY(product_no) REFERENCES Product(product_no) ON DELETE CASCADE,
-    FOREIGN KEY(customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE,
-    FOREIGN KEY(retailer_id, retailer_branch_id) REFERENCES Retailer_branch(retailer_id, retailer_branch_id) ON DELETE CASCADE
+    FOREIGN KEY(product_no) REFERENCES product(product_no) ON DELETE CASCADE,
+    FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY(retailer_id, retailer_branch_id) REFERENCES retailer_branch(retailer_id, retailer_branch_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Policy (
+CREATE TABLE policy (
 	policy_id VARCHAR(6) NOT NULL,
-    policy_period VARCHAR(80) NOT NULL,
+    policy_period VARCHAR(80),
     policy_description VARCHAR(256),
-    date_created DATE NOT NULL,
+    date_created DATE,
     policy_owner_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
+    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Third_party (
+CREATE TABLE third_party (
 	third_party_id VARCHAR(6) NOT NULL,
-    third_party_address VARCHAR(256) NOT NULL,
-    third_party_name VARCHAR(80) NOT NULL,
-    third_party_contact VARCHAR(10) NOT NULL,
+    third_party_address VARCHAR(256),
+    third_party_name VARCHAR(80),
+    third_party_contact VARCHAR(10),
     third_party_description VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(third_party_id),
-    FOREIGN KEY(root_id) REFERENCES Root_account(root_id) ON DELETE CASCADE,
-    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
+    FOREIGN KEY(root_id) REFERENCES root_account(root_id) ON DELETE CASCADE,
+    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Service_center (
+CREATE TABLE service_center (
 	service_center_id VARCHAR(6) NOT NULL,
-    service_center_name VARCHAR(80) NOT NULL,
-    service_center_hq_address VARCHAR(256) NOT NULL,
+    service_center_name VARCHAR(80),
+    service_center_hq_address VARCHAR(256),
     service_center_description VARCHAR(256),
     PRIMARY KEY(service_center_id)
 );
 
-CREATE TABLE Service_center_branch (
+CREATE TABLE service_center_branch (
 	service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
-    service_center_branch_name VARCHAR(80) NOT NULL,
-    service_center_branch_contact VARCHAR(10) NOT NULL,
-    service_center_branch_address VARCHAR(256) NOT NULL,
+    service_center_branch_name VARCHAR(80),
+    service_center_branch_contact VARCHAR(10),
+    service_center_branch_address VARCHAR(256),
     PRIMARY KEY(service_center_branch_id, service_center_id),
-    FOREIGN KEY(service_center_id) REFERENCES Service_center(service_center_id) ON DELETE CASCADE
+    FOREIGN KEY(service_center_id) REFERENCES service_center(service_center_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Product_classify_as (
+CREATE TABLE product_classify_as (
 	category_id INT NOT NULL,
     product_no VARCHAR(6) NOT NULL,
     PRIMARY KEY(category_id, product_no),
-    FOREIGN KEY(category_id) REFERENCES Product_category(category_id) ON DELETE CASCADE,
-    FOREIGN KEY(product_no) REFERENCES Product(product_no) ON DELETE CASCADE
+    FOREIGN KEY(category_id) REFERENCES product_category(category_id) ON DELETE CASCADE,
+    FOREIGN KEY(product_no) REFERENCES product(product_no) ON DELETE CASCADE
 );
 
-CREATE TABLE Claim_log (
+CREATE TABLE claim_log (
 	claim_id INT AUTO_INCREMENT NOT NULL,
-    status VARCHAR(256) NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+    status VARCHAR(256),
+    timestamp TIMESTAMP,
     uuid INT NOT NULL,
     service_center_id VARCHAR(6),
     service_center_branch_id VARCHAR(6),
     PRIMARY KEY(claim_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE,
-    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES Service_center_branch(service_center_id, service_center_branch_id) ON DELETE CASCADE
+    FOREIGN KEY(uuid) REFERENCES purchased_product(uuid) ON DELETE CASCADE,
+    FOREIGN KEY(service_center_id, service_center_branch_id) REFERENCES service_center_branch(service_center_id, service_center_branch_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Policy_available_at (
+CREATE TABLE policy_available_at (
 	policy_id VARCHAR(6) NOT NULL,
     service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id, service_center_branch_id, service_center_id),
-    FOREIGN KEY(policy_id) REFERENCES Policy(policy_id) ON DELETE CASCADE,
-    FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES Service_center_branch(service_center_branch_id, service_center_id) ON DELETE CASCADE
+    FOREIGN KEY(policy_id) REFERENCES policy(policy_id) ON DELETE CASCADE,
+    FOREIGN KEY(service_center_branch_id, service_center_id) REFERENCES service_center_branch(service_center_branch_id, service_center_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Product_has_policy (
+CREATE TABLE product_has_policy (
 	policy_id VARCHAR(6) NOT NULL,
     uuid INT NOT NULL,
-    policy_start_date DATE,
-    policy_end_date DATE,
+    policy_start_date DATE NOT NULL,
+    policy_end_date DATE NOT NULL,
     timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
-    FOREIGN KEY(policy_id) REFERENCES Policy(policy_id) ON DELETE CASCADE,
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE
+    FOREIGN KEY(policy_id) REFERENCES policy(policy_id) ON DELETE CASCADE,
+    FOREIGN KEY(uuid) REFERENCES purchased_product(uuid) ON DELETE CASCADE
 );
 
-CREATE TABLE Pp_classify_as (
+CREATE TABLE pp_classify_as (
 	uuid INT NOT NULL,
     category_id INT NOT NULL,
     PRIMARY KEY(uuid, category_id),
-    FOREIGN KEY(uuid) REFERENCES Purchased_product(uuid) ON DELETE CASCADE,
-    FOREIGN KEY(category_id) REFERENCES Product_category(category_id) ON DELETE CASCADE
+    FOREIGN KEY(uuid) REFERENCES purchased_product(uuid) ON DELETE CASCADE,
+    FOREIGN KEY(category_id) REFERENCES product_category(category_id) ON DELETE CASCADE
 );
 
 
-INSERT INTO Customer_account(username, password, email)
+INSERT INTO customer_account(username, password, email)
 VALUES ('chchadaa','chada1','chada@gmail.com'),
 ('somd99','som2','somroutine@gmail.com'),
 ('praaewpun','praew3','merrypraeww@gmail.com'),
@@ -272,7 +272,7 @@ VALUES ('chchadaa','chada1','chada@gmail.com'),
 ('Ohmpudit','ohmpwd','ohmpudit@gmail.com'),
 ('lonelyboi','klodpwd','klod@gmail.com');
 
-INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
+INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
 ('2','Som','Somlastname','0895511663','1999-1-20','M','2'),
 ('3','Praewpun','Praewlastname','0972279898','1998-11-24','F','3'),
@@ -281,7 +281,7 @@ VALUES ('1','Apichada','Achanan','0822207334','1999-4-21','F','1'),
 ('6','Pudit','Deawpanich','0814094784','1999-2-12','M','6'),
 ('7','Sagun','Phetkaew','0945593842','1998-7-3','M','7');
 
-INSERT INTO Customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode)
+INSERT INTO customer_address(customer_id, address_id, house_no, street, sub_district, district, province, zipcode)
 VALUES ('1','1','23/4','Sathorn','Silom','Sathorn','Bangkok','10120'),
 ('1','8','888','Sathorn-test','Silom','Sathorn','Bangkok','10120'),
 ('2','2','144/2','-','Ban Nuea','Khwae Yai','Kanchanaburi', '71000'),
@@ -291,7 +291,7 @@ VALUES ('1','1','23/4','Sathorn','Silom','Sathorn','Bangkok','10120'),
 ('4','6','100/21','Trin Road','Vertical','Ari','Bangkok','12100'),
 ('5','7','5/123','Q-house road', 'Krung thonburi','Fung thon','Bangkok','10300');
 
-INSERT INTO Product_category(category_name)
+INSERT INTO product_category(category_name)
 VALUES ('Wall & Floor'),
 ('Bathroom'),
 ('Kitchen'),
@@ -304,7 +304,7 @@ VALUES ('Wall & Floor'),
 ('Garden - Plumbing - DIY'),
 ('Promotion');
 
-INSERT INTO Root_account(root_id, username, password, type)
+INSERT INTO root_account(root_id, username, password, type)
 VALUES ('000001','IKEA', 'Ikeapassword','R'),
 ('000002','Boonthavorn', 'BTVpassword','R'),
 ('000003','Show Huay', 'showhuaypwd','T'),
@@ -318,7 +318,7 @@ VALUES ('000001','IKEA', 'Ikeapassword','R'),
 ('S00003','SB Furniture','SBpwwd','S'),
 ('S00004','HOME PRO','HPpwd','S');
 
-INSERT INTO Policy_owner(policy_owner_id, owner_type) 
+INSERT INTO policy_owner(policy_owner_id, owner_type) 
 VALUES ('IKEA01', 'R'),
 ('BTV002', 'R'),
 ('ZARA04', 'R'),
@@ -334,14 +334,14 @@ VALUES ('IKEA01', 'R'),
 ('KC0001','S');
 
 
-INSERT INTO Retailer(retailer_id, retailer_contact, retailer_name, retailer_hq_address, retailer_description, root_id, policy_owner_id)
+INSERT INTO retailer(retailer_id, retailer_contact, retailer_name, retailer_hq_address, retailer_description, root_id, policy_owner_id)
 VALUES ('000001','0972279898', 'IKEA','Bangna','Furnitures imported from Sweden','000001','IKEA01'),
 ('000002','0972279898', 'Boothavorn','Suhhumvit53','Mostly about floor','000002','BTV002'),
 ('000003','0852289888', 'Zara home','Paragon','Furnitures with clothing brands','000004','ZARA04'),
 ('R00004','026576031','Tesco Lotus','Rama 3','Sell daily-life furnitures','R00005','TC0001'),
 ('R00005','026565030','IT city', 'Pantip','Sell technology','R00006','IT0001');
 
-INSERT INTO Retailer_branch(retailer_id, retailer_branch_id, retailer_branch_name, retailer_branch_contact, retailer_branch_address)
+INSERT INTO retailer_branch(retailer_id, retailer_branch_id, retailer_branch_name, retailer_branch_contact, retailer_branch_address)
 VALUES ('000001', '00001A','IKEA Nonthaburi', '0981234567','56/56 giodano, whatever road, Nonthaburi 10120'),
 ('000001', '00001B','IKEA Bangna', '0123454567','123, bangna road, Bangkok 10520'),
 ('000001', '00001C','IKEA Lat Prao', '0977234567','11/98 Lat Prao road, Bangkok 10500'),
@@ -355,43 +355,43 @@ VALUES ('000001', '00001A','IKEA Nonthaburi', '0981234567','56/56 giodano, whate
 ('R00005', 'R0005A','IT City Lak4', '025670576','333/100 Lak4 Plaza, Bang Khan, Lak4, Bangkok, 10210'),
 ('R00005', 'R0005B','IT City Pantip Plaza', '026565030','604/3 Pantip Plaza, Phetburi road, Bangkok 10400');
 
-INSERT INTO Role (root_id, username, role_name, password, role_description)
+INSERT INTO role (root_id, username, role_name, password, role_description)
 VALUES ('000001', 'klodkup340', 'role1', 'password1', 'roledescription1'),
 ('000002', 'praewkup340', 'role2', 'password2', 'roledescription2'),
 ('000003', 'teekup340', 'role3', 'password3', 'roledescription3'),
 ('000004', 'porkup340', 'role4', 'password4', 'roledescription4');
 
-INSERT INTO _Group (group_id, group_name, group_description)
+INSERT INTO _group (group_id, group_name, group_description)
 VALUES ('000001', 'group1', 'group1description'),
 ('000002', 'group2', 'group2description'),
 ('000003', 'group3', 'group3description'),
 ('000004', 'group4', 'group4description');
 
-INSERT INTO Permission (per_id, per_description, per_name, per_module)
+INSERT INTO permission (per_id, per_description, per_name, per_module)
 VALUES ('000001', 'permission1', 'permission1name', 'module1'),
 ('000002', 'permission2', 'permission2name', 'module2'),
 ('000003', 'permission3', 'permission3name', 'module3'),
 ('000004', 'permission4', 'permission4name', 'module4');
 
-INSERT INTO Group_has_permission (group_id, per_id)
+INSERT INTO group_has_permission (group_id, per_id)
 VALUES ('000001', '000001'),
 ('000002', '000002'),
 ('000003', '000003'),
 ('000004', '000004');
 
-INSERT INTO Role_has_permission (root_id, username, per_id)
+INSERT INTO role_has_permission (root_id, username, per_id)
 VALUES ('000001', 'klodkup340', '000001'),
 ('000002', 'praewkup340', '000002'),
 ('000003', 'teekup340', '000003'),
 ('000004', 'porkup340', '000004');
 
-INSERT INTO Role_in_group (group_id, username, root_id)
+INSERT INTO role_in_group (group_id, username, root_id)
 VALUES ('000001', 'klodkup340', '000001'),
 ('000002', 'praewkup340', '000002'),
 ('000003', 'teekup340', '000003'),
 ('000004', 'porkup340', '000004');
 
-INSERT INTO Supplier (supplier_id, supplier_description, supplier_name, supplier_contact, supplier_address, root_id, policy_owner_id)
+INSERT INTO supplier (supplier_id, supplier_description, supplier_name, supplier_contact, supplier_address, root_id, policy_owner_id)
 VALUES ('000001', 'Sell IT stuffs', 'Power Buy', '0945593841', '5/117', 'S00001', 'SUP01'),
 ('000002', 'Sell quality furnitures', 'INDEX living malls', '0945593842', '5/118', 'S00002', 'SUP02'),
 ('000003', 'Sell furnitures', 'SB Furniture', '0945593843', '5/119', 'S00003', 'SUP03'),
@@ -425,7 +425,7 @@ VALUES ('AAAAA1', 'BBBBB1', 'STEFAN chair', 'A very smart chair', '000001'),
 ('AAAA22', 'BBBB22', 'VANGSTA table', 'A durable dining table that makes it easy to have big dinners.', '000001');
 
 
-INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
+INSERT INTO purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
 VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00001A', '000001', 'photo1', True, 'https://www.ikea.com/th/en/images/products/stefan-chair__0727320_PE735593_S5.JPG', '1', 'warrantyphoto1'),
 ('SSSSS2', 'AAAAA2', '2', 'my table', '3000', '000002', '2020-03-03', '00001A', '000001', 'photo2', True, 'https://www.ikea.com/th/en/images/products/ingo-table-pine__0737092_PE740877_S5.JPG', '1', 'warrantyphoto4'),
 ('SSSSS7', 'AAAAA6', '1', 'my fridge', '6000', '000006', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://images-na.ssl-images-amazon.com/images/I/61TPUNRED3L._AC_SX522_.jpg', '1', 'warrantyphoto4'),
@@ -445,7 +445,7 @@ VALUES ('001', '3 years', 'The guarantee remains in force for 3 years and is val
 ('002', '1 year', 'Mediocre policy', DATE'2020-1-9', 'BTV002'),
 ('003', '0.5 year', 'Awful policy', DATE'2020-4-13', 'ZARA04');
 
-INSERT INTO Product_classify_as(category_id, product_no) 
+INSERT INTO product_classify_as(category_id, product_no) 
 VALUES ('4', 'AAAAA1'),
 ('4', 'AAAAA2'),
 ('4', 'AAAAA3'),
@@ -467,7 +467,7 @@ VALUES ('4', 'AAAAA1'),
 ('9', 'AAAA19'),
 ('9', 'AAAA20');
 
-INSERT INTO Product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
+INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
 VALUES ('001', '1', DATE'2019-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:00:01'),
 ('001', '2', DATE'2019-04-02', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:02'),
 ('001', '3', DATE'2019-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),
@@ -483,12 +483,12 @@ VALUES ('001', '1', DATE'2019-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:
 ('001', '13', DATE'2019-03-03', DATE'2020-10-16', TIMESTAMP'2008-01-01 00:00:05');
 
 
-INSERT INTO Service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description)
+INSERT INTO service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description)
 VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
 ('2', 'Boonthavorn service', 'Sukhumvit53', 'This place services Boonthavorn'),
 ('3', 'ZARA home service', 'Paragon', 'This place services ZARA home');
 
-INSERT INTO Service_center_branch(service_center_branch_id, service_center_id, service_center_branch_name, service_center_branch_contact, service_center_branch_address)
+INSERT INTO service_center_branch(service_center_branch_id, service_center_id, service_center_branch_name, service_center_branch_contact, service_center_branch_address)
 VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('1', '2', 'Ratchada', '021234567', 'Ratchada, Bangkok, 12345'),
 ('1', '3', 'Paragon', '027777777', 'Paragon, Bangkok, 12345'),
@@ -496,34 +496,34 @@ VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('2', '2', 'Puttamonthol', '029876543', 'Puttamonthol, Bangkok, 12345'),
 ('2', '3', 'Central World', '028888888', 'Central World, Bangkok, 12345');
 
-INSERT INTO Policy_available_at(policy_id, service_center_branch_id, service_center_id) 
+INSERT INTO policy_available_at(policy_id, service_center_branch_id, service_center_id) 
 VALUES ('001', '1', '1'),
 ('002', '2', '1'),
 ('003', '1', '2');
 
-INSERT INTO Third_party(third_party_id, third_party_address, third_party_name, third_party_contact, third_party_description, root_id, policy_owner_id)
+INSERT INTO third_party(third_party_id, third_party_address, third_party_name, third_party_contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
-INSERT INTO Claim_log (status, timestamp, uuid, service_center_id, service_center_branch_id)
+INSERT INTO claim_log (status, timestamp, uuid, service_center_id, service_center_branch_id)
 VALUES ('status1', '2020-03-03', '1', '1', '1'),
 ('status2', '2020-03-04', '2', '2', '2'),
 ('status3', '2020-03-05', '3', '3', '2'),
 ('status4', '2020-03-06','4', '2', '1');
 
-CREATE TABLE Notification (
+CREATE TABLE notification (
 	noti_id INT AUTO_INCREMENT NOT NULL,
 	message VARCHAR(256) NOT NULL,
 	timestamp TIMESTAMP NOT NULL,
     customer_id INT NOT NULL,
     PRIMARY KEY (noti_id),
-	FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)); 
+	FOREIGN KEY (customer_id) REFERENCES customer(customer_id)); 
     
-INSERT INTO Notification(message, timestamp, customer_id) 
+INSERT INTO notification(message, timestamp, customer_id) 
 VALUES ('The product has been claimed', '2020-01-18 11:00:01', '1'),
 ('Expiration date tomorrow', '2020-02-18 11:00:01', '2'),
 ('Promotion for curry', '2020-03-18 11:00:01', '3');
 
-INSERT INTO Pp_classify_as(uuid, category_id)
+INSERT INTO pp_classify_as(uuid, category_id)
 VALUES ('1','1'),
 ('2','2'),
 ('3','3'),
@@ -532,7 +532,7 @@ VALUES ('1','1'),
 
 
 CREATE TRIGGER add_profile
-AFTER INSERT ON Customer_account
+AFTER INSERT ON customer_account
 FOR EACH ROW
-INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
+INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES(new.account_id, null, null, null, null, null , new.account_id);

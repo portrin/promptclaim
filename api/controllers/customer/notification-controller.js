@@ -1,4 +1,4 @@
-const Notifcation = require('../../models/Customer/notification-model');
+const Notifcation = require('../../models/customer/notification-model');
 const jwt = require('jsonwebtoken');
 
 exports.getNotification = async (req, res, next) => {
