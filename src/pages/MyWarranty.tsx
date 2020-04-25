@@ -1,0 +1,239 @@
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonIcon,
+  IonButton,
+  IonList,
+  IonSearchbar,
+  IonSelect,
+  IonSelectOption,
+  IonLabel,
+  useIonViewWillEnter
+} from "@ionic/react";
+import {
+  notificationsOutline,
+  funnelOutline,
+  filterOutline,
+  personCircleOutline,
+} from "ionicons/icons";
+import "./MyWarranty.css";
+
+import Product from "../components/WarrantyItem";
+
+import React, { useState, useEffect } from "react";
+import { RefresherEventDetail } from '@ionic/core';
+
+
+export interface Product {
+  char_id: string;
+  status: string;
+  name: string;
+  product_nickname: string;
+  uuid: string;
+  product_photo: string;
+  category_name: string;
+  retailer_branch_name: string;
+}
+export interface Productprops {
+  item: Product;
+}
+
+const MyWarranty: React.FC<Productprops> = () => {
+  const [searchText, setSearchText] = useState("");
+  const [searchItem, setSearchItem] = useState<Product[]>([]);
+  const [sortBy, setsortBy] = useState("");
+  const [filterBy, setfilterBy] = useState("default");
+  
+  console.log(localStorage.token);
+
+  useEffect(() => {
+    fetchItems();
+    console.log("111111111111");
+  }, []);
+  const [items, setItems] = useState<Product[]>([]);
+  const fetchItems = async () => {
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/get",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    console.log(data);
+    const item = await data.json();
+    console.log(item);
+    setItems(item);
+    console.log(items);
+  };
+
+  useEffect(() => {
+    setSearchItem(
+      items.filter((item) =>
+        item.product_nickname.toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }, [searchText, items]);
+  function sortProduct(item: Array<Product>) {
+    if (sortBy === "Name") {
+      return item.sort((a, b) =>
+        a.product_nickname.localeCompare(b.product_nickname)
+      );
+    } else if (sortBy === "Name Z-A") {
+      return item.sort().reverse();
+    } else if (sortBy === "Product ID") {
+      return item.sort((a, b) => parseInt(a.uuid) - parseInt(b.uuid));
+    } else {
+      return item;
+    }
+  }
+  function filterProduct(item: Array<Product>) {
+    if (filterBy === "default") {
+      return item;
+    } else {
+      return item.filter((x) => x.category_name === filterBy);
+    }
+  }
+  useIonViewWillEnter(() => {
+    console.log('ionViewWillEnter event fired');
+    fetchItems();
+  });
+  
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar color="theme" class="toolbar2">
+          <IonTitle class="title">My Warranty</IonTitle>
+          <IonButton
+            fill="clear"
+            slot="end"
+            size="small"
+            class="ion-no-padding"
+            routerLink="/notification"
+            routerDirection="root"
+          >
+            <IonIcon
+              size="medium"
+              icon={notificationsOutline}
+              color="light"
+            ></IonIcon>
+          </IonButton>
+          <IonButton
+            fill="clear"
+            slot="end"
+            size="small"
+            routerLink="/Profile"
+            routerDirection="root"
+          >
+            <IonIcon
+              size="medium"
+              icon={personCircleOutline}
+              color="light"
+            ></IonIcon>
+          </IonButton>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent>
+        <IonSearchbar
+          color="lightbutton"
+          animated
+          value={searchText}
+          onIonChange={(e) => setSearchText(e.detail.value!)}
+        ></IonSearchbar>
+        <IonToolbar class="ion-no-padding" color="">
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+                <IonButton size="small" fill="clear">
+                  <IonIcon icon={filterOutline} />
+
+                  <IonSelect
+                    value={filterBy}
+                    cancelText="Cancel"
+                    okText="Done"
+                    onIonChange={(e) => setfilterBy(e.detail.value)}
+                  >
+                    <IonSelectOption value="default">All</IonSelectOption>
+                    <IonSelectOption value="Wall & Floor">
+                      Wall & Floor
+                    </IonSelectOption>
+                    <IonSelectOption value="Bathroom">Bathroom</IonSelectOption>
+                    <IonSelectOption value="Furniture Lifestyle">
+                      Furniture Lifestyle
+                    </IonSelectOption>
+                    <IonSelectOption value="Lighting">Lighting</IonSelectOption>
+                    <IonSelectOption value="Home Appliances">
+                      Home Appliances
+                    </IonSelectOption>
+                    <IonSelectOption value="Doors & Windows">
+                      Doors & Windows
+                    </IonSelectOption>
+                    <IonSelectOption value="Paint & Equipment">
+                      Paint & Equipment
+                    </IonSelectOption>
+                    <IonSelectOption value="Tools & Hardware">
+                      Tools & Hardware
+                    </IonSelectOption>
+                    <IonSelectOption value="Garden - Plumbing - DIY">
+                      Garden-Plumbing-DIY
+                    </IonSelectOption>
+                    <IonSelectOption value="Promotion">
+                      Promotion
+                    </IonSelectOption>
+                  </IonSelect>
+                </IonButton>
+              </IonCol>
+              <IonCol></IonCol>
+              <IonCol></IonCol>
+              <IonCol></IonCol>
+              <IonCol>
+                <IonButton size="small" fill="clear">
+                  <IonIcon icon={funnelOutline} />
+                  Sort
+                  <IonSelect
+                    value={sortBy}
+                    cancelText="Cancel"
+                    okText="Done"
+                    onIonChange={(e) => setsortBy(e.detail.value)}
+                  >
+                    <IonSelectOption value="Name">By name A-Z</IonSelectOption>
+                    <IonSelectOption value="Name Z-A">
+                      By name Z-A{" "}
+                    </IonSelectOption>
+                    <IonSelectOption value="Name Z-A">
+                      Name Z-A{" "}
+                    </IonSelectOption>
+                  </IonSelect>
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonToolbar>
+
+        <IonList>
+          <IonLabel class="label2">Products</IonLabel>
+
+          {sortProduct(filterProduct(searchItem)).map((item) => (
+            <Product
+              name={item.product_nickname}
+              serial={item.uuid}
+              image={item.product_photo}
+              description={item.retailer_branch_name}
+              category={item.category_name}
+            ></Product>
+          ))}
+        </IonList>
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default MyWarranty;

@@ -40,12 +40,20 @@ dependencies {
     implementation fileTree(dir: 'src/main/libs', include: ['*.jar'])
     implementation 'org.apache.cordova:framework:7.0.0'
     // SUB-PROJECT DEPENDENCIES START
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 7af641de03631df62045125007c5771c04dd15f4
     // SUB-PROJECT DEPENDENCIES END
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+<<<<<<< HEAD
 apply from: "cordova.variables.gradle"
+=======
+
+>>>>>>> 7af641de03631df62045125007c5771c04dd15f4
 // PLUGIN GRADLE EXTENSIONS END
 
 for (def func : cdvPluginPostBuildExtras) {
