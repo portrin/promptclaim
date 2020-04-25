@@ -12,7 +12,11 @@ import {
 } from "@ionic/react";
 import "./history.css";
 import React, { useState, useEffect } from "react";
-import { personCircleOutline, notifications } from "ionicons/icons";
+import {
+  personCircleOutline,
+  notifications,
+  chevronBackOutline,
+} from "ionicons/icons";
 
 import NotificationItem from "../components/NotificationItem";
 import moment from "moment";
@@ -119,6 +123,13 @@ const Notification: React.FC<Itemprops> = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="theme">
+          <IonButton
+            color="theme"
+            routerLink="/mywarranty"
+            routerDirection="root"
+          >
+            <IonIcon icon={chevronBackOutline}></IonIcon>
+          </IonButton>
           <IonTitle class="title">My Warranty</IonTitle>
           <IonButton
             fill="clear"
