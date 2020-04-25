@@ -291,13 +291,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                   ></IonActionSheet>
                 </IonCol>
               </IonRow>
-              <IonButton
-                expand="block"
-                fill="outline"
-                href="http://www.instagram.com/somd99"
-              >
-                View Policy
-              </IonButton>
+            
 
               <IonButton
                 expand="block"
