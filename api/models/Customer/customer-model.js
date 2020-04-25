@@ -80,7 +80,7 @@ module.exports = class Customer {
         gender = this._gender,
     }) {
         // check datatype
-        checkType(customerId, 'String');
+        checkType(customerId, 'Number');
         checkType(firstname, 'String');
         checkType(lastname, 'String');
         checkType(phoneNo, 'String');
