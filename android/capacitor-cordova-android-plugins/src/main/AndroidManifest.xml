@@ -1,13 +1,3 @@
 <?xml version='1.0' encoding='utf-8'?>
-<<<<<<< HEAD
-<manifest package="capacitor.android.plugins"
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:amazon="http://schemas.amazon.com/apk/res/android">
-<application >
-
-</application>
-
-=======
 <manifest package="capacitor.cordova.android.plugins" xmlns:android='http://schemas.android.com/apk/res/android'>
->>>>>>> 7af641de03631df62045125007c5771c04dd15f4
 </manifest>

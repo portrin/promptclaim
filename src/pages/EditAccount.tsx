@@ -21,11 +21,11 @@ import { Account, ProfileProps } from "./Profile";
 
 const EditAccount: React.FC<ProfileProps> = () => {
   const [showToast1, setShowToast1] = useState(false);
-  const [oldPass, setOldPass] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newPassword2, setNewPassword2] = useState("");
+  const [oldPass, setOldPass] = useState<string>("");
+  const [newEmail, setNewEmail] = useState<string>("");
+  const [currentPassword, setCurrentPassword] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [newPassword2, setNewPassword2] = useState<string>("");
 
   useEffect(() => {
     fetchItems();
@@ -47,6 +47,7 @@ const EditAccount: React.FC<ProfileProps> = () => {
     setItems(items.getAccount);
     console.log(items.getAccount);
     const password1: string = items.getAccount[0].password;
+    const email1: string = items.getAccount[0].email;
     console.log(password1);
     setOldPass(password1);
   };
@@ -76,7 +77,7 @@ const EditAccount: React.FC<ProfileProps> = () => {
   function validateForm(password: string) {
     return (
       password === currentPassword &&
-      newPassword.length > 8 &&
+      newPassword.length > 7 &&
       newPassword === newPassword2
     );
   }
@@ -84,13 +85,13 @@ const EditAccount: React.FC<ProfileProps> = () => {
   const sendNewPass = () => {
     if (validateForm(oldPass)) {
       editData();
+      setShowToast1(true);
     } else {
       console.log("bug");
     }
   };
 
   const onHandleSave = () => {
-    setShowToast1(true);
     sendNewPass();
   };
 

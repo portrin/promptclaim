@@ -136,28 +136,31 @@ const AddWarranty: React.FC = () => {
   };
 
   const fetchBranch = async (name: string) => {
-    console.log(name);
-    console.log(retailerName);
-    console.log(name);
-    setRetailerName(name);
-    console.log(retailerName);
-    setBranchName("");
-    console.log(name);
-    const final = retailer.filter((item) => item.retailer_name === name);
-    await setIdRetail(final[0].retailer_id);
-    const branchRes = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
-        final[0].retailer_id,
-      {
-        headers: {
-          Authorization: localStorage.token,
-        },
-      }
-    );
-    console.log(branchRes);
-    const braItem = await branchRes.json();
-    console.log(braItem);
-    setBranchList(braItem);
+    if (name === undefined || name === "") {
+    } else {
+      console.log(name);
+      console.log(retailerName);
+      console.log(name);
+      setRetailerName(name);
+      console.log(retailerName);
+      setBranchName("");
+      console.log(name);
+      const final = retailer.filter((item) => item.retailer_name === name);
+      await setIdRetail(final[0].retailer_id);
+      const branchRes = await fetch(
+        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
+          final[0].retailer_id,
+        {
+          headers: {
+            Authorization: localStorage.token,
+          },
+        }
+      );
+      console.log(branchRes);
+      const braItem = await branchRes.json();
+      console.log(braItem);
+      setBranchList(braItem);
+    }
   };
 
   const forBranchId = async (name: string) => {
@@ -211,11 +214,12 @@ const AddWarranty: React.FC = () => {
             </IonItem>
             <IonItem>
               <IonLabel position="floating" color="medium">
-                Warranty Number
+                Product Number
               </IonLabel>
+
               <IonInput
-                value={wranNumber}
-                onIonChange={(e) => setWranNumber(e.detail.value!)}
+                value={serial}
+                onIonChange={(e) => setPnumber(e.detail.value!)}
                 clearInput
               ></IonInput>
             </IonItem>

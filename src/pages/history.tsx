@@ -46,7 +46,7 @@ const History: React.FC = () => {
     console.log(data);
     const res = await data.json();
     setItems(res);
-    console.log(items);
+    console.log(res);
   };
 
   return (
@@ -59,7 +59,7 @@ const History: React.FC = () => {
       <IonContent>
         <IonList>
           <IonListHeader>
-            <IonLabel>March</IonLabel>
+            <IonLabel>Claim History</IonLabel>
           </IonListHeader>
           {items.map((item) => (
             <HistoryItem
