@@ -76,7 +76,7 @@ const AddWarranty: React.FC = () => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/product/getRetailer",
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailer",
       {
         headers: {
           Authorization: localStorage.token,
@@ -96,7 +96,7 @@ const AddWarranty: React.FC = () => {
       setShowToast2(true);
     } else {
       const data = await fetch(
-        "http://localhost:8001/customer/product/addproduct",
+        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/addproduct",
         {
           method: "POST",
           headers: {
@@ -143,7 +143,7 @@ const AddWarranty: React.FC = () => {
       const final = retailer.filter((item) => item.retailer_name === name);
       await setIdRetail(final[0].retailer_id);
       const branchRes = await fetch(
-        "http://localhost:8001/customer/product/getRetailerBranchByRetailerId/" +
+        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
           final[0].retailer_id,
         {
           headers: {

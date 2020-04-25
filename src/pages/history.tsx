@@ -35,11 +35,14 @@ const History: React.FC = () => {
   }, []);
   const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/claimlog/get/", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/get/",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     console.log(data);
     const res = await data.json();
     setItems(res);

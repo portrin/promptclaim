@@ -58,22 +58,28 @@ const Notification: React.FC<Itemprops> = () => {
   const [policy, setPolicy] = useState<Policy[]>([]);
 
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/product/get/", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/get/",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     const items = await data.json();
     setItems(items);
     console.log(items);
   };
 
   const fetchPolicy = async () => {
-    const data = await fetch("http://localhost:8001/customer/policy/get/", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/get/",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     const policy = await data.json();
     console.log(policy);
     setPolicy(policy);

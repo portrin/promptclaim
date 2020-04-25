@@ -55,11 +55,14 @@ const MyWarranty: React.FC<Productprops> = () => {
   }, []);
   const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/product/get", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/get",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     console.log(data);
     const item = await data.json();
     console.log(item);
