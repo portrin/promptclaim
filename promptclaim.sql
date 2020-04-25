@@ -527,9 +527,9 @@ VALUES ('1','1'),
 
 DELIMITER //
 CREATE TRIGGER add_profile
-AFTER INSERT ON customer_account
+AFTER INSERT ON Customer_account
 FOR EACH ROW
-INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
+INSERT INTO Customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES(new.account_id, null, null, null, null, null , new.account_id);
 END //
 DELIMITER;
