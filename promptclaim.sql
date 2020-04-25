@@ -23,12 +23,12 @@ CREATE TABLE customer (
 CREATE TABLE customer_address (
 	customer_id INT NOT NULL,
     address_id VARCHAR(6) NOT NULL,
-    house_no VARCHAR(80) NOT NULL,
+    house_no VARCHAR(80),
     street VARCHAR(80),
-    sub_district VARCHAR(80) NOT NULL,
-    district VARCHAR(80) NOT NULL,
-    province VARCHAR(80) NOT NULL,
-    zipcode VARCHAR(5) NOT NULL,
+    sub_district VARCHAR(80),
+    district VARCHAR(80),
+    province VARCHAR(80),
+    zipcode VARCHAR(5),
     PRIMARY KEY(customer_id, address_id),
     FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE
 );
@@ -55,9 +55,9 @@ CREATE TABLE policy_owner (
 
 CREATE TABLE retailer (
 	retailer_id VARCHAR(6) NOT NULL,
-    retailer_contact VARCHAR(12) NOT NULL,
-    retailer_name VARCHAR(80) NOT NULL,
-    retailer_hq_address VARCHAR(256) NOT NULL,
+    retailer_contact VARCHAR(12),
+    retailer_name VARCHAR(80),
+    retailer_hq_address VARCHAR(256),
     retailer_description VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
@@ -70,9 +70,9 @@ CREATE TABLE retailer (
 CREATE TABLE retailer_branch (
 	retailer_id VARCHAR(6) NOT NULL,
     retailer_branch_id VARCHAR(6) NOT NULL,
-    retailer_branch_name VARCHAR(80) NOT NULL,
-    retailer_branch_contact VARCHAR(12) NOT NULL,
-    retailer_branch_address VARCHAR(80) NOT NULL,
+    retailer_branch_name VARCHAR(80),
+    retailer_branch_contact VARCHAR(12),
+    retailer_branch_address VARCHAR(80),
     PRIMARY KEY(retailer_id, retailer_branch_id),
     FOREIGN KEY(retailer_id) REFERENCES retailer(retailer_id) ON DELETE CASCADE
 );
@@ -131,9 +131,9 @@ CREATE TABLE role_in_group (
 CREATE TABLE supplier (
 	supplier_id VARCHAR(6) NOT NULL,
     supplier_description VARCHAR(256),
-    supplier_name VARCHAR(80) NOT NULL,
-    supplier_contact VARCHAR(10) NOT NULL,
-    supplier_address VARCHAR(256) NOT NULL,
+    supplier_name VARCHAR(80),
+    supplier_contact VARCHAR(10),
+    supplier_address VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
     PRIMARY KEY(supplier_id),
@@ -143,8 +143,8 @@ CREATE TABLE supplier (
 
 CREATE TABLE product (
 	product_no VARCHAR(80) NOT NULL,
-    product_model VARCHAR(80) NOT NULL,
-    product_name VARCHAR(80) NOT NULL,
+    product_model VARCHAR(80),
+    product_name VARCHAR(80),
     product_description VARCHAR(256),
     supplier_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(product_no),
@@ -153,19 +153,19 @@ CREATE TABLE product (
 
 CREATE TABLE purchased_product (
 	uuid INT AUTO_INCREMENT NOT NULL,
-	serial_no VARCHAR(80) NOT NULL,
-    product_no VARCHAR(80) NOT NULL,
+	serial_no VARCHAR(80),
+    product_no VARCHAR(80),
     customer_id INT NOT NULL,
     product_nickname VARCHAR(80),
-    price DOUBLE NOT NULL,
+    price DOUBLE,
     invoice_id VARCHAR(80),
     create_timestamp TIMESTAMP,
     retailer_branch_id VARCHAR(6),
     retailer_id VARCHAR(6),
     invoice_photo VARCHAR(1000),
-	is_validate BOOLEAN NOT NULL,
+	is_validate BOOLEAN,
     product_photo VARCHAR(1000),
-    claim_qty INT NOT NULL,
+    claim_qty INT,
     warranty_photo VARCHAR(1000),
     PRIMARY KEY(uuid),
     FOREIGN KEY(product_no) REFERENCES product(product_no) ON DELETE CASCADE,
@@ -175,9 +175,9 @@ CREATE TABLE purchased_product (
 
 CREATE TABLE policy (
 	policy_id VARCHAR(6) NOT NULL,
-    policy_period VARCHAR(80) NOT NULL,
+    policy_period VARCHAR(80),
     policy_description VARCHAR(256),
-    date_created DATE NOT NULL,
+    date_created DATE,
     policy_owner_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id),
     FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
@@ -185,9 +185,9 @@ CREATE TABLE policy (
 
 CREATE TABLE third_party (
 	third_party_id VARCHAR(6) NOT NULL,
-    third_party_address VARCHAR(256) NOT NULL,
-    third_party_name VARCHAR(80) NOT NULL,
-    third_party_contact VARCHAR(10) NOT NULL,
+    third_party_address VARCHAR(256),
+    third_party_name VARCHAR(80),
+    third_party_contact VARCHAR(10),
     third_party_description VARCHAR(256),
     root_id VARCHAR(6),
     policy_owner_id VARCHAR(6),
@@ -198,8 +198,8 @@ CREATE TABLE third_party (
 
 CREATE TABLE service_center (
 	service_center_id VARCHAR(6) NOT NULL,
-    service_center_name VARCHAR(80) NOT NULL,
-    service_center_hq_address VARCHAR(256) NOT NULL,
+    service_center_name VARCHAR(80),
+    service_center_hq_address VARCHAR(256),
     service_center_description VARCHAR(256),
     PRIMARY KEY(service_center_id)
 );
@@ -207,9 +207,9 @@ CREATE TABLE service_center (
 CREATE TABLE service_center_branch (
 	service_center_branch_id VARCHAR(6) NOT NULL,
     service_center_id VARCHAR(6) NOT NULL,
-    service_center_branch_name VARCHAR(80) NOT NULL,
-    service_center_branch_contact VARCHAR(10) NOT NULL,
-    service_center_branch_address VARCHAR(256) NOT NULL,
+    service_center_branch_name VARCHAR(80),
+    service_center_branch_contact VARCHAR(10),
+    service_center_branch_address VARCHAR(256),
     PRIMARY KEY(service_center_branch_id, service_center_id),
     FOREIGN KEY(service_center_id) REFERENCES service_center(service_center_id) ON DELETE CASCADE
 );
@@ -224,8 +224,8 @@ CREATE TABLE product_classify_as (
 
 CREATE TABLE claim_log (
 	claim_id INT AUTO_INCREMENT NOT NULL,
-    status VARCHAR(256) NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+    status VARCHAR(256),
+    timestamp TIMESTAMP,
     uuid INT NOT NULL,
     service_center_id VARCHAR(6),
     service_center_branch_id VARCHAR(6),
@@ -246,8 +246,8 @@ CREATE TABLE policy_available_at (
 CREATE TABLE product_has_policy (
 	policy_id VARCHAR(6) NOT NULL,
     uuid INT NOT NULL,
-    policy_start_date DATE,
-    policy_end_date DATE,
+    policy_start_date DATE NOT NULL,
+    policy_end_date DATE NOT NULL,
     timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
     FOREIGN KEY(policy_id) REFERENCES policy(policy_id) ON DELETE CASCADE,
