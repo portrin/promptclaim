@@ -67,7 +67,7 @@ module.exports = class CustomerAccount{
         email = this._email
     }) {
         // check datatype
-        checkType(accountId, 'String');
+        checkType(accountId, 'Number');
         checkType(username, 'String');
         checkType(password, 'String');
         checkType(email, 'String');
