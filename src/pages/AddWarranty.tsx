@@ -50,7 +50,6 @@ const AddWarranty: React.FC = () => {
   const [pname, setPname] = useState<string>("");
   const [serial, setSerial] = useState<string>("");
   const [wranNumber, setWranNumber] = useState<string>();
-  const [wranLife, setWranLife] = useState<string>();
   const [pNumber, setPnumber] = useState<string>();
   const [retailer, setRetailer] = useState<Retailer[]>([]);
   const [retailerName, setRetailerName] = useState<string>("");
@@ -217,16 +216,6 @@ const AddWarranty: React.FC = () => {
               <IonInput
                 value={wranNumber}
                 onIonChange={(e) => setWranNumber(e.detail.value!)}
-                clearInput
-              ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel position="floating" color="medium">
-                Warranty Life
-              </IonLabel>
-              <IonInput
-                value={wranLife}
-                onIonChange={(e) => setWranLife(e.detail.value!)}
                 clearInput
               ></IonInput>
             </IonItem>
