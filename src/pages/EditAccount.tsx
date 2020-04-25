@@ -34,11 +34,14 @@ const EditAccount: React.FC<ProfileProps> = () => {
 
   const [items, setItems] = useState<Account[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/account/get", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/account/get",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     console.log(data);
     const items = await data.json();
     setItems(items.getAccount);
@@ -50,17 +53,20 @@ const EditAccount: React.FC<ProfileProps> = () => {
 
   const [items2, setItems2] = useState<Account[]>([]);
   const editData = async () => {
-    const data2 = await fetch("http://localhost:8001/customer/account/edit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.token,
-      },
-      body: JSON.stringify({
-        email: newEmail,
-        password: newPassword,
-      }),
-    });
+    const data2 = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/account/edit",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.token,
+        },
+        body: JSON.stringify({
+          email: newEmail,
+          password: newPassword,
+        }),
+      }
+    );
     console.log(data2);
     const items2 = await data2.json();
     setItems2(items2.getAccount);

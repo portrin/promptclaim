@@ -36,11 +36,14 @@ const EditProfile: React.FC<ProfileProps> = () => {
 
   const [items, setItems] = useState<Profile[]>([]);
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/profile/get", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/get",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
 
     const items = await data.json();
     setItems(items.getProfile);
@@ -62,19 +65,22 @@ const EditProfile: React.FC<ProfileProps> = () => {
 
   const [items2, setItems2] = useState<Profile[]>([]);
   const editData = async () => {
-    const data2 = await fetch("http://localhost:8001/customer/profile/edit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.token,
-      },
-      body: JSON.stringify({
-        firstname: fname,
-        lastname: lname,
-        phone_no: phonenum,
-        birth_date: bdate,
-      }),
-    });
+    const data2 = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/edit",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.token,
+        },
+        body: JSON.stringify({
+          firstname: fname,
+          lastname: lname,
+          phone_no: phonenum,
+          birth_date: bdate,
+        }),
+      }
+    );
     console.log(data2);
 
     const items2 = await data2.json();

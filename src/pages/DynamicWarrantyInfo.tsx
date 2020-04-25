@@ -50,6 +50,7 @@ export interface Product {
   supplier_name: string;
   contact: string;
   retailer_branch_name: string;
+  product_photo: string;
 }
 export interface Productprops {
   item: Product;
@@ -124,7 +125,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   console.log(moment(displayDate).add(1, "days").format());
   const fetchPolicy = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/policy/getByUuid/" + match.params.id,
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/getByUuid/" +
+        match.params.id,
       {
         headers: {
           Authorization: localStorage.token,
@@ -147,7 +149,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/product/getByUuid/" + match.params.id,
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getByUuid/" +
+        match.params.id,
       {
         headers: {
           Authorization: localStorage.token,
@@ -187,7 +190,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
   const removeProduct = async () => {
     const data = await fetch(
-      "http://localhost:8001/customer/product/deleteByUuid/" + match.params.id,
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/deleteByUuid/" +
+        match.params.id,
       {
         method: "DELETE",
 
@@ -231,12 +235,12 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             <IonSlides pager={true} options={slideOpts}>
               <IonSlide>
                 {item.map((item) => (
-                  <IonImg src={item.img}></IonImg>
+                  <IonImg src={item.product_photo}></IonImg>
                 ))}
               </IonSlide>
               <IonSlide>
                 {item.map((item) => (
-                  <IonImg src={item.img}></IonImg>
+                  <IonImg src={item.product_photo}></IonImg>
                 ))}
               </IonSlide>{" "}
               <IonSlide>

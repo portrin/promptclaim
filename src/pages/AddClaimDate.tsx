@@ -53,11 +53,14 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
   const [dylink, setDyLink] = useState("/myWarranty/" + match.params.id);
 
   const fetchItems = async () => {
-    const data = await fetch("http://localhost:8001/customer/claimlog/get/", {
-      headers: {
-        Authorization: localStorage.token,
-      },
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/get/",
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
     console.log(data);
     const item = await data.json();
     setItem(item);
@@ -67,26 +70,30 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
   };
 
   const addClaim = async () => {
-    const data = await fetch("http://localhost:8001/customer/claimlog/add/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.token,
-      },
-      body: JSON.stringify({
-        timestamp: selectedDate,
-        status: "claimed",
-        uuid: match.params.id,
-        serviceCenterId: null,
-        serviceCenterBranchId: null,
-      }),
-    });
+    const data = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/add/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.token,
+        },
+        body: JSON.stringify({
+          timestamp: selectedDate,
+          status: "claimed",
+          uuid: match.params.id,
+          serviceCenterId: null,
+          serviceCenterBranchId: null,
+        }),
+      }
+    );
     console.log(data);
     if (data.status === 200) {
       setShowToast1(true);
     }
     fetchItems();
   };
+
   return (
     <IonPage>
       <IonHeader>
