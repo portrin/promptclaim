@@ -401,8 +401,8 @@ VALUES ('000001', 'Sell IT stuffs', 'Power Buy', '0945593841', '5/117', 'S00001'
 ('000007', 'Sell furnitures', 'Koncept', '0945593843', '11/12 Dell headquarter, Bangrak, 10120', null, 'KC0001');
 
 INSERT INTO Product (product_no, product_model, product_name, product_description, supplier_id)
-VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
-('AAAAA2', 'BBBBB2', 'bed', 'A very smart bed', '000001'),
+VALUES ('AAAAA1', 'BBBBB1', 'STEFAN chair', 'A very smart chair', '000001'),
+('AAAAA2', 'BBBBB2', 'INGO table', 'A very smart table', '000001'),
 ('AAAAA3', 'BBBBB3', 'table', 'A very smart table', '000002'),
 ('AAAAA4', 'BBBBB4', 'sofa', 'A very smart sofa', '000002'),
 ('AAAAA5', 'BBBBB5', 'fan', 'A very smart fan', '000003'),
@@ -420,7 +420,9 @@ VALUES ('AAAAA1', 'BBBBB1', 'chair', 'A very smart chair', '000001'),
 ('AAAA17', 'BBBB17', 'dish washer', 'A very smart dish washer', '000003'),
 ('AAAA18', 'BBBB18', 'pressure cooker', 'A very smart pressure cooker', '000004'),
 ('AAAA19', 'BBBB19', 'electric guitar', 'A very smart electric guitar', '000005'),
-('AAAA20', 'BBBB20', 'smartphone', 'A very smart smartphone', '000006');
+('AAAA20', 'BBBB20', 'smartphone', 'A very smart smartphone', '000006'),
+('AAAA21', 'BBBB21', 'JANINGE chair', 'function and quality in one chair', '000001'),
+('AAAA22', 'BBBB22', 'VANGSTA table', 'A durable dining table that makes it easy to have big dinners.', '000001');
 
 
 INSERT INTO Purchased_product (serial_no, product_no, customer_id, product_nickname, price, invoice_id, create_timestamp, retailer_branch_id, retailer_id, invoice_photo, is_validate, product_photo, claim_qty, warranty_photo)
@@ -434,10 +436,12 @@ VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00
 ('SSSS12', 'AAAA11', '1', 'my dryer', '2500', '000011', '2020-03-03', '00002B', '000002', 'photo3', True, 'https://images.homedepot-static.com/productImages/ef33d316-3fa6-4e90-8d52-1fc65baee64c/svn/white-lg-electronics-electric-dryers-dle3500w-64_1000.jpg', '1', 'warrantyphoto4'),
 ('SSSS13', 'AAAA12', '1', 'my coffee maker', '2500', '000012', '2020-03-03', '00003A', '000003', 'photo3', True, 'https://res.cloudinary.com/cenergy-innovation-limited-head-office/image/fetch/c_scale,q_70,f_auto,h_740/https://d1dtruvuor2iuy.cloudfront.net/media/catalog/product/p/w/pwb000251296.jpg', '1', 'warrantyphoto4'),
 ('SSSS14', 'AAAA13', '1', 'my blender', '2500', '000013', '2020-03-03', '00003A', '000003', 'photo3', True, 'https://www.princesshome.eu/product/image/medium/01.212079.01.001_1.jpg', '1', 'warrantyphoto4'),
-('SSSS15', 'AAAA14', '1', 'my toaster', '2500', '000014', '2020-03-03', '00003A', '000003', 'photo3', True, 'https://target.scene7.com/is/image/Target/GUEST_8cbce1ab-9e22-4e87-8828-397ec97fc2e6?wid=488&hei=488&fmt=pjpeg', '1', 'warrantyphoto4');
+('SSSS15', 'AAAA14', '1', 'my toaster', '2500', '000014', '2020-03-03', '00003A', '000003', 'photo3', True, 'https://target.scene7.com/is/image/Target/GUEST_8cbce1ab-9e22-4e87-8828-397ec97fc2e6?wid=488&hei=488&fmt=pjpeg', '1', 'warrantyphoto4'),
+('SSSS16', 'AAAA21', '1', 'my chair', '2500', '000014', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://www.ikea.com/th/en/images/products/janinge-chair__0728156_PE736116_S5.JPG', '1', 'warrantyphoto4'),
+('SSSS17', 'AAAA22', '1', 'my table', '2500', '000014', '2020-03-03', '00001A', '000001', 'photo3', True, 'https://www.ikea.com/th/en/images/products/vangsta-extendable-table__0809397_PE771036_S5.JPG', '1', 'warrantyphoto4');
 
 INSERT INTO Policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) 
-VALUES ('001', '3 years', 'Awesome policy', DATE'2020-12-15', 'IKEA01'),
+VALUES ('001', '3 years', 'The guarantee remains in force for 3 years and is valid from the date of purchase. The original purchase receipt is required as proof of purchase.', DATE'2020-12-15', 'IKEA01'),
 ('002', '1 year', 'Mediocre policy', DATE'2020-1-9', 'BTV002'),
 ('003', '0.5 year', 'Awful policy', DATE'2020-4-13', 'ZARA04');
 
@@ -465,16 +469,18 @@ VALUES ('4', 'AAAAA1'),
 
 INSERT INTO Product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
 VALUES ('001', '1', DATE'2019-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:00:01'),
-('002', '2', DATE'2019-04-02', DATE'2020-12-18', TIMESTAMP'2008-01-01 00:00:02'),
-('003', '3', DATE'2019-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),
+('001', '2', DATE'2019-04-02', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:02'),
+('001', '3', DATE'2019-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),
 ('001', '4', DATE'2019-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04'),
 ('001', '5', DATE'2019-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04'),
 ('002', '6', DATE'2019-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04'),
 ('003', '7', DATE'2019-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04'),
 ('002', '8', DATE'2019-04-01', DATE'2020-12-17', TIMESTAMP'2008-01-01 00:00:04'),
 ('002', '9', DATE'2019-04-01', DATE'2020-05-03', TIMESTAMP'2008-01-01 00:00:04'),
-('001', '10', DATE'2019-04-01', DATE'2020-05-02', TIMESTAMP'2008-01-01 00:00:04'),
-('001', '11', DATE'2019-04-01', DATE'2020-05-01', TIMESTAMP'2008-01-01 00:00:04');
+('003', '10', DATE'2019-04-01', DATE'2020-05-02', TIMESTAMP'2008-01-01 00:00:04'),
+('003', '11', DATE'2019-04-01', DATE'2020-05-01', TIMESTAMP'2008-01-01 00:00:04'),
+('001', '12', DATE'2019-02-02', DATE'2020-11-14', TIMESTAMP'2008-01-01 00:00:03'),
+('001', '13', DATE'2019-03-03', DATE'2020-10-16', TIMESTAMP'2008-01-01 00:00:05');
 
 
 INSERT INTO Service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description)
