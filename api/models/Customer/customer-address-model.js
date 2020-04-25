@@ -116,7 +116,7 @@ module.exports = class CustomerAddress {
     zipcode = this._zipcode,
   }) {
     // check datatype
-    checkType(customerId, "String");
+    checkType(customerId, "Number");
     checkType(addressId, "String");
     checkType(houseNo, "String");
     checkType(street, "String");
