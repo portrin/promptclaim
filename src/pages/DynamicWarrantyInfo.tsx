@@ -297,7 +297,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
               <IonButton
                 expand="block"
-                routerLink={`/addClaimDate/${match.params.id}`}
+                href={`/addClaimDate/${match.params.id}`}
                 routerDirection="root"
               >
                 Add Claim Date
