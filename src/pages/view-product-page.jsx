@@ -48,7 +48,7 @@ export const ViewProductPage = (props) => {
             />
           </Descriptions.Item>
           <Descriptions.Item label="Product Information">
-            Purchase date: {item.map((item) => item.create_timestamp)}
+            Purchase date: {item.map((item) => item.create_timestamp.substr(0,10))}
             <br />
             Serial Number: {item.map((item) => item.serial_no)}
             <br />
@@ -66,12 +66,12 @@ export const ViewProductPage = (props) => {
             <br />
             Phone Number: {item.map((item) => item.phone_no)}
             <br />
-            Birth Date: {item.map((item) => item.birth_date)}
+            Birth Date: {item.map((item) => item.birth_date.substr(0,10))}
           </Descriptions.Item>
           <Descriptions.Item label="Claim Information">
-            Start Date: {item.map((item) => item.policy_start_date)}
+            Start Date: {item.map((item) => item.policy_start_date.substr(0,10))}
             <br />
-            End Date: {item.map((item) => item.policy_end_date)}
+            End Date: {item.map((item) => item.policy_end_date.substr(0,10))}
             <br />
             Claim Period: {item.map((item) => item.policy_period)}
             <br />

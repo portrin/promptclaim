@@ -39,7 +39,7 @@ export const MainProductPage = (props) => {
     name: item.product_name,
     serial: item.serial_no,
     product: item.product_no,
-    expiry: item.policy_end_date,
+    expiry: item.policy_end_date.substr(0,10),
   }))
 
   //Dashboard
@@ -75,37 +75,45 @@ const columns = [
     // specify the filter category
     filters: [
       {
-        text: 'Toilet Bowl',
-        value: 'Toilet Bowl',
+        text: 'chair',
+        value: 'chair',
       },
       {
-        text: 'Air Conditioner',
-        value: 'Air Conditioner',
+        text: 'table',
+        value: 'table',
       },
       {
-        text: 'Water Heater',
-        value: 'Water Heater',
+        text: 'lamp',
+        value: 'lamp',
       },
+      {
+        text: 'fridge',
+        value: 'fridge',
+      },
+      {
+        text: 'washing machinee',
+        value: 'washing machine',
+      }
     ],
     // specify the condition of filtering result
     // here is that finding the name started with `value`
     onFilter: (value, record) => record.name.indexOf(value) !== -1,
-    sorter: (a, b) => a.name.length - b.name.length,
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     title: 'Serial No.',
     dataIndex: 'serial',
-    sorter: (a, b) => a.serial - b.serial,
+    sorter: (a, b) => a.key - b.key,
   },
   {
     title: 'Product No.',
     dataIndex: 'product',
-    sorter: (a, b) => a.warranty - b.warranty,
+    sorter: (a, b) => a.key - b.key,
   },
   {
     title: 'Expiry Date',
     dataIndex: 'expiry',
-    sorter: (a, b) => a.expiry2 - b.expiry2,
+    sorter: (a, b) => a.expiry[5,6] - b.expiry[5,6],
   },
 ]
 
