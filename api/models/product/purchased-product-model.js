@@ -191,7 +191,7 @@ module.exports = class PurchasedProduct {
         checkType(isValidate, 'Number');
         checkType(productPhoto, 'String');
         checkType(claimQty, 'Number');
-        checkType(createTimestamp, 'Date');
+        checkType(createTimestamp, 'String');
         checkType(invoicePhoto, 'String');
         checkType(warrantyPhoto, 'String');
 
