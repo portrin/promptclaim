@@ -180,7 +180,7 @@ CREATE TABLE Policy (
     date_created DATE NOT NULL,
     policy_owner_id VARCHAR(6) NOT NULL,
     PRIMARY KEY(policy_id),
-    FOREIGN KEY(policy_owner_id) REFERENCES policy_owner(policy_owner_id) ON DELETE CASCADE
+    FOREIGN KEY(policy_owner_id) REFERENCES Policy_owner(policy_owner_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Third_party (
@@ -436,12 +436,12 @@ VALUES ('SSSSS1', 'AAAAA1', '1', 'my chair', '2500', '000001', '2020-03-03', '00
 ('SSSS14', 'AAAA13', '1', 'my blender', '2500', '000013', '2020-03-03', '00003A', '000003', 'photo3', True, 'https://www.princesshome.eu/product/image/medium/01.212079.01.001_1.jpg', '1', 'warrantyphoto4'),
 ('SSSS15', 'AAAA14', '1', 'my toaster', '2500', '000014', '2020-03-03', '00003A', '000003', 'photo3', True, 'https://target.scene7.com/is/image/Target/GUEST_8cbce1ab-9e22-4e87-8828-397ec97fc2e6?wid=488&hei=488&fmt=pjpeg', '1', 'warrantyphoto4');
 
-INSERT INTO policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) 
+INSERT INTO Policy(policy_id, policy_period, policy_description, date_created, policy_owner_id) 
 VALUES ('001', '3 years', 'Awesome policy', DATE'2020-12-15', 'IKEA01'),
 ('002', '1 year', 'Mediocre policy', DATE'2020-1-9', 'BTV002'),
 ('003', '0.5 year', 'Awful policy', DATE'2020-4-13', 'ZARA04');
 
-INSERT INTO product_classify_as(category_id, product_no) 
+INSERT INTO Product_classify_as(category_id, product_no) 
 VALUES ('4', 'AAAAA1'),
 ('4', 'AAAAA2'),
 ('4', 'AAAAA3'),
@@ -463,7 +463,7 @@ VALUES ('4', 'AAAAA1'),
 ('9', 'AAAA19'),
 ('9', 'AAAA20');
 
-INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
+INSERT INTO Product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
 VALUES ('001', '1', DATE'2019-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:00:01'),
 ('002', '2', DATE'2019-04-02', DATE'2020-12-18', TIMESTAMP'2008-01-01 00:00:02'),
 ('003', '3', DATE'2019-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),
@@ -477,12 +477,12 @@ VALUES ('001', '1', DATE'2019-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:
 ('001', '11', DATE'2019-04-01', DATE'2020-05-01', TIMESTAMP'2008-01-01 00:00:04');
 
 
-INSERT INTO service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description)
+INSERT INTO Service_center(service_center_id, service_center_name, service_center_hq_address, service_center_description)
 VALUES ('1', 'IKEA service', 'Bangna', 'This place services IKEA'),
 ('2', 'Boonthavorn service', 'Sukhumvit53', 'This place services Boonthavorn'),
 ('3', 'ZARA home service', 'Paragon', 'This place services ZARA home');
 
-INSERT INTO service_center_branch(service_center_branch_id, service_center_id, service_center_branch_name, service_center_branch_contact, service_center_branch_address)
+INSERT INTO Service_center_branch(service_center_branch_id, service_center_id, service_center_branch_name, service_center_branch_contact, service_center_branch_address)
 VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('1', '2', 'Ratchada', '021234567', 'Ratchada, Bangkok, 12345'),
 ('1', '3', 'Paragon', '027777777', 'Paragon, Bangkok, 12345'),
@@ -490,12 +490,12 @@ VALUES ('1', '1', 'Bangna', '020000000', 'Bangna, Bangkok, 12345'),
 ('2', '2', 'Puttamonthol', '029876543', 'Puttamonthol, Bangkok, 12345'),
 ('2', '3', 'Central World', '028888888', 'Central World, Bangkok, 12345');
 
-INSERT INTO policy_available_at(policy_id, service_center_branch_id, service_center_id) 
+INSERT INTO Policy_available_at(policy_id, service_center_branch_id, service_center_id) 
 VALUES ('001', '1', '1'),
 ('002', '2', '1'),
 ('003', '1', '2');
 
-INSERT INTO third_party(third_party_id, third_party_address, third_party_name, third_party_contact, third_party_description, root_id, policy_owner_id)
+INSERT INTO Third_party(third_party_id, third_party_address, third_party_name, third_party_contact, third_party_description, root_id, policy_owner_id)
 VALUES ('000001', 'MBK', 'ShowHuay', '0860623462', 'Shady third party', '000003', 'SH01');
 
 INSERT INTO Claim_log (status, timestamp, uuid, service_center_id, service_center_branch_id)
@@ -512,7 +512,7 @@ CREATE TABLE Notification (
     PRIMARY KEY (noti_id),
 	FOREIGN KEY (customer_id) REFERENCES Customer(customer_id)); 
     
-INSERT INTO notification(message, timestamp, customer_id) 
+INSERT INTO Notification(message, timestamp, customer_id) 
 VALUES ('The product has been claimed', '2020-01-18 11:00:01', '1'),
 ('Expiration date tomorrow', '2020-02-18 11:00:01', '2'),
 ('Promotion for curry', '2020-03-18 11:00:01', '3');
@@ -523,8 +523,13 @@ VALUES ('1','1'),
 ('3','3'),
 ('4','4');
 
+
+
+DELIMITER //
 CREATE TRIGGER add_profile
 AFTER INSERT ON customer_account
 FOR EACH ROW
 INSERT INTO customer(customer_id, firstname, lastname, phone_no, birth_date, gender, account_id)
 VALUES(new.account_id, null, null, null, null, null , new.account_id);
+END //
+DELIMITER;
