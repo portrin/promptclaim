@@ -102,12 +102,12 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       setTextColor("");
     }
   };
-  console.log(displayDate);
 
   const sendEdit = async () => {
     try {
       const data = await fetch(
-        "http://localhost:8001/customer/product/editbyuuid/" + match.params.id,
+        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/editbyuuid/" +
+          match.params.id,
         {
           method: "POST",
           headers: {
@@ -124,7 +124,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
       //
     }
   };
-  console.log(moment(displayDate).add(1, "days").format());
   const fetchPolicy = async () => {
     const data = await fetch(
       "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/getByUuid/" +
@@ -137,10 +136,9 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     );
     const policy = await data.json();
     setPolicy(policy);
-    console.log(policy);
+
     var dateFormat = policy[0].policy_end_date.split("T")[0];
-    console.log(dateFormat);
-    console.log("Days =");
+
     function countDay() {
       var today = moment();
       var purchase = moment(dateFormat);
@@ -171,8 +169,6 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     setphoneNumRe(item[0].retailer_contact);
 
     setdisplayDate(item[0].create_timestamp.split("T")[0]);
-
-    console.log("Days =");
 
     setTodayD(todayD.split("T")[0]);
   };
