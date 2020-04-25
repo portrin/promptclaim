@@ -53,7 +53,7 @@ const AddWarranty: React.FC = () => {
   const [wranLife, setWranLife] = useState<string>();
   const [pNumber, setPnumber] = useState<string>();
   const [retailer, setRetailer] = useState<Retailer[]>([]);
-  const [retailerName, setRetailerName] = useState<string>();
+  const [retailerName, setRetailerName] = useState<string>("");
   const [branchList, setBranchList] = useState<Branch[]>([]);
   const [branchName, setBranchName] = useState<string>("");
   const { photos, takePhoto } = usePhotoGallery();
@@ -91,7 +91,8 @@ const AddWarranty: React.FC = () => {
   };
 
   const addProduct = async () => {
-    if (serial === "" || pname === "") {
+    console.log("add");
+    if (serial === "" || pname === "" || branchName === "") {
       console.log("no input");
       setShowToast2(true);
     } else {
@@ -116,6 +117,7 @@ const AddWarranty: React.FC = () => {
           }),
         }
       );
+      console.log("adddd");
       console.log(data);
       const response = await data.json();
       console.log(response);
@@ -135,37 +137,43 @@ const AddWarranty: React.FC = () => {
   };
 
   const fetchBranch = async (name: string) => {
-    if (retailerName === "") {
-      setRetailerName(name);
-      console.log(retailerName);
-      setBranchName("");
-      console.log(name);
-      const final = retailer.filter((item) => item.retailer_name === name);
-      await setIdRetail(final[0].retailer_id);
-      const branchRes = await fetch(
-        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
-          final[0].retailer_id,
-        {
-          headers: {
-            Authorization: localStorage.token,
-          },
-        }
-      );
-      console.log(branchRes);
-      const braItem = await branchRes.json();
-      console.log(braItem);
-      setBranchList(braItem);
-    }
+    console.log(name);
+    console.log(retailerName);
+    console.log(name);
+    setRetailerName(name);
+    console.log(retailerName);
+    setBranchName("");
+    console.log(name);
+    const final = retailer.filter((item) => item.retailer_name === name);
+    await setIdRetail(final[0].retailer_id);
+    const branchRes = await fetch(
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
+        final[0].retailer_id,
+      {
+        headers: {
+          Authorization: localStorage.token,
+        },
+      }
+    );
+    console.log(branchRes);
+    const braItem = await branchRes.json();
+    console.log(braItem);
+    setBranchList(braItem);
   };
 
   const forBranchId = async (name: string) => {
-    setBranchName(name);
-    console.log(branchName);
-    if (branchName === "") {
-      const ress = branchList.filter(
-        (item) => item.retailer_branch_name === name
-      );
-      await setIdBranch(ress[0].retailer_branch_id);
+    if (name === undefined || name === "") {
+      setBranchName("");
+    } else {
+      console.log(name);
+      setBranchName(name);
+      console.log(branchName);
+      if (branchName === "") {
+        const ress = branchList.filter(
+          (item) => item.retailer_branch_name === name
+        );
+        await setIdBranch(ress[0].retailer_branch_id);
+      }
     }
   };
 
