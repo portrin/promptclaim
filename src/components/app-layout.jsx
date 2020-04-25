@@ -2,7 +2,6 @@ import React from 'react'
 import { Layout, Breadcrumb, Row, Col } from 'antd'
 import { Topbar } from '../components/header'
 import { Bottombar } from '../components/footer'
-import { SearchBar } from '../components/search-bar'
 import { Sidebar } from '../components/sider'
 const { Content } = Layout
 

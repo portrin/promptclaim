@@ -5,10 +5,6 @@ import { useParams } from 'react-router-dom'
 
 const { Panel } = Collapse
 
-function callback(key) {
-  console.log(key)
-}
-
 export const ViewPolicyPage = (props) => {
   let { key } = useParams()
   //API
