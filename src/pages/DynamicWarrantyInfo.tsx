@@ -48,7 +48,8 @@ export interface Product {
   create_timestamp: string;
   serial_no: string;
   supplier_name: string;
-  contact: string;
+  retailer_contact: string;
+  supplier_contact: string;
   retailer_branch_name: string;
   product_photo: string;
 }
@@ -75,6 +76,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
   const [showToast1, setShowToast1] = useState(false);
   const [phoneNum, setphoneNum] = useState("");
+  const [phoneNumRe, setphoneNumRe] = useState("");
   const [remainingPeriod, setRemainingPeriod] = useState("");
   const [displayDate, setdisplayDate] = useState("");
   const [serial, setSerial] = useState("");
@@ -165,7 +167,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     setSerial(item[0].serial_no);
     setSupplier(item[0].supplier_name);
     setRetailer(item[0].retailer_branch_name);
-    setphoneNum(item[0].contact);
+    setphoneNum(item[0].supplier_contact);
+    setphoneNumRe(item[0].retailer_contact);
 
     setdisplayDate(item[0].create_timestamp.split("T")[0]);
 
@@ -284,7 +287,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                         text: "Contact Retailer",
                         icon: call,
                         handler: () => {
-                          console.log("Contact Re clicked");
+                          window.location.href = "tel:" + phoneNumRe;
                         },
                       },
                     ]}
