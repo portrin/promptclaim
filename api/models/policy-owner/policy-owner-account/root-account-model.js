@@ -17,7 +17,7 @@ module.exports = class RootAccount {
     //CRUD
     _create () {
         return db.execute(
-            'INSERT INTO Root_account(root_id, username, password, type) VALUES(?, ?, ?, ?)',
+            'INSERT INTO root_account(root_id, username, password, type) VALUES(?, ?, ?, ?)',
             [this._rootId,
             this._username,
             this._password,
@@ -26,20 +26,20 @@ module.exports = class RootAccount {
 
     static _readByRootId (rootId) {
         return db.execute(
-            'SELECT * FROM Root_account WHERE root_id = ?',
+            'SELECT * FROM root_account WHERE root_id = ?',
             [rootId]
             )
     }
 
     static _read() {
         return db.execute(
-            'SELECT * FROM Root_account'
+            'SELECT * FROM root_account'
         )
     }
 
     _update () {
         return db.execute(
-            'UPDATE Root_account SET username = ?, password = ?, type = ? WHERE root_id = ?', 
+            'UPDATE root_account SET username = ?, password = ?, type = ? WHERE root_id = ?', 
             [this._username,
             this._password,
             this._type,
@@ -49,7 +49,7 @@ module.exports = class RootAccount {
 
     _delete () {
         return db.execute(
-            'DELETE FROM Root_account WHERE root_id = ?', 
+            'DELETE FROM root_account WHERE root_id = ?', 
             [this._rootId])
     }
     // getter and setter

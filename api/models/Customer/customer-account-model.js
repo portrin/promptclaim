@@ -14,7 +14,7 @@ module.exports = class CustomerAccount{
 
     // DM Layer CRUD
     _create () {
-        return db.execute('INSERT INTO Customer_account(username, password, email) VALUES(?, ?, ?)',
+        return db.execute('INSERT INTO customer_account(username, password, email) VALUES(?, ?, ?)',
         [this._username,
         this._password,
         this._email]);
@@ -29,7 +29,7 @@ module.exports = class CustomerAccount{
 
     _read () {
         return db.execute(
-            'SELECT * FROM Customer_account WHERE account_id = ?', 
+            'SELECT * FROM customer_account WHERE account_id = ?', 
             [this._accountId]
         )
     }

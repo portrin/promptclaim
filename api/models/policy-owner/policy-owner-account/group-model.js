@@ -16,7 +16,7 @@ module.exports = class Group {
     //CRUD
     _create() {
         return db.execute(
-            'INSERT INTO _Group(group_id, group_name, group_description) VALUES(?,?,?)',
+            'INSERT INTO _group(group_id, group_name, group_description) VALUES(?,?,?)',
             [this._groupId,
             this._groupName,
             this._groupDescription]);
@@ -24,20 +24,20 @@ module.exports = class Group {
 
     static _readByGroupId(groupId) {
         return db.execute(
-            'SELECT * FROM _Group WHERE group_id = ?',
+            'SELECT * FROM _group WHERE group_id = ?',
             [groupId])
     }
 
     static _readRoleId(roleId){
         return db.execute(
-            'SELECT * FROM _Group WHERE group_id = ?',
+            'SELECT * FROM _group WHERE group_id = ?',
             [roleId]    
         )
     }
 
     _update() {
         return db.execute(
-            'UPDATE _Group SET group_name = ?, group_description = ? WHERE group_id = ? ', 
+            'UPDATE _group SET group_name = ?, group_description = ? WHERE group_id = ? ', 
             [this._groupName,
             this._groupDescription,
             this._groupId]
