@@ -11,6 +11,7 @@ import {
 import "./history.css";
 import React, { useState, useEffect } from "react";
 import HistoryItem from "../components/HistoryItem";
+import moment from "moment";
 
 export interface Product {
   product_nickname: string;
@@ -24,6 +25,7 @@ export interface Product {
   retailer_branch_name: string;
   timestamp: string;
   status: string;
+  remaining: string;
 }
 export interface Productprops {
   item: Product;
@@ -48,6 +50,17 @@ const History: React.FC = () => {
     setItems(res);
     console.log(res);
   };
+  function loopCheck() {
+    var arr = new Array<Product>();
+    for (var i = 0; i < items.length; i++) {
+      items[i].remaining =
+        moment(items[i].timestamp.split("T")[0]).diff(moment(), "days") + "";
+      arr.push(items[i]);
+      arr.sort((a, b) => parseInt(a.remaining) - parseInt(b.remaining)).reverse();
+    }
+    console.log("arr"+arr)
+    return arr
+  }
 
   return (
     <IonPage>
@@ -61,7 +74,7 @@ const History: React.FC = () => {
           <IonListHeader>
             <IonLabel>Claim History</IonLabel>
           </IonListHeader>
-          {items.map((item) => (
+          {loopCheck().map((item) => (
             <HistoryItem
               image={item.product_photo}
               name={item.product_nickname}
