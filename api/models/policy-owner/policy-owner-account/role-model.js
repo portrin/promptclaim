@@ -19,7 +19,7 @@ module.exports = class Role {
     //CRUD
     _create() {
         return db.execute(
-            'INSERT INTO Role (root_id, username, password, role_name, role_description) VALUES(?,?,?,?,?)',
+            'INSERT INTO role (root_id, username, password, role_name, role_description) VALUES(?,?,?,?,?)',
             [this._rootId,
             this._username,
             this._password,
@@ -31,20 +31,20 @@ module.exports = class Role {
     static _readByRootId(rootId) {
         //read role of a root account
         return db.execute(
-            'SELECT * FROM Role WHERE root_id = ?',
+            'SELECT * FROM role WHERE root_id = ?',
             [rootId]
         )
     }
     
     static _readByPK(rootId, username){
         return db.execute(
-            'SELECT * FROM Role WHERE root_id = ? AND username = ?',
+            'SELECT * FROM role WHERE root_id = ? AND username = ?',
             [rootId, username])
     }
 
     _update() {
         return db.execute(
-            'UPDATE Role SET password = ?, role_name = ? , role_description = ? WHERE root_id = ? AND username = ?', 
+            'UPDATE role SET password = ?, role_name = ? , role_description = ? WHERE root_id = ? AND username = ?', 
             [this._password,
             this._roleName,
             this._roleDescription,
@@ -55,7 +55,7 @@ module.exports = class Role {
 
     _delete() {
         return db.execute(
-            'DELETE FROM Role WHERE root_id = ? AND username =?', 
+            'DELETE FROM role WHERE root_id = ? AND username =?', 
             [this._rootId, this._username])
     }
 

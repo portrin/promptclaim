@@ -28,7 +28,7 @@ module.exports = class CustomerAddress {
   //DM Layer CRUD
   _create() {
     return db.execute(
-      "INSERT INTO Customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?,?)",
+      "INSERT INTO customer_address(customer_id, address_id,house_no,street,sub_district,district,province,zipcode) VALUES(?,?,?,?,?,?,?,?)",
       [
         this._customerId,
         this._addressId,
@@ -44,20 +44,20 @@ module.exports = class CustomerAddress {
 
   _read() {
     return db.execute(
-      "SELECT * FROM Customer_address WHERE customer_id = ? AND account_id = ?",
+      "SELECT * FROM customer_address WHERE customer_id = ? AND account_id = ?",
       [this._customerId, this._addressId]
     );
   }
 
   static _readByCustomerId(customerId) {
-    return db.execute("SELECT * FROM Customer_address WHERE customer_id = ?", [
+    return db.execute("SELECT * FROM customer_address WHERE customer_id = ?", [
       customerId,
     ]);
   }
 
   static _readByPK(customerId, addressId) {
     return db.execute(
-      "SELECT * FROM Customer_address WHERE customer_id = ? AND address_id = ?",
+      "SELECT * FROM customer_address WHERE customer_id = ? AND address_id = ?",
       [customerId, addressId]
     );
   }
@@ -65,7 +65,7 @@ module.exports = class CustomerAddress {
   //edit customer address
   _update() {
     return db.execute(
-      "UPDATE `Customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id = ? AND address_id= ?",
+      "UPDATE `customer_address` SET house_no = ?, street = ?, sub_district = ? , district = ?, province = ?, zipcode = ? WHERE customer_id = ? AND address_id= ?",
       [
         this._houseNo,
         this._street,
@@ -82,7 +82,7 @@ module.exports = class CustomerAddress {
   //delete address
   static _delete(customerId, addressId) {
     return db.execute(
-      "DELETE FROM Customer_address WHERE address_id = ? AND customer_id = ?",
+      "DELETE FROM customer_address WHERE address_id = ? AND customer_id = ?",
       [addressId, customerId]
     );
   }

@@ -17,7 +17,7 @@ module.exports = class Permission {
     //CRUD
     _create () {
         return db.execute(
-            'INSERT INTO Permission(per_id, per_name, per_description, per_module) VALUES(?,?,?,?)',
+            'INSERT INTO permission(per_id, per_name, per_description, per_module) VALUES(?,?,?,?)',
             [this._perId,
             this._perName,
             this._perDescription,
@@ -27,19 +27,19 @@ module.exports = class Permission {
 
     static _readByPerId (perId) {
         return db.execute(
-            'SELECT * FROM Permission WHERE per_id = ?',
+            'SELECT * FROM permission WHERE per_id = ?',
             [perId])
     }
 
     static _read() {
         return db.execute(
-            'SELECT * FROM Permission'
+            'SELECT * FROM permission'
         )
     }
 
     _update () {
         return db.execute(
-            'UPDATE Permission SET per_name = ?, per_description = ?, per_module= ? WHERE per_id = ?', 
+            'UPDATE permission SET per_name = ?, per_description = ?, per_module= ? WHERE per_id = ?', 
             [this._perName,
             this._perDescription,
             this._perModule,
@@ -49,7 +49,7 @@ module.exports = class Permission {
 
     _delete () {
         return db.execute(
-            'DELETE FROM Permission WHERE per_id = ?', 
+            'DELETE FROM permission WHERE per_id = ?', 
             [this._perId])
     }
 
