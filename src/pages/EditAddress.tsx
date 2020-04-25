@@ -193,7 +193,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
           size="large"
           color="theme"
           expand="block"
-          routerLink={`/editAddress/${match.params.id}`}
+          routerLink={"/Profile"}
           routerDirection="root"
           onClick={onHandleSave}
         >

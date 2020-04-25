@@ -14,7 +14,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonLabel,
-  useIonViewWillEnter
+  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -27,8 +27,7 @@ import "./MyWarranty.css";
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
-import { RefresherEventDetail } from '@ionic/core';
-
+import { RefresherEventDetail } from "@ionic/core";
 
 export interface Product {
   char_id: string;
@@ -49,7 +48,7 @@ const MyWarranty: React.FC<Productprops> = () => {
   const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [sortBy, setsortBy] = useState("");
   const [filterBy, setfilterBy] = useState("default");
-  
+
   console.log(localStorage.token);
 
   useEffect(() => {
@@ -101,10 +100,9 @@ const MyWarranty: React.FC<Productprops> = () => {
     }
   }
   useIonViewWillEnter(() => {
-    console.log('ionViewWillEnter event fired');
+    console.log("ionViewWillEnter event fired");
     fetchItems();
   });
-  
 
   return (
     <IonPage>
@@ -204,9 +202,9 @@ const MyWarranty: React.FC<Productprops> = () => {
                     okText="Done"
                     onIonChange={(e) => setsortBy(e.detail.value)}
                   >
-                    <IonSelectOption value="Name">By name A-Z</IonSelectOption>
+                    <IonSelectOption value="Name">By Name A-Z</IonSelectOption>
                     <IonSelectOption value="Name Z-A">
-                      By name Z-A{" "}
+                      By Name Z-A{" "}
                     </IonSelectOption>
                     <IonSelectOption value="Name Z-A">
                       Name Z-A{" "}
