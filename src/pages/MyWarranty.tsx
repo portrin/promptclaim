@@ -14,6 +14,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonLabel,
+  useIonViewWillEnter
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -26,6 +27,8 @@ import "./MyWarranty.css";
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
+import { RefresherEventDetail } from '@ionic/core';
+
 
 export interface Product {
   char_id: string;
@@ -46,7 +49,7 @@ const MyWarranty: React.FC<Productprops> = () => {
   const [searchItem, setSearchItem] = useState<Product[]>([]);
   const [sortBy, setsortBy] = useState("");
   const [filterBy, setfilterBy] = useState("default");
-
+  
   console.log(localStorage.token);
 
   useEffect(() => {
@@ -97,6 +100,11 @@ const MyWarranty: React.FC<Productprops> = () => {
       return item.filter((x) => x.category_name === filterBy);
     }
   }
+  useIonViewWillEnter(() => {
+    console.log('ionViewWillEnter event fired');
+    fetchItems();
+  });
+  
 
   return (
     <IonPage>

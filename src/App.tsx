@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route} from "react-router-dom";
 import {
   IonApp,
   IonRouterOutlet,
@@ -55,7 +55,7 @@ const App: React.FC = () => {
           <IonRouterOutlet>
             <Route path="/myWarranty" component={MyWarranty} exact={true} />
             <Route path="/history" component={HistoryPage} />
-            <Route path="/addWarranty" component={AddWarranty} />
+            <Route path="/addWarranty" component={AddWarranty}  />
             <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
             <Route path="/notification" component={Notification} />
             <Route path="/AddClaimDate" exact={true} component={AddClaimDate} />
