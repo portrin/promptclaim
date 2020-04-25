@@ -180,7 +180,7 @@ module.exports = class PurchasedProduct {
         //check datatype
         checkType(uuid, 'String');
         checkType(productNo, 'String');
-        checkType(customerId, 'String');
+        checkType(customerId, 'Number');
         checkType(retailerBranchId, 'String');
         checkType(retailerId, 'String');
         checkType(invoicePhoto, 'String');
@@ -191,7 +191,7 @@ module.exports = class PurchasedProduct {
         checkType(isValidate, 'Number');
         checkType(productPhoto, 'String');
         checkType(claimQty, 'Number');
-        checkType(createTimestamp, 'String');
+        checkType(createTimestamp, 'Date');
         checkType(invoicePhoto, 'String');
         checkType(warrantyPhoto, 'String');
 
