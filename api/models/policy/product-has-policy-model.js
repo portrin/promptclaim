@@ -7,49 +7,49 @@ module.exports = class ProductHasPolicy {
         uuid = null,
         policy_start_date = null,
         policy_end_date = null,
-        timestamp = null
+        policy_timestamp = null
     } = {}) {
         // their own class atrribute ref. from class diagram
         this._policyId = policy_id;
         this._uuid = uuid;
         this._policyStartDate = policy_start_date;
         this._policyEndDate = policy_end_date;
-        this._timestamp = timestamp;
+        this._policyTimestamp = policy_timestamp;
     }
 
     //DM Layer CRUD
     _create() {
         return db.execute(
-            'INSERT INTO product_has_policy (policy_id, uuid, policy_start_date, policy_end_date, timestamp) VALUES (?, ?, ?, ?, ?)',
-            [this._policyId, this._uuid, this._policyStartDate, this._policyEndDate, this._timestamp]
+            'INSERT INTO product_has_policy (policy_id, uuid, policy_start_date, policy_end_date, policy_timestamp) VALUES (?, ?, ?, ?, ?)',
+            [this._policyId, this._uuid, this._policyStartDate, this._policyEndDate, this._policyTimestamp]
         );
     }
 
     static _readByCustomerId(customerId) {
         return db.execute(
-            'SELECT policy_id, uuid, policy_start_date, policy_end_date, timestamp FROM product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ?',
+            'SELECT policy_id, uuid, policy_start_date, policy_end_date, policy_timestamp FROM product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ?',
             [customerId]
         );
     }
 
     static _readByPolicyId(customerId, policyId) {
         return db.execute(
-            'SELECT policy_id, uuid, policy_start_date, policy_end_date, timestamp FROM product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ? AND policy_id = ?',
+            'SELECT policy_id, uuid, policy_start_date, policy_end_date, policy_timestamp FROM product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ? AND policy_id = ?',
             [customerId, policyId]
         );
     }
 
     static _readByUuid(customerId, uuid) {
         return db.execute(
-            'SELECT policy_id, uuid, policy_start_date, policy_end_date, timestamp FROM product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ? AND uuid = ?',
+            'SELECT policy_id, uuid, policy_start_date, policy_end_date, policy_timestamp FROM product_has_policy NATURAL JOIN purchased_product WHERE customer_id = ? AND uuid = ?',
             [customerId, uuid]
         );
     }
     
     _update(policyId, uuid) {
         return db.execute(
-            'UPDATE product_has_policy SET policy_start_date = ?, policy_end_date = ?, timestamp = ? WHERE policy_id = ? AND uuid = ?',
-            [this._policyStartDate, this._policyEndDate, this._timestamp, policyId, uuid]
+            'UPDATE product_has_policy SET policy_start_date = ?, policy_end_date = ?, policy_timestamp = ? WHERE policy_id = ? AND uuid = ?',
+            [this._policyStartDate, this._policyEndDate, this._policyTimestamp, policyId, uuid]
         );
     }
 
@@ -67,7 +67,7 @@ module.exports = class ProductHasPolicy {
             uuid: this._uuid,
             policyStartDate: this._policyStartDate,
             policyEndDate: this._policyEndDate,
-            timestamp: this._timestamp
+            policyTimestamp: this._policyTimestamp
         };
     }
 
@@ -78,19 +78,19 @@ module.exports = class ProductHasPolicy {
         uuid = this._uuid,
         policyStartDate = this._policyStartDate,
         policyEndDate = this._policyEndDate,
-        timestamp = this._timestamp
+        policyTimestamp = this._policyTimestamp
     }) {
         // check datatype
         checktType(policyId, 'String');
         checktType(uuid, 'String');
         checktType(policyStartDate, 'Date');
         checktType(policyEndDate, 'Date');
-        checktType(timestamp, 'Timestamp');
+        checktType(policyTimestamp, 'Timestamp');
         // assign to private variables
         this._policyId = policyId;
         this._uuid = uuid;
         this._policyStartDate = policyStartDate;
         this._policyEndDate = policyEndDate;
-        this._timestamp = timestamp;
+        this._policyTimestamp = policyTimestamp;
     }
 };
