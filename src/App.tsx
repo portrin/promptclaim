@@ -1,16 +1,7 @@
 import React from "react";
-import { Redirect, Route} from "react-router-dom";
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonLabel,
-  IonIcon,
-  IonTabs,
-} from "@ionic/react";
+import { Redirect, Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { refresh, addCircleOutline, document } from "ionicons/icons";
 import HistoryPage from "./pages/history";
 import MyWarranty from "./pages/MyWarranty";
 import AddWarranty from "./pages/AddWarranty";
@@ -51,53 +42,37 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route path="/myWarranty" component={MyWarranty} exact={true} />
-            <Route path="/history" component={HistoryPage} />
-            <Route path="/addWarranty" component={AddWarranty}  />
-            <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
-            <Route path="/notification" component={Notification} />
-            <Route path="/AddClaimDate" exact={true} component={AddClaimDate} />
-            <Route path="/AddClaimDate/:id" component={AddClaimDate} />
+        <IonRouterOutlet>
+          <Route path="/myWarranty" component={MyWarranty} exact={true} />
+          <Route path="/history" component={HistoryPage} />
+          <Route path="/addWarranty" component={AddWarranty} />
+          <Route path="/myWarranty/:id" component={DynamicWarrantyInfo} />
+          <Route path="/notification" component={Notification} />
+          <Route path="/AddClaimDate" exact={true} component={AddClaimDate} />
+          <Route path="/AddClaimDate/:id" component={AddClaimDate} />
 
-            <Route path="/authen" component={Authen} exact={true} />
-            <Route exact path="/" render={() => <Redirect to="/authen" />} />
-            <Route path="/signin" component={SignIn} exact={true} />
-            <Route path="/signup" component={SignUp} exact={true} />
-            <Route path="/verify" component={Verify} exact={true} />
-            <Route path="/fillinfo" component={FillInfo} exact={true} />
-            <Route path="/profile" component={Profile} exact={true} />
+          <Route path="/authen" component={Authen} exact={true} />
+          <Route exact path="/" render={() => <Redirect to="/authen" />} />
+          <Route path="/signin" component={SignIn} exact={true} />
+          <Route path="/signup" component={SignUp} exact={true} />
+          <Route path="/verify" component={Verify} exact={true} />
+          <Route path="/fillinfo" component={FillInfo} exact={true} />
+          <Route path="/profile" component={Profile} exact={true} />
 
-            <Route path="/editaccount" component={EditAccount} exact={true} />
-            <Route path="/editprofile" component={EditProfile} exact={true} />
-            <Route path="/editaddress" component={EditAddress} exact={true} />
+          <Route path="/editaccount" component={EditAccount} exact={true} />
+          <Route path="/editprofile" component={EditProfile} exact={true} />
+          <Route path="/editaddress" component={EditAddress} exact={true} />
 
-            <Route path="/editaccount/:id" component={EditAccount} />
-            <Route path="/editprofile/:id" component={EditProfile} />
-            <Route path="/editaddress/:id" component={EditAddress} />
+          <Route path="/editaccount/:id" component={EditAccount} />
+          <Route path="/editprofile/:id" component={EditProfile} />
+          <Route path="/editaddress/:id" component={EditAddress} />
 
-            <Route
-              exact={true}
-              path="/"
-              render={() => <Redirect to="/authen" />}
-            />
-          </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="myWarranty" href="/myWarranty">
-              <IonIcon icon={document} />
-              <IonLabel>Warranty</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="addWarranty" href="/addWarranty">
-              <IonIcon icon={addCircleOutline} />
-              <IonLabel>Add Warranty</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="history" href="/history">
-              <IonIcon icon={refresh} />
-              <IonLabel>History</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
+          <Route
+            exact={true}
+            path="/"
+            render={() => <Redirect to="/authen" />}
+          />
+        </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
   );

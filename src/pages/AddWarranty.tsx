@@ -24,6 +24,7 @@ import { image } from "ionicons/icons";
 import "./AddWarranty.css";
 import { usePhotoGallery } from "../hooks/usePhotoGallery";
 import moment from "moment";
+import TabBar from "../components/Tabs";
 
 const slideOpts = {
   initialSlide: 1,
@@ -332,6 +333,7 @@ const AddWarranty: React.FC = () => {
           duration={2000}
         />
       </IonContent>
+      <TabBar />
     </IonPage>
   );
 };

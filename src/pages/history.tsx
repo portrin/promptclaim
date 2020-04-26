@@ -11,6 +11,7 @@ import {
 import "./history.css";
 import React, { useState, useEffect } from "react";
 import HistoryItem from "../components/HistoryItem";
+import TabBar from "../components/Tabs";
 
 export interface Product {
   product_nickname: string;
@@ -71,6 +72,7 @@ const History: React.FC = () => {
           ))}
         </IonList>
       </IonContent>
+      <TabBar />
     </IonPage>
   );
 };
