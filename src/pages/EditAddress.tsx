@@ -82,19 +82,33 @@ const EditAddress: React.FC<Match> = ({ match }) => {
     const item = await data.json();
     setItem(item);
     console.log(item);
-
-    const house_no: string = item.getAddress[0].house_no;
-    const street: string = item.getAddress[0].street;
-    const subdistrict: string = item.getAddress[0].sub_district;
-    const district: string = item.getAddress[0].district;
-    const province: string = item.getAddress[0].province;
-    const zipcode: string = item.getAddress[0].zipcode;
-    setHomeNum(house_no);
-    setStreet(street);
-    setSubDist(subdistrict);
-    setDist(district);
-    setProvince(province);
-    setStreetCode(zipcode);
+    if (match.params.id == item.getAddress[0].address_id) {
+      const house_no: string = item.getAddress[0].house_no;
+      const street: string = item.getAddress[0].street;
+      const subdistrict: string = item.getAddress[0].sub_district;
+      const district: string = item.getAddress[0].district;
+      const province: string = item.getAddress[0].province;
+      const zipcode: string = item.getAddress[0].zipcode;
+      setHomeNum(house_no);
+      setStreet(street);
+      setSubDist(subdistrict);
+      setDist(district);
+      setProvince(province);
+      setStreetCode(zipcode);
+    } else {
+      const house_no: string = item.getAddress[1].house_no;
+      const street: string = item.getAddress[1].street;
+      const subdistrict: string = item.getAddress[1].sub_district;
+      const district: string = item.getAddress[1].district;
+      const province: string = item.getAddress[1].province;
+      const zipcode: string = item.getAddress[1].zipcode;
+      setHomeNum(house_no);
+      setStreet(street);
+      setSubDist(subdistrict);
+      setDist(district);
+      setProvince(province);
+      setStreetCode(zipcode);
+    }
   };
 
   const onHandleSave = () => {
