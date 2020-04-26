@@ -258,13 +258,13 @@ const Profile: React.FC<ProfileProps> = () => {
 
         <IonLabel class="label">ADDRESS 2</IonLabel>
         <IonCard class="card">
-          {items3.map((item3) => (
+          {items4.map((item4) => (
             <IonButton
               class="editicon"
               size="small"
               color="theme"
               fill="outline"
-              routerLink={`/editaddress/${item3.address_id}`}
+              routerLink={`/editaddress/${item4.address_id}`}
               routerDirection="root"
             >
               edit
