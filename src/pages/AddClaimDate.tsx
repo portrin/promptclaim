@@ -54,7 +54,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/getbyUUid/" +
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/getbyUUid/" +
         match.params.id,
       {
         headers: {
@@ -69,7 +69,15 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
     setDyLink("/myWarranty/" + match.params.id);
     setTodayD(moment(todayD).add(0, "days").format());
   };
-
+  function nullCheck() {
+    var nullCheck = Array<Product>();
+    for (var i=0;i<item.length;i++) {
+      if (item[i].claim_log_timestamp != null) {
+          nullCheck.push(item[i])
+      }
+    }
+    return nullCheck
+  }
   const addClaim = async () => {
     const data = await fetch(
       "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/add/",
@@ -80,7 +88,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
           Authorization: localStorage.token,
         },
         body: JSON.stringify({
-          claim_log_timestamp: selectedDate,
+          claimLogTimestamp: selectedDate,
           status: "claimed",
           uuid: match.params.id,
           serviceCenterId: null,
@@ -105,10 +113,9 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
       <IonContent>
         <IonList>
           <IonListHeader>Claim Date</IonListHeader>
-          {item.map((item) => (
+          {nullCheck().map((item) => (
             <IonItem>{item.claim_log_timestamp.split("T")[0]}</IonItem>
           ))}
-          console.log(item);
           <IonItem>
             <IonLabel position="floating" color="medium">
               Add New Claim Date
