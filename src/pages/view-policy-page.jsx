@@ -13,7 +13,7 @@ export const ViewPolicyPage = (props) => {
   const [policyDes, setPolicyDes] = useState('')
   const fetchItem = async () => {
     const data = await fetch(
-      'http://localhost:8001/retailer/policy/getByPolicyId/' + key,
+      'http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/retailer/policy/getByPolicyId/' + key,
       {
         headers: {
           Authorization: localStorage.token,

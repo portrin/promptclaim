@@ -7,7 +7,7 @@ import { AppLayout } from '../components/app-layout'
 export const MainPolicyPage = (props) => {
   const [items, setItems] = useState([])
   const fetchItem = async () => {
-    const data = await fetch('http://localhost:8001/retailer/policy/get', {
+    const data = await fetch('http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/retailer/policy/get', {
       headers: {
         Authorization: localStorage.token,
       },

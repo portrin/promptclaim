@@ -9,7 +9,7 @@ export const ViewProductPage = (props) => {
   const [item, setItems] = useState([])
   const fetchItem = async () => {
     const data = await fetch(
-      'http://localhost:8001/retailer/product/getByProductNo/' + key,
+      'http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/retailer/product/getByProductNo/' + key,
       {
         headers: {
           Authorization: localStorage.token,
