@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonButton, IonApp } from "@ionic/react";
+import { IonContent, IonPage, IonButton } from "@ionic/react";
 import React from "react";
 import "./Authen.css";
 
