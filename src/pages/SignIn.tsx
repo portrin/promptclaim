@@ -8,6 +8,9 @@ import {
   IonInput,
   IonCard,
   IonToast,
+  IonImg,
+  IonRow,
+  IonRouterLink,
 } from "@ionic/react";
 import { person, lockClosed } from "ionicons/icons";
 import { RouteComponentProps, useHistory } from "react-router-dom";
@@ -56,9 +59,7 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
   return (
     <IonPage>
       <IonContent color="theme">
-        <div className="image">
-          <img src="assets/translogo.png" alt="logo" />
-        </div>
+        <IonImg class="image" src="assets/translogo.png" alt="logo"></IonImg>
 
         <IonCard class="card2">
           <IonItem class="item-input-1">
@@ -85,10 +86,9 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
         </IonCard>
 
         <IonButton
-          class="signbutt"
+          class="signbutton"
           strong
-          id="signin"
-          size="large"
+          expand="block"
           color="signinbutton"
           onClick={authen}
           routerDirection="root"
@@ -96,15 +96,15 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
           SIGN IN
         </IonButton>
 
-        <div className="text-item">
-          <p className="text">
+        <IonRow class="ion-justify-content-center">
+          <IonLabel class="textsignup">
             {" "}
             Don't have account?{" "}
-            <a className="text2" href="./signup">
+            <IonRouterLink class="textroute" href="./signup">
               Sign Up
-            </a>
-          </p>
-        </div>
+            </IonRouterLink>
+          </IonLabel>
+        </IonRow>
         <IonToast
           position="bottom"
           color="danger"

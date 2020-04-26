@@ -120,9 +120,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
         <IonCard class="card3">
           <IonList>
             <IonItem>
-              <IonLabel position="fixed">Home No.</IonLabel>
+              <IonLabel class="bold">Home No.</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={homenum}
@@ -131,9 +131,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Street</IonLabel>
+              <IonLabel class="bold">Street</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={street}
@@ -142,9 +142,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Sub-District</IonLabel>
+              <IonLabel class="bold">Sub-District</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={subdist}
@@ -153,9 +153,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">District</IonLabel>
+              <IonLabel class="bold">District</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={dist}
@@ -164,9 +164,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Province</IonLabel>
+              <IonLabel class="bold">Province</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={province}
@@ -175,9 +175,9 @@ const EditAddress: React.FC<Match> = ({ match }) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Street Code</IonLabel>
+              <IonLabel class="bold">Street Code</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="number"
                 value={streetCode}

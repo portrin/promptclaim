@@ -16,13 +16,13 @@
   margin-left: 0px;
   padding-left: 0px;
   text-align: center;
-  font-family: "OpenSans";
+  font-family: "Open Sans";
   color: aliceblue;
   font-weight: bold;
 }
 
 .text2 {
-  font-family: "OpenSans";
+  font-family: "Open Sans";
   color: aliceblue;
   font-weight: bold;
 }
@@ -34,7 +34,7 @@
 
 .item-input-1 {
   color: grey;
-  font-family: "OpenSans";
+  font-family: "Open Sans";
 
   background-color: white;
 
@@ -44,9 +44,10 @@
 }
 
 .confirm {
-  margin-left: 120px;
-  margin-right: 0px;
   margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .input {

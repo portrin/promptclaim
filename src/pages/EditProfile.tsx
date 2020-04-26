@@ -111,10 +111,10 @@ const EditProfile: React.FC<ProfileProps> = () => {
         <IonCard class="card3">
           <IonList>
             <IonItem>
-              <IonLabel position="fixed">First Name</IonLabel>
+              <IonLabel class="bold">First Name</IonLabel>
 
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={fname}
@@ -123,9 +123,9 @@ const EditProfile: React.FC<ProfileProps> = () => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Last Name</IonLabel>
+              <IonLabel class="bold">Last Name</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={lname}
@@ -134,7 +134,7 @@ const EditProfile: React.FC<ProfileProps> = () => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Gender</IonLabel>
+              <IonLabel class="bold">Gender</IonLabel>
               <IonChip
                 class="chip"
                 outline
@@ -171,10 +171,10 @@ const EditProfile: React.FC<ProfileProps> = () => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Birthdate</IonLabel>
+              <IonLabel class="bold">Birthdate</IonLabel>
 
               <IonDatetime
-                class="input"
+                class="input-text"
                 displayFormat="DD MMM YYYY"
                 pickerFormat="DD MMM YYYY"
                 max="2005"
@@ -187,7 +187,7 @@ const EditProfile: React.FC<ProfileProps> = () => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>Phone No.</IonLabel>
+              <IonLabel class="bold">Phone No.</IonLabel>
               {items.map((item) => (
                 <IonLabel class="labelpn"> {item.phone_no}</IonLabel>
               ))}

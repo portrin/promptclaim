@@ -110,12 +110,12 @@ const EditAccount: React.FC<ProfileProps> = () => {
           </IonToolbar>
         </IonHeader>
 
-        <IonLabel class="label">Change E-mail</IonLabel>
+        <IonLabel class="labelacc">Change E-mail</IonLabel>
 
         <IonCard class="card3">
           <IonList>
             <IonItem>
-              <IonLabel>E-mail</IonLabel>
+              <IonLabel class="bold">E-mail</IonLabel>
               {items.map((item) => (
                 <IonLabel class="info" position="stacked">
                   {item.email}
@@ -123,22 +123,22 @@ const EditAccount: React.FC<ProfileProps> = () => {
               ))}
             </IonItem>
             <IonItem>
-              <IonLabel>New E-mail</IonLabel>
+              <IonLabel class="bold">New E-mail</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 value={newEmail}
                 onIonChange={(e) => setNewEmail(e.detail.value!)}
               ></IonInput>
             </IonItem>
           </IonList>
         </IonCard>
-        <IonLabel class="label">Change Password</IonLabel>
+        <IonLabel class="labelacc">Change Password</IonLabel>
         <IonCard>
           <IonList>
             <IonItem>
-              <IonLabel>Current Password</IonLabel>
+              <IonLabel class="bold">Current Password</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="password"
                 value={currentPassword}
@@ -147,9 +147,9 @@ const EditAccount: React.FC<ProfileProps> = () => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>New Password</IonLabel>
+              <IonLabel class="bold">New Password</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="password"
                 value={newPassword}
@@ -157,9 +157,9 @@ const EditAccount: React.FC<ProfileProps> = () => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel>Confirm New Password</IonLabel>
+              <IonLabel class="bold">Confirm New Password</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="password"
                 value={newPassword2}

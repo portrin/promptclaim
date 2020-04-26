@@ -10,11 +10,10 @@ ion-icon {
   padding-top: 7px !important;
   padding-bottom: 7px !important;
 }
-.label2 {
+
+.labelacc {
   padding-left: 20px;
   font-size: 25px;
-  font-family: "OpenSans";
   color: black;
   font-weight: bold;
 }
-

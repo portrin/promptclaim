@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonButton } from "@ionic/react";
+import { IonContent, IonPage, IonButton, IonImg } from "@ionic/react";
 import React from "react";
 import "./Authen.css";
 
@@ -6,9 +6,12 @@ const Authen: React.FC = () => {
   return (
     <IonPage>
       <IonContent color="theme">
-        <div className="image">
-          <img src="assets/translogo.png" alt="logo" />
-        </div>
+        <IonImg
+          class="image"
+          src="assets/translogo.png"
+          alt="logo"
+        ></IonImg>
+
         <IonButton
           strong
           class="padIn"

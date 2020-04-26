@@ -305,89 +305,95 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             </IonGrid>
             <IonListHeader>Warranty Information</IonListHeader>
 
-            <IonItem>
-              <IonLabel color={textColor} position="floating">
-                <h1>Date of Purchase</h1>
-              </IonLabel>
-              <IonDatetime
-                displayFormat="DDDD MMM D, YYYY"
-                min="2020"
-                max={todayD}
-                disabled={butStat}
-                value={displayDate}
-                onIonChange={(e) => setdisplayDate(e.detail.value!)}
-              ></IonDatetime>
-            </IonItem>
+            <IonCard>
+              <IonItem>
+                <IonLabel
+                  color={textColor}
+                  position="floating"
+                  class="labelwarr"
+                >
+                  Date of Purchase
+                </IonLabel>
+                <IonDatetime
+                  displayFormat="DDDD MMM D, YYYY"
+                  min="2020"
+                  max={todayD}
+                  disabled={butStat}
+                  value={displayDate}
+                  onIonChange={(e) => setdisplayDate(e.detail.value!)}
+                ></IonDatetime>
+              </IonItem>
 
-            <IonItem>
-              <IonLabel class="ion-no-padding" position="floating">
-                <h1>Expiring in</h1>
-              </IonLabel>
-              <IonInput
-                class="ion-no-padding"
-                size={5}
-                required
-                type="text"
-                disabled={true}
-                value={remainingPeriod + " days"}
-              ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel
-                color={textColor}
-                class="ion-no-padding"
-                position="floating"
-              >
-                <h1> Serial Number</h1>
-              </IonLabel>
-              <IonInput
-                class="ion-no-padding"
-                size={5}
-                required
-                type="text"
-                disabled={butStat}
-                value={serial}
-                onIonChange={(e) => setSerial(e.detail.value!)}
-              ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel
-                color={textColor}
-                class="ion-no-padding"
-                position="floating"
-              >
-                <h1> Supplier</h1>
-              </IonLabel>
-              <IonInput
-                class="ion-no-padding"
-                size={5}
-                placeholder="-"
-                required
-                type="text"
-                disabled={butStat}
-                value={supplier}
-                onIonChange={(e) => setSupplier(e.detail.value!)}
-              ></IonInput>
-            </IonItem>
-            <IonItem>
-              <IonLabel
-                color={textColor}
-                class="ion-no-padding"
-                position="floating"
-              >
-                <h1> Retailer</h1>
-              </IonLabel>
-              <IonInput
-                class="ion-no-padding"
-                placeholder="-"
-                size={5}
-                required
-                type="text"
-                disabled={butStat}
-                value={retailer}
-                onIonChange={(e) => setRetailer(e.detail.value!)}
-              ></IonInput>
-            </IonItem>
+              <IonItem>
+                <IonLabel position="floating" class="labelwarr">
+                  Expiring in
+                </IonLabel>
+                <IonInput
+                  class="ion-no-padding"
+                  size={5}
+                  required
+                  type="text"
+                  disabled={true}
+                  value={remainingPeriod + " days"}
+                ></IonInput>
+              </IonItem>
+              <IonItem>
+                <IonLabel
+                  color={textColor}
+                  class="labelwarr"
+                  position="floating"
+                >
+                  Serial Number
+                </IonLabel>
+                <IonInput
+                  class="ion-no-padding"
+                  size={5}
+                  required
+                  type="text"
+                  disabled={butStat}
+                  value={serial}
+                  onIonChange={(e) => setSerial(e.detail.value!)}
+                ></IonInput>
+              </IonItem>
+              <IonItem>
+                <IonLabel
+                  color={textColor}
+                  class="labelwarr"
+                  position="floating"
+                >
+                  Supplier
+                </IonLabel>
+                <IonInput
+                  class="ion-no-padding"
+                  size={5}
+                  placeholder="-"
+                  required
+                  type="text"
+                  disabled={butStat}
+                  value={supplier}
+                  onIonChange={(e) => setSupplier(e.detail.value!)}
+                ></IonInput>
+              </IonItem>
+              <IonItem>
+                <IonLabel
+                  color={textColor}
+                  class="labelwarr"
+                  position="floating"
+                >
+                  Retailer
+                </IonLabel>
+                <IonInput
+                  class="ion-no-padding"
+                  placeholder="-"
+                  size={5}
+                  required
+                  type="text"
+                  disabled={butStat}
+                  value={retailer}
+                  onIonChange={(e) => setRetailer(e.detail.value!)}
+                ></IonInput>
+              </IonItem>
+            </IonCard>
 
             <IonButton color="primary" expand="block" onClick={() => trigger()}>
               {done}
@@ -399,6 +405,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
             >
               <IonIcon icon={trash} item-left></IonIcon>Remove Warranty
             </IonButton>
+
             <IonActionSheet
               isOpen={showActionSheet1}
               onDidDismiss={() => setShowActionSheet1(false)}

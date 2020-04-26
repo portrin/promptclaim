@@ -1,19 +1,14 @@
 .title {
   font-size: 20px;
 }
-.label {
+.labelacc {
   padding-left: 30px;
   font-size: 20px;
-  font-family: "OpenSans";
   color: black;
   font-weight: bold;
 }
 
-.info {
-  padding-left: 5px;
-  font-size: 17px;
-  font-family: "OpenSans";
-  color: black;
+.bold {
   font-weight: bold;
 }
 

@@ -14,13 +14,13 @@
 
 .text {
   padding-left: 30px;
-  font-family: "OpenSans";
+  font-family: "Open Sans";
   color: aliceblue;
   font-weight: bold;
 }
 
 .text2 {
-  font-family: "OpenSans";
+  font-family: "Open Sans";
   color: aliceblue;
   font-weight: bold;
 }
@@ -33,7 +33,7 @@
 
 .item-input-1 {
   color: grey;
-  font-family: "OpenSans";
+  font-family: "Open Sans";
 
   background-color: white;
 
@@ -50,10 +50,19 @@
   color: black;
 }
 
-.next {
-  margin-left: 130px;
-  margin-right: 0px;
+.image {
+  margin-top: 80px;
+  margin-bottom: 60px;
+  margin-left: 40px;
+  margin-right: 40px;
+  align-items: center;
+}
+
+.nextbutt {
   margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .icon {

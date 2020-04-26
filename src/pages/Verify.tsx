@@ -7,6 +7,8 @@ import {
   IonItem,
   IonCard,
   IonIcon,
+  IonImg,
+  IonRow,
 } from "@ionic/react";
 import { mail } from "ionicons/icons";
 import React from "react";
@@ -17,27 +19,18 @@ const Verify: React.FC<RouteComponentProps> = (props) => {
   return (
     <IonPage>
       <IonContent color="theme">
-        <div className="image">
-          <img src="assets/translogo.png" alt="logo" />
-        </div>
-        <div className="text-item">
-          <p className="text">
+        <IonImg class="image" src="assets/translogo.png" alt="logo"></IonImg>
+        <IonRow class="ion-justify-content-center">
+          <IonLabel class="textsignup">
             {" "}
-            Enter the verification code <br /> sent to your message.{" "}
-            <a
-              className="text2"
-              href="https://ionicframework.com/docs/components"
-            >
-              {" "}
-              Resend
-            </a>
-          </p>
-        </div>
+            Enter the verification code sent to your message{" "}
+          </IonLabel>
+        </IonRow>
 
         <IonCard class="card2">
           <IonItem class="item-input-1">
             <IonLabel position="stacked"></IonLabel>
-            <IonInput class="input" type="number">
+            <IonInput class="input">
               <IonIcon class="icon" icon={mail}></IonIcon>
             </IonInput>
           </IonItem>
@@ -47,7 +40,7 @@ const Verify: React.FC<RouteComponentProps> = (props) => {
           class="confirm"
           strong
           id="signin"
-          size="large"
+          expand="block"
           color="signinbutton"
           routerLink="/fillinfo"
           routerDirection="root"

@@ -1,20 +1,24 @@
 .image {
   margin-top: 80px;
   margin-bottom: 60px;
+  margin-left: 40px;
+  margin-right: 40px;
+  align-items: center;
 }
 
 .padIn {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-top: 30px;
   margin-bottom: auto;
 }
 
 .padUp {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
   margin-top: 15px;
   margin-bottom: auto;
+  --background-hover: white;
 }
 
 :root {

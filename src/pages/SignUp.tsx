@@ -7,6 +7,7 @@ import {
   IonItem,
   IonCard,
   IonIcon,
+  IonImg,
 } from "@ionic/react";
 import { chevronForwardOutline, call } from "ionicons/icons";
 import React from "react";
@@ -16,14 +17,12 @@ const SignUp: React.FC = () => {
   return (
     <IonPage>
       <IonContent color="theme">
-        <div className="image">
-          <img src="assets/translogo.png" alt="logo" />
-        </div>
+      <IonImg class="image" src="assets/translogo.png" alt="logo"></IonImg>
 
         <IonCard class="card2">
           <IonItem class="item-input-1">
             <IonLabel position="stacked">Enter your phone number</IonLabel>
-            <IonInput class="input" type="number">
+            <IonInput class="input" required>
               {" "}
               <IonIcon class="icon" icon={call}></IonIcon>
             </IonInput>
@@ -31,10 +30,9 @@ const SignUp: React.FC = () => {
         </IonCard>
 
         <IonButton
-          class="next"
+          class="nextbutt"
           strong
-          id="signin"
-          size="large"
+          expand="block"
           color="signinbutton"
           routerLink="/verify"
           routerDirection="root"

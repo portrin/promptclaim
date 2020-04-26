@@ -10,6 +10,11 @@ import {
   IonLabel,
   IonChip,
   IonContent,
+  IonItem,
+  IonRow,
+  IonItemDivider,
+  IonCol,
+  IonItemGroup,
 } from "@ionic/react";
 import { chevronBackOutline, woman } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
@@ -136,50 +141,55 @@ const Profile: React.FC<ProfileProps> = () => {
             <IonTitle class="title">Profile</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonLabel class="label">ACCOUNT</IonLabel>
+        <IonLabel class="labelacc">ACCOUNT</IonLabel>
         <IonCard class="card">
-          {items2.map((item2) => (
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink={"/editaccount"}
-              routerDirection="root"
-            >
-              edit
-            </IonButton>
-          ))}
+          <IonItem class="hi">
+            {items2.map((item2) => (
+              <IonButton
+                slot="end"
+                size="small"
+                fill="outline"
+                color="theme"
+                routerLink={"/editaccount"}
+                routerDirection="root"
+              >
+                edit
+              </IonButton>
+            ))}
+          </IonItem>
+
           <IonLabel class="sublabel">Email :</IonLabel>
           {items2.map((item2) => (
-            <IonLabel class="info">{item2.email}</IonLabel>
+            <IonLabel class="inf2">{item2.email}</IonLabel>
           ))}
         </IonCard>
 
-        <IonLabel class="label">PROFILE</IonLabel>
+        <IonLabel class="labelacc">PROFILE</IonLabel>
         <IonCard class="card">
-          {items.map((item) => (
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink={"/editProfile"}
-              routerDirection="root"
-            >
-              edit
-            </IonButton>
-          ))}
+          <IonItem class="hi">
+            {items.map((item) => (
+              <IonButton
+                size="small"
+                color="theme"
+                fill="outline"
+                slot="end"
+                routerLink={"/editProfile"}
+                routerDirection="root"
+              >
+                edit
+              </IonButton>
+            ))}
+          </IonItem>
           <IonList class="card">
             <IonLabel class="sublabel">First Name :</IonLabel>
             {items.map((item) => (
-              <IonLabel class="info">{item.firstname}</IonLabel>
+              <IonLabel class="inf">{item.firstname}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Last Name :</IonLabel>
             {items.map((item) => (
-              <IonLabel class="info">{item.lastname}</IonLabel>
+              <IonLabel class="inf">{item.lastname}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
@@ -191,7 +201,7 @@ const Profile: React.FC<ProfileProps> = () => {
           <IonList class="card">
             <IonLabel class="sublabel">Birthdate :</IonLabel>
             {items.map((item) => (
-              <IonLabel class="info">
+              <IonLabel class="inf">
                 {item.birth_date.substring(0, 10)}
               </IonLabel>
             ))}
@@ -199,111 +209,116 @@ const Profile: React.FC<ProfileProps> = () => {
           <IonList class="card">
             <IonLabel class="sublabel">Phone No. :</IonLabel>
             {items.map((item) => (
-              <IonLabel class="info">{item.phone_no}</IonLabel>
+              <IonLabel class="inf">{item.phone_no}</IonLabel>
             ))}
           </IonList>
         </IonCard>
 
-        <IonLabel class="label">ADDRESS</IonLabel>
+        <IonLabel class="labelacc">ADDRESS</IonLabel>
         <IonCard class="card">
-          {items3.map((item3) => (
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink={`/editaddress/${item3.address_id}`}
-              routerDirection="root"
-            >
-              edit
-            </IonButton>
-          ))}
+          <IonItem class="hi">
+            {items3.map((item3) => (
+              <IonButton
+                size="small"
+                color="theme"
+                fill="outline"
+                slot="end"
+                routerLink={`/editaddress/${item3.address_id}`}
+                routerDirection="root"
+              >
+                edit
+              </IonButton>
+            ))}
+          </IonItem>
           <IonList class="card">
             <IonLabel class="sublabel">Home No. :</IonLabel>
             {items3.map((item3) => (
-              <IonLabel class="info">{item3.house_no}</IonLabel>
+              <IonLabel class="inf">{item3.house_no}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Street :</IonLabel>
             {items3.map((item3) => (
-              <IonLabel class="info">{item3.street}</IonLabel>
+              <IonLabel class="inf">{item3.street}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Sub-District :</IonLabel>
             {items3.map((item3) => (
-              <IonLabel class="info">{item3.sub_district}</IonLabel>
+              <IonLabel class="inf">{item3.sub_district}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">District :</IonLabel>
             {items3.map((item3) => (
-              <IonLabel class="info">{item3.district}</IonLabel>
+              <IonLabel class="inf">{item3.district}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Province :</IonLabel>
             {items3.map((item3) => (
-              <IonLabel class="info">{item3.province}</IonLabel>
+              <IonLabel class="inf">{item3.province}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Street Code :</IonLabel>
             {items3.map((item3) => (
-              <IonLabel class="info">{item3.zipcode}</IonLabel>
+              <IonLabel class="inf">{item3.zipcode}</IonLabel>
             ))}
           </IonList>
         </IonCard>
 
-        <IonLabel class="label">ADDRESS 2</IonLabel>
+        <IonLabel class="labelacc" >ADDRESS 2</IonLabel>
         <IonCard class="card">
-          {items3.map((item3) => (
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink={`/editaddress/${item3.address_id}`}
-              routerDirection="root"
-            >
-              edit
-            </IonButton>
-          ))}
+          <IonItem class="hi">
+            {items4.map((item4) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                slot="end"
+                routerLink={`/editaddress/${item4.address_id}`}
+                routerDirection="root"
+              >
+                edit
+              </IonButton>
+            ))}
+          </IonItem>
           <IonList class="card">
             <IonLabel class="sublabel">Home No. :</IonLabel>
             {items4.map((item4) => (
-              <IonLabel class="info">{item4.house_no}</IonLabel>
+              <IonLabel class="inf">{item4.house_no}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Street :</IonLabel>
             {items4.map((item4) => (
-              <IonLabel class="info">{item4.street}</IonLabel>
+              <IonLabel class="inf">{item4.street}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Sub-District :</IonLabel>
             {items4.map((item4) => (
-              <IonLabel class="info">{item4.sub_district}</IonLabel>
+              <IonLabel class="inf">{item4.sub_district}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">District :</IonLabel>
             {items4.map((item4) => (
-              <IonLabel class="info">{item4.district}</IonLabel>
+              <IonLabel class="inf">{item4.district}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Province :</IonLabel>
             {items4.map((item4) => (
-              <IonLabel class="info">{item4.province}</IonLabel>
+              <IonLabel class="inf">{item4.province}</IonLabel>
             ))}
           </IonList>
           <IonList class="card">
             <IonLabel class="sublabel">Street Code :</IonLabel>
             {items4.map((item4) => (
-              <IonLabel class="info">{item4.zipcode}</IonLabel>
+              <IonLabel class="inf">{item4.zipcode}</IonLabel>
             ))}
           </IonList>
         </IonCard>

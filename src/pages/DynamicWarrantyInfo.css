@@ -8,3 +8,7 @@ ion-datetime {
 .native-input:disabled {
   opacity: 10 !important;
 }
+
+.labelwarr {
+  font-weight: bold;
+}

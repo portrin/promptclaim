@@ -7,7 +7,11 @@
 .labelpn {
   padding-left: 30px;
   font-size: 20px;
-  font-family: "OpenSans";
+  font-family: "Open Sans";
   color: #686868 !important; 
+  font-weight: bold;
+}
+
+.bold {
   font-weight: bold;
 }

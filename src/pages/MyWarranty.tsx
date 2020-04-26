@@ -216,7 +216,7 @@ const MyWarranty: React.FC<Productprops> = () => {
         </IonToolbar>
 
         <IonList>
-          <IonLabel class="label2">Products</IonLabel>
+          <IonLabel class="labelacc">Products</IonLabel>
 
           {sortProduct(filterProduct(searchItem)).map((item) => (
             <Product

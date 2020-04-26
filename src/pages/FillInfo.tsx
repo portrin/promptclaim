@@ -51,13 +51,13 @@ const FillInfo: React.FC<Prop> = (props) => {
           </IonToolbar>
         </IonHeader>
 
-        <IonLabel class="label">ACCOUNT</IonLabel>
+        <IonLabel class="labelacc">ACCOUNT</IonLabel>
         <IonCard class="card3">
           <IonList>
             <IonItem>
-              <IonLabel>E-mail</IonLabel>
+              <IonLabel class="bold">E-mail</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="email"
                 value={email}
@@ -67,9 +67,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>Password</IonLabel>
+              <IonLabel class="bold">Password</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="password"
                 value={password}
@@ -79,9 +79,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>Confirm Password</IonLabel>
+              <IonLabel class="bold">Confirm Password</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="password"
                 value={password2}
@@ -93,13 +93,13 @@ const FillInfo: React.FC<Prop> = (props) => {
           </IonList>
         </IonCard>
 
-        <IonLabel class="label">PROFILE</IonLabel>
+        <IonLabel class="labelacc">PROFILE</IonLabel>
         <IonCard class="card3">
           <IonList>
             <IonItem>
-              <IonLabel position="fixed">First Name</IonLabel>
+              <IonLabel class="bold">First Name</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={fname}
@@ -109,9 +109,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Last Name</IonLabel>
+              <IonLabel class="bold">Last Name</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={lname}
@@ -121,7 +121,7 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Gender</IonLabel>
+              <IonLabel class="bold">Gender</IonLabel>
               <IonChip
                 class="chip"
                 outline
@@ -158,7 +158,7 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Birthdate</IonLabel>
+              <IonLabel class="bold">Birthdate</IonLabel>
               <IonDatetime
                 class="input"
                 displayFormat="DD MMM YYYY"
@@ -173,9 +173,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>Phone No.</IonLabel>
+              <IonLabel class="bold">Phone No.</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={phonenum}
@@ -186,13 +186,13 @@ const FillInfo: React.FC<Prop> = (props) => {
           </IonList>
         </IonCard>
 
-        <IonLabel class="label">ADDRESS</IonLabel>
+        <IonLabel class="labelacc">ADDRESS</IonLabel>
         <IonCard class="card3">
           <IonList>
             <IonItem>
-              <IonLabel position="fixed">Home No.</IonLabel>
+              <IonLabel class="bold">Home No.</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={homenum}
@@ -201,9 +201,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Street</IonLabel>
+              <IonLabel class="bold">Street</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={street}
@@ -212,9 +212,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>Sub-District</IonLabel>
+              <IonLabel class="bold">Sub-District</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={subdist}
@@ -223,9 +223,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>District</IonLabel>
+              <IonLabel class="bold">District</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={dist}
@@ -234,9 +234,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel>Province</IonLabel>
+              <IonLabel class="bold">Province</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="text"
                 value={province}
@@ -245,9 +245,9 @@ const FillInfo: React.FC<Prop> = (props) => {
             </IonItem>
 
             <IonItem>
-              <IonLabel position="fixed">Street Code</IonLabel>
+              <IonLabel class="bold">Street Code</IonLabel>
               <IonInput
-                class="input"
+                class="input-text"
                 required
                 type="number"
                 value={strcode}
@@ -260,8 +260,7 @@ const FillInfo: React.FC<Prop> = (props) => {
         <IonButton
           class="createacc"
           strong
-          id="signin"
-          size="large"
+          expand="block"
           color="theme"
           routerLink="/mywarranty"
           routerDirection="root"
