@@ -53,13 +53,19 @@ const History: React.FC = () => {
   };
   function loopCheck() {
     var arr = new Array<Product>();
+
     for (var i = 0; i < items.length; i++) {
-      items[i].remaining =
-        moment(items[i].claim_log_timestamp.split("T")[0]).diff(moment(), "days") + "";
-      arr.push(items[i]);
-      arr
-        .sort((a, b) => parseInt(a.remaining) - parseInt(b.remaining))
-        .reverse();
+      if (items[i].claim_log_timestamp != null) {
+        items[i].remaining =
+          moment(items[i].claim_log_timestamp.split("T")[0]).diff(
+            moment(),
+            "days"
+          ) + "";
+        arr.push(items[i]);
+        arr
+          .sort((a, b) => parseInt(a.remaining) - parseInt(b.remaining))
+          .reverse();
+      }
     }
     console.log("arr" + arr);
     return arr;
