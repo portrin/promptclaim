@@ -11,6 +11,7 @@ import {
 import "./history.css";
 import React, { useState, useEffect } from "react";
 import HistoryItem from "../components/HistoryItem";
+import TabBar from "../components/Tabs";
 import moment from "moment";
 
 export interface Product {
@@ -56,10 +57,12 @@ const History: React.FC = () => {
       items[i].remaining =
         moment(items[i].timestamp.split("T")[0]).diff(moment(), "days") + "";
       arr.push(items[i]);
-      arr.sort((a, b) => parseInt(a.remaining) - parseInt(b.remaining)).reverse();
+      arr
+        .sort((a, b) => parseInt(a.remaining) - parseInt(b.remaining))
+        .reverse();
     }
-    console.log("arr"+arr)
-    return arr
+    console.log("arr" + arr);
+    return arr;
   }
 
   return (
@@ -84,6 +87,7 @@ const History: React.FC = () => {
           ))}
         </IonList>
       </IonContent>
+      <TabBar />
     </IonPage>
   );
 };

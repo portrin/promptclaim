@@ -14,7 +14,6 @@ import {
   IonSelect,
   IonSelectOption,
   IonLabel,
-  useIonViewWillEnter,
 } from "@ionic/react";
 import {
   notificationsOutline,
@@ -27,6 +26,7 @@ import "./MyWarranty.css";
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
+import TabBar from "../components/Tabs";
 
 export interface Product {
   char_id: string;
@@ -86,7 +86,10 @@ const MyWarranty: React.FC<Productprops> = () => {
     } else if (sortBy === "Name Z-A") {
       return item.sort().reverse();
     } else if (sortBy === "Retailer") {
-      return item.sort((a, b) => parseInt(a.retailer_branch_name) - parseInt(b.retailer_branch_name));
+      return item.sort(
+        (a, b) =>
+          parseInt(a.retailer_branch_name) - parseInt(b.retailer_branch_name)
+      );
     } else {
       return item;
     }
@@ -98,10 +101,6 @@ const MyWarranty: React.FC<Productprops> = () => {
       return item.filter((x) => x.category_name === filterBy);
     }
   }
-  useIonViewWillEnter(() => {
-    console.log("ionViewWillEnter event fired");
-    fetchItems();
-  });
 
   return (
     <IonPage>
@@ -229,6 +228,7 @@ const MyWarranty: React.FC<Productprops> = () => {
           ))}
         </IonList>
       </IonContent>
+      <TabBar />
     </IonPage>
   );
 };
