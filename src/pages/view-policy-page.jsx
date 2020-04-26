@@ -11,9 +11,11 @@ export const ViewPolicyPage = (props) => {
   const [item, setItems] = useState([])
   const [policyId, setPolicyId] = useState('')
   const [policyDes, setPolicyDes] = useState('')
+  const [start, setStart] = useState('')
+  const [end, setEnd] = useState('')
   const fetchItem = async () => {
     const data = await fetch(
-      'http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/retailer/policy/getByPolicyId/' + key,
+      'http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/retailer/policy/getByPolicyId/' + key,
       {
         headers: {
           Authorization: localStorage.token,
@@ -25,6 +27,8 @@ export const ViewPolicyPage = (props) => {
     console.log(item)
     await setPolicyId(item[0].policy_id)
     await setPolicyDes(item[0].policy_description)
+    await setStart(item[0].policy_start_date)
+    await setEnd(item[0].policy_end_date)
   }
 
   useEffect(() => {
@@ -44,7 +48,9 @@ export const ViewPolicyPage = (props) => {
           <Descriptions.Item label="Policy Informaion">
             Policy ID: {policyId}
             <br />
+            Policy Start Date: {start.substr(0,10)}
             <br />
+            Policy End Date: {end.substr(0,10)}
             <Collapse>
               <Panel header="Policy Description">{policyDes}</Panel>
             </Collapse>

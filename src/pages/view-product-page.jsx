@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Descriptions } from 'antd'
+import { Descriptions, Collapse } from 'antd'
 import { AppLayout } from '../components/app-layout'
+
+const { Panel } = Collapse
 
 export const ViewProductPage = (props) => {
   let { key } = useParams()
   //API
   const [item, setItems] = useState([])
+  const [name, setName] = useState('')
+  const [create, setCreate] = useState('')
+  const [serial, setSerial] = useState('')
+  const [product, setProduct] = useState('')
+  const [branch, setBranch] = useState('')
+  const [invoice, setInvoice] = useState('')
+  const [cusID, setCusID] = useState('')
+  const [fname, setFname] = useState('')
+  const [lname, setLname] = useState('')
+  const [phonenum, setPhonenum] = useState('')
+  const [birth, setBirth] = useState('')
   const fetchItem = async () => {
     const data = await fetch(
-      'http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/retailer/product/getByProductNo/' + key,
+      'http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/retailer/product/getByProductNo/' +
+        key,
       {
         headers: {
           Authorization: localStorage.token,
@@ -19,6 +33,17 @@ export const ViewProductPage = (props) => {
     const item = await data.json()
     setItems(item)
     console.log(item)
+    await setName(item[0].product_name)
+    await setCreate(item[0].create_timestamp)
+    await setSerial(item[0].serial_no)
+    await setProduct(item[0].product_no)
+    await setBranch(item[0].retailer_branch_id)
+    await setInvoice(item[0].invoice_id)
+    await setCusID(item[0].customer_id)
+    await setFname(item[0].firstname)
+    await setLname(item[0].lastname)
+    await setPhonenum(item[0].phone_no)
+    await setBirth(item[0].birth_date)
   }
 
   useEffect(() => {
@@ -33,12 +58,7 @@ export const ViewProductPage = (props) => {
       lastpageProduct="Product Dashboard"
     >
       <div className="site-layout-content">
-        <Descriptions
-          title={item.map((item) => item.product_name)}
-          layout="vertical"
-          bordered
-          column={2}
-        >
+        <Descriptions title={name} layout="vertical" bordered column={2}>
           <Descriptions.Item label="Product Image">
             <img
               className="product-image"
@@ -48,34 +68,39 @@ export const ViewProductPage = (props) => {
             />
           </Descriptions.Item>
           <Descriptions.Item label="Product Information">
-            Purchase date: {item.map((item) => item.create_timestamp.substr(0,10))}
+            Purchase date: {create.substr(0, 10)}
             <br />
-            Serial Number: {item.map((item) => item.serial_no)}
+            Serial Number: {serial}
             <br />
-            Product Number: {item.map((item) => item.product_no)}
+            Product Number: {product}
             <br />
-            Branch ID: {item.map((item) => item.retailer_branch_id)}
+            Branch ID: {branch}
             <br />
-            Invoice ID: {item.map((item) => item.invoice_id)}
+            Invoice ID: {invoice}
           </Descriptions.Item>
           <Descriptions.Item label="Customer Information">
-            Customer ID: {item.map((item) => item.customer_id)}
+            Customer ID: {cusID}
             <br />
-            Customer Name: {item.map((item) => item.firstname)}{' '}
-            {item.map((item) => item.lastname)}
+            Customer Name: {fname}{' '}{lname}
             <br />
-            Phone Number: {item.map((item) => item.phone_no)}
+            Phone Number: {phonenum}
             <br />
-            Birth Date: {item.map((item) => item.birth_date.substr(0,10))}
+            Birth Date: {birth.substr(0, 10)}
           </Descriptions.Item>
           <Descriptions.Item label="Claim Information">
-            Start Date: {item.map((item) => item.policy_start_date.substr(0,10))}
-            <br />
-            End Date: {item.map((item) => item.policy_end_date.substr(0,10))}
-            <br />
-            Claim Period: {item.map((item) => item.policy_period)}
-            <br />
-            Status: {item.map((item) => item.status)}
+            Claim ID:
+            <br/>
+            {item.map((item) => (
+              <Collapse>
+                <Panel header={item.claim_id}>
+                  Claim Status: {item.status===null?"Unclaimed":item.status}
+                  <br/>
+                  Claim Time Stamp: {item.claim_log_timestamp===null?"-":item.claim_log_timestamp.substr(0, 10)}
+                  <br/>
+                  Service Center Branch: {item.service_center_branch_name===null?"-":item.service_center_branch_name}
+                </Panel>
+              </Collapse>
+            ))}
           </Descriptions.Item>
         </Descriptions>
       </div>
