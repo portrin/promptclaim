@@ -193,7 +193,7 @@ const AddWarranty: React.FC = () => {
         <IonCard class="addcard">
           <IonList>
             <IonItem>
-              <IonLabel position="floating" color="medium" class="bold">
+              <IonLabel position="floating" class="bold">
                 Product Name
               </IonLabel>
               <IonInput
@@ -203,7 +203,7 @@ const AddWarranty: React.FC = () => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="floating" color="medium" class="bold">
+              <IonLabel position="floating" class="bold">
                 Serial Number
               </IonLabel>
 
@@ -214,7 +214,7 @@ const AddWarranty: React.FC = () => {
               ></IonInput>
             </IonItem>
             <IonItem>
-              <IonLabel position="floating" color="medium" class="bold">
+              <IonLabel position="floating" class="bold">
                 Product Number
               </IonLabel>
 
@@ -231,7 +231,7 @@ const AddWarranty: React.FC = () => {
         <IonCard class="addcard">
           <IonList>
             <IonItem>
-              <IonLabel position="floating" color="medium" class="bold">
+              <IonLabel position="floating" class="bold">
                 Date of Purchase
               </IonLabel>
               <IonDatetime
@@ -243,7 +243,9 @@ const AddWarranty: React.FC = () => {
               ></IonDatetime>
             </IonItem>
             <IonItem>
-              <IonLabel position="floating" class="bold">Retailer</IonLabel>
+              <IonLabel position="floating" class="bold">
+                Retailer
+              </IonLabel>
               <IonSelect
                 value={retailerName}
                 placeholder="Select One"
@@ -257,7 +259,9 @@ const AddWarranty: React.FC = () => {
               </IonSelect>
             </IonItem>
             <IonItem>
-              <IonLabel position="floating" class="bold">Retailer Branch</IonLabel>
+              <IonLabel position="floating" class="bold">
+                Retailer Branch
+              </IonLabel>
               <IonSelect
                 value={branchName}
                 placeholder="Select One"
