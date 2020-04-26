@@ -45,7 +45,7 @@ export interface Productprops {
 const MyWarranty: React.FC<Productprops> = () => {
   const [searchText, setSearchText] = useState("");
   const [searchItem, setSearchItem] = useState<Product[]>([]);
-  const [sortBy, setsortBy] = useState("");
+  const [sortBy, setsortBy] = useState("default");
   const [filterBy, setfilterBy] = useState("default");
 
   console.log(localStorage.token);
@@ -79,7 +79,9 @@ const MyWarranty: React.FC<Productprops> = () => {
     );
   }, [searchText, items]);
   function sortProduct(item: Array<Product>) {
-    if (sortBy === "Name") {
+    if (sortBy === "default") {
+      return item
+    }else if (sortBy === "Name") {
       return item.sort((a, b) =>
         a.product_nickname.localeCompare(b.product_nickname)
       );
@@ -157,7 +159,7 @@ const MyWarranty: React.FC<Productprops> = () => {
                     okText="Done"
                     onIonChange={(e) => setfilterBy(e.detail.value)}
                   >
-                    <IonSelectOption value="default">All</IonSelectOption>
+                    <IonSelectOption value="default">Filter by: All</IonSelectOption>
                     <IonSelectOption value="Wall & Floor">
                       Wall & Floor
                     </IonSelectOption>
@@ -193,13 +195,14 @@ const MyWarranty: React.FC<Productprops> = () => {
               <IonCol>
                 <IonButton size="small" fill="clear">
                   <IonIcon icon={funnelOutline} />
-                  Sort
+                  
                   <IonSelect
                     value={sortBy}
                     cancelText="Cancel"
                     okText="Done"
                     onIonChange={(e) => setsortBy(e.detail.value)}
                   >
+                    <IonSelectOption value="default">Sort by:</IonSelectOption>
                     <IonSelectOption value="Name">By Name A-Z</IonSelectOption>
                     <IonSelectOption value="Name Z-A">
                       By Name Z-A{" "}
