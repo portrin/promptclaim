@@ -2,9 +2,14 @@
 http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
+
+:root[mode="ios"] .opensans,
+:root[mode="md"] .opensans {
+  --ion-font-family: "Open Sans" !important;
+  font-family: "Open Sans" !important;
+}
 :root {
   --ion-color-theme: #367fcc;
-  --ion-font-family: "OpenSans" !important;
 
   /** primary **/
   --ion-color-primary: #367fcc;

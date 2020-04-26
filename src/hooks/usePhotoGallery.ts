@@ -1,15 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCamera } from "@ionic/react-hooks/camera";
 import { useFilesystem, base64FromPath } from "@ionic/react-hooks/filesystem";
-import { useStorage } from "@ionic/react-hooks/storage";
-import { isPlatform } from "@ionic/react";
 import {
   CameraResultType,
   CameraSource,
   CameraPhoto,
-  Capacitor,
   FilesystemDirectory,
-  Camera,
 } from "@capacitor/core";
 
 export function usePhotoGallery() {
@@ -17,7 +13,7 @@ export function usePhotoGallery() {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [photos1, setPhotos1] = useState<Photo[]>([]);
   const [photos2, setPhotos2] = useState<Photo[]>([]);
-  const { deleteFile, getUri, readFile, writeFile } = useFilesystem();
+  const {  writeFile } = useFilesystem();
   const savePicture = async (photo: CameraPhoto, fileName: string) => {
     const base64Data = await base64FromPath(photo.webPath!);
     const savedFile = await writeFile({

@@ -27,7 +27,6 @@ import "./MyWarranty.css";
 import Product from "../components/WarrantyItem";
 
 import React, { useState, useEffect } from "react";
-import { RefresherEventDetail } from "@ionic/core";
 
 export interface Product {
   char_id: string;
