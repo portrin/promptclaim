@@ -33,7 +33,7 @@ export interface Product {
   supplier_name: string;
   contact: string;
   retailer_branch_name: string;
-  timestamp: string;
+  claim_log_timestamp: string;
 }
 export interface Productprops {
   item: Product;
@@ -54,7 +54,8 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/getbyUUid/" + match.params.id,
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/getbyUUid/" +
+        match.params.id,
       {
         headers: {
           Authorization: localStorage.token,
@@ -71,7 +72,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
 
   const addClaim = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/add/",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/add/",
       {
         method: "POST",
         headers: {
@@ -79,7 +80,7 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
           Authorization: localStorage.token,
         },
         body: JSON.stringify({
-          timestamp: selectedDate,
+          claim_log_timestamp: selectedDate,
           status: "claimed",
           uuid: match.params.id,
           serviceCenterId: null,
@@ -105,9 +106,9 @@ const AddClaimDate: React.FC<Match> = ({ match }) => {
         <IonList>
           <IonListHeader>Claim Date</IonListHeader>
           {item.map((item) => (
-            <IonItem>{item.timestamp.split("T")[0]}</IonItem>
+            <IonItem>{item.claim_log_timestamp.split("T")[0]}</IonItem>
           ))}
-
+          console.log(item);
           <IonItem>
             <IonLabel position="floating" color="medium">
               Add New Claim Date

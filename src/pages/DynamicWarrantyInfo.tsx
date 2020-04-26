@@ -106,7 +106,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   const sendEdit = async () => {
     try {
       const data = await fetch(
-        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/editbyuuid/" +
+        "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/editbyuuid/" +
           match.params.id,
         {
           method: "POST",
@@ -116,7 +116,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
           },
           body: JSON.stringify({
             serialNo: serial,
-            createTimestamp: moment(displayDate).add(1, "days").format(),
+            create_timestamp: moment(displayDate).add(1, "days").format(),
           }),
         }
       );
@@ -126,7 +126,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
   };
   const fetchPolicy = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/getByUuid/" +
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/getByUuid/" +
         match.params.id,
       {
         headers: {
@@ -149,7 +149,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getByUuid/" +
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getByUuid/" +
         match.params.id,
       {
         headers: {
@@ -189,7 +189,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
 
   const removeProduct = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/deleteByUuid/" +
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/deleteByUuid/" +
         match.params.id,
       {
         method: "DELETE",

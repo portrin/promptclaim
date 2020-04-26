@@ -24,7 +24,7 @@ export interface Product {
   supplier_name: string;
   contact: string;
   retailer_branch_name: string;
-  timestamp: string;
+  claim_log_timestamp: string;
   status: string;
   remaining: string;
 }
@@ -39,7 +39,7 @@ const History: React.FC = () => {
   const [items, setItems] = useState<Product[]>([]);
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/get/",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/claimlog/get/",
       {
         headers: {
           Authorization: localStorage.token,
@@ -55,7 +55,7 @@ const History: React.FC = () => {
     var arr = new Array<Product>();
     for (var i = 0; i < items.length; i++) {
       items[i].remaining =
-        moment(items[i].timestamp.split("T")[0]).diff(moment(), "days") + "";
+        moment(items[i].claim_log_timestamp.split("T")[0]).diff(moment(), "days") + "";
       arr.push(items[i]);
       arr
         .sort((a, b) => parseInt(a.remaining) - parseInt(b.remaining))
@@ -81,7 +81,7 @@ const History: React.FC = () => {
             <HistoryItem
               image={item.product_photo}
               name={item.product_nickname}
-              date={item.timestamp}
+              date={item.claim_log_timestamp}
               key={item.uuid}
             ></HistoryItem>
           ))}

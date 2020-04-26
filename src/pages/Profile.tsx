@@ -69,7 +69,7 @@ const Profile: React.FC<ProfileProps> = () => {
   const [items, setItems] = useState<Profile[]>([]);
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/get",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/get",
       {
         headers: {
           Authorization: localStorage.token,
@@ -89,7 +89,7 @@ const Profile: React.FC<ProfileProps> = () => {
   const [items2, setItems2] = useState<Account[]>([]);
   const fetchItems2 = async () => {
     const data2 = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/account/get",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/account/get",
       {
         headers: {
           Authorization: localStorage.token,
@@ -111,7 +111,7 @@ const Profile: React.FC<ProfileProps> = () => {
   const [items4, setItems4] = useState<Address[]>([]);
   const fetchItems3 = async () => {
     const data3 = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/address/get",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/address/get",
       {
         headers: {
           Authorization: localStorage.token,

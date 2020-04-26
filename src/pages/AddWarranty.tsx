@@ -149,7 +149,7 @@ const AddWarranty: React.FC = () => {
       const final = retailer.filter((item) => item.retailer_name === name);
       await setIdRetail(final[0].retailer_id);
       const branchRes = await fetch(
-        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
+        "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
           final[0].retailer_id,
         {
           headers: {

@@ -36,7 +36,7 @@ const EditProfile: React.FC<ProfileProps> = () => {
   const [items, setItems] = useState<Profile[]>([]);
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/get",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/get",
       {
         headers: {
           Authorization: localStorage.token,
@@ -65,7 +65,7 @@ const EditProfile: React.FC<ProfileProps> = () => {
   const [items2, setItems2] = useState<Profile[]>([]);
   const editData = async () => {
     const data2 = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/edit",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/profile/edit",
       {
         method: "POST",
         headers: {

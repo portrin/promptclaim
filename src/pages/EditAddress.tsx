@@ -45,7 +45,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
   const editAddress = async () => {
     try {
       const data = await fetch(
-        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/address/edit/" +
+        "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/address/edit/" +
           match.params.id,
         {
           method: "POST",
@@ -71,7 +71,7 @@ const EditAddress: React.FC<Match> = ({ match }) => {
   const [item, setItem] = useState<Address[]>([]);
   const fetchItem = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/address/get",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/address/get",
       {
         headers: {
           Authorization: localStorage.token,

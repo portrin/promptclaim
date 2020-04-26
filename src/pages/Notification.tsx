@@ -63,7 +63,7 @@ const Notification: React.FC<Itemprops> = () => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/get/",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/get/",
       {
         headers: {
           Authorization: localStorage.token,
@@ -77,7 +77,7 @@ const Notification: React.FC<Itemprops> = () => {
 
   const fetchPolicy = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/get/",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/policy/get/",
       {
         headers: {
           Authorization: localStorage.token,

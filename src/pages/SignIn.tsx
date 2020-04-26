@@ -28,7 +28,7 @@ const SignIn: React.FC<RouteComponentProps> = (props) => {
   const authen = () => {
     axios
       .post(
-        "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/auth/login",
+        "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/auth/login",
         {
           email: email,
           password: pass,
