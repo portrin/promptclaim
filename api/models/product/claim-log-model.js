@@ -2,11 +2,11 @@ const db = require('../../config/db');
 const checkType = require('../../utils').checkType;
 
 module.exports = class ClaimLog {
-    constructor ({claim_id=null, timestamp=null, status=null, uuid=null, service_center_id=null, service_center_branch_id=null} ={}) {
+    constructor ({claim_id=null, claim_log_timestamp=null, status=null, uuid=null, service_center_id=null, service_center_branch_id=null} ={}) {
         // class attribute
         this._claimId = claim_id;
         this._status = status;
-        this._timestamp = timestamp;
+        this._claimLogTimestamp = claim_log_timestamp;
         this._uuid = uuid;
         this._serviceCenterId = service_center_id;
         this._serviceCenterBranchId = service_center_branch_id;
@@ -14,9 +14,9 @@ module.exports = class ClaimLog {
     // CRUD METHOD
     _create() {
         return db.execute(
-            'INSERT INTO claim_log(status, timestamp, uuid, service_center_id, service_center_branch_id) VALUES(?, ?, ?, ?, ?)',
+            'INSERT INTO claim_log(status, claim_log_timestamp, uuid, service_center_id, service_center_branch_id) VALUES(?, ?, ?, ?, ?)',
             [this._status, 
-            this._timestamp,
+            this._claimLogTimestamp,
             this._uuid, 
             this._serviceCenterId,
             this._serviceCenterBranchId
@@ -55,15 +55,15 @@ module.exports = class ClaimLog {
 
     _update() {
         return db.execute(
-            'UPDATE claim_log SET status = ? timestamp = ?, uuid = ?, service_center_id = ?, service_center_branch_id = ? WHERE claim_id = ?',
-            [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._branchId, this._claimId]
+            'UPDATE claim_log SET status = ? claim_log_timestamp = ?, uuid = ?, service_center_id = ?, service_center_branch_id = ? WHERE claim_id = ?',
+            [this._status, this._claimLogTimestamp, this._uuid, this._serviceCenterId, this._branchId, this._claimId]
         );
     };
 
     _update(claimId) {
         return db.execute(
-            'UPDATE claim_log SET status = ?, timestamp = ?, uuid = ?, service_center_id = ?, service_center_branch_id = ? WHERE claim_id = ?',
-            [this._status, this._timestamp, this._uuid, this._serviceCenterId, this._serviceCenterBranchId, claimId]
+            'UPDATE claim_log SET status = ?, claim_log_timestamp = ?, uuid = ?, service_center_id = ?, service_center_branch_id = ? WHERE claim_id = ?',
+            [this._status, this._claimLogTimestamp, this._uuid, this._serviceCenterId, this._serviceCenterBranchId, claimId]
         );
     }
 
@@ -79,7 +79,7 @@ module.exports = class ClaimLog {
     get getProperty() {
         return {
             claimId: this._claimId,
-            timestamp: this._timestamp,
+            claimLogTimestamp: this._claimLogTimestamp,
             status: this._status,
             uuid: this._uuid,
             serviceCenterId: this._serviceCenterId,
@@ -89,20 +89,20 @@ module.exports = class ClaimLog {
 
     set setProperty({
         claimId = this._claimId,
-        timestamp = this._timestamp,
+        claimLogTimestamp = this._claimLogTimestamp,
         status = this._status,
         uuid = this._uuid,
         serviceCenterId = this._serviceCenterId,
         serviceCenterBranchId = this._serviceCenterBranchId
     }) {
         checkType(claimId, 'String');
-        checkType(timestamp, 'Date');
+        checkType(claimLogTimestamp, 'Date');
         checkType(status, 'String');
         checkType(uuid, 'Number');
         checkType(serviceCenterId, 'String');
         checkType(serviceCenterBranchId, 'String');
         this._claimId = claimId;
-        this._timestamp = timestamp;
+        this._claimLogTimestamp = claimLogTimestamp;
         this._status = status;
         this._uuid = uuid;
         this._serviceCenterId = serviceCenterId;
