@@ -16,7 +16,7 @@ import {
   IonCol,
   IonItemGroup,
 } from "@ionic/react";
-import { chevronBackOutline, woman } from "ionicons/icons";
+import { chevronBackOutline, woman, trash } from "ionicons/icons";
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 
@@ -124,6 +124,10 @@ const Profile: React.FC<ProfileProps> = () => {
     setItems3(Array(items3.getAddress[0]));
     setItems4(Array(items3.getAddress[1]));
     console.log(items3.getAddress);
+  };
+
+  const logout = () => {
+    localStorage.clear();
   };
 
   return (
@@ -320,6 +324,16 @@ const Profile: React.FC<ProfileProps> = () => {
               <IonLabel class="inf">{item4.zipcode}</IonLabel>
             ))}
           </IonList>
+        </IonCard>
+        <IonCard>
+          <IonButton
+            color="danger"
+            onClick={logout}
+            expand="block"
+            routerLink="/"
+          >
+            Logout
+          </IonButton>
         </IonCard>
       </IonContent>
     </IonPage>
