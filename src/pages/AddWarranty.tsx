@@ -76,7 +76,7 @@ const AddWarranty: React.FC = () => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailer",
+      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailer",
       {
         headers: {
           Authorization: localStorage.token,
