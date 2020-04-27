@@ -50,7 +50,6 @@ export interface Branchprops {
 const AddWarranty: React.FC = () => {
   const [pname, setPname] = useState<string>("");
   const [serial, setSerial] = useState<string>("");
-  const [wranNumber, setWranNumber] = useState<string>();
   const [pNumber, setPnumber] = useState<string>();
   const [retailer, setRetailer] = useState<Retailer[]>([]);
   const [retailerName, setRetailerName] = useState<string>("");
@@ -76,7 +75,7 @@ const AddWarranty: React.FC = () => {
 
   const fetchItems = async () => {
     const data = await fetch(
-      "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailer",
+      "http://ec2-54-169-201-208.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailer",
       {
         headers: {
           Authorization: localStorage.token,
@@ -219,7 +218,7 @@ const AddWarranty: React.FC = () => {
               </IonLabel>
 
               <IonInput
-                value={serial}
+                value={pNumber}
                 onIonChange={(e) => setPnumber(e.detail.value!)}
                 clearInput
               ></IonInput>
