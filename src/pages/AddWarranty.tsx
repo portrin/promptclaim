@@ -318,8 +318,9 @@ const AddWarranty: React.FC = () => {
 
         <IonButton
           onClick={addProduct}
-          routerDirection="root"
+          
           expand="block"
+          
           strong
         >
           Add
@@ -331,6 +332,7 @@ const AddWarranty: React.FC = () => {
           onDidDismiss={() => setShowToast1(false)}
           message="Product Added"
           duration={2000}
+          
         />
         <IonToast
           position="bottom"
