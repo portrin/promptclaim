@@ -111,8 +111,8 @@ const AddWarranty: React.FC = () => {
             price: 100,
             isValidate: 0,
             claimQty: 0,
-            retailerName: idRetail,
-            retailerBranchName: idBranch,
+            retailerId: idRetail,
+            retailerBranchId: idBranch,
           }),
         }
       );
