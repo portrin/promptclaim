@@ -2,6 +2,13 @@ const Policy = require('../../models/policy/policy-model');
 const ProductHasPolicy = require('../../models/policy/product-has-policy-model');
 const jwt = require('jsonwebtoken');
 
+exports.getAllPolicy = async (req, res, next) => {
+    const policyId = (await Policy._read()) [0];
+    console.log(policyId);
+    res.send(policyId);
+    
+};
+
 exports.getPolicy = async (req, res, next) => {
     const customerId = jwt.decode(req.headers.authorization).sub;
     const policy = (await Policy._readByCustomerId(customerId))[0];
