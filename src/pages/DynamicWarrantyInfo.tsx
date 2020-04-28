@@ -136,6 +136,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     );
     const policy = await data.json();
     setPolicy(policy);
+    console.log(policy)
 
     var dateFormat = policy[0].policy_end_date.split("T")[0];
 
@@ -201,6 +202,7 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
     );
     window.location.href = "/mywarranty";
     fetchItems();
+    
   };
 
   return (
@@ -297,6 +299,13 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
                 routerDirection="root"
               >
                 Add Claim Date
+              </IonButton>
+              <IonButton
+                expand="block"
+                href={`/addPolicy/${match.params.id}`}
+                routerDirection="root"
+              >
+                Add Policy
               </IonButton>
             </IonGrid>
             <IonListHeader>Warranty Information</IonListHeader>
