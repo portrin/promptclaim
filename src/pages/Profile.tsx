@@ -274,18 +274,21 @@ const Profile: React.FC<ProfileProps> = () => {
 
         <IonLabel class="lacelacc">ADDRESS 2</IonLabel>
         <IonCard class="card">
-          {items4.map((item4) => (
-            <IonButton
-              class="editicon"
-              size="small"
-              color="theme"
-              fill="outline"
-              routerLink={`/editaddress/${item4.address_id}`}
-              routerDirection="root"
-            >
-              edit
-            </IonButton>
-          ))}
+          <IonItem class="hi">
+            {items4.map((item4) => (
+              <IonButton
+                class="editicon"
+                size="small"
+                color="theme"
+                fill="outline"
+                slot="end"
+                routerLink={`/editaddress/${item4.address_id}`}
+                routerDirection="root"
+              >
+                edit
+              </IonButton>
+            ))}
+          </IonItem>
           <IonList class="card">
             <IonLabel class="sublabel">Home No. :</IonLabel>
             {items4.map((item4) => (
