@@ -272,11 +272,15 @@ const Profile: React.FC<ProfileProps> = () => {
           </IonList>
         </IonCard>
 
-        <IonLabel class="labelacc">ADDRESS 2</IonLabel>
+        <IonLabel class="lacelacc">ADDRESS 2</IonLabel>
         <IonCard class="card">
           <IonItem class="hi">
             {items4.map((item4) => (
               <IonButton
+<<<<<<< HEAD
+=======
+                class="editicon"
+>>>>>>> 6beb38fe9621a44b3ec9aeeddf0f04f8665ccffb
                 size="small"
                 color="theme"
                 fill="outline"

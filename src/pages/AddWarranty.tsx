@@ -63,8 +63,8 @@ const AddWarranty: React.FC = () => {
     moment(today).add(0, "days").format()
   );
 
-  const [idRetail, setIdRetail] = useState<string>();
-  const [idBranch, setIdBranch] = useState<string>();
+  const [idRetail, setIdRetail] = useState<string>("");
+  const [idBranch, setIdBranch] = useState<string>("");
   const [showToast1, setShowToast1] = useState(false);
   const [showToast2, setShowToast2] = useState(false);
   const [todayD, setTodayD] = useState<string>(new Date().toISOString());
@@ -90,6 +90,8 @@ const AddWarranty: React.FC = () => {
   };
 
   const addProduct = async () => {
+    console.log(idRetail);
+    console.log(idBranch);
     console.log("add");
     if (serial === "" || pname === "" || branchName === "") {
       console.log("no input");
@@ -111,8 +113,8 @@ const AddWarranty: React.FC = () => {
             price: 100,
             isValidate: 0,
             claimQty: 0,
-            retailerName: idRetail,
-            retailerBranchName: idBranch,
+            retailerId: idRetail,
+            retailerBranchId: idBranch,
           }),
         }
       );
@@ -146,7 +148,9 @@ const AddWarranty: React.FC = () => {
       setBranchName("");
       console.log(name);
       const final = retailer.filter((item) => item.retailer_name === name);
-      await setIdRetail(final[0].retailer_id);
+      const id = final[0].retailer_id;
+      await setIdRetail(id);
+      console.log(final[0].retailer_id);
       const branchRes = await fetch(
         "http://ec2-3-0-20-60.ap-southeast-1.compute.amazonaws.com:8001/customer/product/getRetailerBranchByRetailerId/" +
           final[0].retailer_id,
@@ -174,7 +178,8 @@ const AddWarranty: React.FC = () => {
         const ress = branchList.filter(
           (item) => item.retailer_branch_name === name
         );
-        await setIdBranch(ress[0].retailer_branch_id);
+        const id = ress[0].retailer_branch_id;
+        await setIdBranch(id);
       }
     }
   };
@@ -313,8 +318,9 @@ const AddWarranty: React.FC = () => {
 
         <IonButton
           onClick={addProduct}
-          routerDirection="root"
+          
           expand="block"
+          
           strong
         >
           Add
@@ -326,6 +332,7 @@ const AddWarranty: React.FC = () => {
           onDidDismiss={() => setShowToast1(false)}
           message="Product Added"
           duration={2000}
+          
         />
         <IonToast
           position="bottom"
