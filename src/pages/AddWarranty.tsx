@@ -313,8 +313,9 @@ const AddWarranty: React.FC = () => {
 
         <IonButton
           onClick={addProduct}
-          routerDirection="root"
+          href="/myWarranty"
           expand="block"
+
           strong
         >
           Add
