@@ -116,7 +116,8 @@ const WarrantyInfo: React.FC<Match> = ({ match }) => {
           },
           body: JSON.stringify({
             serialNo: serial,
-            create_timestamp: moment(displayDate).add(1, "days").format(),
+            create_t
+            imestamp: moment(displayDate).add(1, "days").format(),
           }),
         }
       );
