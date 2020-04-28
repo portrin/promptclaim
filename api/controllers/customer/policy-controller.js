@@ -1,4 +1,5 @@
 const Policy = require('../../models/policy/policy-model');
+const ProductHasPolicy = require('../../models/policy/product-has-policy-model');
 const jwt = require('jsonwebtoken');
 
 exports.getPolicy = async (req, res, next) => {
@@ -14,4 +15,20 @@ exports.getPolicyByUuid = async (req, res, next) => {
     const policy = (await Policy._readByUuid(customerId, uuid))[0];
     console.log(policy);
     res.send(policy);
+};
+
+exports.postAddProductHasPolicy = async (req, res, next) => {
+    const policy_id = req.body.policyId;
+    const uuid = req.params.uuid;
+    const policy_start_date = req.body.policyStartDate;
+    const policy_end_date = req.body.policyEndDate;
+    const timestamp = req.body.timestamp;
+    
+    const productHasPolicy = new ProductHasPolicy({
+        policy_id, uuid, policy_start_date, policy_end_date, timestamp
+    });
+
+    const result = (await productHasPolicy._create())[0];
+    console.log(result);
+    res.send(result);
 };

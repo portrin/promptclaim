@@ -6,4 +6,6 @@ router.get('/get', policyController.getPolicy);
 
 router.get('/getByUuid/:uuid', policyController.getPolicyByUuid);
 
+router.post('/addPolicyToProduct/:uuid', policyController.postAddProductHasPolicy);
+
 module.exports = router;

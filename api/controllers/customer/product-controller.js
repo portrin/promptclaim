@@ -134,11 +134,3 @@ exports.postEditPurchasedProductByUuid = async (req, res, next) => {
     res.send(status)
     
 };
-                        
-
-
-
-
-
- 
-
