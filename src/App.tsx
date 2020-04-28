@@ -8,6 +8,7 @@ import AddWarranty from "./pages/AddWarranty";
 import DynamicWarrantyInfo from "./pages/DynamicWarrantyInfo";
 import Notification from "./pages/Notification";
 import AddClaimDate from "./pages/AddClaimDate";
+import AddPolicy from "./pages/AddPolicy"; 
 
 import Authen from "./pages/Authen";
 import SignIn from "./pages/SignIn";
@@ -18,6 +19,7 @@ import Profile from "./pages/Profile";
 import EditAccount from "./pages/EditAccount";
 import EditProfile from "./pages/EditProfile";
 import EditAddress from "./pages/EditAddress";
+
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -50,7 +52,8 @@ const App: React.FC = () => {
           <Route path="/notification" component={Notification} />
           <Route path="/AddClaimDate" exact={true} component={AddClaimDate} />
           <Route path="/AddClaimDate/:id" component={AddClaimDate} />
-
+          <Route path="/AddPolicy/:id" component={AddPolicy} /> 
+ 
           <Route path="/authen" component={Authen} exact={true} />
           <Route exact path="/" render={() => <Redirect to="/authen" />} />
           <Route path="/signin" component={SignIn} exact={true} />
