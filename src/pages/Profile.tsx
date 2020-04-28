@@ -272,7 +272,7 @@ const Profile: React.FC<ProfileProps> = () => {
           </IonList>
         </IonCard>
 
-        <IonLabel class="lacelacc">ADDRESS 2</IonLabel>
+        <IonLabel class="labelacc">ADDRESS 2</IonLabel>
         <IonCard class="card">
           <IonItem class="hi">
             {items4.map((item4) => (
