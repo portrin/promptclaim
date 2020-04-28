@@ -248,7 +248,7 @@ CREATE TABLE product_has_policy (
     uuid INT NOT NULL,
     policy_start_date DATE NOT NULL,
     policy_end_date DATE NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
+    policy_timestamp TIMESTAMP NOT NULL,
     PRIMARY KEY(policy_id, uuid),
     FOREIGN KEY(policy_id) REFERENCES policy(policy_id) ON DELETE CASCADE,
     FOREIGN KEY(uuid) REFERENCES purchased_product(uuid) ON DELETE CASCADE
@@ -467,7 +467,7 @@ VALUES ('4', 'AAAAA1'),
 ('9', 'AAAA19'),
 ('9', 'AAAA20');
 
-INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, timestamp) 
+INSERT INTO product_has_policy(policy_id, uuid , policy_start_date, policy_end_date, policy_timestamp) 
 VALUES ('001', '1', DATE'2019-03-30', DATE'2020-12-15', TIMESTAMP'2008-01-01 00:00:01'),
 ('001', '2', DATE'2019-04-02', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:02'),
 ('001', '3', DATE'2019-03-31', DATE'2020-12-16', TIMESTAMP'2008-01-01 00:00:03'),

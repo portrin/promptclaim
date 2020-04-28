@@ -22,10 +22,10 @@ exports.postAddProductHasPolicy = async (req, res, next) => {
     const uuid = req.params.uuid;
     const policy_start_date = req.body.policyStartDate;
     const policy_end_date = req.body.policyEndDate;
-    const timestamp = req.body.timestamp;
+    const policy_timestamp = req.body.policyTimestamp;
     
     const productHasPolicy = new ProductHasPolicy({
-        policy_id, uuid, policy_start_date, policy_end_date, timestamp
+        policy_id, uuid, policy_start_date, policy_end_date, policy_timestamp
     });
 
     const result = (await productHasPolicy._create())[0];
